@@ -10,9 +10,3 @@ RUN npm update
 
 # Copia o restante do código da aplicação
 COPY . .
-
-# Exponha a porta que o Next.js usará
-EXPOSE 3000
-
-# Comando para iniciar o Next.js (ajuste conforme seu script, ex: "dev" ou "start")
-CMD ["npm", "run", "dev"]
