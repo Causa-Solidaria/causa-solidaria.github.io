@@ -1,12 +1,12 @@
-///import Image from "next/image";
-import Header from "./components/header";
 
+import Timeline from "./components/timeline";
 
 export default function Home() {
   return (
-    <main>
-      <Header />
-    </main>
-      
+    <>
+      <main>
+        <Timeline />
+      </main>
+    </> 
   );
 }

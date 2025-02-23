@@ -2,23 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --color-1: #00C932;
-  --color-2: #80FFAE;
-  --color-3: #0F3418;
-  --background:   #e0ffe0;
+  --verde-saturado: #0dcd3d;
+  --ciano-claro: #07c76a;
+  --preto: #0F3418;
+  --branco:   #c2f6c2;
+
+  --font: "Quicksand";
+
+  --color1: var(--verde-saturado);
+  --color2: var(--ciano-claro);
+  --color3: var(--preto);
+
+  --color1-inv: var(--ciano-claro);
+  --color2-inv: var(--verde-saturado);
+  --color3-inv: var(--branco);
+
+  --foreground: var(--color1);
+  --background: var(--branco);
+  --font-color: var(--preto);
+
+  --border-radius: 20px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-1: #80FFAE;
-    --color-2: #00C932;
-    --background: #182f18;
+    --color1: var(--ciano-claro);
+    --color2: var(--verde-saturado);
+    --color3: var(--branco);
+    
+    --color1-inv: var(--verde-saturado);
+    --color2-inv: var(--ciano-claro);
+    --color3-inv: var(--preto);
+    
+    --foreground: var(--color1);
+    --background: var(--preto);
+  
+    --font-color: var(--branco);
   }
 }
 
-body {
-  color: var(--color-3);
+* {
+  color: var(--color1);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font), serif;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  background: unset;
+  font-weight: 900;
+  color: var(--font-color);
+} 
+
+h1 {
+  font-size: 32pt;
 }
