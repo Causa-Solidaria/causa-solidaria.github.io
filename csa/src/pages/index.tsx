@@ -1,11 +1,9 @@
 
-import Timeline from "./components/timeline";
-
 export default function Home() {
   return (
     <>
       <main>
-        <Timeline />
+        <h1> test de pagina home </h1>
       </main>
     </> 
   );

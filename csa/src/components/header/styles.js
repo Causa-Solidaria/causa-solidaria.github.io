@@ -20,6 +20,6 @@ export const Container = styled.div`
     h1 {
         height: unset;
         font-weight: 900;
-        color: var(--color3-inv);
+        color: var(--color2-inv);
     }
 `

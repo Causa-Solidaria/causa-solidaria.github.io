@@ -5,7 +5,7 @@ export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   left: 0;
-  background: var(--color2);
+  background: var(--color1);
   width: 100%;
   min-height: 50px;
   padding: 1rem 0;
@@ -15,18 +15,14 @@ export const Footer = styled.footer`
 
 // Container responsável por envolver o texto e a lista
 export const Container = styled.div`
-  width: 90%;
-  height: 100px;
-  margin: 0 auto;
-  /* 
-    Caso queira alinhar tudo em coluna, mas à esquerda,
-    use flex-direction: column e align-items: flex-start.
-  */
+  min-height: 25px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 1rem;
   background: none;
+  
+  p{ color: var(--color2-inv); font-size: 10pt;}
 `;
 
 // Lista para os links
@@ -34,10 +30,9 @@ export const Ul = styled.ul`
   list-style: none;
   display: flex;
   gap: 1rem;
-  padding: 0;
-  margin: 0.5rem 0 0;
-  background: var(--color2);
-
+  background: none;
+  margin-bottom: 15px;
+  
   li {
     background: none;
   } 
@@ -45,11 +40,12 @@ export const Ul = styled.ul`
   a {
     text-decoration: none;
     transition: color 0.3s;
-    color: var(--color3-inv);
+    font-size: 14pt;
+    color: var(--color2-inv);
     background: none;
   }
 
   a:hover {
-    color: var(--color3);
+    color: var(--color2);
   }
 `;
