@@ -1,10 +1,10 @@
 
 export interface Causa {
     id: string;
-    title: string;
-    date: string;
+    title?: string;
+    date?: string;
     description?: string;
-    priority: string;
+    priority?: string;
     thumbnail?: string;
-    postCode: string;
+    postCode?: string;
 }
