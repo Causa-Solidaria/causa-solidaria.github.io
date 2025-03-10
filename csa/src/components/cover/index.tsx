@@ -1,18 +1,12 @@
-import { fstat } from "fs";
+import checkFileExists from "csa/scripts/checaSePastaExite";
 import {Cover_st} from "./styles";
+import { promises } from "dns";
 
 
-const Cover = (props: {src? : any}) => {
-    var hasImage = false;
+const Cover = (props: {src? : string}) => {
+    var hasImage = checkFileExists(props.src);
     
-    fetch(props.src).then(
-        response => {
-            console.log(response)
-            hasImage = !response.ok  
-        }
-    )
-     
-    console.log(hasImage) 
+    console.log(hasImage["promisesResult"]) 
     if (hasImage){
         return (<Cover_st src={props.src}/>)
     }else{
