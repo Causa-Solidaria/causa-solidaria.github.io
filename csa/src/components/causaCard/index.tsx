@@ -6,7 +6,7 @@ interface CausaCardProps extends Causa {
     onClick: () => void;
 }
 
-const getSizeScreem
+//const getSizeScreem
 
 var ShortDescription = (description: string) =>{
     let widthscr = window.innerWidth.valueOf()
