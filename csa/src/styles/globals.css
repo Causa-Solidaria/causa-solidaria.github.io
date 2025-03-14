@@ -19,7 +19,7 @@
   --background: var(--branco);
   --font-color: var(--preto);
 
-  --border-radius: 20px;
+  --border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
