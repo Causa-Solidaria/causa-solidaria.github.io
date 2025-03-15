@@ -11,30 +11,21 @@
 
   --font: "Quicksand";
 
-  --color1: var(--verde-saturado);
-  --color2: var(--ciano-claro);
-  --color3: var(--preto);
-
-  --color1-inv: var(--ciano-claro);
-  --color2-inv: var(--verde-saturado);
-  --color3-inv: var(--branco);
+  --color1: var(--ciano-claro);
+  --color2: var(--preto);
+  --color2-inv: var(--branco);
 
   --foreground: var(--color1);
   --background: var(--branco);
   --font-color: var(--preto);
 
-  --border-radius: 20px;
+  --border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color1: var(--ciano-claro);
-    --color2: var(--verde-saturado);
-    --color3: var(--branco);
-    
-    --color1-inv: var(--verde-saturado);
-    --color2-inv: var(--ciano-claro);
-    --color3-inv: var(--preto);
+    --color2: var(--branco);
+    --color2-inv: var(--preto);
     
     --foreground: var(--color1);
     --background: var(--preto);
@@ -47,9 +38,11 @@
   color: var(--color1);
   background: var(--background);
   font-family: var(--font), serif;
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, ul, li {
   background: unset;
   font-weight: 900;
   color: var(--font-color);
@@ -58,3 +51,4 @@ h1, h2, h3, h4, h5, h6, p {
 h1 {
   font-size: 32pt;
 }
+

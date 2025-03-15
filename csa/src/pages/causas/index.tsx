@@ -1,9 +1,11 @@
-import Image from "next/image"
+import CardSpace from "csa/components/cardSpace";
+
 
 export default function Home() {
   return (
     <>
       <main>
+        <CardSpace />
       </main>
     </> 
   );

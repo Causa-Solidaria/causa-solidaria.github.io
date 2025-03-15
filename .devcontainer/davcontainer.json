@@ -1,7 +1,0 @@
-{
-    "name": "Next.js com MySQL e phpMyAdmin",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "web",
-    "workspaceFolder": "/app",
-    "shutdownAction": "stopCompose"
-  }
