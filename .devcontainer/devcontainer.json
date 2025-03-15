@@ -1,12 +1,4 @@
 {
-    "name": "Next.js - Dockerized Codespace",
-    "build": {
-      "dockerfile": "Dockerfile",
-      "context": "."
-    },
-    "appPort": [3000],
-    "postCreateCommand": "npm install",
-    "remoteUser": "node",
     "customizations": {
       "vscode": {
         "extensions": [
