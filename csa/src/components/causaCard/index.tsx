@@ -1,6 +1,7 @@
 import { Causa } from "csa/entities/Causas";
 import Image from "next/image";
 import { CardBox, CardInfo } from "./styled";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
 interface CausaCardProps extends Causa {
     onClick: () => void;
@@ -8,13 +9,17 @@ interface CausaCardProps extends Causa {
 
 //const getSizeScreem
 
-var ShortDescription = (description: string) =>{
-    let widthscr = window.innerWidth.valueOf()
-    let size = 250 - (widthscr / 100) 
-    return description.substring(0, size)
+var ShortDescription = (description: string, cardsize = 250) =>{
+    return description.substring(0, cardsize)
 }
 
 export const CausaCard = (props?: CausaCardProps) => {
+    const [screenwidth, setscreenwidth] = useState<number>()
+
+    const resize = () => {
+        setscreenwidth(window.innerWidth)
+    }
+
     return (<>
         <CardBox>
             <Image src={props?.tabela.thumbnail} width={100} height={100}/>
