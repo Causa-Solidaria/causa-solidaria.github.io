@@ -10,4 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+model Event {
+  id        Int     @id @default(autoincrement())
+  public_id String  @default(uuid())
+  title     String
+  detail    String?
+  slug      String  @unique
+}
