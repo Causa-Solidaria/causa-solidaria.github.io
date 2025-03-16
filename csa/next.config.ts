@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
   },
   output: 'export',
   trailingSlash: true,
-  basePath: '/causa-solidaria-js',
-  assetPrefix: '/causa-solidaria-js/',
+  basePath: '/csa',
+  assetPrefix: '/csa/',
   eslint: {
     ignoreDuringBuilds: true,
   },
