@@ -12,7 +12,7 @@
     "prisma:generate": "prisma generate",
     "db:seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
@@ -30,6 +30,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "gh-pages": "^6.3.0",
     "postcss": "^8",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.1",
