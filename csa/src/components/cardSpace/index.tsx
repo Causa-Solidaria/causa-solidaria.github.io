@@ -1,41 +1,64 @@
 import { CardSpaceStyled } from "./styled"
 import { CausaCard } from "csa/components/causaCard";
 import { Causa } from "csa/entities/Causas";
-
-// test exemplo
-const MOKED_CAUSAS: Causa[] = [
-    {
-        id: "1",
-        tabela: {
-            title: "preciso alimentar meu filho",
-            date: "24/02/2025",
-            description: "estou desenpregada a 2 meses e tenho um filho para alimentar, tenho lutado muito para alimentar o enzo, da maneira que posso. Mas recentemente acabei com todos os ratos que tinha guardado para comer, e isso ja faz 2 dias... soube desse site por um anuncio que vi no celular, e soube que aqui posso fazer um mini-capanha de ajuda. perço que porfavor me ajudem a alimentar meu filho com pelo meno uma cesta basica.",
-            priority: "3",
-            thumbnail: "/logo.png",
-            postCode: "59060-160"
-        }
-    },
-    {
-        id: "2",
-        tabela:{
-            title: "preciso alimentar meu filho",
-            date: "24/02/2025",
-            description: "estou desenpregada a 2 meses e tenho um filho para alimentar, tenho lutado muito para alimentar o enzo, da maneira que posso. Mas recentemente acabei com todos os ratos que tinha guardado para comer, e isso ja faz 2 dias... soube desse site por um anuncio que vi no celular, e soube que aqui posso fazer um mini-capanha de ajuda. perço que porfavor me ajudem a alimentar meu filho com pelo meno uma cesta basica.",
-            priority: "3",
-            thumbnail: "/logo.png",
-            postCode: "59060-160"
-        }
-    }
-];
+import { useState, useEffect } from "react";
 
 const CardSpace = () => {
-    return (<>
+    const [causas, setCausas] = useState<Causa[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchCausas = async () => {
+            try {
+                const response = await fetch('/api/causas');
+                
+                if (!response.ok) {
+                    throw new Error('Falha ao buscar causas');
+                }
+                
+                const data = await response.json();
+                setCausas(data);
+            } catch (error) {
+                console.error('Erro ao buscar causas:', error);
+                setError('Não foi possível carregar as causas. Tente novamente mais tarde.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCausas();
+    }, []);
+
+    const handleCausaClick = (causaId: string) => {
+        console.log(`Causa clicada: ${causaId}`);
+        // Aqui você pode implementar a navegação para a página de detalhes da causa
+        // Por exemplo: router.push(`/causas/${causaId}`);
+    };
+
+    if (loading) {
+        return <CardSpaceStyled><p>Carregando causas...</p></CardSpaceStyled>;
+    }
+
+    if (error) {
+        return <CardSpaceStyled><p>{error}</p></CardSpaceStyled>;
+    }
+
+    if (causas.length === 0) {
+        return <CardSpaceStyled><p>Nenhuma causa encontrada.</p></CardSpaceStyled>;
+    }
+
+    return (
         <CardSpaceStyled>
-            {MOKED_CAUSAS.map(causa => (
-                <CausaCard key={causa.id} tabela={causa.tabela} />
+            {causas.map(causa => (
+                <CausaCard 
+                    key={causa.id} 
+                    {...causa} 
+                    onClick={() => handleCausaClick(causa.id)} 
+                />
             ))}
         </CardSpaceStyled>
-    </>)
+    );
 }
 
 export default CardSpace

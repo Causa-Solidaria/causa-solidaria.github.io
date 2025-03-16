@@ -17,3 +17,13 @@ model Event {
   detail    String?
   slug      String  @unique
 }
+
+model Causas {
+  id          Int      @id @default(autoincrement())
+  public_id   String   @default(uuid())
+  title       String
+  description String
+  thumbnail   String
+  createdAt   DateTime @default(now())
+  // outros campos que você precise
+}
