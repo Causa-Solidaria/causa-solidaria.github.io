@@ -1,24 +1,23 @@
 import styled from "styled-components";
 
 export const CardSpaceStyled = styled.div`
-    width: 90%;
-    margin: 5px;
-    padding: 1rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 200px;
-    gap: 1rem;
-    max-width: 1200px;
-
-    @media (max-width: 480px) {
-        grid-template-columns: 1fr;
-    }
-    @media (min-width: 768px){
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    place-items: center;
+    
+    @media (min-width: 640px) {
         grid-template-columns: repeat(2, 1fr);
     }
-    @media (min-width: 1024px){
+
+    @media (min-width: 1024px) {
         grid-template-columns: repeat(3, 1fr);
     }
+
 
     h1 {
         color: var(--color2);
