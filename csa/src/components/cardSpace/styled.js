@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 
 export const CardSpaceStyled = styled.div`
@@ -36,4 +37,3 @@ export const CardSpaceStyled = styled.div`
         box-shadow: 3px 15px var(--color2);
         
     }
-`

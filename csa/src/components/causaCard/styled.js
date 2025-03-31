@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const CardBox = styled.div`
     display: flex;
     margin: 5px;
@@ -9,40 +8,41 @@ export const CardBox = styled.div`
     max-width: 600px;
     max-height: 250px;
 
-    div{
+    div {
         width: auto;
-        box-shadow: unset;
-        border-width: 0px;
-        border-color: unset;
-        width: auto;
-        transition: unset;
+        box-shadow: none;
+        border: none;
+        transition: none;
     }
-    div:hover{
-        width: auto;
-        box-shadow: unset;
-        border-width: 0px;
-        border-color: unset;
-        width: auto;
-        transition: unset;
-        transform: unset;
+
+    div:hover {
+        transform: none;
+        box-shadow: none;
     }
 
     img {
         border-radius: var(--border-radius);
-        size: 120px
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
     }
-
-`
+`;
 
 export const CardInfo = styled.div`
     display: inline;
     margin: 5px;
+    flex: 1;
     
     h1 {
-        font-size: 18pt;
-        padding: 0px 5px;
+        font-size: 1.125rem; /* 18px */
+        padding: 0 5px;
+        margin: 0 0 0.5rem;
     }
+
     p {
-        font-size: 11pt;
+        font-size: 0.625rem; /* 10px */
+        line-height: 1.4;
+        margin: 0;
+        padding: 0 5px;
     }
-`
+`;

@@ -34,27 +34,20 @@ export const CausaCard = (props?: CausaCardProps) => {
     //        .catch((err) => console.error(err));
     //}, [])
 
-    useEffect(() => {
-        handleResize(); // Executa uma vez ao montar o componente
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
-    return ( 
-        <>
-                <CardBox >
-                    <Image 
-                        src={props?.tabela.thumbnail ?? ''} 
-                        alt={props?.tabela.title ?? ''} 
-                        width={100} 
-                        height={100}
-                    />
-                    <CardInfo>
-                    
-                        <h1>{props?.tabela.title}</h1>
-                        <p>{shortDescription(props?.tabela.description ?? '')}...</p>
-                    </CardInfo>
-                </CardBox>
-        </>
+
+    return (
+        <CardBox>
+            <Image 
+                src={props?.tabela.thumbnail ?? ''} 
+                alt={props?.tabela.title ?? ''} 
+                width={100} 
+                height={100}
+            />
+            <CardInfo>
+                <h1>{props?.tabela.title}</h1>
+                <p>{shortDescription(props?.tabela.description ?? '')}...</p>
+            </CardInfo>
+        </CardBox>
     );
 }
