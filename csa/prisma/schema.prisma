@@ -17,3 +17,13 @@ model Event {
   detail    String?
   slug      String  @unique
 }
+
+model User {
+  id        Int    @id @default(autoincrement())
+  public_id String @default(uuid())
+  name      String
+  username  String @unique
+  age       Int
+  email     String @unique
+  senha     String
+}
