@@ -3,7 +3,7 @@ import {styled} from "styled-components";
 export const Container = styled.div`
     height:     76px;
     display:    flex;
-
+    padding: 0 5%;
     justify-content: left;
     align-items: left;    
     text-align: left;

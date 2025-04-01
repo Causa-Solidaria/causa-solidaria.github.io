@@ -8,7 +8,7 @@ export const Footer = styled.footer`
   background: var(--color1);
   width: 100%;
   min-height: 50px;
-  padding: 1rem 0;
+  padding: 1rem 5%;
   z-index: 999;
 
 `;

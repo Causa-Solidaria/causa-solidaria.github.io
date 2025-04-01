@@ -1,4 +1,4 @@
-
+// retirar quando conectar o banco de dados das causas
 export interface Causa {
     id: string;
     tabela:{

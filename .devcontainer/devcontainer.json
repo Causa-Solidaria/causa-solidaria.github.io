@@ -1,8 +1,6 @@
 
 
 {
-	"name": "Ubuntu",
-	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"customizations": {
       "vscode": {
         "extensions": [
