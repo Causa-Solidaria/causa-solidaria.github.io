@@ -19,7 +19,7 @@ model Event {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   public_id String @default(uuid())
   name      String
   username  String @unique
