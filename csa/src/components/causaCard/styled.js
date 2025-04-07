@@ -45,7 +45,7 @@ export const CardInfo = styled.div`
     margin: 5px;
     
     h1 {
-        font-size: 18pt;
+        font-size: 16pt;
         padding: 0px 5px;
     }
     p {

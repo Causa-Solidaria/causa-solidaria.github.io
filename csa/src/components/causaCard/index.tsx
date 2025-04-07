@@ -18,9 +18,9 @@ export const CausaCard = (props?: CausaCardProps) => {
 
     const handleResize = () => {
         const aspect = window.innerWidth / Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2);
-        const sizeWindows = window.innerWidth * 0.2 * aspect;
-        const maxSize = 150;
-        const minSize = 85;
+        const sizeWindows = window.innerWidth * 0.1 * aspect;
+        const maxSize = 90;
+        const minSize = 50;
         const sizeLimited = Math.min(Math.max(sizeWindows, minSize), maxSize);
         setDescriptionSize(sizeLimited);
     };
