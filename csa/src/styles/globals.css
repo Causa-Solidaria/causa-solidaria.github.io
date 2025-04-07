@@ -43,12 +43,6 @@
 }
 
 
-main {
-  padding: 2% 5%;
-  margin: 5%;
-  border: 3px solid var(--foreground);
-  border-radius: var(--border-radius);
-}
 
 body {
   background-color: var(--background);

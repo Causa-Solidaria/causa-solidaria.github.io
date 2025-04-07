@@ -5,31 +5,37 @@ export const CardBox = styled.div`
     display: flex;
     margin: 5px;
     padding: 5px;
-    min-width: 300px;
-    max-width: 600px;
-    max-height: 250px;
+    max-width: max-content;
+    min-width: min-content;
+    max-height: max-content;
+    min-height: min-content;
 
     div{
-        width: auto;
+        max-width: max-content;
+        min-width: min-content;
+        max-height: max-content;
+        min-height: min-content;
         box-shadow: unset;
         border-width: 0px;
         border-color: unset;
-        width: auto;
         transition: unset;
     }
     div:hover{
-        width: auto;
+        max-width: max-content;
+        min-width: min-content;
+        max-height: max-content;
+        min-height: min-content;
         box-shadow: unset;
         border-width: 0px;
         border-color: unset;
-        width: auto;
         transition: unset;
         transform: unset;
     }
 
     img {
         border-radius: var(--border-radius);
-        size: 120px
+        width: 120px;
+        height: 120px;
     }
 
 `
