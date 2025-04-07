@@ -1,7 +1,7 @@
 //import React from "react";
 import Image from "next/image";
-import { Container, Logo} from "./styles";
 import Link from "next/link";
+import { Container, Logo} from "./styles";
 
 const Header = () => {
     return (
