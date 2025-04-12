@@ -1,37 +1,14 @@
 import styled from "styled-components";
+import { CardBox } from "../card/styled.js"
 
-
-export const CardBox = styled.div`
-    display: flex;
-    margin: 5px;
-    padding: 5px;
-    max-width: max-content;
-    min-width: min-content;
-    max-height: max-content;
-    min-height: min-content;
-
-    div{
-        max-width: max-content;
-        min-width: min-content;
-        max-height: max-content;
-        min-height: min-content;
-        box-shadow: unset;
-        border-width: 0px;
-        border-color: unset;
-        transition: unset;
-    }
+export const CausaCardBox = styled(CardBox)`
     div:hover{
-        max-width: max-content;
-        min-width: min-content;
-        max-height: max-content;
-        min-height: min-content;
         box-shadow: unset;
         border-width: 0px;
         border-color: unset;
         transition: unset;
         transform: unset;
     }
-
     img {
         border-radius: var(--border-radius);
         width: 120px;
@@ -40,10 +17,14 @@ export const CardBox = styled.div`
 
 `
 
-export const CardInfo = styled.div`
+export const CausaCardInfo = styled.div`
     display: inline;
     margin: 5px;
     
+    min-width: min-content;
+    min-height: min-content;
+    max-width: max-content;
+    max-height: max-content;
     h1 {
         font-size: 16pt;
         padding: 0px 5px;

@@ -1,6 +1,6 @@
 
-
 {
+	"name": "csa",
 	"customizations": {
       "vscode": {
         "extensions": [
