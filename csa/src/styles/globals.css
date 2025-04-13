@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 
 :root {
@@ -9,7 +7,7 @@
   --preto: #0F3418;
   --branco:   #c2f6c2;
 
-  --font: "Quicksand";
+  --font: "Quicksand", "comic-sans", sans-serif;
 
   --color1: var(--ciano-claro);
   --color2: var(--preto);

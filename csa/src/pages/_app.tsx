@@ -6,9 +6,7 @@ import Header from "csa/components/header";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header/>
       <Component {...pageProps}/>
-      <Rodape/>
     </>
   );
 }
