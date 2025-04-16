@@ -11,18 +11,17 @@ export const Container = styled.div`
     background: var(--color1) ;
     z-index: 999;
     
-    img {
-        border-radius: var(--border-radius);
-    }
-
-    body {
-        position: fixed; 
-    }
-    h1 {
+`
+export const LogoImg = styled.div`
+    border-radius: var(--border-radius);
+`
+export const LogoTitle = styled.div`
         height: unset;
         font-weight: 900;
         color: var(--color2-inv);
-    }
+        margin-left: 6px;
+        color: var(--color2-inv);
+    
 `
 
 export const Logo = styled.div`
@@ -35,10 +34,4 @@ export const Logo = styled.div`
     z-index: 999;
     background: var(--color1) ;
     display: flex;
-
-    h1 {
-        margin-left: 6px;
-        font-weight: 900;
-        color: var(--color2-inv);
-    }
 `

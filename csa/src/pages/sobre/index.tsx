@@ -4,7 +4,7 @@ import Rodape from "csa/components/rodape";
 export default function Home() {
   return (
     <>      
-      <Headers/>
+      <Header/>
       <main>
         <h1>{"[titulo]"}</h1>
         <p>{"[breve expicação do site]"}</p>
