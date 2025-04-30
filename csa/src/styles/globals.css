@@ -2,10 +2,11 @@
 
 
 :root {
-  --verde-saturado: #0dcd3d;
-  --ciano-claro: #07c76a;
-  --preto: #0F3418;
-  --branco:   #c2f6c2;
+  --verde-saturado:#13FF04;
+  --ciano-claro:   #02E351;
+  --verde-escuro:  #168F4C;
+  --preto:         #012404;
+  --branco:        #C0F5B4;
 
   --font: "Quicksand", "comic-sans", sans-serif;
 
