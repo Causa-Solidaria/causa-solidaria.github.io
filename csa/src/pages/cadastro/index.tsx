@@ -1,4 +1,4 @@
-'use client';
+
 
 import {
     AreaDeCadastro, 
@@ -14,7 +14,7 @@ import {
 
 
 export default function Home() {
-    
+    'use client'
     return (
         <Main_cadastro>
             <AreaDeCadastro>
