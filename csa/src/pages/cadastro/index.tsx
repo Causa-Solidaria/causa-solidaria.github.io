@@ -1,16 +1,31 @@
-'user client';
+"use client"
 
-const Info = () => null;
-const AreaDeCadastro = () => null;
-const Men
+import {
+    AreaDeCadastro, 
+    Card_cadastro, 
+    AreaDeInformações, 
+    Main_cadastro
+} from "csa/components/cadastro/styled";
+
+import {
+    Formulario_cadastro
+} from "csa/components/cadastro/index";
+
+
 
 export default function Home() {
-    
+    'use client'
     return (
-        <main>
-            <Info>
-            </Info>
-            <AreaDeCadastro></AreaDeCadastro>
-        </main>
+        <Main_cadastro>
+            <AreaDeCadastro>
+                <h1> junte-se a nós!</h1>
+                <Card_cadastro>
+                    <Formulario_cadastro />
+                </Card_cadastro>
+            </AreaDeCadastro>
+            <AreaDeInformações>
+                <h1>CSA</h1>
+            </AreaDeInformações>
+        </Main_cadastro>
     )
 }
