@@ -1,4 +1,4 @@
-
+"use client"
 
 import {
     AreaDeCadastro, 
@@ -18,6 +18,7 @@ export default function Home() {
     return (
         <Main_cadastro>
             <AreaDeCadastro>
+                <h1> junte-se a nós!</h1>
                 <Card_cadastro>
                     <Formulario_cadastro />
                 </Card_cadastro>

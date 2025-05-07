@@ -16,6 +16,11 @@ const Formulario_cadastro = () =>{
                 <input type="name" name="name" id="name"></input>
             </label>
 
+            <label htmlFor="idade">
+                idade
+                <input type="idade" name="idade" id="idade"></input>
+            </label>
+
             <label htmlFor="email">
                 email
                 <input type="email" name="email" id="email"></input>
