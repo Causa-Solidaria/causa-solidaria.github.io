@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container, Logo, LogoImg, LogoTitle} from "./styles";
 
 const Header = () => {
+    'use client'
     return (
         <Container>
             <Link href="/">

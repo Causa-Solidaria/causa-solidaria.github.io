@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import {
     AreaDeCadastro, 
@@ -27,5 +27,5 @@ export default function Home() {
                 <h1>CSA</h1>
             </AreaDeInformações>
         </Main_cadastro>
-    )
+    );
 }

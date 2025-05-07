@@ -1,7 +1,9 @@
+'use client'
 // index.tsx
 import { Footer, Container, Ul } from "./styles.js";
 
 const Rodape = () => {
+  'use client'
   return (
     <footer>
       <Footer>

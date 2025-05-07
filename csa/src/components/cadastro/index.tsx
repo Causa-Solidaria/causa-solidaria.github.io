@@ -1,9 +1,10 @@
-'use client'
 
-import {Form_cadastro} from "./styled"
+
+import {Form_cadastro, Cads_buttons, Grid} from "./styled"
 
 
 const Formulario_cadastro = () =>{
+    'use client'
     return (
         <Form_cadastro>
             <label htmlFor="name">
@@ -32,9 +33,19 @@ const Formulario_cadastro = () =>{
             </label>
 
             <label htmlFor="password">
-                password
+                senha
                 <input type="password" name="password" id="password"></input>
             </label>
+
+            <label htmlFor="cpassword"> 
+                confirme senha
+                <input type="cpassword" name="cpassword" id="cpassword"></input>
+            </label>
+            
+            <Grid>
+                <Cads_buttons> Back </Cads_buttons>
+                <Cads_buttons type="submit"> registrar </Cads_buttons>
+            </Grid>
 
             
         </Form_cadastro>
