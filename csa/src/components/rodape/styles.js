@@ -5,7 +5,7 @@ export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   left: 0;
-  background: var(--color1);
+  background: var(--color2);
   width: 100%;
   min-height: 50px;
   padding: 1rem 5%;
@@ -41,11 +41,11 @@ export const Ul = styled.ul`
     text-decoration: none;
     transition: color 0.3s;
     font-size: 14pt;
-    color: var(--color2-inv);
+    color: var(--color3);
     background: none;
   }
 
   a:hover {
-    color: var(--color2);
+    color: var(--color4);
   }
 `;

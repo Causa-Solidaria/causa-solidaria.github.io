@@ -36,6 +36,7 @@ h1, h2, h3, h4, h5, h6, p, ul, li, a {
   background: unset;
   font-weight: 900;
   text-decoration: none;
+  color: var(--preto)
 } 
 
 h1 {

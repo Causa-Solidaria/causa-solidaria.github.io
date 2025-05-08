@@ -69,7 +69,18 @@ const Form_cadastro = styled.form`
 
 `  
 
-const Card = styled.div`
+const Card = styled.div.attrs<{ 
+
+    $info?: boolean; 
+    $Textsize?: string; 
+
+}>(props => ({
+
+    $info: props.$info || false,
+    $Textsize: props.$Textsize || "30pt"
+
+}))`
+
     border-radius:  1px;
     box-shadow:  0 5px 2.5px -2.5px var(--color2);
     justify-self: center;
@@ -87,17 +98,16 @@ const Card = styled.div`
         width: 85%
     }
 
-    div{
+    div {
         display: flex;
 
     }
 
-    #title {
-        border-radius: 10px;
-    }
+    border-radius: ${props => props.$info ? "8px" : "0"};
+    h1 { font-size: ${props => props.$Textsize}; }
 
     transition: 0.4s ease;
-`
+`;
 
 const AreaDeInformações = styled.section`
     background-color: var(--color4);
@@ -132,7 +142,7 @@ const Cads_buttons = styled.button`
     font-size: 13pt;
     font-weight: 900;
     border-radius: 8px;
-    padding: 2.5% 5%;
+    padding: 0 5%;
     height: 35px;
     min-width: min-content;
     width: 33%;

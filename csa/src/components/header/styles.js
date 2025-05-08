@@ -8,7 +8,7 @@ export const Container = styled.div`
     align-items: center;    
     text-align: left;
     
-    background: var(--color1) ;
+    background: var(--color2) ;
     z-index: 999;
     
 `
@@ -20,9 +20,8 @@ export const LogoImg = styled.img`
 export const LogoTitle = styled.h1`
     font-size: 42pt;
     font-weight: 900;
-    color: var(--color2-inv);
+    color: var(--color1);
     margin-left: 6px;
-    color: var(--color2-inv);
     
 `
 
@@ -33,6 +32,5 @@ export const Logo = styled.div`
     text-align: left;
     width: 15%;
     z-index: 999;
-    background: var(--color1) ;
     display: flex;
 `

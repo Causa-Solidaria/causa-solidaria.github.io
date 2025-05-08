@@ -24,12 +24,15 @@ export default function Home() {
                 </Card>
             </AreaDeCadastro>
             <AreaDeInformações>
-                <Card id="title">
+                <Card id="title" $info={true}>
+                    <h1>Causa Solidaria</h1>
+                </Card>
+                <Card id="title" $info={true}>
                     <h1>Causa Solidaria</h1>
                 </Card>
                 <Grid>
-                    <Card><h1>aa</h1></Card>
-                    <Card><h1>aa</h1></Card>
+                    <Card $info={true} $Textsize="16pt"><h1>aa</h1></Card>
+                    <Card $info={true} $Textsize="16pt"><h1>aa</h1></Card>
                 </Grid>
             </AreaDeInformações>
         </Main_cadastro>

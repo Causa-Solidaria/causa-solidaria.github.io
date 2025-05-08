@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+  //reactStrictMode: true,
   productionBrowserSourceMaps: true,
   compiler : {
     styledComponents : true
-  }
+  },
 };
 
 // module.exports = {
