@@ -2,7 +2,7 @@
 
 import {
     AreaDeCadastro, 
-    Card_cadastro, 
+    Card, 
     AreaDeInformações, 
     Main_cadastro
 } from "csa/components/cadastro/styled";
@@ -14,17 +14,18 @@ import {
 
 
 export default function Home() {
-    'use client'
     return (
         <Main_cadastro>
             <AreaDeCadastro>
                 <h1> junte-se a nós!</h1>
-                <Card_cadastro>
+                <Card>
                     <Formulario_cadastro />
-                </Card_cadastro>
+                </Card>
             </AreaDeCadastro>
             <AreaDeInformações>
-                <h1>CSA</h1>
+                <Card id="title">
+                    <h1>Causa Solidaria</h1>
+                </Card>
             </AreaDeInformações>
         </Main_cadastro>
     );

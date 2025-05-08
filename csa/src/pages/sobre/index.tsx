@@ -1,3 +1,4 @@
+"use client"
 import Header from "csa/components/header";
 import Rodape from "csa/components/rodape";
 

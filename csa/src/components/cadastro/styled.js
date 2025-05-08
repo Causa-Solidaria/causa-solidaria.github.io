@@ -59,13 +59,17 @@ const Form_cadastro = styled.form`
             background-color: #fff;
             border: 2px solid var(--color2);
             border-radius: 8px;
+
+            transition: 0.4s ease;
         }
+
+        transition: 0.4s ease;
     }
     transition: 0.4s ease;
 
 `  
 
-const Card_cadastro = styled.div`
+const Card = styled.div`
     border-radius:  1px;
     box-shadow:  0 5px 2.5px -2.5px var(--color2);
     justify-items: center;
@@ -85,6 +89,12 @@ const Card_cadastro = styled.div`
         display: flex;
 
     }
+
+    #title {
+        border-radius: 10px;
+    }
+
+    transition: 0.4s ease;
 `
 
 const AreaDeInformações = styled.section`
@@ -95,6 +105,7 @@ const AreaDeInformações = styled.section`
     align-items: center;
     text-align: center;
 
+    transition: 0.4s ease;
 `
 
 const Main_cadastro = styled.main`
@@ -106,9 +117,10 @@ const Main_cadastro = styled.main`
 
 const Grid = styled.div` 
     margin-top: 5%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6rem;
+    display: flex;
+    justify-content: space-between;
+
+    transition: 0.4s ease;
 `
 
 const Cads_buttons = styled.button`
@@ -118,9 +130,13 @@ const Cads_buttons = styled.button`
     font-size: 13pt;
     font-weight: 900;
     border-radius: 8px;
-    width: 100%;
+    padding: 2.5% 5%;
     height: 35px;
+    min-width: min-content;
+    width: 33%;
+
+    transition: 0.4s ease;
 `
 
 
-export {AreaDeCadastro, Form_cadastro, Card_cadastro, AreaDeInformações, Main_cadastro, Grid, Cads_buttons}
+export {AreaDeCadastro, Form_cadastro, Card, AreaDeInformações, Main_cadastro, Grid, Cads_buttons}

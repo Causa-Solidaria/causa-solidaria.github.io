@@ -1,12 +1,12 @@
+"use client"
 
-
+import Link from "next/link"
 import {Form_cadastro, Cads_buttons, Grid} from "./styled"
 
 
-const Formulario_cadastro = () =>{
-    'use client'
+const Formulario_cadastro = () => {
     return (
-        <Form_cadastro>
+        <Form_cadastro id = "cadastro">
             <label htmlFor="name">
                 nome completo
                 <input type="name" name="name" id="name"></input> 
@@ -43,8 +43,8 @@ const Formulario_cadastro = () =>{
             </label>
             
             <Grid>
-                <Cads_buttons> Back </Cads_buttons>
-                <Cads_buttons type="submit"> registrar </Cads_buttons>
+                <Link href="/"><Cads_buttons type="button"> Back </Cads_buttons></Link>
+                <Cads_buttons type="submit" form="cadastro" value="submit"> registrar </Cads_buttons>
             </Grid>
 
             
