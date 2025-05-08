@@ -2,7 +2,8 @@
 
 import {
     AreaDeCadastro, 
-    Card, 
+    Card,
+    Grid, 
     AreaDeInformações, 
     Main_cadastro
 } from "csa/components/cadastro/styled";
@@ -26,6 +27,10 @@ export default function Home() {
                 <Card id="title">
                     <h1>Causa Solidaria</h1>
                 </Card>
+                <Grid>
+                    <Card><h1>aa</h1></Card>
+                    <Card><h1>aa</h1></Card>
+                </Grid>
             </AreaDeInformações>
         </Main_cadastro>
     );

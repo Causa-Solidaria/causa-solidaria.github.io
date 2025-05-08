@@ -72,17 +72,19 @@ const Form_cadastro = styled.form`
 const Card = styled.div`
     border-radius:  1px;
     box-shadow:  0 5px 2.5px -2.5px var(--color2);
+    justify-self: center;
     justify-items: center;
     align-items: center;
     padding: 1.5%;
-    margin: 25px 20%;
+    width: 65%;
+    margin: 25px 0;
     transition: 0.4s ease ;
     
     background: #fff/*var(--color1)*/;
     border: 0.5px solid var(--color2);
     
     @media (max-width: 700px) {
-        margin: 25px 0;
+        width: 85%
     }
 
     div{
@@ -119,7 +121,7 @@ const Grid = styled.div`
     margin-top: 5%;
     display: flex;
     justify-content: space-between;
-
+    gap: 50px;
     transition: 0.4s ease;
 `
 
