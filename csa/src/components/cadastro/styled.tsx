@@ -114,6 +114,8 @@ const AreaDeInformações = styled.section`
     color: var(--color3);
     width: 40%;
     justify-items: center;
+    justify-self: center;
+    justify-content: center;
     align-items: center;
     text-align: center;
 

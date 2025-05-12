@@ -28,7 +28,8 @@ export default function Home() {
                     <h1>Causa Solidaria</h1>
                 </Card>
                 <Card id="title" $info={true}>
-                    <h1>Causa Solidaria</h1>
+                    <h2>quem somos?</h2><br/>
+                    <p>Somos a Causa Solidária, unidos pelo propósito de transformar vidas através da ajuda ao próximo</p>
                 </Card>
                 <Grid>
                     <Card $info={true} $Textsize="16pt"><h1>aa</h1></Card>

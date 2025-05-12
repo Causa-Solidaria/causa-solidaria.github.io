@@ -6,7 +6,7 @@ import {Form_cadastro, Cads_buttons, Grid} from "./styled"
 
 const Formulario_cadastro = () => {
     return (
-        <Form_cadastro id = "cadastro">
+        <Form_cadastro id = "cadastro" method="POST">
             <label htmlFor="name">
                 nome completo
                 <input type="name" name="name" id="name"></input> 
