@@ -1,7 +1,7 @@
 'use client'
 
 import { CardBox, CardSpaceContainer, CausaCardDescription, CausaCardImg, CausaCardInfo, CausaCardTitle } from "./styled"
-import { Causa } from "csa/entities/Causas";
+import { Causa } from "csa/interfaces/Causas";
 import { useEffect, useState } from "react";
 
 interface CausaCardProps extends Causa {

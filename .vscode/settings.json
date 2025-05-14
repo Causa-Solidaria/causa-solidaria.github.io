@@ -1,3 +1,27 @@
 {
-    "terminal.explorerKind": "integrated"
+    "terminal.explorerKind": "integrated",
+    "extensions": [
+        "ms-azuretools.vscode-docker",
+        "mikestead.dotenv",
+        "dbaeumer.vscode-eslint",
+        "Prisma.prisma",
+        "AbianS.prisma-generate-uml",
+        "styled-components.vscode-styled-components",
+        "pranaygp.vscode-css-peek",
+        "cweijan.vscode-database-client2",
+        "eamodio.gitlens",
+        "sidthesloth.html5-boilerplate",
+        "ecmel.vscode-html-css",
+        "tal7aouy.icons",
+        "wix.vscode-import-cost",
+        "Zignd.html-css-class-completion",
+        "xabikos.JavaScriptSnippets",
+        "christian-kohler.npm-intellisense",
+        "esbenp.prettier-vscode",
+        "humao.rest-client",
+        "blanu.vscode-styled-jsx",
+        "ferdelamad.styled-snippets",
+        "jock.svg",
+        "bradlc.vscode-tailwindcss"
+    ]
 }

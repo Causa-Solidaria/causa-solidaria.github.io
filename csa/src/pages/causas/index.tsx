@@ -10,9 +10,7 @@ export default function Home() {
   return (
     <>
       <Header/>
-      <main>
         <CardSpace />
-      </main>
       <Rodape/>
     </> 
   );

@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import Card from "../card";
+import In_Card from "../../interfaces/card"
 
 
-export const CardBox = styled.div`
+export const CardBox = styled(Card)<{$config?: In_Card}>`
     display: flex;
+    flex-direction: column;
     margin: 5px;
     padding: 5px;
     min-width: min-content;

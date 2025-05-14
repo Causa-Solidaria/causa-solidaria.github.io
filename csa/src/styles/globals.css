@@ -6,14 +6,16 @@
   --ciano-claro:   #02E351;
   --verde-escuro:  #168F4C;
   --preto:         #012404;
-  --branco:        #C0F5B4;
+  --verde-claro:   #C0F5B4;
+  --branco:        #ffffff;
 
   --font: "Quicksand", "comic-sans", sans-serif;
 
-  --color1: var(--branco);
+  --color1: var(--verde-claro);
   --color2: var(--verde-escuro);
   --color3: var(--preto);
   --color4: var(--ciano-claro);
+  --color5: var(--branco);
 
   --border-radius: 10px;
 }

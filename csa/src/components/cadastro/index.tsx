@@ -1,54 +1,41 @@
 "use client"
 
 import Link from "next/link"
-import {Form_cadastro, Cads_buttons, Grid} from "./styled"
+import { Grid} from "./styled"
+import Buttom from "../buttom"
+import Form from "../forms"
+import Checkbox from "../checkBox"
+import Label from "../label"
+import Input from "../input"
+import TextBar from "../textBar"
 
 
 const Formulario_cadastro = () => {
     return (
-        <Form_cadastro id = "cadastro" method="POST">
-            <label htmlFor="name">
-                nome completo
-                <input type="name" name="name" id="name"></input> 
-            </label>
+        <Form id = "cadastro" method="POST">
+            <TextBar For="name" text="nome completo"/>
+
+            <TextBar For="username" text="nome de usuario"/>
             
-            <label htmlFor="username">
-                nome de usuario
-                <input type="name" name="name" id="name"></input>
-            </label>
-
-            <label htmlFor="idade">
-                idade
-                <input type="idade" name="idade" id="idade"></input>
-            </label>
-
-            <label htmlFor="email">
-                email
-                <input type="email" name="email" id="email"></input>
-            </label>
-
-            <label htmlFor="cemail">
-                confirm email
-                <input type="email" name="cemail" id="cemail"></input>
-            </label>
-
-            <label htmlFor="password">
-                senha
-                <input type="password" name="password" id="password"></input>
-            </label>
-
-            <label htmlFor="cpassword"> 
-                confirme senha
-                <input type="cpassword" name="cpassword" id="cpassword"></input>
-            </label>
+            <TextBar For="bornDate" text="ano de nascimento" type="date"/>
+            
+            <TextBar For="email" text="email" type="email" />
+            
+            <TextBar For="CEmail" text="confirme o email" type="email" />
+            
+            <TextBar For="password" text="senha" type="password" />
+            
+            <TextBar For="CPassword" text="confirme a senha" type="password" />
+            
+            <Checkbox For="Read_Terms_confimed" text="li e concordo com os termos de privacidade e uso "></Checkbox>
             
             <Grid>
-                <Link href="/"><Cads_buttons type="button"> Back </Cads_buttons></Link>
-                <Cads_buttons type="submit" form="cadastro" value="submit"> registrar </Cads_buttons>
+                <Buttom text="Back" href="/" type="button" />
+                <Buttom text="Registrar" type="submit" form="cadastro" value="submit" />
             </Grid>
 
             
-        </Form_cadastro>
+        </Form>
     )
 }
 

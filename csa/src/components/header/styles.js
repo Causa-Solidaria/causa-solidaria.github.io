@@ -5,8 +5,8 @@ export const Container = styled.div`
     display: flex;
     padding: 0 5%;
     justify-content: left;
-    align-items: center;    
-    text-align: left;
+    align-content: center;    
+    text-align: center;
     
     background: var(--color2) ;
     z-index: 999;
@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 export const LogoImg = styled.img`
     border-radius: var(--border-radius);
+    background-color: var(--branco);
 `
 
 export const LogoTitle = styled.h1`
@@ -30,7 +31,6 @@ export const Logo = styled.div`
     justify-content: left;
     align-items: left;    
     text-align: left;
-    width: 15%;
     z-index: 999;
     display: flex;
 `

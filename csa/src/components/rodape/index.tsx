@@ -9,8 +9,6 @@ const Rodape = () => {
         <Container>
           <Ul>
             <li><Link href="/sobre">Sobre</Link></li>
-            <li><Link href="/contato">Contato</Link></li>
-            <li><Link href="/termos">Termos de Uso</Link></li>
           </Ul>
           <p>© {new Date().getFullYear()} causa solidaria. Todos os direitos reservados.</p>
         </Container>
