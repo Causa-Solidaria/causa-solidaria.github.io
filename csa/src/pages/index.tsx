@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Header />
-          <h1 style={{justifySelf: "center"}}>Bem-vindo à Causa Solidária!</h1>
+          <h1 style={{justifySelf: "center", marginTop: "10%"}}>Bem-vindo à Causa Solidária!</h1>
           <Card $config={{ borderRadius: "12px", border: "2px solid var(--color2)"}}>
             <p>
               Junte-se a nós para transformar vidas! Participe de campanhas, seja voluntário ou faça uma doação.

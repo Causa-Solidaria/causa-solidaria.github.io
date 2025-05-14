@@ -36,7 +36,7 @@ const CausaCard = (props?: CausaCardProps) => {
 
     return ( 
         <>
-                <CardBox>
+                <CardBox $config={{textSize: "20pt"}}>
                     <CausaCardImg
                         src={props?.tabela.thumbnail ?? ''} 
                         alt={props?.tabela.title ?? ''} 
@@ -67,6 +67,28 @@ const MOKED_CAUSAS: Causa[] = [
     },
     {
         id: "2",
+        tabela: {
+            title: "preciso de um lugar para morar",
+            date: "24/02/2025",
+            description: "test 2",
+            priority: "3",
+            thumbnail: "/logo.png",
+            postCode: ""
+        }
+    },
+    {
+        id: "3",
+        tabela: {
+            title: "preciso de um lugar para morar",
+            date: "24/02/2025",
+            description: "test 2",
+            priority: "3",
+            thumbnail: "/logo.png",
+            postCode: ""
+        }
+    },
+    {
+        id: "4",
         tabela: {
             title: "preciso de um lugar para morar",
             date: "24/02/2025",

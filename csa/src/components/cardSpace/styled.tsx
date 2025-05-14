@@ -8,17 +8,18 @@ export const CardBox = styled(Card)<{$config?: In_Card}>`
     flex-direction: column;
     margin: 5px;
     padding: 5px;
-    min-width: min-content;
-    min-height: min-content;
-    max-width: max-content;
-    max-height: max-content;
+    min-width: 200px;
+    min-height: 300px;
+    max-width: 400px;
+    max-height: 350px;
     box-shadow: 3px 10px var(--color1);
     border-radius: var(--border-radius);
     border: 3px solid var(--color1);
     border-color: unset;
-    transition: unset;
+    transition: 0.4s ease;
 
     &:hover{
+        transform: scale(1.05);
     }
 
 `
@@ -27,11 +28,11 @@ export const CardBox = styled(Card)<{$config?: In_Card}>`
 export const CardSpaceContainer = styled.div`
     width: 100%;
     max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
+    margin: 5% auto 10% auto;
+    padding: 15px;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1rem;
     place-items: center;
     
     @media (min-width: 640px) {
@@ -43,12 +44,6 @@ export const CardSpaceContainer = styled.div`
     }
 
 `
-
-export const CardSpaceTitle = styled.h1`
-    color: var(--color1);
-`
-
-
 export const CardSpaceDiv = styled.div`
     border-width: 3px;
     border-color: var(--color1);
@@ -71,7 +66,8 @@ export const CausaCardImg = styled.img`
 `
 
 export const CausaCardInfo = styled.div`
-    display: inline;
+    display: flex;
+    flex-direction: column;
     margin: 5px;
     
     min-width: min-content;
@@ -82,10 +78,10 @@ export const CausaCardInfo = styled.div`
 `
 
 export const CausaCardTitle = styled.h1`
-    font-size: 16pt;
-    padding: 0px 5px;
+    padding: 5px 0px;
 `
 
 export const CausaCardDescription = styled.p`
-         font-size: 11pt;
+         font-size: 14pt;
+         font-weight: 700;
 `
