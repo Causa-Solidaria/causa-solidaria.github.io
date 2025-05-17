@@ -1,5 +1,8 @@
 'use client'
-import Header from "csa/components/header";
+
+import { Heading, Text, Box } from "@chakra-ui/react"
+
+/*import Header from "csa/components/header";
 import Rodape from "csa/components/rodape";
 import Card from "csa/components/card";
 import Buttom from "csa/components/buttom";
@@ -22,4 +25,14 @@ export default function Home() {
       <Rodape />
     </>
   );
+}*/
+
+
+export default function Home(){
+    return (
+      <Box p={4}>
+        <Heading>Olá, Chakra UI!</Heading>
+        <Text>Este é um exemplo simples com Next.js e TypeScript.</Text>
+      </Box>
+    )
 }
