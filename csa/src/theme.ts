@@ -10,16 +10,21 @@ const config = defineConfig({
     "html, body": {
       margin: 0,
       padding: 0,
+      backgroundColor: "pri",
     },
   },
   theme: {
     tokens: {
       colors: {
-        primary: { value: "#0FEE0F" },
-        secondary: { value: "#EE0F0F" },
+        pri:    { value: "#C0F5B4" },
+        sec:    { value: "#168F4C" },
+        ter:    { value: "#012404" },
+        qua:    { value: "#02E351" },
+        qui:    { value: "#ffffff" }
       },
       fonts: {
         body: { value: "system-ui, sans-serif" },
+        
       },
     },
   },
