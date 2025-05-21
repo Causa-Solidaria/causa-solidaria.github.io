@@ -1,42 +1,28 @@
 'use client'
 
-import { Heading, Text, Box } from "@chakra-ui/react"
+import { Heading, Text, Box, Center, HStack } from "@chakra-ui/react"
+import Button from "csa/components/buttom"
+import Card from "csa/components/card"
 import Header from "csa/components/header"
-
-/*import Header from "csa/components/header";
-import Rodape from "csa/components/rodape";
-import Card from "csa/components/card";
-import Buttom from "csa/components/buttom";
-import { Grid } from "csa/components/cadastro/styled";
-
-export default function Home() {
-  return (
-    <>
-      <Header />
-          <h1 style={{justifySelf: "center", marginTop: "10%"}}>Bem-vindo à Causa Solidária!</h1>
-          <Card $config={{ borderRadius: "12px", border: "2px solid var(--color2)"}}>
-            <p>
-              Junte-se a nós para transformar vidas! Participe de campanhas, seja voluntário ou faça uma doação.
-            </p>
-            <Grid style={{gap: "30px", justifySelf: "center"}}>
-              <Buttom text="Cadastre-se" $config={{ background: "var(--color2)", color: "var(--color3)", borderRadius: "8px", width: "100%", height: "100%", justifySelf: "center" }} href="/cadastro" />
-              <Buttom text="ja tenho conta" $config={{ background: "var(--color4)", color: "var(--color3)", borderRadius: "8px", width: "100%", height: "100%", justifySelf: "center"  }} href="/login" />
-            </Grid>   
-          </Card>
-      <Rodape />
-    </>
-  );
-}*/
 
 
 export default function Home(){
     return (
       <>
-        <Header />
-        <Box p={4}>
-          <Heading>Olá, Chakra UI!</Heading>
-          <Text>Este é um exemplo simples com Next.js e TypeScript.</Text>
-        </Box>
+
+        <Header /> {/* carregando o header */}
+      
+        <Card justifySelf={"center"} alignContent={"center"} > {/* define o card no meio */}
+
+          <Heading > Olá, bem vindo a Causa Solidaria </Heading>
+          <Text> sim agora o projeto ta com chakra ui :) </Text><br/>
+          <Heading>faça o test de login e cadastro</Heading>
+          <HStack gap={4}>
+            <Button> ir para o login </Button>
+            <Button> ir para o login </Button>
+          </HStack>
+          
+        </Card>
       </>
     )
 }

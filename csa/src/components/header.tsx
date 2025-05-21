@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Image, Link, LinkBox, Text } from "@chakra-ui/react"
+import { Box, Heading, Image, Link, LinkBox, Text } from "@chakra-ui/react"
 
 /*import Link from "next/link";
 import { Container, Logo, LogoImg, LogoTitle} from "./styles";
@@ -23,14 +23,14 @@ const Header = () => {
 
     return (
     <Box display="absolute" bg={"sec"}  >
-        <LinkBox p={4}  >
-            <Link href="/">
+        <LinkBox p={4}  bg={"ter"} maxWidth={"max-content"} borderRadius={"0 0 20px 0"}>
+            <Link href="/" >
                 <Image 
                     src="/logo.png"
                     width="80px"
                     borderRadius={"2xl"}
                 />
-                <Text fontSize={"size.md"}>Causa Solidaria</Text>
+                <Heading fontSize={"24pt"} color={"qui"}> causa solidaria </Heading>
             </Link>
         </LinkBox>
     </Box>
