@@ -10,5 +10,4 @@ const Form = styled.form<{ $config?: In_Form }>`
 
     
 `;
-
 export default Form;

@@ -22,7 +22,7 @@ const Header = () => {
 const Header = () => {
 
     return (
-    <Box display="absolute" bg={"sec"}  >
+    <Box display="fixed" bg={"sec"}  >
         <LinkBox p={4}  bg={"ter"} maxWidth={"max-content"} borderRadius={"0 0 20px 0"}>
             <Link href="/" >
                 <Image 

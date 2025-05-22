@@ -1,34 +1,78 @@
 'use client'
 
-import Buttom from "csa/components/buttom";
-import Card from "csa/components/card";
-import Form from "csa/components/forms";
-import Image from "csa/components/imagen";
-import TextBar from "csa/components/textBar";
-import Title from "csa/components/title";
-import styled from "styled-components";
-
-const Reactgreeninbackgrond = styled.div`
-    position: absolute;
-    background-color: var(--color2);
-    z-index: -1;
-    width: 100%;
-    margin-top: 30svb;
-    height: 100%;
-`
+import { Box, Button, Center, Image, Input, Link, Text } from "@chakra-ui/react"
+import { Card } from "csa/components/card"
 
 
-export default function Home(){
+const CAMINHO_DO_DIRETORIO_PARA_ONDE_VAI_O_SUBMIT = "#"; // Defina o caminho do diretório para onde o submit vai
+
+
+async function submitForm(e: React.FormEvent<HTMLFormElement>, ) {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    
+    
+    const res = await fetch(CAMINHO_DO_DIRETORIO_PARA_ONDE_VAI_O_SUBMIT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    
+    const data = await res.json();
+    
+    console.log(data);
+}
+
+
+export default function login(){
     return <>
-            <Reactgreeninbackgrond />
-            <Card $config={{width: "50%", textSize:"30pt", justifyContent: "center", alignSelf: "center", margin: "10% 0 0 0 ", padding: "0 0", borderRadius: "var(--border-radius)"}}>
-                <Title $config={{margin: " 35px 0"}}>Login</Title>
-                <Form id="login" method="POST" $config={{padding: "5% 0"}}>
-                    <TextBar text="nome de usuario / email" type="text" For="LoginNameOrEmail" />
-                    <TextBar text="senha" type="password" For="password" />
+        <Box width={"100%"} height={"50%"} bg={"sec"} position={"absolute"} bottom={0}></Box>
+        <Box 
+            display={"flex"} 
+            flexDirection={"column"} 
+            justifySelf={"center"} alignContent={"center"} 
+            gap={4} mt={"2.5%"} 
+            justifyItems={"Center"} alignItems={"center"}
+        >
+            <Image src={"/logo.png"} borderRadius={"15px"} width={"20%"} />
+            <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
+        </Box>
+        <Card.Root width={"400px"} justifySelf={"center"} alignContent={"center"} m={4} >
+            <Card.Body onSubmit={submitForm} as="form" method="POST" action="#" display={"flex"} flexDirection={"column"} gap={4}>
+                <Box>
+                    <Text as="label" for="email" mb={1}> Email</Text>
+                    <Input type="email" placeholder="email" id="email" />
+                </Box>
+                <Box>
+                    <Text as="label" for="password" mb={1}> senha </Text>
+                    <Input type="password" placeholder="senha" id="password"/>
+                    <Text fontSize={"sm"} mt={2}> 
+                        esqueceu a senha? 
+                        <Link href="#" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link> 
+                    </Text>
+                </Box>
+                
+                <Button type="submit" bg={"ter"} width="full">
+                    Entrar
+                </Button>
 
-                    <Buttom text="Entrar" type="submit" $config={{margin: "25px 0", justifySelf:"center"}} />
-                </Form>
-            </Card>
+            </Card.Body>
+        </Card.Root>
+
+        <Box 
+            bg={"qui"} 
+            width={"400px"} height={"50px"} 
+            display={"flex"} 
+            justifyContent={"center"} alignItems={"center"} justifySelf={"center"} 
+            borderRadius={"15px"}
+            mt={4} // Adiciona margem superior
+            zIndex={2} // Garante que fique acima do fundo
+            position="relative" // Garante que respeite o fluxo normal
+        >
+            <Text>Não tem conta?</Text>
+            <Link href="/cadastro" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link>
+        </Box>
     </>
 }

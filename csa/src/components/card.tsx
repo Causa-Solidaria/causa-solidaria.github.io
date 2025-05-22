@@ -1,17 +1,17 @@
-import { Box, BoxProps, ChakraProviderProps } from "@chakra-ui/react";
+import { Box, BoxProps, ChakraProviderProps, Card as Ca } from "@chakra-ui/react";
 import { forwardRef } from "react";
 
 // aqui eu o tipo de propriedades/argumentos o Card vai aceitar
 interface PropsCard extends BoxProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     props?: ChakraProviderProps
 }
 
-const Card = forwardRef<HTMLDivElement, PropsCard>(
+const Root = forwardRef<HTMLDivElement, PropsCard>(
     ({children, ...props}: PropsCard, ref ) => {
         return (
             <>
-                <Box 
+                <Ca.Root
                     ref={ref} 
                     p={4} 
                     width={"max-content"} 
@@ -21,10 +21,45 @@ const Card = forwardRef<HTMLDivElement, PropsCard>(
                     {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
                 >
                     {children /* aqui é onde é carregado os components filhos*/ } 
-                </Box>
+                </Ca.Root>
             </>
         ) 
     }
 )
 
-export default Card;
+const Footer = forwardRef<HTMLDivElement, PropsCard>(
+    ({children, ...props}: PropsCard, ref ) => {
+        return (
+            <>
+                <Ca.Footer
+                    ref={ref} 
+                    {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
+                >
+                    {children /* aqui é onde é carregado os components filhos*/ } 
+                </Ca.Footer>
+            </>
+        ) 
+    }
+)
+
+const Body = forwardRef<HTMLDivElement, PropsCard>(
+    ({children, ...props}: PropsCard, ref ) => {
+        return (
+            <>
+                <Ca.Body
+                    ref={ref} 
+                    {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
+                >
+                    {children /* aqui é onde é carregado os components filhos*/ } 
+                </Ca.Body>
+            </>
+        ) 
+    }
+)
+
+
+
+
+const Card = { Root, Footer, Body }
+
+export { Card };
