@@ -62,4 +62,4 @@ const Body = forwardRef<HTMLDivElement, PropsCard>(
 
 const Card = { Root, Footer, Body }
 
-export { Card };
+export default Card ;

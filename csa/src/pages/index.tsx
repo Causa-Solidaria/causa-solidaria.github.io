@@ -10,19 +10,16 @@ export default function Home(){
     return (
       <>
 
-        <Header /> {/* carregando o header */}
+        <Header/> {/* carregando o header */}
       
-        <Card justifySelf={"center"} alignContent={"center"} > {/* define o card no meio */}
+        <Card.Root justifySelf={"center"} alignContent={"center"} > {/* define o card no meio */}
 
           <Heading > Olá, bem vindo a Causa Solidaria </Heading>
           <Text> sim agora o projeto ta com chakra ui :) </Text><br/>
           <Heading>faça o test de login e cadastro</Heading>
-          <HStack gap={4}>
-            <Button> ir para o login </Button>
-            <Button> ir para o login </Button>
-          </HStack>
           
-        </Card>
+          
+        </Card.Root>
       </>
     )
 }

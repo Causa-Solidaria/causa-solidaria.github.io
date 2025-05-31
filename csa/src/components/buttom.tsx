@@ -19,7 +19,7 @@ const Button  = forwardRef<HTMLButtonElement, PropsButtom>(
         
         return (
             <>
-                <But ref={ref} {...props} _hover={hover} transition={"0.6s ease"} colorPalette={""}>
+                <But ref={ref} {...props} _hover={hover} borderRadius={"2xl"} transition={"0.6s ease"} >
                     {children}
                 </But>
             </>
