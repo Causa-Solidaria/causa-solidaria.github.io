@@ -4,35 +4,18 @@ import { Box, Button, Center, Image, Input, Link, Text } from "@chakra-ui/react"
 import Card  from "csa/components/card"
 import Form from "csa/components/Form";
 import { PasswordInput } from "csa/components/ui/password-input";
+import { z } from "zod";
 
 
-const CAMINHO_DO_DIRETORIO_PARA_ONDE_VAI_O_SUBMIT = "#"; // Defina o caminho do diretório para onde o submit vai
-
-
-async function submitForm(e: React.FormEvent<HTMLFormElement>, ) {
-    e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    
-    
-    const res = await fetch(CAMINHO_DO_DIRETORIO_PARA_ONDE_VAI_O_SUBMIT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    
-    const data = await res.json();
-    
-    console.log(data);
-}
-
-
+const formSchema = z.object({
+    email: z.string().email("Email inválido"),
+    password: z.string(),
+});
 
 export default function login(){
     const formArray = [
-        { label: "Email", register: "email" },
-        { label: "Senha", register: "password", ispassword: true }
+        { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
+        { label: "Senha", register: "password", ispassword: true, placeholder: "Digite sua senha", type: "password" },
     ];
 
     return <>
@@ -47,13 +30,16 @@ export default function login(){
             <Image src={"/logo.png"} borderRadius={"15px"} width={"20%"} />
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>
+
         <Card.Root width={"400px"} justifySelf={"center"} alignContent={"center"} m={4} >
-            <Form formArray={formArray}>
+
+            <Form formArray={formArray} schema={formSchema}>
                 <Text fontSize={"sm"} mt={2}> 
                     Esqueceu a senha? 
                     <Link href="#" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link> 
                 </Text> 
             </Form>
+        
         </Card.Root>
 
         <Box 
