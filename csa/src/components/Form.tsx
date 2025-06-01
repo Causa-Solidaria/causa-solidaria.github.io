@@ -1,9 +1,8 @@
-import { ChakraProviderProps, Field, Input, Stack } from "@chakra-ui/react";
+import { ChakraProviderProps, Checkbox, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "csa/components/ui/password-input";
 import { useForm } from "react-hook-form";
 import Button from "./buttom";
 import { ReactNode } from "react";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
@@ -16,6 +15,8 @@ interface FormField {
     label: string;
     register: string;
     ispassword?: boolean;
+    ischeckbox?: boolean;
+    children?: ReactNode;
     placeholder?: string;
     type?: string;
 }
@@ -24,17 +25,20 @@ interface FormProps {
     children?: ReactNode;
     formArray?: FormField[];
     props?: ChakraProviderProps;
+    get_action_checkbox?: (value: boolean) => void;
     schema?: any;
     size?: "sm" | "md" | "lg" | "xl";
 }
 
-export default function Form({ formArray, children, props, schema, size }: FormProps) {
-
-
+export default function Form({ formArray, children, props, schema, size}: FormProps) {
+   
+    // chama as funçoes do react-hook-form e define o schema de validação    
     const { register,  handleSubmit, formState: { errors }, } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
     
+    // so para testar a validação 
+    // LEMBRAR DE REMOVER DEPOIS
     const handleValidation = (data: FormValues) => {
         console.log("Form submitted with data:", data);
     }
@@ -44,14 +48,29 @@ export default function Form({ formArray, children, props, schema, size }: FormP
             onSubmit={handleSubmit(handleValidation)}
             {...props}
         >
-            <Stack gap="4" align="flex-start" maxW="sm" m={4}>
+            <Stack gap="2" align="flex-start" m={4}>
                 {formArray?.map((item, index) => (
                     <Field.Root key={index} invalid={!!errors[item.register]}>
-                        <Field.Label>{item.label}</Field.Label>
+                        
+                        {item.ischeckbox ?
+                            (<></>) : 
+                            (
+                                <Field.Label color="ter"> 
+                                    {item.label} 
+                                </Field.Label>
+                            )
+                        }
+                        
                         {item.ispassword ? (
-                            <PasswordInput size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <PasswordInput borderCollapse={"collapse"} borderColor={"ter"} color={"ter"} size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                        ) : item.ischeckbox ? (
+                            <Checkbox.Root variant={"subtle"} color={"ter"} size={size || "xl"} {...register(item.register, )} >
+                                <Checkbox.HiddenInput /> 
+                                <Checkbox.Control />
+                                <Checkbox.Label>{item.label} {item.children}</Checkbox.Label>
+                            </Checkbox.Root>
                         ) : (
-                            <Input size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <Input borderColor={"ter"} color={"ter"} size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
                         )}
                         <Field.ErrorText>
                             {errors[item.register]?.message as string}
@@ -59,7 +78,7 @@ export default function Form({ formArray, children, props, schema, size }: FormP
                     </Field.Root>
                 ))}
                 {children}
-                <Button type="submit" bg="ter" width="full" >
+                <Button mt={5} type="submit" bg="ter" width="full" >
                     Entrar
                 </Button>
             </Stack>
