@@ -38,7 +38,6 @@ export default function Form({ formArray, children, props, schema, size}: FormPr
     });
     
     // so para testar a validação 
-    // LEMBRAR DE REMOVER DEPOIS
     const handleValidation = (data: FormValues) => {
         console.log("Form submitted with data:", data);
     }

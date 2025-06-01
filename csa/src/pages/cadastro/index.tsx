@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Center, Checkbox, HStack, Link, Text, VStack } from "@chakra-ui/react"
+import { Box, Center, Checkbox, Heading, HStack, Image, Link, Text, VStack } from "@chakra-ui/react"
 import Card from "csa/components/card";
 import Form from "csa/components/Form";
 import { use, useEffect, useState } from "react";
@@ -62,7 +62,7 @@ const formSchema = z.object(
     }
 ).refine(
     (dados) => {
-        return dados.password !== dados.confirmPassword;
+        return dados.password == dados.confirmPassword;
     }, 
     {
         message: "a senha e a confimação de senha tem que ser iguais",
@@ -120,7 +120,7 @@ const formArray = [
 
 
 export default function Cadastro() {
-    let cadsSapce = 0.65
+    let cadsSapce = 0.55
     
 
     return (
@@ -145,7 +145,35 @@ export default function Cadastro() {
                 </Box>
 
                 <Box  h='100%'  w={`${parseInt(100*(1-cadsSapce))}%`} bg={"sec"}>
+                    <VStack>
+                        <Box 
+                            display={"flex"} 
+                            w={"full"}
+                            flexDirection={"column"} 
+                            justifySelf={"center"} alignContent={"center"} 
+                            gap={2}  borderRadius={" 0 0 0 50px"}
+                            justifyItems={"Center"} alignItems={"center"}
+                            bg={"ter"}
+                        >
+                            <Image src={"/logo.png"} borderRadius={"15px"} width={"10%"} mt={"2.5%"} />
+                            <Text fontSize={"4xl"} fontWeight={"bold"} color={"qui"}>Causa Solidaria </Text>
+                        </Box>
 
+                        <Box mx={"7.5%"} mt={"5%"}>
+                            <Heading fontSize={"6xl"} color="qui" lineHeight={"110%"}  fontWeight={900}> 
+                                transforme pequenos gestos em grandes mudaças
+                            </Heading>
+                            <Text fontSize={"3xl"} color="qui" mt={4}>
+                                A Causa Solidária é uma plataforma que conecta pessoas dispostas a ajudar causas criadas por outra pessoa.<br />
+                            </Text>
+                            <Text fontSize={"3xl"} color="qui" mt={4}>
+                                Aqui você pode criar sua própria causa, divulgar e receber doações de pessoas que se importam com o seu projeto.<br /><br />
+                            </Text>
+                            <Text fontSize={"1xl"} color="qui" mt={4} textAlign={"center"}>
+                                Junte-se a nós e faça a diferença na vida de quem mais precisa!
+                            </Text>
+                        </Box>
+                    </VStack>
                 </Box>
             </HStack>
         </>
