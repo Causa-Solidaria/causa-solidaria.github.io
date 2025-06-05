@@ -24,22 +24,22 @@ interface FormField {
 interface FormProps {
     children?: ReactNode;
     formArray?: FormField[];
-    props?: ChakraProviderProps;
+    props?: ChakraProviderProps & {size: "sm" | "md" | "lg" | "xl"};
     get_action_checkbox?: (value: boolean) => void;
     schema?: any;
-    size?: "sm" | "md" | "lg" | "xl";
+    set_rota: (data: FormValues) => void;
 }
 
-export default function Form({ formArray, children, props, schema, size}: FormProps) {
+export default function Form({ formArray, children, props, schema, set_rota }: FormProps) {
    
     // chama as funçoes do react-hook-form e define o schema de validação    
     const { register,  handleSubmit, formState: { errors }, } = useForm<FormValues>({
         resolver: zodResolver(schema),
     });
     
-    // so para testar a validação 
+    // so para enviar os forms apos a validação 
     const handleValidation = (data: FormValues) => {
-        console.log("Form submitted with data:", data);
+        set_rota(data);
     }
 
     return (
@@ -61,15 +61,15 @@ export default function Form({ formArray, children, props, schema, size}: FormPr
                         }
                         
                         {item.ispassword ? (
-                            <PasswordInput borderCollapse={"collapse"} borderColor={"ter"} color={"ter"} size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <PasswordInput borderCollapse={"collapse"} borderColor={"ter"} color={"ter"} size={props?.size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
                         ) : item.ischeckbox ? (
-                            <Checkbox.Root variant={"subtle"} color={"ter"} size={size || "xl"} {...register(item.register, )} >
+                            <Checkbox.Root variant={"subtle"} color={"ter"}  {...register(item.register, )} >
                                 <Checkbox.HiddenInput /> 
                                 <Checkbox.Control />
                                 <Checkbox.Label>{item.label} {item.children}</Checkbox.Label>
                             </Checkbox.Root>
                         ) : (
-                            <Input borderColor={"ter"} color={"ter"} size={size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <Input borderColor={"ter"} color={"ter"} size={props?.size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
                         )}
                         <Field.ErrorText>
                             {errors[item.register]?.message as string}
