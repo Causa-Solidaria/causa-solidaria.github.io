@@ -12,12 +12,11 @@ const Root = forwardRef<HTMLDivElement, PropsCard>(
         return (
             <>
                 <Ca.Root
-                    ref={ref} 
-                    p={4} 
-                    width={"max-content"} 
-                    bg={"qui"} 
-                    margin={"10% 0 "} 
-                    borderRadius={"15px"} 
+                    ref={props?.ref || ref } 
+                    p={props?.p || 4} 
+                    width={props?.width ||"max-content"} 
+                    bg={props?.bg || "qui"} 
+                    borderRadius={props?.borderRadius || "15px"} 
                     transition={"all 0.6s ease"}
                     {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
                 >
@@ -76,9 +75,39 @@ const Header = forwardRef<HTMLDivElement, PropsCard>(
     }
 )
 
+const Title = forwardRef<HTMLDivElement, PropsCard>(
+    ({children, ...props}: PropsCard, ref ) => {
+        return (
+            <>
+                <Ca.Title
+                    transition={"all 0.6s ease"}
+                    {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
+                >
+                    {children /* aqui é onde é carregado os components filhos*/ } 
+                </Ca.Title>
+            </>
+        ) 
+    }
+)
+
+const Description = forwardRef<HTMLDivElement, PropsCard>(
+    ({children, ...props}: PropsCard, ref ) => {
+        return (
+            <>
+                <Ca.Description
+                    transition={"all 0.6s ease"}
+                    {...props /* aceita qualquer propriedade desde que siga o padrao da interface*/} 
+                >
+                    {children /* aqui é onde é carregado os components filhos*/ } 
+                </Ca.Description>
+            </>
+        ) 
+    }
+)
 
 
 
-const Card = { Root, Footer, Body, Header };
+
+const Card = { Root, Footer, Body, Header, Title, Description};
 
 export default Card ;

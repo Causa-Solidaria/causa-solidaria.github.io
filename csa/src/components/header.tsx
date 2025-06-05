@@ -17,17 +17,13 @@ const Header = (props: HtmlProps) => {
     }
 
     return (
-        <Box bg={"sec"} width={"100%"} h={"6em"} top={0} zIndex={100} position={"fixed"}>
+        <Box bg="sec" w="full" h="6em" top={0} zIndex={100} position="static">
             <HStack>
-                <LinkBox p={2}  bg={"ter"} h={"6em"} minWidth={"max-content"} maxW={"50%"} borderRadius={"0 0 20px 0"}>
+                <LinkBox p={2}  bg="ter" h="6em" minWidth="max-content" maxW="50%" borderRadius="0 0 20px 0" >
                     <Link href="/" >
-                        <HStack>
-                            <Image 
-                                src="/logo.png"
-                                width="5em"
-                                borderRadius={"2xl"}
-                            />
-                            <Heading fontSize={"24pt"} minW="50%" color={"qui"} alignSelf={"center"} justifySelf={"center"}> causa solidaria </Heading>
+                        <HStack justifyItems={"center"}>
+                            <Image src="/logo.png" width="5em" borderRadius="2xl" />
+                            <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
                         </HStack>
                     </Link>
                 </LinkBox>
