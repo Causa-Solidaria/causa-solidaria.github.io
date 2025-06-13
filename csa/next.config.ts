@@ -4,15 +4,13 @@ const nextConfig: NextConfig = {
   //reactStrictMode: true,
   productionBrowserSourceMaps: true,
   compiler : {
-    styledComponents : true
+    styledComponents : true,
+    
   },
+  experimental : {
+    optimizePackageImports: ["@chakra-ui/react"],
+  }
 };
 
-// module.exports = {
-//   eslint: {
-//     ignoreDuringBuilds: true,
-//   }
-  
-// }
 
 export default nextConfig;

@@ -1,12 +1,14 @@
-import "csa/styles/globals.css";
+//import "csa/styles/globals.css";
 import type { AppProps } from "next/app";
-import Rodape from "csa/components/rodape";
-import Header from "csa/components/header";
+import { ChakraProvider } from "@chakra-ui/react";
+import { system } from "csa/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps}/>
+      <ChakraProvider value={system}>
+        <Component {...pageProps}/>
+      </ChakraProvider>
     </>
   );
 }

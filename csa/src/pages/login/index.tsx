@@ -1,34 +1,59 @@
 'use client'
 
-import Buttom from "csa/components/buttom";
-import Card from "csa/components/card";
-import Form from "csa/components/forms";
-import Image from "csa/components/imagen";
-import TextBar from "csa/components/textBar";
-import Title from "csa/components/title";
-import styled from "styled-components";
-
-const Reactgreeninbackgrond = styled.div`
-    position: absolute;
-    background-color: var(--color2);
-    z-index: -1;
-    width: 100%;
-    margin-top: 30svb;
-    height: 100%;
-`
+import { Box, Button, Center, Image, Input, Link, Text } from "@chakra-ui/react"
+import Card  from "csa/components/card"
+import Form from "csa/components/Form";
+import { PasswordInput } from "csa/components/ui/password-input";
+import { z } from "zod";
 
 
-export default function Home(){
+const formSchema = z.object({
+    email: z.string().email("Email inválido"),
+    password: z.string(),
+});
+
+export default function login(){
+    const formArray = [
+        { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
+        { label: "Senha", register: "password", ispassword: true, placeholder: "Digite sua senha", type: "password" },
+    ];
+
     return <>
-            <Reactgreeninbackgrond />
-            <Card $config={{width: "50%", textSize:"30pt", justifyContent: "center", alignSelf: "center", margin: "10% 0 0 0 ", padding: "0 0", borderRadius: "var(--border-radius)"}}>
-                <Title $config={{margin: " 35px 0"}}>Login</Title>
-                <Form id="login" method="POST" $config={{padding: "5% 0"}}>
-                    <TextBar text="nome de usuario / email" type="text" For="LoginNameOrEmail" />
-                    <TextBar text="senha" type="password" For="password" />
+        <Box width={"100%"} height={"50%"} bg={"sec"} position={"absolute"} bottom={0}></Box>
+            <Box 
+                display={"flex"} 
+                flexDirection={"column"} 
+                justifySelf={"center"} alignContent={"center"} 
+                gap={4} mt={"2.5%"} 
+                justifyItems={"Center"} alignItems={"center"}
+            >
+            <Image src={"/logo.png"} borderRadius={"15px"} width={"20%"} />
+            <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
+        </Box>
 
-                    <Buttom text="Entrar" type="submit" $config={{margin: "25px 0", justifySelf:"center"}} />
-                </Form>
-            </Card>
+        <Card.Root width={"400px"} justifySelf={"center"} alignContent={"center"} m={4} >
+
+            <Form formArray={formArray} schema={formSchema}>
+                <Text fontSize={"sm"} mt={2}> 
+                    Esqueceu a senha? 
+                    <Link href="#" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link> 
+                </Text> 
+            </Form>
+        
+        </Card.Root>
+
+        <Box 
+            bg={"qui"} 
+            width={"400px"} height={"50px"} 
+            display={"flex"} 
+            justifyContent={"center"} alignItems={"center"} justifySelf={"center"} 
+            borderRadius={"15px"}
+            mt={4} // Adiciona margem superior
+            zIndex={2} // Garante que fique acima do fundo
+            position="relative" // Garante que respeite o fluxo normal
+        >
+            <Text>Não tem conta?</Text>
+            <Link href="/cadastro" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link>
+        </Box>
     </>
 }
