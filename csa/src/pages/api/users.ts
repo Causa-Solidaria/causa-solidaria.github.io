@@ -7,8 +7,8 @@ export default async function Handler(req, res){
         try {
           const users = await Prisma.user.findMany();
           res.status(200).json(users);
-        } catch (error) {
-          res.status(500).json({ error: "Erro ao buscar usuários", detalhes: toString(error)});
+        } catch(error) {
+          res.status(500).json({ error: "Erro ao buscar usuários"});
         }
       } else {
         res.status(405).json({ error: "Método não permitido" });
