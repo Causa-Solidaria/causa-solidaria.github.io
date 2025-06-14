@@ -1,7 +1,6 @@
 'use client'
 
-import { Heading, Text, Box, Center, HStack } from "@chakra-ui/react"
-import Button from "csa/components/buttom"
+import { Heading, Text, Center, } from "@chakra-ui/react"
 import Card from "csa/components/card"
 import Footer from "csa/components/footer"
 import Header from "csa/components/header"
