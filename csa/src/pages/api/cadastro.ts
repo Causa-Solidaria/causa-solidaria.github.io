@@ -4,6 +4,8 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 
+
+
 // Função que calcula a idade
 function isMaiorDeIdade(dataNascimento: string): number {
   const hoje = new Date();
