@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  //reactStrictMode: true,
+  basePath: "/csa",
+  output: "export",  
+  reactStrictMode: true,
   productionBrowserSourceMaps: true,
   compiler : {
     styledComponents : true,
