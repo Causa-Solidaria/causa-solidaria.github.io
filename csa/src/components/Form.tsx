@@ -61,7 +61,15 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
                         }
                         
                         {item.ispassword ? (
-                            <PasswordInput borderCollapse={"collapse"} borderColor={"ter"} color={"ter"} size={props?.size  || "xl" } placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <PasswordInput
+                                borderCollapse={"collapse"}
+                                borderColor={"ter"}
+                                color={"ter"}
+                                size={props?.size  || "xl" }
+                                placeholder={item.placeholder}
+                                type={item.type === "password" ? "password" : "text"}
+                                {...register(item.register)}
+                            />
                         ) : item.ischeckbox ? (
                             <Checkbox.Root variant={"subtle"} color={"ter"}  {...register(item.register )} >
                                 <Checkbox.HiddenInput /> 
