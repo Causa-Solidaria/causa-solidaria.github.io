@@ -21,7 +21,7 @@ interface FormProps {
     formArray?: FormField[];
     props?: ChakraProviderProps & {size: "sm" | "md" | "lg" | "xl"};
     get_action_checkbox?: (value: boolean) => void;
-    schema?: object;
+    schema?: any;
     set_rota: (data: object) => void;
 }
 
