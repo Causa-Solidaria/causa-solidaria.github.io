@@ -28,7 +28,7 @@ interface FormProps {
 export default function Form({ formArray, children, props, schema, set_rota }: FormProps) {
    
     // chama as funçoes do react-hook-form e define o schema de validação    
-    const { register,  handleSubmit, formState: { errors }, } = useForm<FormValues>({
+    const { register,  handleSubmit, formState: { errors }, } = useForm<object>({
         resolver: zodResolver(schema),
     });
     
