@@ -39,7 +39,7 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
     
     // so para enviar os forms apos a validação 
     const handleValidation = (data: FormValues) => {
-        set_rota(data);
+        if (set_rota !== undefined){set_rota(data)} 
     }
 
     return (
