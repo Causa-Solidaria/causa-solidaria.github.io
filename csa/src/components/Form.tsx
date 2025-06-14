@@ -22,7 +22,7 @@ interface FormProps {
     props?: ChakraProviderProps & {size: "sm" | "md" | "lg" | "xl"};
     get_action_checkbox?: (value: boolean) => void;
     schema?: object;
-    set_rota: (data: FormValues) => void;
+    set_rota: (data: object) => void;
 }
 
 export default function Form({ formArray, children, props, schema, set_rota }: FormProps) {
