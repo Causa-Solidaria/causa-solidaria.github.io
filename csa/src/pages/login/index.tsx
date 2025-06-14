@@ -1,9 +1,8 @@
 'use client'
 
-import { Box, Button, Center, Image, Input, Link, Text } from "@chakra-ui/react"
+import { Box,  Image,  Link, Text } from "@chakra-ui/react"
 import Card  from "csa/components/card"
 import Form from "csa/components/Form";
-import { PasswordInput } from "csa/components/ui/password-input";
 import { z } from "zod";
 
 
@@ -27,7 +26,7 @@ export default function login(){
                 gap={4} mt={"2.5%"} 
                 justifyItems={"Center"} alignItems={"center"}
             >
-            <Image src={"/logo.png"} borderRadius={"15px"} width={"20%"} />
+            <Image src={"/logo.png"} alt="Logo Causa Solidária" borderRadius={"15px"} width={"20%"} />
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>
 

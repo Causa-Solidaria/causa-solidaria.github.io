@@ -6,11 +6,6 @@ import { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-interface FormValues {
-    email: string;
-    password: string;
-}
-
 interface FormField {
     label: string;
     register: string;
@@ -26,7 +21,7 @@ interface FormProps {
     formArray?: FormField[];
     props?: ChakraProviderProps & {size: "sm" | "md" | "lg" | "xl"};
     get_action_checkbox?: (value: boolean) => void;
-    schema?: any;
+    schema?: object;
     set_rota: (data: FormValues) => void;
 }
 
@@ -38,7 +33,7 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
     });
     
     // so para enviar os forms apos a validação 
-    const handleValidation = (data: FormValues) => {
+    const handleValidation = (data: object) => {
         if (set_rota !== undefined){set_rota(data)} 
     }
 

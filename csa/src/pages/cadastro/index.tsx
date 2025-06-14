@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Center, Checkbox, Heading, HStack, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack, Image, Link, Text, VStack } from "@chakra-ui/react";
 import Card from "csa/components/card";
 import Form from "csa/components/Form"; // Componente reutilizável de formulário
 import { z } from "zod";
@@ -52,7 +52,7 @@ const formArray = [
 ];
 
 // Função que será chamada ao submeter o formulário
-const handleCadastro = async (data: any) => {
+const handleCadastro = async (data: object) => {
   try {
     const res = await fetch('/api/cadastro', {
       method: 'POST',
@@ -67,7 +67,7 @@ const handleCadastro = async (data: any) => {
     }
 
     alert("Cadastro realizado com sucesso!");
-  } catch (error: any) {
+  } catch (error) {
     alert(`Erro no cadastro: ${error.message}`);
   }
 };
@@ -109,7 +109,7 @@ export default function Cadastro() {
                         alignItems="center"
                         bg="ter"
                     >
-                        <Image src="/logo.png" borderRadius="15px" width="10%" mt="2.5%" />
+                        <Image src="/logo.png" alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
                         <Text fontSize="4xl" fontWeight="bold" color="qui">Causa Solidária</Text>
                     </Box>
 

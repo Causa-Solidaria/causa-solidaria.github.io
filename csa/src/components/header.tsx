@@ -1,13 +1,13 @@
 'use client'
 
-import { Box, Heading, HStack, HtmlProps, Image, Link, LinkBox, Text } from "@chakra-ui/react"
+import { Box, Heading, HStack,  Image, Link, LinkBox } from "@chakra-ui/react"
 import Button from "./buttom"
 
-let Loged = false
+const Loged = false
 
 let buttons = []
 
-const Header = (props: HtmlProps) => {
+const Header = () => {
     
     if (Loged === false) {
         buttons = [
@@ -22,7 +22,7 @@ const Header = (props: HtmlProps) => {
                 <LinkBox p={2}  bg="ter" h="6em" minWidth="max-content" maxW="50%" borderRadius="0 0 20px 0" >
                     <Link href="/" >
                         <HStack justifyItems={"center"}>
-                            <Image src="/logo.png" width="5em" borderRadius="2xl" />
+                            <Image src="/logo.png" alt="logo" width="5em" borderRadius="2xl" />
                             <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
                         </HStack>
                     </Link>
