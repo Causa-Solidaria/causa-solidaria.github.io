@@ -1,10 +1,17 @@
 import type { NextConfig } from "next";
 
 
-const isDeploy = process.env.NEXT_PUBLIC_DEPLOY === "true";
+const isGithubPages = process.env.GITHUB_ACTIONS || false;
+const repo = "/"
+
 
 const nextConfig: NextConfig = {
-  ...(isDeploy && { output: "export" }),
+  basePath: repo,
+  assetPrefix: repo,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: repo
+  },
+  output: (isGithubPages ?  "export" : undefined),
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   experimental : {
