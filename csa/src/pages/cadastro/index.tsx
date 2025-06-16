@@ -109,7 +109,7 @@ export default function Cadastro() {
                         alignItems="center"
                         bg="ter"
                     >
-                        <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo.png`} alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
+                        <Image src={`/logo.png`} alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
                         <Text fontSize="4xl" fontWeight="bold" color="qui">Causa Solidária</Text>
                     </Box>
 
