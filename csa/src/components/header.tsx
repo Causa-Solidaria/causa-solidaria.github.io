@@ -11,8 +11,8 @@ const Header = () => {
     
     if (Loged === false) {
         buttons = [
-            {href : "/login", text: "entrar"},
-            {href : "/cadastro", text: "cadastro"},
+            {href : `${process.env.NEXT_PUBLIC_BASE_PATH}/login`, text: "entrar"},
+            {href : `${process.env.NEXT_PUBLIC_BASE_PATH}/cadastro`, text: "cadastro"},
         ]
     }
 
@@ -22,7 +22,7 @@ const Header = () => {
                 <LinkBox p={2}  bg="ter" h="6em" minWidth="max-content" maxW="50%" borderRadius="0 0 20px 0" >
                     <Link href="/" >
                         <HStack justifyItems={"center"}>
-                            <Image src="/logo.png" alt="logo" width="5em" borderRadius="2xl" />
+                            <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo.png`} alt="logo" width="5em" borderRadius="2xl" />
                             <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
                         </HStack>
                     </Link>

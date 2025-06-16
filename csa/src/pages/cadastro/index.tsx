@@ -54,7 +54,7 @@ const formArray = [
 // Função que será chamada ao submeter o formulário
 const handleCadastro = async (data: object) => {
   try {
-    const res = await fetch('/api/cadastro', {
+    const res = await fetch('{`/api/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -109,7 +109,7 @@ export default function Cadastro() {
                         alignItems="center"
                         bg="ter"
                     >
-                        <Image src="/logo.png" alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
+                        <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo.png`} alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
                         <Text fontSize="4xl" fontWeight="bold" color="qui">Causa Solidária</Text>
                     </Box>
 
