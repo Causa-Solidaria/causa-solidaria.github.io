@@ -26,7 +26,7 @@ export default function login(){
                 gap={4} mt={"2.5%"} 
                 justifyItems={"Center"} alignItems={"center"}
             >
-            <Image src={"/logo.png"} alt="Logo Causa Solidária" borderRadius={"15px"} width={"20%"} />
+            <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH}/logo.png`} alt="Logo Causa Solidária" borderRadius={"15px"} width={"20%"} />
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>
 
