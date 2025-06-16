@@ -34,8 +34,8 @@ export default function Campanhas() {
       <Header/>
         <Center minH={"75vh"}>
           <Grid 
-            templateRows={`repeat(${parseInt(pageSize.height/(card_size+28))-1}, 1fr)`}
-            templateColumns={`repeat(${parseInt(pageSize.width/(card_size+28))}, 1fr)`} 
+            templateRows={`repeat(${Math.trunc(pageSize.height/(card_size+28))-1}, 1fr)`}
+            templateColumns={`repeat(${Math.trunc(pageSize.width/(card_size+28))}, 1fr)`} 
             w="full" gap={4} m={10} 
             justifyItems={"center"}>
             
