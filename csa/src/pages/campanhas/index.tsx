@@ -42,7 +42,7 @@ export default function Campanhas() {
             {campanhas.map((campanha, idx)=>(
               <GridItem key={idx}>
                 <Card.Root maxW={`${card_size}px`} overflow="hidden" p={0} _hover={{scale: 1.025}}>
-                  <Image src={campanha?.thubnail} alt={"thubnail " + toString(idx)}/>
+                  <Image src={campanha?.thubnail} alt={"thubnail " + idx}/>
                   <Card.Body>
                     <Card.Title>
                       {campanha?.title}
