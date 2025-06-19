@@ -54,11 +54,11 @@ const formArray = [
 // Função que será chamada ao submeter o formulário
 const handleCadastro = async (data: object) => {
   try {
-    const res = await fetch('{`/api/cadastro', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch('/api/cadastro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+});
 
     const json = await res.json();
 
