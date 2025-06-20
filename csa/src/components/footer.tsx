@@ -4,21 +4,15 @@ import { ScreenSize } from "csa/utils/getScreenSize";
 
 export default function Footer() {
     const scrSize = ScreenSize() 
-    const fontsizeBreakpoint = useBreakpointValue({
-        base: "14px",
-        md: "18px",
-        lg: "24px",
-    })
     return (
         <>
             <Box 
                 as="footer" 
-                fontSize={fontsizeBreakpoint} 
+                fontSize={"12pt"} 
                 bg="ter" 
                 color="white" 
-                position="static" 
-                w={scrSize.width} 
-                h={scrSize.height/4} 
+                w={`${scrSize.width}px`} 
+                h={`${scrSize.height/4}px`} 
                 bottom={0} p={4} 
                 textAlign="center"
                 display="flex"

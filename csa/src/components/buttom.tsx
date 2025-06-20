@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, PropsButtom>(
                 ref={ref}
                 {...props}
                 _hover={hover}
-                borderRadius={"2xl"}
+                borderRadius={"2md"}
                 transition={"0.6s ease"}
             >
                 {children}
