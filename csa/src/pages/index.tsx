@@ -4,15 +4,17 @@ import { Heading, Text, Center, } from "@chakra-ui/react"
 import Card from "csa/components/card"
 import Footer from "csa/components/footer"
 import Header from "csa/components/header"
+import { ScreenSize } from "csa/utils/getScreenSize"
 
 
 export default function Home(){
+    const scSize = ScreenSize()
     return (
       <>
 
         <Header/> {/* carregando o header */}
       
-        <Center minH={"75vh"}>
+        <Center minH={scSize.height*0.75}>
           <Card.Root justifySelf="center" alignSelf="center" m={4}> {/* define o card no meio */}
             <Card.Body>
                 <Heading > Olá, bem vindo a Causa Solidaria </Heading>

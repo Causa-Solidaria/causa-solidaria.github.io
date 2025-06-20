@@ -8,19 +8,16 @@ export function ScreenSize(){
     });
     
     useEffect(() => {
-        const handleResize = () => {
-            setSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
-    
-        window.addEventListener('resize', handleResize);
-        handleResize(); 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const handleResize = () => {
+        const view = { width: (window.visualViewport.width), height: window.visualViewport.height };
+        setSize(view);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
+
     
     return size;
 }

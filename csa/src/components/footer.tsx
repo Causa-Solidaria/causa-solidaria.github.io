@@ -8,14 +8,14 @@ export default function Footer() {
         <>
             <Box 
                 as="footer" 
-                fontSize={"12pt"} 
+                fontSize={{base: "12px", md: "14px", lg: "16px" }} 
                 bg="ter" 
                 color="white" 
                 w={`${scrSize.width}px`} 
                 h={`${scrSize.height/4}px`} 
-                bottom={0} p={4} 
+                bottom={0} 
                 textAlign="center"
-                display="flex"
+                display="inline-flex"
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"

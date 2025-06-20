@@ -10,6 +10,7 @@ const Loged = false
 
 let buttons = []
 
+// area da logo do header
 const LogoZone = () => {
     const parent = GetParentSize(useRef(null))
     return (
@@ -22,14 +23,19 @@ const LogoZone = () => {
     )
 }
 
+// area dos botoes do header
 const ButtonZone = () => {
-    const ref = useRef(null)
-    const parent = GetParentSize(ref)
+    const scrSize = ScreenSize()
+    const mobile = scrSize.width < 800
+    buttons = Loged || mobile ? [] :  [
+        {href : `/login`, text: "entrar"},
+        {href : `/cadastro`, text: "cadastro"},
+    ]
     return (
-        <Flex direction={"row"} w={parent.width} gap={3} p={4} justifyContent={"right"} alignItems={"center"}>
+        <Flex direction={"row"} w={`${scrSize.width*0.80}px`} gap={3} p={4} justifyContent={"right"} alignItems={"center"}>
                 {buttons.map((button, index) => (
                     <Button key={index} asChild>
-                        <Link href={button.href} bg={"ter"}  h="75%" w="10em">{button.text}</Link>
+                        <Link href={button.href} bg={"ter"} m={2} w="10em">{button.text}</Link>
                     </Button>
                 ))}
         </Flex>
@@ -37,17 +43,14 @@ const ButtonZone = () => {
 }
 
 const Header = () => {
-
-    buttons = Loged ? [] :  [
-        {href : `/login`, text: "entrar"},
-        {href : `/cadastro`, text: "cadastro"},
-    ]
-
     const scrSize = ScreenSize()
+    
+    
+
     const headerBreakpoint = scrSize.width > scrSize.height ? "6em" : "10em"
 
     return (
-        <Box display="flex" direction={"row"} bg="sec" w={`${scrSize.width}px`} h={headerBreakpoint} top={0} zIndex={100} >
+        <Box display="flex" direction={"row"} bg="sec" w={`${scrSize.width}dhv`} h={headerBreakpoint} top={0} zIndex={100} >
                 
                 <LogoZone />
                 <ButtonZone />
