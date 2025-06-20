@@ -80,7 +80,11 @@ export default function Cadastro() {
     return (
         <HStack minH="100vh" h="100vh">
             {/* Coluna do formulário */}
-            <Box h="100%" w={`${Math.trunc(100 * cadsSapce)}%`} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+            <Box 
+                h="100%" w={`${Math.trunc(100 * cadsSapce)}%`} 
+                display="flex" 
+                flexDirection="column" justifyContent="center" alignItems="center"
+            >
                 <Card.Root maxW="600px" w="70%" px={4} py={1}>
                     <Card.Header>
                         <Center>

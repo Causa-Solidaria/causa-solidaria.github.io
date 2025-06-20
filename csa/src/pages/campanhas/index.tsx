@@ -6,11 +6,11 @@ import Footer from "csa/components/footer";
 import { Center, Grid, GridItem, Image } from "@chakra-ui/react";
 import Card from "csa/components/card";
 import { useEffect, useState } from "react";
+import { ScreenSize } from "csa/utils/getScreenSize";
 
 
 export default function Campanhas() {
-
-  const [pageSize, setPageSize] = useState({width: 0, height:0})
+  const scrSize = ScreenSize();
   const card_size = 325
 
   const campanhas = [
@@ -19,23 +19,14 @@ export default function Campanhas() {
     {title: "test", description: "this is a test for description", thubnail: "/logo.png"},
   ]
 
-  useEffect(()=>{
-      const ps = () =>{
-        setPageSize({width: window.innerWidth, height: window.innerHeight})
-        console.log(pageSize)
-      }
-      window.addEventListener("resize", ps)
-        return () => window.removeEventListener('resize', ps);
-  }, [pageSize])
-
 
   return (
     <>
       <Header/>
         <Center minH={"75vh"}>
           <Grid 
-            templateRows={`repeat(${Math.trunc(pageSize.height/(card_size+28))-1}, 1fr)`}
-            templateColumns={`repeat(${Math.trunc(pageSize.width/(card_size+28))}, 1fr)`} 
+            templateRows={`repeat(${Math.trunc(scrSize.height/(card_size+28))-1}, 1fr)`}
+            templateColumns={`repeat(${Math.trunc(scrSize.width/(card_size+28))}, 1fr)`} 
             w="full" gap={4} m={10} 
             justifyItems={"center"}>
             

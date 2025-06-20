@@ -15,12 +15,8 @@ export default function Home(){
         <Header/> {/* carregando o header */}
       
         <Center minH={scSize.height*0.75}>
-          <Card.Root justifySelf="center" alignSelf="center" m={4}> {/* define o card no meio */}
-            <Card.Body>
-                <Heading > Olá, bem vindo a Causa Solidaria </Heading>
-                <Text> sim agora o projeto ta com chakra ui :) </Text><br/>
-                <Heading>faça o test de login e cadastro</Heading>
-            </Card.Body>
+          <Card.Root>
+            
           </Card.Root>
         </Center>
 
