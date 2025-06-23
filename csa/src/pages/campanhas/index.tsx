@@ -5,7 +5,6 @@ import Header from "csa/components/header";
 import Footer from "csa/components/footer";
 import { Center, Grid, GridItem, Image } from "@chakra-ui/react";
 import Card from "csa/components/card";
-import { useEffect, useState } from "react";
 import { ScreenSize } from "csa/utils/getScreenSize";
 
 

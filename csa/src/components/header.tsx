@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, Heading, HStack,  Image, Link, LinkBox, useBreakpointValue } from "@chakra-ui/react"
+import { Box, Flex, Heading, Image, Link, LinkBox } from "@chakra-ui/react"
 import Button from "./buttom"
 import { ScreenSize } from "csa/utils/getScreenSize"
 import { useRef } from "react"
