@@ -1,10 +1,25 @@
-import { Box, Center, HStack, Link, Text } from "@chakra-ui/react";
+import { Box, Center, HStack, Link, Text, useBreakpoint, useBreakpointValue } from "@chakra-ui/react";
+import { ScreenSize } from "csa/utils/getScreenSize";
 
 
 export default function Footer() {
+    const scrSize = ScreenSize() 
     return (
         <>
-            <Box as="footer" bg="ter" color="white" position="static" w="full" h="125px" bottom={0} p={4} textAlign="center">
+            <Box 
+                as="footer" 
+                fontSize={{base: "12px", md: "14px", lg: "16px" }} 
+                bg="ter" 
+                color="white" 
+                w={`${scrSize.width}px`} 
+                h={`${scrSize.height/4}px`} 
+                bottom={0} 
+                textAlign="center"
+                display="inline-flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+            >
                 <Center mb={4}>
                     <HStack gapX={4}> 
                         <Link color="pri" href="sobre">Sobre</Link>

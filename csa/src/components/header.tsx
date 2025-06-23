@@ -1,45 +1,60 @@
 'use client'
 
-import { Box, Heading, HStack,  Image, Link, LinkBox } from "@chakra-ui/react"
+import { Box, Flex, Heading, HStack,  Image, Link, LinkBox, useBreakpointValue } from "@chakra-ui/react"
 import Button from "./buttom"
+import { ScreenSize } from "csa/utils/getScreenSize"
+import { useRef } from "react"
+import GetParentSize from "csa/utils/getParentSize"
 
 const Loged = false
 
 let buttons = []
 
+// area da logo do header
+const LogoZone = () => {
+    const parent = GetParentSize(useRef(null))
+    return (
+        <LinkBox p={2}  bg="ter" minH={parent.height} minW={"max-content"} maxW={parent.width*0.5} alignContent={"center"} borderRadius="0 0 20px 0" >
+            <Link href="/" >
+                    <Image src={`/logo.png`} alt="logo" width="5em" borderRadius="2xl" />
+                    <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
+            </Link>
+        </LinkBox>
+    )
+}
+
+// area dos botoes do header
+const ButtonZone = () => {
+    const scrSize = ScreenSize()
+    const mobile = scrSize.width < 800
+    buttons = Loged || mobile ? [] :  [
+        {href : `/login`, text: "entrar"},
+        {href : `/cadastro`, text: "cadastro"},
+    ]
+    return (
+        <Flex direction={"row"} w={`${scrSize.width*0.80}px`} gap={3} p={4} justifyContent={"right"} alignItems={"center"}>
+                {buttons.map((button, index) => (
+                    <Button key={index} asChild>
+                        <Link href={button.href} bg={"ter"} m={2} w="10em">{button.text}</Link>
+                    </Button>
+                ))}
+        </Flex>
+    )   
+}
+
 const Header = () => {
+    const scrSize = ScreenSize()
     
-    if (Loged === false) {
-        buttons = [
-            {href : `/login`, text: "entrar"},
-            {href : `/cadastro`, text: "cadastro"},
-        ]
-    }
+    
+
+    const headerBreakpoint = scrSize.width > scrSize.height ? "6em" : "10em"
 
     return (
-        <Box bg="sec" w="full" h="6em" top={0} zIndex={100} position="static">
-            <HStack>
-                <LinkBox p={2}  bg="ter" h="6em" minWidth="max-content" maxW="50%" borderRadius="0 0 20px 0" >
-                    <Link href="/" >
-                        <HStack justifyItems={"center"}>
-                            <Image src={`/logo.png`} alt="logo" width="5em" borderRadius="2xl" />
-                            <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
-                        </HStack>
-                    </Link>
-                </LinkBox>
-
-                <Box width={"75%"}></Box>
+        <Box display="flex" direction={"row"} bg="sec" w={`${scrSize.width}dhv`} h={headerBreakpoint} top={0} zIndex={100} >
                 
-                <Box  p={4}  justifyContent={"space-between"} alignItems={"center"}>
-                    <HStack gapX={3} alignItems={"center"} justifyContent={"space-between"} h={"4em"} w={"100%"} >
-                        {buttons.map((button, index) => (
-                            <Button key={index} h={"75%"} asChild>
-                                <Link href={button.href} bg={"ter"} >{button.text}</Link>
-                            </Button>
-                        ))}
-                    </HStack>
-                </Box>
-            </HStack>
+                <LogoZone />
+                <ButtonZone />
+                
         </Box>
     )
 }
