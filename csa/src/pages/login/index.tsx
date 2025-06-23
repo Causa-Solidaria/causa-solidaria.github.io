@@ -3,8 +3,8 @@
 import { Box,  Image,  Link, Text } from "@chakra-ui/react"
 import Card  from "csa/components/card"
 import Form from "csa/components/Form";
+import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
-
 
 const formSchema = z.object({
     email: z.string().email("Email inválido"),
@@ -12,20 +12,23 @@ const formSchema = z.object({
 });
 
 export default function login(){
+    const scrSize = ScreenSize();
+
     const formArray = [
         { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
         { label: "Senha", register: "password", ispassword: true, placeholder: "Digite sua senha", type: "password" },
     ];
 
     return <>
-        <Box width={"100%"} height={"50%"} bg={"sec"} position={"absolute"} bottom={0}></Box>
-            <Box 
-                display={"flex"} 
-                flexDirection={"column"} 
-                justifySelf={"center"} alignContent={"center"} 
-                gap={4} mt={"2.5%"} 
-                justifyItems={"Center"} alignItems={"center"}
-            >
+        <Box width="full" height={`${scrSize.height/2}px`} bg={"sec"} position={"absolute"} bottom={0}></Box>
+        
+        <Box 
+            display={"flex"} 
+            flexDirection={"column"} 
+            justifySelf={"center"} alignContent={"center"} 
+            gap={4} mt={"2.5%"} 
+            justifyItems={"Center"} alignItems={"center"}
+        >
             <Image src={`/logo.png`} alt="Logo Causa Solidária" borderRadius={"15px"} width={"20%"} />
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>

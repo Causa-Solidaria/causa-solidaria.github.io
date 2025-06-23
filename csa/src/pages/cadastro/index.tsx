@@ -1,8 +1,9 @@
 'use client';
 
-import { Box, Center, Heading, HStack, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack, Image, Link, Stack, Text, VStack } from "@chakra-ui/react";
 import Card from "csa/components/card";
 import Form from "csa/components/Form"; // Componente reutilizável de formulário
+import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
 
 // Função que verifica se a pessoa é maior de idade
@@ -72,20 +73,38 @@ const handleCadastro = async (data: object) => {
   }
 };
 
+function Logozone() {
+    const scrSize = ScreenSize();
+    return (
+         <Box
+            w="full"
+            gap={2}
+            borderRadius={` 0 0 0 ${scrSize.height*0.05}px`}
+            justifyItems="center"
+            alignItems="center"
+            bg="ter"
+        >
+            <Image src={`/logo.png`} alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
+            <Text fontSize={`${scrSize.height*0.05}px`} fontWeight="bold" color="qui">Causa Solidária</Text>
+        </Box>
+    )
+}
+
+
 
 // Componente principal da página de cadastro
 export default function Cadastro() {
-    const cadsSapce = 0.55; // Porcentagem da tela ocupada pelo formulário
+    const scrSize = ScreenSize();
+    const isMobile = scrSize.width < scrSize.height 
+    const cadsSapce = isMobile ? 1 : 0.65; // Porcentagem da tela ocupada pelo formulário
 
     return (
-        <HStack minH="100vh" h="100vh">
+        <Stack h={`${scrSize.height}px`} direction={isMobile ? "column" : "row"} >
             {/* Coluna do formulário */}
             <Box 
-                h="100%" w={`${Math.trunc(100 * cadsSapce)}%`} 
-                display="flex" 
-                flexDirection="column" justifyContent="center" alignItems="center"
+                h={`${scrSize.height}px`} maxW={`${Math.trunc(scrSize.width * cadsSapce)}px`} 
             >
-                <Card.Root maxW="600px" w="70%" px={4} py={1}>
+                <Card.Root maxW="600px" w={`${scrSize.height*0.70}px`} mx={`${scrSize.height*0.70}px`} fontSize={`${scrSize.height*0.020}px`} justifySelf={"center"} alignSelf={"center"} mt={`${scrSize.height*0.05}px`} justifyContent="center" alignContent="center" px={4} py={1}>
                     <Card.Header>
                         <Center>
                             <Text fontSize="2xl">Se junte à Causa Solidária!</Text>
@@ -100,39 +119,35 @@ export default function Cadastro() {
                 </Card.Root>
             </Box>
 
-            {/* Coluna de imagem e texto institucional */}
-            <Box h="100%" w={`${Math.trunc(100 * (1 - cadsSapce))}%`} bg="sec">
+            
+            <Box 
+                h={`${scrSize.height}px`} 
+                w={isMobile ?  `100vw` : `${Math.trunc(scrSize.width * (1-cadsSapce))}px` } 
+                bg="sec" 
+                position={isMobile ? "static" : "fixed" } 
+                bottom={isMobile ? 0 : undefined}
+                right={isMobile ? undefined : 0}
+                top={isMobile ? undefined : 0}
+            >
                 <VStack>
-                    <Box
-                        display="flex"
-                        w="full"
-                        flexDirection="column"
-                        gap={2}
-                        borderRadius="0 0 0 50px"
-                        justifyContent="center"
-                        alignItems="center"
-                        bg="ter"
-                    >
-                        <Image src={`/logo.png`} alt="Logo Causa Solidária" borderRadius="15px" width="10%" mt="2.5%" />
-                        <Text fontSize="4xl" fontWeight="bold" color="qui">Causa Solidária</Text>
-                    </Box>
+                   {isMobile ? undefined : (<Logozone/>)}
 
                     <Box mx="7.5%" mt="5%">
-                        <Heading fontSize="6xl" color="qui" lineHeight="110%" fontWeight={900}>
+                        <Heading fontSize={`${scrSize.height*0.075}px`} color="qui" lineHeight="110%" fontWeight={900}>
                             transforme pequenos gestos em grandes mudanças
                         </Heading>
-                        <Text fontSize="3xl" color="qui" mt={4}>
+                        <Text fontSize={`${scrSize.height*0.025}px`} color="qui" mt={`${scrSize.height*0.005}px`}>
                             A Causa Solidária é uma plataforma que conecta pessoas dispostas a ajudar causas criadas por outras pessoas.
                         </Text>
-                        <Text fontSize="3xl" color="qui" mt={4}>
+                        <Text fontSize={`${scrSize.height*0.025}px`} color="qui" mt={`${scrSize.height*0.005}px`}>
                             Aqui você pode criar sua própria causa, divulgar e receber doações de pessoas que se importam com o seu projeto.
                         </Text>
-                        <Text fontSize="xl" color="qui" mt={4} textAlign="center">
+                        <Text fontSize={`${scrSize.height*0.015}px`} color="qui" mt={`${scrSize.height*0.005}px`} textAlign="center">
                             Junte-se a nós e faça a diferença na vida de quem mais precisa!
                         </Text>
                     </Box>
                 </VStack>
-            </Box>
-        </HStack>
+            </Box> 
+        </Stack>
     );
 }
