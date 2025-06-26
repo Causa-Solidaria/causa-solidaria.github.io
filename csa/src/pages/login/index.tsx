@@ -3,6 +3,7 @@
 import { Box,  Image,  Link, Text } from "@chakra-ui/react"
 import Card  from "csa/components/card"
 import Form from "csa/components/Form";
+import Logo from "csa/components/logo";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
 
@@ -29,7 +30,7 @@ export default function login(){
             gap={4} mt={"2.5%"} 
             justifyItems={"Center"} alignItems={"center"}
         >
-            <Image src={`/logo.png`} alt="Logo Causa Solidária" borderRadius={"15px"} width={"20%"} />
+            <Logo />
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>
 
