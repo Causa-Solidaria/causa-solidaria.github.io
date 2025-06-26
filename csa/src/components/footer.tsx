@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Link, Text, useBreakpoint, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Center, HStack, Link, Text } from "@chakra-ui/react";
 import { ScreenSize } from "csa/utils/getScreenSize";
 
 
@@ -29,7 +29,7 @@ export default function Footer() {
                         
                     </HStack>
                 </Center>
-                <Text color="sec">© 2023 Causa Solidária. Todos os direitos reservados.</Text>
+                <Text color="sec">© {new Date().getFullYear()} Causa Solidária. Todos os direitos reservados.</Text>
                 <Text color="sec">Desenvolvido por <Link color="qua" href="https://github.com/Causa-Solidaria">Causa Solidária</Link></Text>
             </Box>
         </>
