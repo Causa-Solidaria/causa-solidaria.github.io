@@ -64,7 +64,7 @@ export default function login(){
             <Form formArray={formArray} schema={formSchema} set_rota={handleLogin}>
                 <Text fontSize={"sm"} mt={2}> 
                     Esqueceu a senha? 
-                    <Link href="#" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link> 
+                    <Link href="/redefinir" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link> 
                 </Text> 
             </Form>
         
