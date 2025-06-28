@@ -1,10 +1,12 @@
 'use client'
 
+
 import { Box, Flex, Heading, Image, Link, LinkBox } from "@chakra-ui/react"
 import Button from "./buttom"
 import { ScreenSize } from "csa/utils/getScreenSize"
 import { useRef } from "react"
 import GetParentSize from "csa/utils/getParentSize"
+import Logo from "./logo"
 
 const Loged = false
 
@@ -16,7 +18,7 @@ const LogoZone = () => {
     return (
         <LinkBox p={2}  bg="ter" minH={parent.height} minW={"max-content"} maxW={parent.width*0.5} alignContent={"center"} borderRadius="0 0 20px 0" >
             <Link href="/" >
-                    <Image src={`/logo.png`} alt="logo" width="5em" borderRadius="2xl" />
+                    <Logo width="5em" />
                     <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
             </Link>
         </LinkBox>

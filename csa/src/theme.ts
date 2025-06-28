@@ -8,13 +8,10 @@ const config = defineConfig({
   cssVarsPrefix: "ck",
   globalCss: {
     "*":{
-      boxSizing: "border-box",
       margin: 0,
       padding: 0,
     },
     "html, body": {
-      display: "flex",
-      flexDirection: "column",
       margin: 0,
       p: 0,
       bg: "pri",

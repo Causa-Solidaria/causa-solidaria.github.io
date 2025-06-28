@@ -14,7 +14,7 @@ export default function Home(){
         <Header/> {/* carregando o header */}
       
         <Center minH={scSize.height*0.75}>
-          
+
         </Center>
 
         <Footer/> {/* carregando o footer */}
