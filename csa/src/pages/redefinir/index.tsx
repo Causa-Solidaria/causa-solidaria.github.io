@@ -60,6 +60,9 @@ export default function RedefinirSenha() {
             borderRadius="md"
             isLoading={isLoading}
             loadingText="Enviando..."
+            bg= "#26a96c"
+            color= "white"
+            _hover={{ bg: "#38d39f"}}
           >
             Enviar Link de Recuperação
           </Button>
@@ -70,6 +73,7 @@ export default function RedefinirSenha() {
             onClick={() => window.location.href = "/login"}
             textTransform="uppercase"
             borderRadius="md"
+            
           >
             Voltar
           </Button>
