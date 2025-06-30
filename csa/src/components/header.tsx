@@ -4,11 +4,11 @@
 import { Box, Flex, Heading, Image, Link, LinkBox } from "@chakra-ui/react"
 import Button from "./buttom"
 import { ScreenSize } from "csa/utils/getScreenSize"
-import { useRef } from "react"
+import { use, useEffect, useRef, useState } from "react"
 import GetParentSize from "csa/utils/getParentSize"
 import Logo from "./logo"
+import { set } from "zod"
 
-const Loged = false
 
 let buttons = []
 
@@ -27,9 +27,18 @@ const LogoZone = () => {
 
 // area dos botoes do header
 const ButtonZone = () => {
+    const [isLoged, setIsLoged] = useState<any>(false)
     const scrSize = ScreenSize()
     const mobile = scrSize.width < 800
-    buttons = Loged || mobile ? [] :  [
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        console.log("token", token)
+        setIsLoged(!!token);
+    }, [])
+
+    buttons = isLoged || mobile ? [] :  [
         {href : `/login`, text: "entrar"},
         {href : `/cadastro`, text: "cadastro"},
     ]
@@ -46,8 +55,6 @@ const ButtonZone = () => {
 
 const Header = () => {
     const scrSize = ScreenSize()
-    
-    
 
     const headerBreakpoint = scrSize.width > scrSize.height ? "6em" : "10em"
 

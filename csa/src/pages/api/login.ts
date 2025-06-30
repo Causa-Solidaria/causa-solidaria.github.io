@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Cria o token JWT
-    const token = jwt.sign({ id: user.id }, secret, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, loged: true}, secret, { expiresIn: '1h' });
 
     return res.status(200).json({ token });
   } catch (error) {
