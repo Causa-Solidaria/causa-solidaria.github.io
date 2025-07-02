@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-export function ScreenSize(){
+export const ScreenSize = () =>{
     const [size, setSize] = useState({
         width: 0,
         height: 0,
@@ -9,7 +9,7 @@ export function ScreenSize(){
     
     useEffect(() => {
     const handleResize = () => {
-        const view = { width: (window.visualViewport.width), height: window.visualViewport.height };
+        const view = { width: window.innerWidth, height: window.innerHeight };
         setSize(view);
     };
 

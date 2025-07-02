@@ -1,27 +1,43 @@
 'use client'
 
 
-import { Box, Flex, Heading, Image, Link, LinkBox } from "@chakra-ui/react"
+import { Box, Flex, Heading, Link, LinkBox } from "@chakra-ui/react"
 import Button from "./buttom"
 import { ScreenSize } from "csa/utils/getScreenSize"
-import { use, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import GetParentSize from "csa/utils/getParentSize"
 import Logo from "./logo"
-import { set } from "zod"
 
 
 let buttons = []
 
 // area da logo do header
 const LogoZone = () => {
-    const parent = GetParentSize(useRef(null))
+    const {width, height} = ScreenSize()
+    const mobile = width < height || width < 600
     return (
-        <LinkBox p={2}  bg="ter" minH={parent.height} minW={"max-content"} maxW={parent.width*0.5} alignContent={"center"} borderRadius="0 0 20px 0" >
-            <Link href="/" >
-                    <Logo width="5em" />
-                    <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
-            </Link>
-        </LinkBox>
+        <div style={{display: "flex", flexDirection: "column"}}>
+            <LinkBox 
+                p={2}  
+                bg="ter"  
+                maxH={`${height*0.1 -2}dhv`} 
+                minW="max-content" w={mobile ? width : width*0.1} 
+                alignContent="center" 
+                borderRadius="0 0 20px 0"
+                transition={"all 0.2s ease"} 
+            >
+                <Link href="/" >
+                        <Logo width="5em" />
+                        <Heading fontSize="24pt" minW="50%" color="qui" > causa solidaria </Heading>
+                </Link>
+            </LinkBox>
+            
+            {mobile ? 
+                <ButtonZone />
+                : null
+            }
+
+        </div>
     )
 }
 
@@ -29,8 +45,6 @@ const LogoZone = () => {
 const ButtonZone = () => {
     const [isLoged, setIsLoged] = useState<any>(false)
     const scrSize = ScreenSize()
-    const mobile = scrSize.width < 800
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -38,7 +52,7 @@ const ButtonZone = () => {
         setIsLoged(!!token);
     }, [])
 
-    buttons = isLoged || mobile ? [] :  [
+    buttons = isLoged   ? [] :  [
         {href : `/login`, text: "entrar"},
         {href : `/cadastro`, text: "cadastro"},
     ]
@@ -55,14 +69,26 @@ const ButtonZone = () => {
 
 const Header = () => {
     const scrSize = ScreenSize()
-
-    const headerBreakpoint = scrSize.width > scrSize.height ? "6em" : "10em"
+    const mobile = scrSize.width < scrSize.height || scrSize.width < 600
+    const headerBreakpoint = !mobile ? "6em" : "13em"
 
     return (
-        <Box display="flex" direction={"row"} bg="sec" w={`${scrSize.width}dhv`} h={headerBreakpoint} top={0} zIndex={100} >
+        <Box 
+            display="flex" 
+            direction="row" 
+            bg="sec" 
+            w={`${scrSize.width}dhv`} 
+            minH="min-content" h={headerBreakpoint} 
+            top={0} 
+            zIndex={100} 
+            transition={"all 0.2s ease"}
+        >
                 
                 <LogoZone />
-                <ButtonZone />
+                {!mobile ? 
+                    <ButtonZone />
+                    : null
+                }
                 
         </Box>
     )
