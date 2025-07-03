@@ -39,7 +39,7 @@ const handleLogin = async (data: any) => {
     }
 };
 
-export default function login(){
+export default function Login(){
     const scrSize = ScreenSize();
     const formArray = [
         { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
