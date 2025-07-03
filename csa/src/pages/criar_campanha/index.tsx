@@ -8,7 +8,7 @@ export default function QueroDoar() {
     <>
         <Header/>
         <Box justifySelf="center" minH="50%" display="flex" flexDirection="column" alignItems="center" padding="20px">
-
+            
         </Box>
     </>
   );

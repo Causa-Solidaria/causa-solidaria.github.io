@@ -45,6 +45,7 @@ const LogoZone = () => {
 const ButtonZone = () => {
     const [isLoged, setIsLoged] = useState<any>(false)
     const scrSize = ScreenSize()
+    const mobile = scrSize.width < scrSize.height || scrSize.width < 600
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -57,7 +58,13 @@ const ButtonZone = () => {
         {href : `/cadastro`, text: "cadastro"},
     ]
     return (
-        <Flex direction={"row"} w={`${scrSize.width*0.80}px`} gap={3} p={4} justifyContent={"right"} alignItems={"center"}>
+        <Flex 
+            direction={"row"} 
+            w={`${scrSize.width*0.80}px`} 
+            gap={3} p={4} 
+            justifyContent={mobile ? "center" : "right"} 
+            alignItems={"center"}
+        >
                 {buttons.map((button, index) => (
                     <Button key={index} asChild>
                         <Link href={button.href} bg={"ter"} m={2} w="10em">{button.text}</Link>
