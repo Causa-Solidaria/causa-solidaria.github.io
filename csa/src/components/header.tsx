@@ -56,15 +56,20 @@ const ButtonZone = () => {
     }, [])
 
     buttons = isLoged   ? [
-        {xml: 
-            <Box gap={4}>
-                <MapButtons variant={"outline"} listButtons={[
-                    {text: "criar campanha", href: "/criar_campanha"},
-                    {text: "minhas campanhas", href: "/minhas_campanhas"},
-                    {text: "minhas doações", href: "/minhas_doacoes"},
-                    {text: "meu perfil", href: "/perfil"}
-                ]} />
-            </Box>
+        {xml:
+            mobile ?
+                <Box gap={4}></Box>
+            : 
+                <Box gap={4}>
+                    <MapButtons variant={"outline"} listButtons={
+                        [
+                            {text: "criar campanha", href: "/criar_campanha"},
+                            {text: "minhas campanhas", href: "/minhas_campanhas"},
+                            {text: "minhas doações", href: "/minhas_doacoes"},
+                            {text: "meu perfil", href: "/perfil"}
+                        ]
+                    } />
+                </Box>
         },
         {xml: <Avatar.Root>
             <Avatar.Fallback />
@@ -72,13 +77,16 @@ const ButtonZone = () => {
         </Avatar.Root>}
     ]  :  [
         {xml:
-            <Box gap={4}>
-                <MapButtons variant={"plain"} color={"qui"}  listButtons={[
-                        {text: "criar campanha", href: "/criar_campanha"},
-                        {text: "campanhas", href: "/campanhas"},
-                    ]} 
-                />
-            </Box>
+            mobile ?
+                <Box gap={4}></Box>
+            : 
+                <Box gap={4}>
+                    <MapButtons variant={"plain"} color={"qui"}  listButtons={[
+                            {text: "criar campanha", href: "/criar_campanha"},
+                            {text: "campanhas", href: "/campanhas"},
+                        ]} 
+                    />
+                </Box>
         },
         {href : `/login`, text: "entrar"},
         {href : `/cadastro`, text: "cadastro"},
