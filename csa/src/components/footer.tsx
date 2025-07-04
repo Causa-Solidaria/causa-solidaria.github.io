@@ -11,7 +11,7 @@ export default function Footer() {
                 fontSize={{base: "12px", md: "14px", lg: "16px" }} 
                 bg="ter" 
                 color="white" 
-                w={`${scrSize.width}px`} 
+                w="100%"
                 h={`${scrSize.height/4}px`} 
                 bottom={0} 
                 textAlign="center"

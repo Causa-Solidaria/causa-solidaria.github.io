@@ -1,7 +1,7 @@
 import Header from "csa/components/header";
 
 
-export default function QueroDoar() {
+export default function Treinamento() {
   return (
     <>
         <Header/>

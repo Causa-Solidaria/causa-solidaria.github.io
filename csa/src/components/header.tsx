@@ -16,10 +16,11 @@ const LogoZone = () => {
     const {width, height} = ScreenSize()
     const mobile = width < height || width < 600
     return (
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <Box style={{display: "flex", flexDirection: "column"}}>
             <LinkBox 
                 p={2}  
-                bg="ter"  
+                bg="ter" 
+                minH={"6em"}
                 maxH={`${height*0.1 -2}dhv`} 
                 minW="max-content" w={mobile ? width : width*0.1} 
                 alignContent="center" 
@@ -37,7 +38,7 @@ const LogoZone = () => {
                 : null
             }
 
-        </div>
+        </Box>
     )
 }
 
@@ -84,7 +85,7 @@ const Header = () => {
             display="flex" 
             direction="row" 
             bg="sec" 
-            w={`${scrSize.width}dhv`} 
+            w="100%"
             minH="min-content" h={headerBreakpoint} 
             top={0} 
             zIndex={100} 
