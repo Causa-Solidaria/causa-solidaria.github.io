@@ -1,17 +1,17 @@
-import { Button as But, ButtonProps, ChakraProviderProps } from "@chakra-ui/react";
+import { Button as But, ButtonProps, ChakraProviderProps, Link } from "@chakra-ui/react";
 import { forwardRef } from "react";
 
 interface PropsButtom extends ButtonProps {
     children?: React.ReactNode;
     props?: ChakraProviderProps;
+    text?: string;
+    href?: string;
     primary?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, PropsButtom>(
     ({ children, ...props }: PropsButtom, ref) => {
-        // Remova a linha abaixo se não for usar a cor
-        // const color = primary ? "colors.brand.verde_claro" : "colors.brand.verde_escuro";
-
+        
         const hover = {
             scale: 1.025
         };
@@ -21,14 +21,32 @@ const Button = forwardRef<HTMLButtonElement, PropsButtom>(
                 ref={ref}
                 {...props}
                 _hover={hover}
+                fontWeight={"bold"}
                 borderRadius={"2md"}
-                transition={"0.6s ease"}
+                transition={"0.2s ease"}
             >
                 {children}
             </But>
         );
     }
 );
+
+export const MapButtons = (
+    { listButtons, ...props }: { listButtons: PropsButtom[] } & ButtonProps
+) => {
+    return listButtons.map((item, index) => (
+        item.href ?
+            <Button key={index} {...item} {...props} asChild>
+                <Link href={item.href} style={{ textDecoration: 'none' }}>
+                    {item?.children || item?.text}
+                </Link>
+            </Button>
+        :
+            <Button key={index} {...item} {...props}>
+                {item?.children || item?.text}
+            </Button>
+    ));
+};
 
 // Adicione o displayName
 Button.displayName = "Button";

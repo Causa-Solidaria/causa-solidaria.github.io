@@ -1,12 +1,13 @@
 'use client'
 
 
-import { Box, Flex, Heading, Link, LinkBox } from "@chakra-ui/react"
-import Button from "./buttom"
+import { Avatar, Box, Flex, Heading, Link, LinkBox } from "@chakra-ui/react"
+import Button, { MapButtons } from "./buttom"
 import { ScreenSize } from "csa/utils/getScreenSize"
 import { useEffect, useRef, useState } from "react"
 import GetParentSize from "csa/utils/getParentSize"
 import Logo from "./logo"
+import { text } from "stream/consumers"
 
 
 let buttons = []
@@ -54,7 +55,31 @@ const ButtonZone = () => {
         setIsLoged(!!token);
     }, [])
 
-    buttons = isLoged   ? [] :  [
+    buttons = isLoged   ? [
+        {xml: 
+            <Box gap={4}>
+                <MapButtons variant={"outline"} listButtons={[
+                    {text: "criar campanha", href: "/criar_campanha"},
+                    {text: "minhas campanhas", href: "/minhas_campanhas"},
+                    {text: "minhas doações", href: "/minhas_doacoes"},
+                    {text: "meu perfil", href: "/perfil"}
+                ]} />
+            </Box>
+        },
+        {xml: <Avatar.Root>
+            <Avatar.Fallback />
+            <Avatar.Image />
+        </Avatar.Root>}
+    ]  :  [
+        {xml:
+            <Box gap={4}>
+                <MapButtons variant={"plain"} color={"qui"}  listButtons={[
+                        {text: "criar campanha", href: "/criar_campanha"},
+                        {text: "campanhas", href: "/campanhas"},
+                    ]} 
+                />
+            </Box>
+        },
         {href : `/login`, text: "entrar"},
         {href : `/cadastro`, text: "cadastro"},
     ]
@@ -67,6 +92,11 @@ const ButtonZone = () => {
             alignItems={"center"}
         >
                 {buttons.map((button, index) => (
+                    button.xml ?
+                    <Box key={index} m={2}>
+                        {button.xml}
+                    </Box>
+                    :
                     <Button key={index} asChild>
                         <Link href={button.href} bg={"ter"} m={2} w="10em">{button.text}</Link>
                     </Button>

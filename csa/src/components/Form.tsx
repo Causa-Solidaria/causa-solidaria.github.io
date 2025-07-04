@@ -17,6 +17,7 @@ interface FormField {
     children?: ReactNode;
     placeholder?: string;
     type?: string;
+    customElement?: ReactNode; // Novo campo para aceitar XML/JSX customizado
 }
 
 interface FormProps {
@@ -48,35 +49,41 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
             <Stack gap="2" align="flex-start" m={`${scrSize.height*0.01}px`}>
                 {formArray?.map((item, index) => (
                     <Field.Root key={index} invalid={!!errors[item.register]}>
-                        
-                        {item.ischeckbox ?
-                            (<></>) : 
-                            (
-                                <Field.Label color="ter" fontSize={`${scrSize.height*0.020}px`}> 
-                                    {item.label} 
-                                </Field.Label>
-                            )
-                        }
-                        
-                        {item.ispassword ? (
-                            <PasswordInput
-                                borderCollapse={"collapse"}
-                                borderColor={"ter"}
-                                color={"ter"}
-                                height={`${scrSize.height*0.050}px`}
-                                fontSize={`${scrSize.height*0.020}px`}
-                                placeholder={item.placeholder}
-                                type={item.type === "password" ? "password" : "text"}
-                                {...register(item.register)}
-                            />
-                        ) : item.ischeckbox ? (
-                            <Checkbox.Root variant={"subtle"} color={"ter"} height={`${scrSize.height*0.050}px`} {...register(item.register )} >
-                                <Checkbox.HiddenInput /> 
-                                <Checkbox.Control />
-                                <Checkbox.Label fontSize={`${scrSize.height*0.020}px`}>{item.label} {item.children}</Checkbox.Label>
-                            </Checkbox.Root>
+                        {/* Renderiza elemento customizado se existir */}
+                        {item.customElement ? (
+                            item.customElement
                         ) : (
-                            <Input borderColor={"ter"} color={"ter"} height={`${scrSize.height*0.050}px`} size={props?.size  || "xl" } fontSize={`${scrSize.height*0.020}px`} placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                            <>
+                                {item.ischeckbox ?
+                                    (<></>) : 
+                                    (
+                                        <Field.Label color="ter" fontSize={`${scrSize.height*0.020}px`}> 
+                                            {item.label} 
+                                        </Field.Label>
+                                    )
+                                }
+                                
+                                {item.ispassword ? (
+                                    <PasswordInput
+                                        borderCollapse={"collapse"}
+                                        borderColor={"ter"}
+                                        color={"ter"}
+                                        height={`${scrSize.height*0.050}px`}
+                                        fontSize={`${scrSize.height*0.020}px`}
+                                        placeholder={item.placeholder}
+                                        type={item.type === "password" ? "password" : "text"}
+                                        {...register(item.register)}
+                                    />
+                                ) : item.ischeckbox ? (
+                                    <Checkbox.Root variant={"subtle"} color={"ter"} height={`${scrSize.height*0.050}px`} {...register(item.register )} >
+                                        <Checkbox.HiddenInput /> 
+                                        <Checkbox.Control />
+                                        <Checkbox.Label fontSize={`${scrSize.height*0.020}px`}>{item.label} {item.children}</Checkbox.Label>
+                                    </Checkbox.Root>
+                                ) : (
+                                    <Input borderColor={"ter"} color={"ter"} height={`${scrSize.height*0.050}px`} size={props?.size  || "xl" } fontSize={`${scrSize.height*0.020}px`} placeholder={item.placeholder} type={item.type} {...register(item.register)} />
+                                )}
+                            </>
                         )}
                         <Field.ErrorText>
                             {errors[item.register]?.message as string}
