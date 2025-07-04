@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import GetParentSize from "csa/utils/getParentSize"
 import Logo from "./logo"
 import { text } from "stream/consumers"
+import { Tooltip } from "./ui/tooltip"
 
 
 let buttons = []
@@ -17,7 +18,7 @@ const LogoZone = () => {
     const {width, height} = ScreenSize()
     const mobile = width < height || width < 600
     return (
-        <Box style={{display: "flex", flexDirection: "column"}}>
+        <Box style={{display: "flex", flexDirection: "column"}} transition={"all 0.3s "}>
             <LinkBox 
                 p={2}  
                 bg="ter" 
@@ -26,7 +27,7 @@ const LogoZone = () => {
                 minW="max-content" w={mobile ? width : width*0.1} 
                 alignContent="center" 
                 borderRadius="0 0 20px 0"
-                transition={"all 0.2s ease"} 
+                transition={"all 0.3s "} 
             >
                 <Link href="/" >
                         <Logo width="5em" />
@@ -47,7 +48,7 @@ const LogoZone = () => {
 const ButtonZone = () => {
     const [isLoged, setIsLoged] = useState<any>(false)
     const scrSize = ScreenSize()
-    const mobile = scrSize.width < scrSize.height || scrSize.width < 600
+    const mobile = scrSize.width < scrSize.height || scrSize.width <= 850
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -57,24 +58,14 @@ const ButtonZone = () => {
 
     buttons = isLoged   ? [
         {xml:
-            mobile ?
-                <Box gap={4}></Box>
-            : 
-                <Box gap={4}>
-                    <MapButtons variant={"outline"} listButtons={
-                        [
-                            {text: "criar campanha", href: "/criar_campanha"},
-                            {text: "minhas campanhas", href: "/minhas_campanhas"},
-                            {text: "minhas doações", href: "/minhas_doacoes"},
-                            {text: "meu perfil", href: "/perfil"}
-                        ]
-                    } />
-                </Box>
+            <Tooltip >
+                <Avatar.Root>
+                    <Avatar.Fallback />
+                    <Avatar.Image />
+                </Avatar.Root>
+            </Tooltip>
+
         },
-        {xml: <Avatar.Root>
-            <Avatar.Fallback />
-            <Avatar.Image />
-        </Avatar.Root>}
     ]  :  [
         {xml:
             mobile ?

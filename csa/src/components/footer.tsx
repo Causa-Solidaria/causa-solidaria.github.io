@@ -22,10 +22,10 @@ export default function Footer() {
             >
                 <Center mb={4}>
                     <HStack gapX={4}> 
-                        <Link color="pri" href="sobre">Sobre</Link>
-                        <Link color="pri" href="contato">Contato</Link>
-                        <Link color="pri" href="privacidade">Política de Privacidade</Link>
-                        <Link color="pri" href="termos">Termos de Uso</Link>
+                        <Link color="pri" href="#">Sobre</Link>
+                        <Link color="pri" href="#">Contato</Link>
+                        <Link color="pri" href="#">Política de Privacidade</Link>
+                        <Link color="pri" href="#">Termos de Uso</Link>
                         
                     </HStack>
                 </Center>
