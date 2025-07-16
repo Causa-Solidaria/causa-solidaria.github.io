@@ -60,7 +60,7 @@ export default function RedefinirSenha() {
             borderRadius="md"
             isLoading={isLoading}
             loadingText="Enviando..."
-            bg= "#26a96c"
+            bg= "sec"
             color= "white"
             _hover={{ bg: "#38d39f"}}
           >
@@ -82,7 +82,7 @@ export default function RedefinirSenha() {
       <Box 
         width="full" 
         height="50vh" 
-        bg="#26a96c" 
+        bg="sec" 
         position="absolute" 
         bottom={0} 
         zIndex={1}
