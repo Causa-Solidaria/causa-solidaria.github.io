@@ -4,6 +4,10 @@ import { isMobile } from "./headerUtils"
 import LogoZone from "./LogoZone"
 import ButtonZone from "./ButtonZone"
 
+
+
+// O componente Main do Header
+
 const Header = () => {
     // pega o tamanho da tela
     const { width, height } = ScreenSize()
@@ -12,22 +16,12 @@ const Header = () => {
     const mobile = isMobile(width, height)
     
     // define o tamanho do cabeçalho baseado no tamanho da tela
-    const headerBreakpoint = mobile ? "13em" : "6em"
+    const headerHeight = mobile ? "13em" : "6em"
 
   return (
-    <Box
-      display="flex"
-      direction="row"
-      bg="sec"
-      w="100%"
-      minH="min-content"
-      h={headerBreakpoint}
-      top={0}
-      zIndex={100}
-      transition="all 0.2s ease"
-    >
+    <Box display="flex" direction="row" bg="sec"  w="100%" minH="min-content" h={headerHeight} top={0} zIndex={100} transition="all 0.2s ease">
       <LogoZone />
-      {!mobile && <ButtonZone />}
+      {!mobile && <ButtonZone alignSelf={"center"} />}
     </Box>
   )
 }

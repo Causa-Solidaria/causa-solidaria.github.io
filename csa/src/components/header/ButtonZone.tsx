@@ -1,28 +1,39 @@
-import { Box, Flex, JsxElement, Link } from "@chakra-ui/react"
+import { Box, ChakraProviderProps, Flex, JsxElement, Link } from "@chakra-ui/react"
 import Button, { MapButtons } from "../buttom"
 import { useEffect, useState } from "react"
 import { ScreenSize } from "csa/utils/getScreenSize"
-import { isMobile } from "./headerUtils"
+import { Botao, isMobile, renderButtons } from "./headerUtils"
 import { Tooltip } from "../ui/tooltip"
 import { Avatar } from "@chakra-ui/react"
 
 
-// tipos que o botão pode ser
-type Botao = | { tipo: "custom"; componente: JsxElement } | { tipo: "link"; href: string; text: string }
 
-const botoesUsuarioLogado: Botao[] = [
-  {
-    tipo: "custom",
-    componente: (
-      <Tooltip content="Perfil">
-        <Avatar.Root>
-          <Avatar.Fallback />
-          <Avatar.Image />
-        </Avatar.Root>
-      </Tooltip>
-    )
-  }
-]
+
+
+
+// Botões do usuário logado
+function botoesUsuarioLogado(): Botao[] {
+    
+    const botoesUsuarioLogado: Botao[] = [
+        {
+            tipo: "custom",
+            componente: (
+            <Tooltip content="Perfil">
+                <Avatar.Root>
+                <Avatar.Fallback />
+                <Avatar.Image />
+                </Avatar.Root>
+            </Tooltip>
+            )
+        },
+        { tipo: "link", text: "criar campanha", href: "/criar_campanha" },
+        { tipo: "link", text: "campanhas", href: "/campanhas" }
+    ]
+
+    return botoesUsuarioLogado
+}
+
+
 
 function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
 
@@ -32,67 +43,65 @@ function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
         { tipo: "link", href: "/cadastro", text: "cadastro" }
     ]
   
+
     // caso seja mobile, retorna apenas os botões padrão
     if (ehMobile) return [{ tipo: "custom", componente: <Box gap={4}></Box> }, ...botoesPadrao]
 
 
-  return [
-    {
-      tipo: "custom",
-      componente: (
+    // retorna os botões padrão e os botões adicionais para desktop
+    return [
+        {
+        tipo: "custom",
+        componente: (
 
-        <Box gap={4}>
-          <MapButtons
-            variant="plain"
-            color="qui"
-            listButtons={[
-              { text: "criar campanha", href: "/criar_campanha" },
-              { text: "campanhas", href: "/campanhas" }
-            ]}
-          />
-        </Box>
-        
-      )
-    },
-    ...botoesPadrao
-  ]
+            <Box gap={4}>
+            <MapButtons
+                variant="plain"
+                color="qui"
+                listButtons={[
+                    { text: "campanhas", href: "/campanhas" }
+                ]}
+            />
+            </Box>
+
+        )
+        },
+        ...botoesPadrao
+    ]
 }
 
 
 
 
+const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: ChakraProviderProps}) => {
+    const [usuarioLogado, setUsuarioLogado] = useState(false) // verifica se o usuário está logado
+    const { width, height } = ScreenSize() // obtém as dimensões da tela
+    const ehMobile = isMobile(width, height, 850) // verifica se é mobile
 
 
-const ButtonZone = () => {
-  const [usuarioLogado, setUsuarioLogado] = useState(false)
-  const { width, height } = ScreenSize()
-  const ehMobile = isMobile(width, height, 850)
+    // define os botões a serem exibidos com base no estado de login do usuário
+    useEffect(() => {
+        setUsuarioLogado(!!localStorage.getItem("token"))
+    }, [])
 
-  useEffect(() => {
-    setUsuarioLogado(!!localStorage.getItem("token"))
-  }, [])
 
-  const botoes: Botao[] = usuarioLogado ? botoesUsuarioLogado : botoesUsuarioNaoLogado(ehMobile)
+    // define os botões a serem exibidos com base no estado de login do usuário
+    const botoes: Botao[] = usuarioLogado ? botoesUsuarioLogado() : botoesUsuarioNaoLogado(ehMobile)
 
-  return (
-    <Flex
-      direction="row"
-      w={`${width * 0.80}px`}
-      gap={3} p={4}
-      justifyContent={ehMobile ? "center" : "right"}
-      alignItems="center"
-    >
-      {botoes.map((botao, idx) =>
-        botao.tipo === "custom" ? (
-          <Box key={idx} m={2}>{botao.componente}</Box>
-        ) : (
-          <Button key={idx} asChild>
-            <Link href={botao.href} bg="ter" m={2} w="10em">{botao.text}</Link>
-          </Button>
-        )
-      )}
-    </Flex>
-  )
+    
+    
+    return (
+        <Flex
+            direction="row"
+            w={`${width * 0.80}px`}
+            gap={3} p={4}
+            justifyContent={ehMobile ? "center" : "right"}
+            alignItems="center"
+            {...props}
+        >
+            {renderButtons(botoes)}
+        </Flex>
+    )
 }
 
 export default ButtonZone

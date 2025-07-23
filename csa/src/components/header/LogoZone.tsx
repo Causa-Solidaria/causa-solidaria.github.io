@@ -15,7 +15,7 @@ const LogoZone = () => {
         minH="6em"
         maxH={`${height * 0.1 - 2}dhv`}
         minW="max-content"
-        w={mobile ? width : width * 0.1}
+        w={mobile ? "full" : width * 0.1}
         alignContent="center"
         borderRadius="0 0 20px 0"
         transition="all 0.3s"
@@ -25,7 +25,7 @@ const LogoZone = () => {
           <Heading fontSize="24pt" minW="50%" color="qui">causa solidaria</Heading>
         </Link>
       </LinkBox>
-      {mobile && <ButtonZone />}
+      {mobile && <ButtonZone a/>}
     </Box>
   )
 }
