@@ -1,23 +1,26 @@
 'use client'
 
-import { Center } from "@chakra-ui/react"
+import { Box, Center } from "@chakra-ui/react"
 import Footer from "csa/components/footer"
 import Header from "csa/components/header"
+import Timeline from "csa/components/timeline"
 import { ScreenSize } from "csa/utils/getScreenSize"
 
 
 export default function Home(){
     const scSize = ScreenSize()
     return (
-      <>
+      <Box w={scSize.width} h={scSize.height}>
+        {/* carregando o header */}
+        <Header/> 
 
-        <Header/> {/* carregando o header */}
-      
-        <Center minH={scSize.height*0.75}>
+        {/* carregando o timeline */}
+        <Timeline >
 
-        </Center>
+        </Timeline>
 
-        <Footer/> {/* carregando o footer */}
-      </>
+        {/* carregando o footer */}
+        <Footer/> 
+      </Box>
     )
 }
