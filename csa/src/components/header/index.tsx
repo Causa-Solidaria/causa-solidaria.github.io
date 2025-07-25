@@ -19,7 +19,7 @@ const Header = () => {
     const headerHeight = mobile ? "13em" : "6em"
 
   return (
-    <Box display="flex" direction="row" bg="sec"  w="100%" minH="min-content" h={headerHeight} top={0} zIndex={100} transition="all 0.2s ease">
+    <Box display="flex" direction="row" bg="sec"  w={width} minH="min-content" h={headerHeight} top={0} zIndex={100} transition="all 0.2s ease">
       <LogoZone />
       {!mobile && <ButtonZone alignSelf={"center"} />}
     </Box>

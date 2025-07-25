@@ -1,9 +1,9 @@
 import { Box, Button,  JsxElement,  Link } from "@chakra-ui/react"
 import { JSX } from "react";
 
-export 
+
 // tipos que o botão pode ser
-type Botao = 
+export type Botao = 
     | { tipo: "custom"; componente: JSX.Element | JsxElement } 
     | { tipo: "link"; href: string; text: string }
 
