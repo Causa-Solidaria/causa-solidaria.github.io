@@ -1,4 +1,4 @@
-import { Box, ChakraProviderProps, Image } from "@chakra-ui/react";
+import {  ChakraProviderProps, Image } from "@chakra-ui/react";
 
 
 

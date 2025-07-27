@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Header from "csa/components/Header";
-import Footer from "csa/components/Footer";
 import { Center, Grid, Text } from "@chakra-ui/react";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import CampanhasCard from "./camapanhasCard";

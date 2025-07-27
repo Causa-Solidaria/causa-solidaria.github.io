@@ -1,7 +1,6 @@
 'use client';
 
-import { Box, Card, Center, Flex, Heading, Image, Link, Stack, Text, VStack } from "@chakra-ui/react";
-import CardDefault from "csa/components/Card";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import Form from "csa/components/Form"; // Componente reutilizável de formulário
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";

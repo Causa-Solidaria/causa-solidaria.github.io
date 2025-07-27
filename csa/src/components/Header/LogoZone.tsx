@@ -2,7 +2,6 @@ import { Box, LinkBox, Link, Heading } from "@chakra-ui/react"
 import Logo from "../logo"
 import { ScreenSize } from "csa/utils/getScreenSize"
 import { isMobile } from "csa/utils/isMobile"
-import ButtonZone from "./ButtonZone"
 
 const LogoZone = () => {
   const { width, height } = ScreenSize()

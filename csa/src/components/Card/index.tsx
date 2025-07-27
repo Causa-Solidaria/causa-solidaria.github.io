@@ -1,5 +1,4 @@
-import { ChakraProviderProps } from "@chakra-ui/react";
-import Card, {PropsCard} from "./utils"
+import Card, { PropsCard } from "./utils";
 
 interface CardDefaultProps extends PropsCard {
     Header?: React.ReactNode;

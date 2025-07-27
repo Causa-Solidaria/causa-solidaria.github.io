@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Link, Text } from "@chakra-ui/react";
 import Form from "csa/components/Form";
 import Logo from "csa/components/logo";
 import { ScreenSize } from "csa/utils/getScreenSize";

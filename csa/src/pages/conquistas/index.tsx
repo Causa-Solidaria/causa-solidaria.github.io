@@ -1,20 +1,12 @@
-import { Box, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import {Heading, SimpleGrid} from "@chakra-ui/react";
 import Conquista from "csa/components/conquista";
-import Footer from "csa/components/Footer";
-import Header from "csa/components/Header";
-import Timeline from "csa/components/timeline";
-import { FaMedal, FaStar, FaTrophy } from "react-icons/fa";
-
-
+import DefaultPage from "csa/components/DefaultPage";
 
 export default function Conquistas() {
     const conquistas = [];
 
     return (
-        <>
-        <Header />
-        
-        <Timeline >
+        <DefaultPage>
             <Heading as="h1" size="xl" mb={8} textAlign="center">
                 Minhas Conquistas
             </Heading>
@@ -28,10 +20,6 @@ export default function Conquistas() {
                     />
                 ))}
             </SimpleGrid>
-        </Timeline>
-        
-        <Footer />
-        </>
-        
+        </DefaultPage>
     );
 }

@@ -1,4 +1,3 @@
-import { Box, Center, Text } from "@chakra-ui/react";
 import CardDefault from "csa/components/Card";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { isMobile } from "csa/utils/isMobile";

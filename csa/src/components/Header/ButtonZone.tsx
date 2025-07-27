@@ -1,10 +1,8 @@
-import { Box, ChakraProviderProps, Flex, JsxElement, Link } from "@chakra-ui/react"
+import { Box, ChakraProviderProps, Flex } from "@chakra-ui/react"
 import { MapButtons } from "csa/components/Buttom"
 import { useEffect, useState } from "react"
 import { ScreenSize } from "csa/utils/getScreenSize"
 import { Botao, renderButtons } from "./headerUtils"
-import { Tooltip } from "../ui/tooltip"
-import { Avatar } from "@chakra-ui/react"
 import { isMobile } from "csa/utils/isMobile"
 import Foto_perfil from "../foto_de_perfil"
 
@@ -25,7 +23,7 @@ function botoesUsuarioLogado(): Botao[] {
                     color="qui"
                     listButtons={[
                         { text: "campanhas", href: "/campanhas" },
-                        { text: "criar campanhas", href: "/criar_campanhas" }
+                        { text: "criar campanhas", href: "/criar_campanha" }
                     ]}
                 />
                 </Box>
