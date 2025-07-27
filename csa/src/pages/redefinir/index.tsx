@@ -9,10 +9,24 @@ export default function RedefinirSenha() {
 
   const handleSubmit = async () => {
     setIsLoading(true)
-    // Simula um delay de envio (pode ser substituído por uma chamada API real)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    alert(`Um link de redefinição foi enviado para: ${email}`)
+   
+    try {
+      const response = await fetch("/api/redefinir",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      })
+
+      const data = await response.json()
+      alert(data.message)
+    }catch (error) {
+      console.error("Erro ao enviar o email de redefinição:", error)
+    }
+
     setIsLoading(false)
+    
   }
 
   return (
@@ -70,7 +84,7 @@ export default function RedefinirSenha() {
             variant="outline" 
             colorScheme="green" 
             width="100" 
-            onClick={() => window.location.href = "/login"}
+            onClick={() => window.location.href = "/"}
             textTransform="uppercase"
             borderRadius="md"
             
