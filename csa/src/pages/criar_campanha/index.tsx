@@ -1,8 +1,8 @@
 import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
-import DefaultPage from "csa/components/default_page";
-import Footer from "csa/components/footer";
+import DefaultPage from "csa/components/DefaultPage";
+import Footer from "csa/components/Footer";
 import Form from "csa/components/Form";
-import Header from "csa/components/header";
+import Header from "csa/components/Header";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";

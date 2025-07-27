@@ -21,8 +21,11 @@ const config = defineConfig({
       color: "{colors.brand.preto}",
       fontFamily: "Quicksand",
       fontWeight: 600,
+    },
+    "Heading": {
+      fontFamily: "Quicksand",
+      fontWeight: 900,
     }
-  
   },
   theme: {
     tokens: {

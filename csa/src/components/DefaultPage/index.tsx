@@ -1,6 +1,6 @@
 import { ScreenSize } from "csa/utils/getScreenSize";
-import Footer from "../footer";
-import Header from "../header";
+import Footer from "../Footer";
+import Header from "../Header";
 import Timeline from "../timeline";
 import { Box, JsxElement } from "@chakra-ui/react";
 
@@ -13,7 +13,7 @@ import { Box, JsxElement } from "@chakra-ui/react";
 export default function DefaultPage({children}: {children?: React.ReactNode | JsxElement}) {
     const scSize = ScreenSize()
     return (
-        <Box w={scSize.width} h={scSize.height}>
+        <Box w={"100%"} maxW={"100%"} h={scSize.height}>
             <Header />
             
             <Timeline>
