@@ -1,7 +1,6 @@
 import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
-import Footer from "csa/components/footer";
+import DefaultPage from "csa/components/DefaultPage";
 import Form from "csa/components/Form";
-import Header from "csa/components/header";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
@@ -84,8 +83,8 @@ export default function QueroDoar() {
   
   return (
     <>
-        <Header/>
-        <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py={"5%"}>
+        <DefaultPage>
+          <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py={"5%"}>
             <Box 
               mt={15} p={"5%"} 
               bg={"qui"} 
@@ -97,8 +96,8 @@ export default function QueroDoar() {
               
               <Form formArray={formArray} schema={formSchema} set_rota={handleCriarCampanha}/>
             </Box>
-        </Box>
-        <Footer/>
+          </Box>
+        </DefaultPage>
     </>
   );
 }

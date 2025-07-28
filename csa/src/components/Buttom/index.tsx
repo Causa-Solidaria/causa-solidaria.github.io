@@ -12,17 +12,13 @@ interface PropsButtom extends ButtonProps {
 const Button = forwardRef<HTMLButtonElement, PropsButtom>(
     ({ children, ...props }: PropsButtom, ref) => {
         
-        const hover = {
-            scale: 1.025
-        };
 
         return (
             <But
                 ref={ref}
                 {...props}
-                _hover={hover}
                 fontWeight={"bold"}
-                borderRadius={"2md"}
+                borderRadius={"2xl"}
                 transition={"0.2s ease"}
             >
                 {children}
