@@ -1,10 +1,13 @@
-import Header from "csa/components/header";
+import DefaultPage from "csa/components/DefaultPage";
+import Header from "csa/components/Header";
 
 
-export default function QueroDoar() {
+export default function Treinamento() {
   return (
     <>
-        <Header/>
+        <DefaultPage>
+          
+        </DefaultPage>
         
     </>
   );

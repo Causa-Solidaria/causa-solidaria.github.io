@@ -1,52 +1,57 @@
 'use client'
 
-//import CardSpace from "csa/components/cardSpace";
-import Header from "csa/components/header";
-import Footer from "csa/components/footer";
-import { Center, Grid, GridItem, Image } from "@chakra-ui/react";
-import Card from "csa/components/card";
+import { useEffect, useState } from "react";
+import { Center, Grid, Text } from "@chakra-ui/react";
 import { ScreenSize } from "csa/utils/getScreenSize";
+import CampanhasCard from "./camapanhasCard";
+import DefaultPage from "csa/components/DefaultPage";
+
+// -davi: o "/api/campanhas" existe mas está vazio, então não há campanhas para exibir.
+// por enquanto, o código está preparado para lidar com a ausência de campanhas.
+// entao vc profuso pode criar campanhas no banco de dados para testar a exibição.
 
 
 export default function Campanhas() {
   const scrSize = ScreenSize();
-  const card_size = 325
+  const [campanhas, setCampanhas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const campanhas = [
-    {title: "test", description: "this is a test for description", thubnail: "/logo.png"},
-    {title: "test", description: "this is a test for description", thubnail: "/logo.png"},
-    {title: "test", description: "this is a test for description", thubnail: "/logo.png"},
-  ]
+  // comando para requisita a api do lado do client
+  useEffect(() => {
+    fetch("/api/campanhas") 
+      .then(res => res.json())
+      .then(data => setCampanhas(data))
+      .catch(() => setCampanhas([]))
+      .finally(() => setLoading(false));
+  }, []);
 
 
+  // rederizacao
   return (
-    <>
-      <Header/>
-        <Center minH={"75vh"}>
-          <Grid 
-            templateRows={`repeat(${Math.trunc(scrSize.height/(card_size+28))-1}, 1fr)`}
-            templateColumns={`repeat(${Math.trunc(scrSize.width/(card_size+28))}, 1fr)`} 
-            w="full" gap={4} m={10} 
-            justifyItems={"center"}>
-            
-            {campanhas.map((campanha, idx)=>(
-              <GridItem key={idx}>
-                <Card.Root maxW={`${card_size}px`} overflow="hidden" p={0} _hover={{scale: 1.025}}>
-                  <Image src={campanha?.thubnail} alt={"thubnail " + idx}/>
-                  <Card.Body>
-                    <Card.Title>
-                      {campanha?.title}
-                    </Card.Title>
-                    <Card.Description>
-                      {campanha?.description}
-                    </Card.Description>
-                  </Card.Body>
-                </Card.Root>
-              </GridItem>
+    <DefaultPage >  
+      <Center>
+        {loading ? (
+          <Text>Carregando campanhas...</Text>
+        
+        ) : campanhas.length === 0 ? (
+          <Text>Não foi possível encontrar campanhas.</Text>
+          
+        ) : (
+          <Grid
+            templateRows={`repeat(5, 1fr)`}
+            templateColumns={`repeat(5, 1fr)`}
+            w="full" gap={4} m={10}
+            justifyItems={"center"}
+          >
+
+            {campanhas.map((campanha, idx) => (
+              <CampanhasCard key={idx} idx={idx} campanha={campanha} />
             ))}
+          
           </Grid>
-        </Center>
-      <Footer/>
-    </> 
+        )}
+      </Center>
+    </DefaultPage>
+    
   );
 }

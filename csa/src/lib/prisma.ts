@@ -3,8 +3,8 @@
 import { PrismaClient } from "@prisma/client";
 
 // Evita criar múltiplas instâncias do Prisma Client no hot reload do Next.js (dev)
+
 declare global {
-  // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 

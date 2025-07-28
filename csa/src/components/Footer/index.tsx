@@ -11,7 +11,8 @@ export default function Footer() {
                 fontSize={{base: "12px", md: "14px", lg: "16px" }} 
                 bg="ter" 
                 color="white" 
-                w={`${scrSize.width}px`} 
+                w="100%"
+                maxW={scrSize.width}
                 h={`${scrSize.height/4}px`} 
                 bottom={0} 
                 textAlign="center"
@@ -22,13 +23,13 @@ export default function Footer() {
             >
                 <Center mb={4}>
                     <HStack gapX={4}> 
-                        <Link color="pri" href="sobre">Sobre</Link>
-                        <Link color="pri" href="contato">Contato</Link>
-                        <Link color="pri" href="privacidade">Política de Privacidade</Link>
-                        <Link color="pri" href="termos">Termos de Uso</Link>
-                        
+                        <Link color="pri" href="#">Sobre</Link>
+                        <Link color="pri" href="#">Contato</Link>
+                        <Link color="pri" href="#">Política de Privacidade</Link>
+                        <Link color="pri" href="#">Termos de Uso</Link>
                     </HStack>
                 </Center>
+                
                 <Text color="sec">© {new Date().getFullYear()} Causa Solidária. Todos os direitos reservados.</Text>
                 <Text color="sec">Desenvolvido por <Link color="qua" href="https://github.com/Causa-Solidaria">Causa Solidária</Link></Text>
             </Box>

@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 
 
-export function ScreenSize(){
+export const ScreenSize = () =>{
     const [size, setSize] = useState({
-        width: 0,
-        height: 0,
+        width: 1200,
+        height: 600,
     });
     
     useEffect(() => {
-    const handleResize = () => {
-        const view = { width: (window.visualViewport.width), height: window.visualViewport.height };
-        setSize(view);
-    };
+        const handleResize = () => {
+            const view = { width: Math.trunc(window.innerWidth), height: Math.trunc(window.innerHeight) };
+            setSize(view);
+        };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => window.removeEventListener('resize', handleResize);
-}, []);
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     
     return size;

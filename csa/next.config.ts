@@ -9,8 +9,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   experimental : {
     optimizePackageImports: ["@chakra-ui/react"],
-  }
-  
+  },
 };
 
 

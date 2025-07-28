@@ -2,7 +2,7 @@ import { BoxProps, ChakraProviderProps, Card as Ca } from "@chakra-ui/react";
 import React from "react";
 
 // aqui eu o tipo de propriedades/argumentos o Card vai aceitar
-interface PropsCard extends BoxProps {
+export interface PropsCard extends BoxProps {
     children?: React.ReactNode;
     props?: ChakraProviderProps
 }
@@ -13,6 +13,7 @@ const Root = ({ children, ...props }: PropsCard) => {
             p={props?.p || 4}
             width={props?.width || "max-content"}
             bg={props?.bg || "qui"}
+            shadow="15px 15px 15px rgba(0,0,0,0.2)"
             borderRadius={props?.borderRadius || "15px"}
             transition={"all 0.6s ease"}
             {...props}
