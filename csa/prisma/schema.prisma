@@ -27,3 +27,9 @@ model User {
   email     String @unique
   senha     String
 }
+model TokenRedefinicaoSenha {
+  id        Int      @id @default(autoincrement())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+}
