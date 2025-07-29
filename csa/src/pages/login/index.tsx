@@ -1,11 +1,11 @@
 'use client'
 
-import { Box, Image, Link, Text } from "@chakra-ui/react";
-import Card from "csa/components/card";
+import { Box, Link, Text } from "@chakra-ui/react";
 import Form from "csa/components/Form";
 import Logo from "csa/components/logo";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
+import CardLogin from "./loginCard";
 
 // Validação com Zod
 const formSchema = z.object({
@@ -60,7 +60,7 @@ export default function Login(){
             <Text fontSize={"4xl"} fontWeight={"bold"} color={"ter"}> Entrar na Causa Solidaria </Text>
         </Box>
 
-        <Card.Root width={"400px"} justifySelf={"center"} alignContent={"center"} m={4} >
+        <CardLogin  >
 
             <Form formArray={formArray} schema={formSchema} set_rota={handleLogin}>
                 <Text fontSize={"sm"} mt={2}> 
@@ -69,7 +69,7 @@ export default function Login(){
                 </Text> 
             </Form>
         
-        </Card.Root>
+        </CardLogin>
 
         <Box 
             bg={"qui"} 
@@ -80,6 +80,7 @@ export default function Login(){
             mt={4} // Adiciona margem superior
             zIndex={2} // Garante que fique acima do fundo
             position="relative" // Garante que respeite o fluxo normal
+            shadow="15px 15px 30px rgba(0, 0, 0, 0.2)"
         >
             <Text>Não tem conta?</Text>
             <Link href="/cadastro" pl={2} color={"qua"} textDecoration={"underline"}> clique aqui</Link>

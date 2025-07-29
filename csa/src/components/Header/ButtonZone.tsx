@@ -1,11 +1,10 @@
-import { Box, ChakraProviderProps, Flex, JsxElement, Link } from "@chakra-ui/react"
-import Button, { MapButtons } from "../buttom"
+import { Box, ChakraProviderProps, Flex } from "@chakra-ui/react"
+import { MapButtons } from "csa/components/Buttom"
 import { useEffect, useState } from "react"
 import { ScreenSize } from "csa/utils/getScreenSize"
-import { Botao, isMobile, renderButtons } from "./headerUtils"
-import { Tooltip } from "../ui/tooltip"
-import { Avatar } from "@chakra-ui/react"
-
+import { Botao, renderButtons } from "./headerUtils"
+import { isMobile } from "csa/utils/isMobile"
+import Foto_perfil from "../foto_de_perfil"
 
 
 
@@ -18,16 +17,24 @@ function botoesUsuarioLogado(): Botao[] {
         {
             tipo: "custom",
             componente: (
-            <Tooltip content="Perfil">
-                <Avatar.Root>
-                <Avatar.Fallback />
-                <Avatar.Image />
-                </Avatar.Root>
-            </Tooltip>
+                <Box gap={4}>
+                <MapButtons
+                    variant="plain"
+                    color="qui"
+                    listButtons={[
+                        { text: "campanhas", href: "/campanhas" },
+                        { text: "criar campanhas", href: "/criar_campanha" }
+                    ]}
+                />
+                </Box>
             )
         },
-        { tipo: "link", text: "criar campanha", href: "/criar_campanha" },
-        { tipo: "link", text: "campanhas", href: "/campanhas" }
+        {
+            tipo: "custom",
+            componente: (
+                 <Foto_perfil />
+            )
+        },
     ]
 
     return botoesUsuarioLogado
@@ -45,7 +52,7 @@ function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
   
 
     // caso seja mobile, retorna apenas os botões padrão
-    if (ehMobile) return [{ tipo: "custom", componente: <Box gap={4}></Box> }, ...botoesPadrao]
+    if (ehMobile) return [ ...botoesPadrao]
 
 
     // retorna os botões padrão e os botões adicionais para desktop
@@ -76,7 +83,7 @@ function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
 const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: ChakraProviderProps}) => {
     const [usuarioLogado, setUsuarioLogado] = useState(false) // verifica se o usuário está logado
     const { width, height } = ScreenSize() // obtém as dimensões da tela
-    const ehMobile = isMobile(width, height, 850) // verifica se é mobile
+    const ehMobile = isMobile(width, height, 750) // verifica se é mobile
 
 
     // define os botões a serem exibidos com base no estado de login do usuário
@@ -93,10 +100,10 @@ const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: C
     return (
         <Flex
             direction="row"
-            w={`${width * 0.80}px`}
-            gap={3} p={4}
+            w={ehMobile ? "full" : "80%"}
+            gap={3} py={4}
             justifyContent={ehMobile ? "center" : "right"}
-            alignItems="center"
+            alignContent={ehMobile ? "center" : "flex-end"}
             {...props}
         >
             {renderButtons(botoes)}

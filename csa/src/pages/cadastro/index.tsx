@@ -1,10 +1,11 @@
 'use client';
 
-import { Box, Center, Heading, Image, Link, Stack, Text, VStack } from "@chakra-ui/react";
-import Card from "csa/components/card";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import Form from "csa/components/Form"; // Componente reutilizável de formulário
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
+import CardCadastro from "./card_cadastro";
+import InfoCadastro from "./cadasro_info";
 
 // Função que verifica se a pessoa é maior de idade
 function isMaiorDeIdade(dataNascimento: string): boolean {
@@ -95,59 +96,20 @@ function Logozone() {
 // Componente principal da página de cadastro
 export default function Cadastro() {
     const scrSize = ScreenSize();
-    const isMobile = scrSize.width < scrSize.height 
-    const cadsSapce = isMobile ? 1 : 0.65; // Porcentagem da tela ocupada pelo formulário
+    const isMobile = scrSize.width < scrSize.height  // Porcentagem da tela ocupada pelo formulário
 
     return (
-        <Stack h={`${scrSize.height}px`} direction={isMobile ? "column" : "row"} >
+        <Flex h={`${scrSize.height}px`} w="full" direction={isMobile ? "column" : "row"}  >
             {/* Coluna do formulário */}
-            <Box 
-                h={`${scrSize.height}px`} maxW={`${Math.trunc(scrSize.width * cadsSapce)}px`} 
-            >
-                <Card.Root maxW="600px" w={`${scrSize.height*0.70}px`} mx={`${scrSize.height*0.70}px`} fontSize={`${scrSize.height*0.020}px`} justifySelf={"center"} alignSelf={"center"} mt={`${scrSize.height*0.05}px`} justifyContent="center" alignContent="center" px={4} py={1}>
-                    <Card.Header>
-                        <Center>
-                            <Text fontSize="2xl">Se junte à Causa Solidária!</Text>
-                        </Center>
-                    </Card.Header>
-                    <Card.Body>
-                        {/* Formulário com validação e envio */}
-                        <Form formArray={formArray} schema={formSchema} set_rota={handleCadastro}>
-                            {/* Você pode adicionar botões ou outros elementos aqui, se quiser */}
-                        </Form>
-                    </Card.Body>
-                </Card.Root>
-            </Box>
 
-            
-            <Box 
-                h={`${scrSize.height}px`} 
-                w={isMobile ?  `100vw` : `${Math.trunc(scrSize.width * (1-cadsSapce))}px` } 
-                bg="sec" 
-                position={isMobile ? "static" : "fixed" } 
-                bottom={isMobile ? 0 : undefined}
-                right={isMobile ? undefined : 0}
-                top={isMobile ? undefined : 0}
-            >
-                <VStack>
-                   {isMobile ? undefined : (<Logozone/>)}
+            <InfoCadastro/>
+            <CardCadastro>
+                <Form formArray={formArray} schema={formSchema} set_rota={handleCadastro}>
+                    {/* Você pode adicionar botões ou outros elementos aqui, se quiser */}
+                </Form>
+            </CardCadastro>
 
-                    <Box mx="7.5%" mt="5%">
-                        <Heading fontSize={`${scrSize.height*0.075}px`} color="qui" lineHeight="110%" fontWeight={900}>
-                            transforme pequenos gestos em grandes mudanças
-                        </Heading>
-                        <Text fontSize={`${scrSize.height*0.025}px`} color="qui" mt={`${scrSize.height*0.005}px`}>
-                            A Causa Solidária é uma plataforma que conecta pessoas dispostas a ajudar causas criadas por outras pessoas.
-                        </Text>
-                        <Text fontSize={`${scrSize.height*0.025}px`} color="qui" mt={`${scrSize.height*0.005}px`}>
-                            Aqui você pode criar sua própria causa, divulgar e receber doações de pessoas que se importam com o seu projeto.
-                        </Text>
-                        <Text fontSize={`${scrSize.height*0.015}px`} color="qui" mt={`${scrSize.height*0.005}px`} textAlign="center">
-                            Junte-se a nós e faça a diferença na vida de quem mais precisa!
-                        </Text>
-                    </Box>
-                </VStack>
-            </Box> 
-        </Stack>
+
+        </Flex>
     );
 }
