@@ -22,7 +22,7 @@ const Button = forwardRef<HTMLButtonElement, PropsButtom>(
                 {...props}
                 _hover={hover}
                 fontWeight={"bold"}
-                borderRadius={"2md"}
+                borderRadius={"2xl"}
                 transition={"0.2s ease"}
             >
                 {children}
