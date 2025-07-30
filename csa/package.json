@@ -16,7 +16,7 @@
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.5.0",
     "bcryptjs": "^3.0.2",
-    "framer-motion": "^12.12.1",
+    "framer-motion": "^12.23.11",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "next": "^15.3.3",

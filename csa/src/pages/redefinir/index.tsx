@@ -2,10 +2,13 @@
 
 import { Box, Button, Heading, Input, Text, VStack } from "@chakra-ui/react"
 import { useState } from "react"
+import RootPopup from "csa/components/ProviderPopup"
+import usePopup from "csa/hooks/usePopup"
 
 export default function RedefinirSenha() {
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const popup = usePopup()
 
   const handleSubmit = async () => {
     setIsLoading(true)
@@ -20,7 +23,7 @@ export default function RedefinirSenha() {
       })
 
       const data = await response.json()
-      alert(data.message)
+      popup(data.message)
     }catch (error) {
       console.error("Erro ao enviar o email de redefinição:", error)
     }
@@ -55,7 +58,7 @@ export default function RedefinirSenha() {
           Informe um email e enviaremos um link de recuperação da sua senha.
         </Text>
 
-        <VStack spacing={6}>
+        <VStack>
           <Input 
             placeholder="E-mail"
             type="email"
