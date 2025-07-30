@@ -10,7 +10,7 @@ import { Box, JsxElement } from "@chakra-ui/react";
 //   <SeuComponente />
 // </DefaultPage>
 
-export default function DefaultPage({children}: {children?: React.ReactNode | JsxElement}) {
+export default function DefaultPage({children}: {children?: React.ReactNode | JsxElement<any, any>}) {
     const scSize = ScreenSize()
     return (
         <Box w={"100%"} maxW={"100%"} h={scSize.height}>

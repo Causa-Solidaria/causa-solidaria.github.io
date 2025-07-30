@@ -3,6 +3,7 @@
 import { Box,Button, Heading,Input,Text,VStack,} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import usePopup from "csa/hooks/usePopup";
 
 export default function NovaSenhaPage() {
   const router = useRouter();
@@ -10,6 +11,7 @@ export default function NovaSenhaPage() {
   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
   const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const popup = usePopup()
 
   useEffect(() => {
     const urlToken = router.query.token;
@@ -20,7 +22,7 @@ export default function NovaSenhaPage() {
 
   const handleSubmit = async () => {
     if (novaSenha !== confirmacaoSenha) {
-      alert("As senhas não coincidem.");
+      popup("As senhas não coincidem.");
       return;
     }
 
@@ -36,7 +38,7 @@ export default function NovaSenhaPage() {
       });
 
       const data = await response.json();
-      alert(data.message);
+      popup(data.message);
 
       if (response.ok) {
         router.push("/login");
@@ -44,7 +46,7 @@ export default function NovaSenhaPage() {
 
     } catch (error) {
       console.error("Erro ao redefinir a senha:", error);
-      alert("Erro ao redefinir a senha.");
+      popup("Erro ao redefinir a senha.");
     }
 
     setIsLoading(false);
@@ -76,7 +78,7 @@ export default function NovaSenhaPage() {
           Insira sua nova senha e confirme abaixo.
         </Text>
 
-        <VStack spacing={6}>
+        <VStack >
           <Input
             placeholder="Nova Senha"
             type="password"

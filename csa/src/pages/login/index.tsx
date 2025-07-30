@@ -6,6 +6,7 @@ import Logo from "csa/components/logo";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { z } from "zod";
 import CardLogin from "./loginCard";
+import usePopup from "csa/hooks/usePopup";
 
 // Validação com Zod
 const formSchema = z.object({
@@ -13,34 +14,38 @@ const formSchema = z.object({
     password: z.string(),
 });
 
-// Função para enviar dados do login
-const handleLogin = async (data: any) => {
-    try {
-        const res = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-
-        const json = await res.json();
-
-        if (!res.ok) throw new Error(json.error || "Erro desconhecido");
-
-        // Salva o token no localStorage
-        localStorage.setItem('token', json.token);
-
-        alert("Login realizado com sucesso!");
-        // Redireciona para a página de campanhas
-        window.location.href = '/campanhas';
-        
-
-    } catch (error: any) {
-        alert(`Erro no login: ${error.message}`);
-    }
-};
 
 export default function Login(){
     const scrSize = ScreenSize();
+
+    const popup = usePopup()
+
+    // Função para enviar dados do login
+    const handleLogin = async (data: any) => {
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            const json = await res.json();
+
+            if (!res.ok) throw new Error(json.error || "Erro desconhecido");
+
+            // Salva o token no localStorage
+            localStorage.setItem('token', json.token);
+
+            popup("Login realizado com sucesso!");
+            // Redireciona para a página de campanhas
+            window.location.href = '/campanhas';
+            
+
+        } catch (error: any) {
+            popup(`Erro no login: ${error.message}`);
+        }
+    };
+    
     const formArray = [
         { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
         { label: "Senha", register: "password", ispassword: true, placeholder: "Digite sua senha", type: "password" },
