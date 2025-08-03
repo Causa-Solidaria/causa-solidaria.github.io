@@ -1,13 +1,12 @@
-import { Box, Button,  JsxElement,  Link } from "@chakra-ui/react"
+import { Box,  Link } from "@chakra-ui/react"
 import { ScreenSize } from "csa/utils/getScreenSize";
-import { JSX } from "react";
 import Buttom from "csa/components/Buttom";
 import { isMobile } from "csa/utils/isMobile";
 
 
 // tipos que o botão pode ser
 export type Botao = 
-    | { tipo: "custom"; componente: JSX.Element | JsxElement<any, any> } 
+    | { tipo: "custom"; componente: React.ReactNode} 
     | { tipo: "link"; href: string; text: string }
 
 // Função utilitária para detectar mobile
