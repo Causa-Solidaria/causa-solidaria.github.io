@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Center, Grid, Text } from "@chakra-ui/react";
-import { ScreenSize } from "csa/utils/getScreenSize";
 import CampanhasCard from "./camapanhasCard";
 import DefaultPage from "csa/components/DefaultPage";
 
@@ -12,13 +11,12 @@ import DefaultPage from "csa/components/DefaultPage";
 
 
 export default function Campanhas() {
-  const scrSize = ScreenSize();
   const [campanhas, setCampanhas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // comando para requisita a api do lado do client
   useEffect(() => {
-    fetch("/api/campanhas") 
+    fetch("/api/campanhas/get") 
       .then(res => res.json())
       .then(data => setCampanhas(data))
       .catch(() => setCampanhas([]))

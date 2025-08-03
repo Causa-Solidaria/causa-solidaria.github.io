@@ -35,7 +35,7 @@ model TokenRedefinicaoSenha {
   expiresAt DateTime
 }
 model Campanha {
-  id            String   @id @default(uuid())
+  id            String  @unique @id @default(uuid())
   titulo        String
   descricao     String?
   nivelAjuda    String
