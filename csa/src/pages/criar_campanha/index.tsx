@@ -1,6 +1,7 @@
 import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import Form from "csa/components/Form";
+import usePopup from "csa/hooks/usePopup";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
@@ -20,60 +21,61 @@ const formSchema = z.object({
   thumbnail: z.instanceof(File).optional(),
 });
 
-const handleCriarCampanha = async (form: any) => {
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Você não está logado!");
-      return;
-    }
-
-    const formData = new FormData();
-
-    formData.append("titulo", form.title);
-    formData.append("descricao", form.description);
-    formData.append("nivelAjuda", "1"); // ou valor do form
-    formData.append("cep", form.cep || "00000-000");
-    formData.append("cidade", form.cidade || "Cidade Teste");
-    formData.append("estado", form.estado || "Estado Teste");
-    formData.append("bairro", form.bairro || "Bairro Teste");
-    formData.append("rua", form.rua || "Rua Teste");
-    formData.append("numero", form.numero || "123");
-
-    if (form.thumbnail instanceof File) {
-      formData.append("foto", form.thumbnail);
-    }
-
-    const res = await fetch("/api/campanhas/add", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`, // <-- ESSENCIAL
-      },
-      body: formData,
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error(errorData);
-      alert("Erro ao criar campanha: " + errorData.error);
-      return;
-    }
-
-    const result = await res.json();
-    console.log("Campanha criada:", result);
-    alert("Campanha criada com sucesso!");
-  } catch (err) {
-    console.error("Erro geral:", err);
-    alert("Erro inesperado ao criar campanha");
-  }
-};
-
 
 export default function QueroDoar() {
   const scrSize = ScreenSize();
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const popup = usePopup()
+
+  const handleCriarCampanha = async (form: any) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        popup("Você não está logado!");
+        return;
+      }
+
+      const formData = new FormData();
+
+      formData.append("titulo", form.title);
+      formData.append("descricao", form.description);
+      formData.append("nivelAjuda", "1"); // ou valor do form
+      formData.append("cep", form.cep || "00000-000");
+      formData.append("cidade", form.cidade || "Cidade Teste");
+      formData.append("estado", form.estado || "Estado Teste");
+      formData.append("bairro", form.bairro || "Bairro Teste");
+      formData.append("rua", form.rua || "Rua Teste");
+      formData.append("numero", form.numero || "123");
+
+      if (form.thumbnail instanceof File) {
+        formData.append("foto", form.thumbnail);
+      }
+
+      const res = await fetch("/api/campanhas/add", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // <-- ESSENCIAL
+        },
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error(errorData);
+        popup("Erro ao criar campanha: " + errorData.error);
+        return;
+      }
+
+      const result = await res.json();
+      console.log("Campanha criada:", result);
+      popup("Campanha criada com sucesso!");
+    } catch (err) {
+      console.error("Erro geral:", err);
+      popup("Erro inesperado ao criar campanha");
+    }
+  };
 
   function handleThumbnailChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
