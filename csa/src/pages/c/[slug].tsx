@@ -17,13 +17,19 @@ type campanhaProps = {
     Bairro?: string,
     Rua?: string,
     Numero_da_casa?: string | number,
-    thumbnail?: any, 
+    foto?: any, 
 }
 
 
 export default function Campanha(c: campanhaProps){
     const [size, setSize] = useState({ w: "100%", h: "150px" });
     const [isOpen, seIsOpen] = useState(false)
+
+    let fotoSrc = "/logo.png"; // fallback
+    if (c?.foto) {
+        fotoSrc = `data:image/png;base64,${c.foto}`;
+    }
+
     const HandlerSize = ()=>{
         seIsOpen(!isOpen)
         setSize(isOpen ? { w: "80vw", h: "80vh" } : { w: "100%", h: "150px" });
@@ -45,7 +51,7 @@ export default function Campanha(c: campanhaProps){
                     h={size.h}
                     justifySelf={"center"} 
                     alignSelf={"center"} 
-                    src={c.thumbnail} 
+                    src={fotoSrc} 
                     alt={c.titulo} 
                     borderRadius={"xl"}
                     onClick={HandlerSize}
@@ -74,9 +80,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // Transforma os campos Date em string
   return {
     props: {
-      ...campanha,
-      createdAt: campanha.createdAt.toISOString(),
-      updatedAt: campanha.updatedAt.toISOString(),
+        ...campanha,
+        createdAt: campanha.createdAt.toISOString(),
+        updatedAt: campanha.updatedAt.toISOString(),
+        endDate: campanha.endDate.toISOString(),
     },
   };
 };
