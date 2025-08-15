@@ -1,11 +1,14 @@
 import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import Form from "csa/components/Form";
+import usePopup from "csa/hooks/usePopup";
 import { ScreenSize } from "csa/utils/getScreenSize";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
+import LZString from "lz-string";
 
+// Validação do formulário
 const formSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   description: z.string().optional(),
@@ -16,103 +19,108 @@ const formSchema = z.object({
   bairro: z.string().min(1, "Bairro é obrigatório"),
   rua: z.string().min(1, "Rua é obrigatória"),
   numero: z.string().min(1, "Número é obrigatório"),
-  endDate: z.string().refine((date) => new Date(date) > new Date(), "Data de término deve ser no futuro"),
-  thumbnail: z.instanceof(File).optional(),
+  endDate: z.string().refine(
+    (date) => new Date(date) > new Date(),
+    "Data de término deve ser no futuro"
+  ),
+  thumbnail: z.string().optional(), // agora é string Base64 comprimida
 });
-
-const handleCriarCampanha = async (form: any) => {
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Você não está logado!");
-      return;
-    }
-
-    const formData = new FormData();
-
-    formData.append("titulo", form.title);
-    formData.append("descricao", form.description);
-    formData.append("nivelAjuda", "1"); // ou valor do form
-    formData.append("cep", form.cep || "00000-000");
-    formData.append("cidade", form.cidade || "Cidade Teste");
-    formData.append("estado", form.estado || "Estado Teste");
-    formData.append("bairro", form.bairro || "Bairro Teste");
-    formData.append("rua", form.rua || "Rua Teste");
-    formData.append("numero", form.numero || "123");
-
-    if (form.thumbnail instanceof File) {
-      formData.append("foto", form.thumbnail);
-    }
-
-    const res = await fetch("/api/campanhas/add", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`, // <-- ESSENCIAL
-      },
-      body: formData,
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error(errorData);
-      alert("Erro ao criar campanha: " + errorData.error);
-      return;
-    }
-
-    const result = await res.json();
-    console.log("Campanha criada:", result);
-    alert("Campanha criada com sucesso!");
-  } catch (err) {
-    console.error("Erro geral:", err);
-    alert("Erro inesperado ao criar campanha");
-  }
-};
-
 
 export default function QueroDoar() {
   const scrSize = ScreenSize();
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const popup = usePopup();
+
+  const [thumbnailString, setThumbnailString] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
-  function handleThumbnailChange(event: React.ChangeEvent<HTMLInputElement>) {
+  // Lê o arquivo, transforma em Base64 e comprime
+  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setThumbnail(file);
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setThumbnail(null);
-      setPreview(null);
-    }
-  }
+    if (!file) return;
 
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result?.toString().split(",")[1];
+      if (!base64) return;
+
+      const compressed = base64;
+      setThumbnailString(compressed);
+      setPreview(URL.createObjectURL(file));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Envia o formulário para a API
+  const handleCriarCampanha = async (form: any) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return popup("Você não está logado!");
+
+      const body = {
+        titulo: form.title,
+        descricao: form.description ?? "",
+        nivelAjuda: form.nivelAjuda ?? "1",
+        cep: form.cep ?? "00000-000",
+        cidade: form.cidade ?? "Cidade Teste",
+        estado: form.estado ?? "Estado Teste",
+        bairro: form.bairro ?? "Bairro Teste",
+        rua: form.rua ?? "Rua Teste",
+        numero: form.numero ?? "123",
+        endDate: form.endDate,
+        thumbnail: thumbnailString, // string Base64 comprimida
+      };
+
+      const res = await fetch("/api/campanhas/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error(errorData);
+        return popup("Erro ao criar campanha: " + errorData.error);
+      }
+
+      const result = await res.json();
+      console.log("Campanha criada:", result);
+      popup("Campanha criada com sucesso!");
+    } catch (err) {
+      console.error("Erro geral:", err);
+      popup("Erro inesperado ao criar campanha");
+    }
+  };
+
+  // Configuração dos campos do formulário
   const formArray = [
     {
-      label: "thumbnail",
+      label: "Thumbnail",
       register: "thumbnail",
       type: "file",
       accept: ".jpg, .jpeg, .png",
       isFileUpload: true,
       customElement: (
-        <Box w={"85%"} m={4} aspectRatio={15 / 9} alignContent="flex-start">
+        <Box w="85%" m={4}>
           {preview && (
             <Image
               src={preview}
-              minW={"200px"} w={"70%"}
-              minH={"120px"} maxH={"500px"}
-              aspectRatio={15 / 9}
-              borderRadius={"md"}
-              justifySelf={"center"}
-              align={"center"}
               alt="Thumbnail Preview"
+              w="70%"
+              minW="200px"
+              maxH="500px"
+              borderRadius="md"
+              mb={2}
             />
           )}
-          <Box bg={"gray.100"} minW={"200px"} w={"70%"} justifySelf={"center"} borderRadius={"md"} p={4}>
+          <Box bg="gray.100" w="70%" minW="200px" borderRadius="md" p={4}>
             <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
               <FileUpload.HiddenInput />
               <FileUpload.Trigger asChild>
-                <Button variant="outline">
-                  <LuUpload /> Upload file
+                <Button variant="outline" leftIcon={<LuUpload />}>
+                  Upload file
                 </Button>
               </FileUpload.Trigger>
             </FileUpload.Root>
@@ -120,8 +128,8 @@ export default function QueroDoar() {
         </Box>
       ),
     },
-    { label: "Título", register: "title", placeholder: "coloque o título aqui", type: "text" },
-    { label: "Descrição", register: "description", placeholder: "coloque a descrição aqui", type: "text", as: "textarea" },
+    { label: "Título", register: "title", placeholder: "Coloque o título aqui", type: "text" },
+    { label: "Descrição", register: "description", placeholder: "Coloque a descrição aqui", type: "text", as: "textarea" },
     { label: "Nível de Ajuda", register: "nivelAjuda", type: "text" },
     { label: "CEP", register: "cep", type: "text" },
     { label: "Cidade", register: "cidade", type: "text" },
@@ -134,17 +142,8 @@ export default function QueroDoar() {
 
   return (
     <DefaultPage>
-      <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py={"5%"}>
-        <Box
-          mt={15}
-          p={"5%"}
-          bg={"qui"}
-          minW={"200px"}
-          minH={"120px"}
-          borderRadius={"15px"}
-          justifyContent={"center"}
-          alignContent={"center"}
-        >
+      <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py="5%">
+        <Box mt={15} p="5%" bg="qui" minW="200px" minH="120px" borderRadius="15px">
           <Form formArray={formArray} schema={formSchema} set_rota={handleCriarCampanha} />
         </Box>
       </Box>
