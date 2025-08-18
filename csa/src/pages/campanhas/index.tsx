@@ -5,9 +5,7 @@ import { Center, Grid, Text } from "@chakra-ui/react";
 import CampanhasCard from "./camapanhasCard";
 import DefaultPage from "csa/components/DefaultPage";
 
-// -davi: o "/api/campanhas" existe mas está vazio, então não há campanhas para exibir.
-// por enquanto, o código está preparado para lidar com a ausência de campanhas.
-// entao vc profuso pode criar campanhas no banco de dados para testar a exibição.
+
 
 
 export default function Campanhas() {
@@ -32,21 +30,22 @@ export default function Campanhas() {
           <Text>Carregando campanhas...</Text>
         
         ) : campanhas.length === 0 ? (
-          <Text>Não foi possível encontrar campanhas.</Text>
-          
-        ) : (
-          <Grid
-            templateRows={`repeat(5, 1fr)`}
-            templateColumns={`repeat(5, 1fr)`}
-            w="full" gap={4} m={10}
-            justifyItems={"center"}
-          >
+	 	
+		<Text>Não foi possível encontrar campanhas.</Text>
+        
+	) : (
+        	<Grid
+			templateRows={`repeat(5, 1fr)`}
+            		templateColumns={`repeat(5, 1fr)`}
+            		w="full" gap={4} m={10}
+            		justifyItems={"center"}
+          	>
 
-            {campanhas.map((campanha, idx) => (
-              <CampanhasCard key={idx} idx={idx} campanha={campanha} />
-            ))}
+            		{campanhas.map((campanha, idx) => (
+              			<CampanhasCard key={idx} idx={idx} campanha={campanha} />
+            		))}
           
-          </Grid>
+          	</Grid>
         )}
       </Center>
     </DefaultPage>

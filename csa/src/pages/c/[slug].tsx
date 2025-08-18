@@ -1,4 +1,4 @@
-import { Box, Heading, Image, Text } from "@chakra-ui/react"
+import { Box, Heading, Image, Progress, Text } from "@chakra-ui/react"
 import CardDefault from "csa/components/Card"
 import DefaultPage from "csa/components/DefaultPage"
 import { GetServerSideProps } from "next"
@@ -40,25 +40,37 @@ export default function Campanha(c: campanhaProps){
             <Head>
                 <title>{c.titulo}</title>
             </Head>
-            <CardDefault
-                mt={2} 
+            <CardDefault 
                 justifySelf="center" alignSelf="center" 
                 minH={["400px","400px","500px", "800px",]}
                 w={["95%", "90%", "75%", "70%", "60%"]}
+                Root={
+                    <Image 
+                        w={size.w}
+                        h={size.h}
+                        justifySelf={"center"} 
+                        alignSelf={"center"}
+                        src={fotoSrc} 
+                        alt={c.titulo} 
+                        borderRadius={"xl"}
+                        onClick={HandlerSize}
+                        transition="0.8s all"
+                    />
+                }
             >
-                <Image 
-                    w={size.w}
-                    h={size.h}
-                    justifySelf={"center"} 
-                    alignSelf={"center"} 
-                    src={fotoSrc} 
-                    alt={c.titulo} 
-                    borderRadius={"xl"}
-                    onClick={HandlerSize}
-                    transition="0.6s all"
-                />
-                <Heading fontFamily={"quicksand"} my={"5%"}>{c.titulo}</Heading>
-                <Text>{c.Descricao}</Text>
+                
+                <Heading fontFamily={"quicksand"}> {c.titulo}</Heading>
+                
+                <Text pb={2}>{c.Descricao}</Text>
+
+                <Progress.Root maxW="100%" size="xl" variant="outline" max={1} min={0} shape="rounded" value={0.5} >
+                    <Progress.Label> 
+                        <Text>Progresso</Text>  
+                    </Progress.Label>
+                    <Progress.Track >
+                        <Progress.Range bg={"sec"} />
+                    </Progress.Track>
+                </Progress.Root>
             </CardDefault>
         </DefaultPage>
             
