@@ -22,6 +22,7 @@ const Header = () => {
       display="flex" 
       flexDirection={mobile ? "column" : "row"} 
       borderRadius={mobile ? "0 0 20px 20px" : "0"} 
+      position={"sticky"}
       bg="sec"  
       w={"100%"} 
       minH="min-content" 
