@@ -8,7 +8,7 @@ interface InputFieldProps {
 }
 
 // Componente para campo de input padrão
-export default function InputField({ item, register, scrSize, props }: InputFieldProps) {
+export default function InputField({ item, register,  ...props}: InputFieldProps) {
   return (
     <Input
       borderColor={"ter"}

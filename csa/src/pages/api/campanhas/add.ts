@@ -63,7 +63,7 @@ router.post(async (req, res) => {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '144mb'
+      sizeLimit: '200mb'
     }
   },
 };

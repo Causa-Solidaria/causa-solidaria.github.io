@@ -1,11 +1,9 @@
 import { Box, Flex, Heading, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
-import { ScreenSize } from "csa/utils/getScreenSize";
 import { isMobile } from "csa/utils/isMobile";
 
 export default function InfoCadastro() {
-  const scrSize = ScreenSize();
-  const ehMobile = isMobile(scrSize.width, scrSize.height);
+  const ehMobile = isMobile();
 
   const headingSize = useBreakpointValue({
     base: "2xl",

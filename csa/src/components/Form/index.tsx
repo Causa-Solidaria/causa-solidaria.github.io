@@ -6,18 +6,12 @@ import { Stack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Button from "../Buttom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ScreenSize } from "csa/utils/getScreenSize";
 import { FormProps } from "./utils";
 import FormFieldComponent from "./FormFieldComponent";
 
 
 // Componente de formulário genérico, recebe um array de campos, children, props extras, schema de validação e função de callback.
 export default function Form({ formArray, children, props, schema, set_rota }: FormProps) {
-    
-    
-    // Hook para obter tamanho da tela e adaptar responsividade
-    const scrSize = ScreenSize();
-    
     
     // Inicializa o hook de formulário com validação baseada no schema Zod
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -40,7 +34,7 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
         >
 
             {/* Stack organiza os campos verticalmente com espaçamento e margem responsiva */}
-            <Stack gap="2" align="flex-start" m={`${scrSize.height * 0.01}px`}>
+            <Stack gap="2" align="flex-start" m="1vh">
                 
                 {/* Renderiza todos os campos do formulário dinamicamente */}
                 {formArray?.map((item, index) => (
@@ -49,7 +43,6 @@ export default function Form({ formArray, children, props, schema, set_rota }: F
                         item={item}
                         errors={errors}
                         register={register}
-                        scrSize={scrSize}
                         props={props}
                     />
                 ))}

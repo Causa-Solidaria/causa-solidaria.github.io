@@ -1,11 +1,7 @@
-import { Box, Center, ChakraProviderProps, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
 import CardDefault from "csa/components/Card";
-import { ScreenSize } from "csa/utils/getScreenSize";
-import { isMobile } from "csa/utils/isMobile";
 
-export default function CardCadastro({ children, ...props}) {
-  const scrSize = ScreenSize();
-  const ehMobile = isMobile(scrSize.width, scrSize.height);
+export default function CardCadastro({ children, ...props}: BoxProps) {
 
   const cardWidth = useBreakpointValue({
     base: "100%", // mobile
@@ -32,7 +28,8 @@ export default function CardCadastro({ children, ...props}) {
         justifyContent="center"
         alignContent="center"
         borderRadius="lg"
-        boxShadow="lg"
+        boxShadow="12px 12px 0px #00000020"
+        
         p={[4, 6, 8]}
         Header={
           <Center mb={4}>

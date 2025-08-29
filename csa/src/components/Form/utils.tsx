@@ -25,6 +25,5 @@ export interface FormFieldComponentProps {
     item: FormField;
     errors: any;
     register: any;
-    scrSize: any;
     props?: ChakraProviderProps & {size: any};
 }

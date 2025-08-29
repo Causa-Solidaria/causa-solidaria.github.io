@@ -12,7 +12,7 @@ import InputField from "./InputField";
 // Ele decide qual tipo de campo exibir (label, senha, checkbox, input padrão ou customizado)
 // com base nas propriedades recebidas via props.
 
-export default function FormFieldComponent({ item, errors, register, scrSize, props }: FormFieldComponentProps) {
+export default function FormFieldComponent({ item, errors, register, props }: FormFieldComponentProps) {
     return (
 
         // Field.Root controla o estado de erro do campo
@@ -26,18 +26,18 @@ export default function FormFieldComponent({ item, errors, register, scrSize, pr
                 <>
                     {/* Renderiza o label, exceto para checkbox */}
                     {!item.ischeckbox && (
-                        <LabelField label={item.label} scrSize={scrSize} />
+                        <LabelField label={item.label}  />
                     )}
 
                     {/* Renderiza campo de senha, checkbox ou input padrão conforme configuração */}
                     {item.ispassword ? (
-                        <PasswordField item={item} register={register} scrSize={scrSize} />
+                        <PasswordField item={item} register={register} />
                     
                     ) : item.ischeckbox ? (
-                        <CheckboxField item={item} register={register} scrSize={scrSize} />
-                    
+                        <CheckboxField item={item} register={register} />
+
                     ) : (
-                        <InputField item={item} register={register} scrSize={scrSize} props={props} />
+                        <InputField item={item} register={register} props={props} />
                     )}
                 </>
             )}
