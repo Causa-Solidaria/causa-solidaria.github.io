@@ -1,5 +1,4 @@
 import { Box,  Link } from "@chakra-ui/react"
-import { ScreenSize } from "csa/utils/getScreenSize";
 import Buttom from "csa/components/Buttom";
 import { isMobile } from "csa/utils/isMobile";
 
@@ -13,8 +12,7 @@ export type Botao =
 
 
 export function renderButtons(botoes: Botao[]) {
-    const {width, height} = ScreenSize()
-    const ehMobile = isMobile(width, height, 750)
+    const ehMobile = isMobile(700)
     
     return botoes.map(
             (botao, idx) => (
@@ -23,7 +21,7 @@ export function renderButtons(botoes: Botao[]) {
                         {botao.componente}
                     </Box>
                 ) : (
-                    <Buttom key={idx} w={ehMobile ? (width / (botoes.length+1)) : "10em"} asChild>
+                    <Buttom key={idx} asChild>
                         <Link href={botao.href} bg="ter" m={2}>
                         {botao.text}
                         </Link>

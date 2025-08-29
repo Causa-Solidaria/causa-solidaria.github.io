@@ -1,53 +1,16 @@
 'use client';
 
-import { Box, Flex, Image, Link, Text, useBreakpointValue } from "@chakra-ui/react";
-import Form from "csa/components/Form";
-import { ScreenSize } from "csa/utils/getScreenSize";
+import { Box, Button, Checkbox, Flex, Image, Input, Link, Text } from "@chakra-ui/react";
 import { z } from "zod";
 import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
 import usePopup from "csa/hooks/usePopup";
 import { isMobile } from "csa/utils/isMobile";
-
-function isMaiorDeIdade(dataNascimento: string): boolean {
-  const hoje = new Date();
-  const nascimento = new Date(dataNascimento);
-  let idade = hoje.getFullYear() - nascimento.getFullYear();
-  const m = hoje.getMonth() - nascimento.getMonth();
-  if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) idade--;
-  return idade >= 18;
-}
-
-const formSchema = z
-  .object({
-    name: z.string().min(1, "Nome é obrigatório"),
-    username: z.string().min(1, "Nome de usuário é obrigatório"),
-    BornDate: z.string().refine((data) => isMaiorDeIdade(data), "Você deve ser maior de idade"),
-    email: z.string().email("Email inválido"),
-    password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
-    confirmPassword: z.string(),
-    terms: z.any().refine((value) => !!value, "Você deve aceitar os termos e condições"),
-  })
-  .refine((dados) => dados.password === dados.confirmPassword, {
-    message: "As senhas devem ser iguais",
-    path: ["confirmPassword"],
-  });
-
-const formArray = [
-  { label: "Nome", register: "name", placeholder: "Digite seu nome", type: "text" },
-  { label: "Nome de Usuário", register: "username", placeholder: "Digite seu nome de usuário", type: "text" },
-  { label: "Data de nascimento", register: "BornDate", type: "date" },
-  { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
-  { label: "Senha", register: "password", placeholder: "Digite sua senha", type: "password", ispassword: true },
-  { label: "Confirmar Senha", register: "confirmPassword", placeholder: "Confirme sua senha", type: "password", ispassword: true },
-  {
-    label: "Aceitar",
-    register: "terms",
-    ischeckbox: true,
-    type: "checkbox",
-    children: <Link textDecor="underline" href="#">termos e condições</Link>,
-  },
-];
+import { formSchema } from "./FormConfig/schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { handleCadastro } from "./FormConfig/submit";
+import {motion} from "framer-motion"; 
 
 function Logozone() {
   return (
@@ -69,51 +32,113 @@ function Logozone() {
   );
 }
 
+
+const CardCadastroMotion = motion(CardCadastro)
+const InfoCadastroMotion = motion(InfoCadastro)
+
 export default function Cadastro() {
-  const scrSize = ScreenSize();
-  const ehMobile = isMobile(scrSize.width, scrSize.height);
+  const ehMobile = isMobile();
   const popup = usePopup();
 
-  const handleCadastro = async (data: object) => {
-    try {
-      const res = await fetch('/api/cadastro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
 
-      const json = await res.json();
-
-      if (!res.ok) {
-        throw new Error(json.error || "Erro desconhecido");
-      }
-
-      popup("Cadastro realizado com sucesso!");
-      window.location.href = "/login"; // Redireciona para a página de campanha
-    } catch (error) {
-      popup(`Erro no cadastro: ${error.message}`);
-    }
+  const {register, handleSubmit, formState: { errors }, reset} = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema)
+  });
+  
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    await handleCadastro(data, popup);
+    reset();
   };
 
   return (
     <Flex
-        
       w="full"
+      minH="100vh"
       direction={ehMobile ? "column-reverse" : "row"}
       justify="center"
-      gap={[0, 4, 10]}
+      gap={[0, 2, 3]}
       bg="pri"
     >
-      <InfoCadastro />
+      {!ehMobile && <InfoCadastroMotion
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />}
 
-      <Flex direction="column" w="full" >
-        {ehMobile && <Logozone />}
-        <CardCadastro align={"center"}>
-          <Form formArray={formArray} schema={formSchema} set_rota={handleCadastro}>
-            {/* Botões adicionais, se quiser */}
-          </Form>
-        </CardCadastro>
-      </Flex>
+      <Box w="full" >
+        <CardCadastroMotion
+          initial={{ y: 69, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, type: "spring" }}
+        >
+
+          <Box
+            as="form"
+            onSubmit={handleSubmit(onSubmit)}
+            style={{ width: '100%' }}
+            display="flex"
+            flexDirection="column"
+            gapY={2}
+          >
+            <div>
+              <Text>name</Text>
+              <Input 
+                as="input" 
+                {...register("name")} 
+                type="text"
+                width={"100%"}
+                borderColor={"ter"} 
+              />
+              {errors.name && <span style={{fontSize: "12px", color: "red"}}>{errors.name.message}</span>}
+            </div>
+
+            <div>
+              <Text>username</Text>
+              <Input {...register("username")} type="text" borderColor={"ter"} />
+              {errors.username && <span style={{fontSize: "12px", color: "red"}}>{errors.username.message}</span>}
+            </div>
+
+            <div>
+              <Text>Data de Nascimento</Text>
+              <Input {...register("BornDate")} type="date" borderColor={"ter"} />
+            {errors.BornDate && <span style={{fontSize: "12px", color: "red"}}>{errors.BornDate.message}</span>}
+            </div>
+
+            <div>
+              <Text>Email</Text>
+              <Input {...register("email")} type="email" borderColor={"ter"} />
+              {errors.email && <span style={{fontSize: "12px", color: "red"}}>{errors.email.message}</span>}
+            </div>
+
+            <div>
+              <Text>Senha</Text>
+              <Input {...register("password")} type="password" borderColor={"ter"} />
+              {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
+            </div>
+
+            <div>
+              <Text>Confirmar Senha</Text>
+              <Input {...register("confirmPassword")} type="password" borderColor={"ter"} />
+              {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{errors.confirmPassword.message}</span>}
+            </div>
+
+            <div>
+              <Checkbox.Root {...register("terms")} my={5}>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control borderColor={"ter"} >
+                  <Checkbox.Indicator/>  
+                </Checkbox.Control>
+                <Checkbox.Label>
+                  Aceitar <Link textDecor="underline" href="#">termos e condições</Link>
+                </Checkbox.Label>
+              </Checkbox.Root><br />
+              {errors.terms && <span style={{fontSize: "12px", color: "red"}}>{errors.terms.message}</span>}
+            </div>
+
+            <Button type="submit">Cadastrar</Button>
+          </Box>
+        </CardCadastroMotion>
+      </Box>
     </Flex>
   );
 }

@@ -1,30 +1,15 @@
-import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
+import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
-import Form from "csa/components/Form";
 import usePopup from "csa/hooks/usePopup";
 import { ScreenSize } from "csa/utils/getScreenSize";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-import LZString from "lz-string";
-
-// Validação do formulário
-const formSchema = z.object({
-  title: z.string().min(1, "Título é obrigatório"),
-  description: z.string().optional(),
-  nivelAjuda: z.string().min(1, "Nível de ajuda é obrigatório"),
-  cep: z.string().min(1, "CEP é obrigatório"),
-  cidade: z.string().min(1, "Cidade é obrigatória"),
-  estado: z.string().min(1, "Estado é obrigatório"),
-  bairro: z.string().min(1, "Bairro é obrigatório"),
-  rua: z.string().min(1, "Rua é obrigatória"),
-  numero: z.string().min(1, "Número é obrigatório"),
-  endDate: z.string().refine(
-    (date) => new Date(date) > new Date(),
-    "Data de término deve ser no futuro"
-  ),
-  thumbnail: z.string().optional(), // agora é string Base64 comprimida
-});
+import { handleCriarCampanha } from "./FormConfig/submit";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { formSchema } from "./FormConfig/schema";
+import CardDefault from "csa/components/Card";
 
 export default function QueroDoar() {
   const scrSize = ScreenSize();
@@ -32,11 +17,35 @@ export default function QueroDoar() {
 
   const [thumbnailString, setThumbnailString] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Lê o arquivo, transforma em Base64 e comprime
-  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+
+    // Apenas JPG ou PNG
+    const isJpgPng = /image\/(jpeg|png)/.test(file.type) || /\.(jpe?g|png)$/i.test(file.name);
+    if (!isJpgPng) {
+      setUploadError("Apenas arquivos .jpg ou .png");
+      setThumbnailString(null);
+      setPreview(null);
+      return;
+    }
+
+    // Checar dimensões mínimas 300x300
+    const dimsOk = await new Promise<boolean>((resolve) => {
+      const img = new window.Image();
+      img.onload = () => resolve(img.width >= 300 && img.height >= 300);
+      img.onerror = () => resolve(false);
+      img.src = URL.createObjectURL(file);
+    });
+    if (!dimsOk) {
+      setUploadError("Dimensão mínima: 300x300");
+      setThumbnailString(null);
+      setPreview(null);
+      return;
+    }
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -46,107 +55,138 @@ export default function QueroDoar() {
       const compressed = base64;
       setThumbnailString(compressed);
       setPreview(URL.createObjectURL(file));
+      setUploadError(null);
     };
     reader.readAsDataURL(file);
   };
 
-  // Envia o formulário para a API
-  const handleCriarCampanha = async (form: any) => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) return popup("Você não está logado!");
-
-      const body = {
-        titulo: form.title,
-        descricao: form.description ?? "",
-        nivelAjuda: form.nivelAjuda ?? "1",
-        cep: form.cep ?? "00000-000",
-        cidade: form.cidade ?? "Cidade Teste",
-        estado: form.estado ?? "Estado Teste",
-        bairro: form.bairro ?? "Bairro Teste",
-        rua: form.rua ?? "Rua Teste",
-        numero: form.numero ?? "123",
-        endDate: form.endDate,
-        thumbnail: thumbnailString, // string Base64 comprimida
-      };
-
-      const res = await fetch("/api/campanhas/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error(errorData);
-        return popup("Erro ao criar campanha: " + errorData.error);
-      }
-
-      const result = await res.json();
-      console.log("Campanha criada:", result);
-      popup("Campanha criada com sucesso!");
-    } catch (err) {
-      console.error("Erro geral:", err);
-      popup("Erro inesperado ao criar campanha");
-    }
-  };
-
+  
   // Configuração dos campos do formulário
-  const formArray = [
-    {
-      label: "Thumbnail",
-      register: "thumbnail",
-      type: "file",
-      accept: ".jpg, .jpeg, .png",
-      isFileUpload: true,
-      customElement: (
-        <Box w="85%" m={4}>
-          {preview && (
-            <Image
-              src={preview}
-              alt="Thumbnail Preview"
-              w="70%"
-              minW="200px"
-              maxH="500px"
-              borderRadius="md"
-              mb={2}
-            />
-          )}
-          <Box bg="gray.100" w="70%" minW="200px" borderRadius="md" p={4}>
-            <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
-              <FileUpload.HiddenInput />
-              <FileUpload.Trigger asChild>
-                <Button variant="outline" leftIcon={<LuUpload />}>
-                  Upload file
-                </Button>
-              </FileUpload.Trigger>
-            </FileUpload.Root>
-          </Box>
-        </Box>
-      ),
-    },
-    { label: "Título", register: "title", placeholder: "Coloque o título aqui", type: "text" },
-    { label: "Descrição", register: "description", placeholder: "Coloque a descrição aqui", type: "text", as: "textarea" },
-    { label: "Nível de Ajuda", register: "nivelAjuda", type: "text" },
-    { label: "CEP", register: "cep", type: "text" },
-    { label: "Cidade", register: "cidade", type: "text" },
-    { label: "Estado", register: "estado", type: "text" },
-    { label: "Bairro", register: "bairro", type: "text" },
-    { label: "Rua", register: "rua", type: "text" },
-    { label: "Número", register: "numero", type: "text" },
-    { label: "Data de término", register: "endDate", type: "date" },
-  ];
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema)
+  });
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    handleCriarCampanha({ ...data, thumbnailString }, popup);
+  }
 
   return (
-    <DefaultPage>
-      <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py="5%">
-        <Box mt={15} p="5%" bg="qui" minW="200px" minH="120px" borderRadius="15px">
-          <Form formArray={formArray} schema={formSchema} set_rota={handleCriarCampanha} />
+    <DefaultPage
+      justifyContent="center"
+      justifyItems={"center"}
+      alignItems={"center"}
+      alignContent={"center"}
+    >
+      <CardDefault
+        mx={10}
+        mt={5}
+        mb={2}
+        px={10}
+        pt={2}
+        pb={2}
+        w="95%"
+        minW={"320px"}
+        maxW={"1000px"}
+        as="form"
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: '100%' }}
+        display="flex"
+        flexDirection="column"
+        gapY={3}
+      >
+        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={10}>
+          crie sua campanha
+        </Text>
+
+        <HStack align="start" gap={6} flexWrap="wrap">
+          <VStack align="start" gap={2} flex={1} minW="320px">
+            <Box w={"full"}>
+              <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
+                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
+                <FileUpload.Trigger asChild>
+                  <Button variant="outline" w={"full"}>
+                    <LuUpload /> Upload imagem
+                  </Button>
+                </FileUpload.Trigger>
+              </FileUpload.Root>
+              {uploadError && (
+                <Text color="red.500" fontSize="xs" mt={1}>{uploadError}</Text>
+              )}
+            </Box>
+            {preview ? (
+              <Image
+                src={preview}
+                alt="Pré-visualização"
+                w="full"
+                aspectRatio={3/4}
+                maxH="260px"
+                objectFit="cover"
+                borderRadius="md"
+              />
+            ) : (
+              <Box w="100%" h="260px" bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
+            )}
+            <Text fontSize="sm" color="gray.600">
+              Tipos: jpg ou png
+              <br />
+              Tamanho mínimo: 300 × 300 px
+              <br />
+              Dimensão mínima: 300 × 300
+            </Text>
+
+            
+          </VStack>
+
+          <VStack align="stretch" gap={3} flex={1} minW="320px">
+            <Input {...register("title")} placeholder="Nome" borderColor="ter" />
+            {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
+
+            <NativeSelect.Root>
+              <NativeSelect.Field {...register("nivelAjuda")} borderColor="ter">
+                <option value="">escolha a sua categoria</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Higiene">Higiene</option>
+                <option value="Brinquedos">Brinquedos</option>
+                <option value="Outros">Outros</option>
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+            {errors.nivelAjuda && <Text color="red.500" fontSize="xs">{errors.nivelAjuda.message}</Text>}
+
+            <Input {...register("cep")} placeholder="Cep" borderColor="ter" onChange={(e)=>{
+              const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
+              e.target.value = v;
+            }}/>
+            {errors.cep && <Text color="red.500" fontSize="xs">{errors.cep.message}</Text>}
+
+            <Input {...register("cidade")} placeholder="Cidade" borderColor="ter" />
+            {errors.cidade && <Text color="red.500" fontSize="xs">{errors.cidade.message}</Text>}
+
+            <Input {...register("rua")} placeholder="nome da rua" borderColor="ter" />
+            {errors.rua && <Text color="red.500" fontSize="xs">{errors.rua.message}</Text>}
+
+            <Input {...register("numero")} placeholder="Número da casa" borderColor="ter" />
+            {errors.numero && <Text color="red.500" fontSize="xs">{errors.numero.message}</Text>}
+          </VStack>
+        </HStack>
+
+        <Box mt={3}>
+          <textarea {...register("description")} 
+            placeholder="descrição (mínimo 200 caracteres)" 
+            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid", borderRadius: "5px"}} />
+          {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
         </Box>
-      </Box>
+
+        <Box mt={3}>
+          <Input {...register("endDate")} type="date" borderColor="ter" />
+          {errors.endDate && <Text color="red.500" fontSize="xs">{errors.endDate.message}</Text>}
+        </Box>
+
+        <HStack justify="center" mt={6} bottom={0}>
+          <Button type="submit" minW={"100px"} maxW={"300px"} w={"25%"} colorScheme="green">Criar</Button>
+         </HStack>
+      </CardDefault>
     </DefaultPage>
   );
 }
