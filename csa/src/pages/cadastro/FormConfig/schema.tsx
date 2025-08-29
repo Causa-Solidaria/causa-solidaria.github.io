@@ -11,7 +11,7 @@ function isMaiorDeIdade(dataNascimento: string): boolean {
   
   if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) idade--;
   
-  return idade >= 18;
+  return idade <= 18;
 }
 
 export const formSchema = z.object(
@@ -40,7 +40,7 @@ export const formSchema = z.object(
             .string(),
 
         terms: z
-            .boolean()
+            .string()
             .refine((value) => !!value, "Você deve aceitar os termos e condições"),
     }
 ).refine(

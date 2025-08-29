@@ -21,8 +21,8 @@ export default function InfoCadastro() {
 
   return (
     <Box
-      minW={["300px", "300px", "300px", "500px", "600px"]}
-      maxW={["100%", "100%", "100%", "100%", "700px"]}
+      minW="400px"
+      maxW="600px"
       bg="sec"
       borderRadius="lg"
       boxShadow="lg"
@@ -39,7 +39,7 @@ export default function InfoCadastro() {
                 <Logo />
                 <Heading
                 ml={4}
-                fontSize={["xl", "2xl", "3xl"]}
+                fontSize={["xl", "2xl"]}
                 fontFamily="quicksand"
                 fontWeight={900}
                 color="qui"
@@ -48,7 +48,7 @@ export default function InfoCadastro() {
                 </Heading>
             </Flex>
         )}
-        <VStack spacing={6} align="stretch" px={10} py={15}>
+        <VStack  align="stretch" px={10} py={15}>
             
 
         <Box>

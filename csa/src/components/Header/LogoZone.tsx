@@ -1,11 +1,9 @@
 import { Box, LinkBox, Link, Heading } from "@chakra-ui/react"
 import Logo from "../logo"
-import { ScreenSize } from "csa/utils/getScreenSize"
 import { isMobile } from "csa/utils/isMobile"
 
 const LogoZone = () => {
-  const { width, height } = ScreenSize()
-  const mobile = isMobile(width, height, 700)
+  const mobile = isMobile()
 
   return (
     <Box transition="all 0.3s">
@@ -13,7 +11,7 @@ const LogoZone = () => {
         p={2}
         bg="ter"
         minH="4em"
-        maxH={`${height * 0.1}dhv`}
+        maxH={`0.1dhv`}
         minW="max-content"
         w={mobile ? "full" : "min-content"}
         alignContent="center"

@@ -1,8 +1,6 @@
 'use client';
 
-import { Box, Button, Flex, Image, Input, Link, Text, useBreakpointValue } from "@chakra-ui/react";
-import Form from "csa/components/Form";
-import { ScreenSize } from "csa/utils/getScreenSize";
+import { Box, Button, Checkbox, Flex, Image, Input, Link, Text } from "@chakra-ui/react";
 import { z } from "zod";
 import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
@@ -12,24 +10,7 @@ import { formSchema } from "./FormConfig/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleCadastro } from "./FormConfig/submit";
-
-
-
-const formArray = [
-  { label: "Nome", register: "name", placeholder: "Digite seu nome", type: "text" },
-  { label: "Nome de Usuário", register: "username", placeholder: "Digite seu nome de usuário", type: "text" },
-  { label: "Data de nascimento", register: "BornDate", type: "date" },
-  { label: "Email", register: "email", placeholder: "Digite seu email", type: "email" },
-  { label: "Senha", register: "password", placeholder: "Digite sua senha", type: "password", ispassword: true },
-  { label: "Confirmar Senha", register: "confirmPassword", placeholder: "Confirme sua senha", type: "password", ispassword: true },
-  {
-    label: "Aceitar",
-    register: "terms",
-    ischeckbox: true,
-    type: "checkbox",
-    children: <Link textDecor="underline" href="#">termos e condições</Link>,
-  },
-];
+import {motion} from "framer-motion"; 
 
 function Logozone() {
   return (
@@ -51,9 +32,14 @@ function Logozone() {
   );
 }
 
+
+const CardCadastroMotion = motion(CardCadastro)
+const InfoCadastroMotion = motion(InfoCadastro)
+
 export default function Cadastro() {
   const ehMobile = isMobile();
   const popup = usePopup();
+
 
   const {register, handleSubmit, formState: { errors }, reset} = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
@@ -67,60 +53,91 @@ export default function Cadastro() {
   return (
     <Flex
       w="full"
+      minH="100vh"
       direction={ehMobile ? "column-reverse" : "row"}
       justify="center"
-      gap={[0, 4, 10]}
+      gap={[0, 2, 3]}
       bg="pri"
     >
-      <InfoCadastro />
+      {!ehMobile && <InfoCadastroMotion
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />}
 
       <Box w="full" >
-        {ehMobile && <Logozone />}
-        <CardCadastro align={"center"}>
-          
-          <Box 
-            as="form"  
-            onSubmit={handleSubmit(onSubmit)} 
+        <CardCadastroMotion
+          initial={{ y: 69, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, type: "spring" }}
+        >
+
+          <Box
+            as="form"
+            onSubmit={handleSubmit(onSubmit)}
             style={{ width: '100%' }}
-            display={"grid"}
-            gap={4}
-            gridTemplateColumns={"repeat(200px, 1fr)"}
-            gridTemplateRows={"repeat(auto-fit, minmax(50px, 1fr))"}
+            display="flex"
+            flexDirection="column"
+            gapY={2}
           >
-            
-            {errors.name && <span>{errors.name.message}</span>}
-            <Input 
-              as="input" 
-              {...register("name")} 
-              type="text"
-              width={"100%"} 
-              placeholder="Nome" 
-            />
-            
-            {errors.username && <span>{errors.username.message}</span>}
-            <Input {...register("username")} type="text" placeholder="Nome de Usuário" />
+            <div>
+              <Text>name</Text>
+              <Input 
+                as="input" 
+                {...register("name")} 
+                type="text"
+                width={"100%"}
+                borderColor={"ter"} 
+              />
+              {errors.name && <span style={{fontSize: "12px", color: "red"}}>{errors.name.message}</span>}
+            </div>
 
-            {errors.BornDate && <span>{errors.BornDate.message}</span>}
-            <Input {...register("BornDate")} type="date" />
+            <div>
+              <Text>username</Text>
+              <Input {...register("username")} type="text" borderColor={"ter"} />
+              {errors.username && <span style={{fontSize: "12px", color: "red"}}>{errors.username.message}</span>}
+            </div>
 
-            {errors.email && <span>{errors.email.message}</span>}
-            <Input {...register("email")} type="email" placeholder="Email" />
+            <div>
+              <Text>Data de Nascimento</Text>
+              <Input {...register("BornDate")} type="date" borderColor={"ter"} />
+            {errors.BornDate && <span style={{fontSize: "12px", color: "red"}}>{errors.BornDate.message}</span>}
+            </div>
 
-            {errors.password && <span>{errors.password.message}</span>}
-            <Input {...register("password")} type="password" placeholder="Senha" />
+            <div>
+              <Text>Email</Text>
+              <Input {...register("email")} type="email" borderColor={"ter"} />
+              {errors.email && <span style={{fontSize: "12px", color: "red"}}>{errors.email.message}</span>}
+            </div>
 
-            {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
-            <Input {...register("confirmPassword")} type="password" placeholder="Confirmar Senha" />
+            <div>
+              <Text>Senha</Text>
+              <Input {...register("password")} type="password" borderColor={"ter"} />
+              {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
+            </div>
 
-            {errors.terms && <span>{errors.terms.message}</span>}
-            <label>
-              <Input {...register("terms")} type="checkbox" />
-              Aceitar <Link textDecor="underline" href="#">termos e condições</Link>
-            </label>
+            <div>
+              <Text>Confirmar Senha</Text>
+              <Input {...register("confirmPassword")} type="password" borderColor={"ter"} />
+              {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{errors.confirmPassword.message}</span>}
+            </div>
+
+            <div>
+              <Checkbox.Root {...register("terms")} my={5}>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control borderColor={"ter"} >
+                  <Checkbox.Indicator/>  
+                </Checkbox.Control>
+                <Checkbox.Label>
+                  Aceitar <Link textDecor="underline" href="#">termos e condições</Link>
+                </Checkbox.Label>
+              </Checkbox.Root><br />
+              {errors.terms && <span style={{fontSize: "12px", color: "red"}}>{errors.terms.message}</span>}
+            </div>
 
             <Button type="submit">Cadastrar</Button>
           </Box>
-        </CardCadastro>
+        </CardCadastroMotion>
       </Box>
     </Flex>
   );

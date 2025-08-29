@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
 import CardDefault from "csa/components/Card";
@@ -49,24 +49,28 @@ export default function Login(){
                 width="400px" justifySelf="center" alignContent="center" m={4}
             > 
 
-                <form onSubmit={handleSubmit(onSubmit)} >
+                <Box 
+                    as="form" 
+                    onSubmit={handleSubmit(onSubmit)} 
+                    display={"flex"}
+                    flexDir={"column"}
+                    gap={4}
+                >
 
-                    {errors.email && <span>{errors.email.message}</span>}
-                    <input 
-                        {...register("email")} 
-                        type="email" 
-                        placeholder="Email" 
-                    />
+                    <div>
+                        <Text>Email</Text>
+                        <Input {...register("email")} type="email" borderColor={"ter"} />
+                        {errors.email && <span style={{fontSize: "12px", color: "red"}}>{errors.email.message}</span>}
+                    </div>
 
-                    {errors.password && <span>{errors.password.message}</span>}
-                    <input 
-                        {...register("password")} 
-                        type="password" 
-                        placeholder="Senha"
-                    />
+                    <div>
+                        <Text>password</Text>
+                        <Input {...register("password")} type="password" borderColor={"ter"} />
+                        {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
+                    </div>
 
-
-                </form>
+                    <Button type="submit" w={"full"}>Entrar</Button>
+                </Box>
             
             </CardDefault>
 
