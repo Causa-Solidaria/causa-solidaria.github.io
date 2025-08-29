@@ -17,7 +17,7 @@ export const formSchema = z.object({
 
     cep: z
         .string()
-        .regex(/^\d{5}-?\d{3}$/i, "CEP inválido (use 00000-000)"),
+        ,
   
     cidade: z
         .string()

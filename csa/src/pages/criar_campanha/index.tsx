@@ -24,9 +24,10 @@ export default function QueroDoar() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Apenas JPG
-    if (!/jpe?g$/i.test(file.name)) {
-      setUploadError("Apenas arquivos .jpg");
+    // Apenas JPG ou PNG
+    const isJpgPng = /image\/(jpeg|png)/.test(file.type) || /\.(jpe?g|png)$/i.test(file.name);
+    if (!isJpgPng) {
+      setUploadError("Apenas arquivos .jpg ou .png");
       setThumbnailString(null);
       setPreview(null);
       return;
@@ -67,7 +68,6 @@ export default function QueroDoar() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     handleCriarCampanha({ ...data, thumbnailString }, popup);
-    reset();
   }
 
   return (
@@ -86,7 +86,7 @@ export default function QueroDoar() {
         pb={2}
         w="95%"
         minW={"320px"}
-        maxW={"1100px"}
+        maxW={"1000px"}
         as="form"
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: '100%' }}
@@ -102,10 +102,10 @@ export default function QueroDoar() {
           <VStack align="start" gap={2} flex={1} minW="320px">
             <Box w={"full"}>
               <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
-                <FileUpload.HiddenInput accept="image/jpeg" />
+                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
                 <FileUpload.Trigger asChild>
                   <Button variant="outline" w={"full"}>
-                    <LuUpload /> Upload .jpg
+                    <LuUpload /> Upload imagem
                   </Button>
                 </FileUpload.Trigger>
               </FileUpload.Root>
@@ -127,7 +127,7 @@ export default function QueroDoar() {
               <Box w="100%" h="260px" bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
             )}
             <Text fontSize="sm" color="gray.600">
-              Tipo: jpg
+              Tipos: jpg ou png
               <br />
               Tamanho mínimo: 300 × 300 px
               <br />
@@ -172,7 +172,9 @@ export default function QueroDoar() {
         </HStack>
 
         <Box mt={3}>
-          <Input {...register("description")} placeholder="descrição (mínimo 200 Linhas)" borderColor="ter" as="textarea" minH="120px" />
+          <textarea {...register("description")} 
+            placeholder="descrição (mínimo 200 Linhas)" 
+            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid {ter}" }} />
           {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
         </Box>
 
