@@ -35,10 +35,10 @@ export default function Campanhas() {
         
 	) : (
         	<Grid
-			templateRows={`repeat(5, 1fr)`}
-            		templateColumns={`repeat(5, 1fr)`}
+            		templateColumns={`repeat(auto-fit, 350px)`}
             		w="full" gap={4} m={10}
             		justifyItems={"center"}
+                justifyContent={"center"}
           	>
 
             		{campanhas.map((campanha, idx) => (
