@@ -1,11 +1,9 @@
 import { Box, Flex, Heading, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
-import { ScreenSize } from "csa/utils/getScreenSize";
 import { isMobile } from "csa/utils/isMobile";
 
 export default function InfoCadastro() {
-  const scrSize = ScreenSize();
-  const ehMobile = isMobile(scrSize.width, scrSize.height);
+  const ehMobile = isMobile();
 
   const headingSize = useBreakpointValue({
     base: "2xl",
@@ -23,8 +21,8 @@ export default function InfoCadastro() {
 
   return (
     <Box
-      minW={["300px", "300px", "300px", "500px", "600px"]}
-      maxW={["100%", "100%", "100%", "100%", "700px"]}
+      minW="400px"
+      maxW="600px"
       bg="sec"
       borderRadius="lg"
       boxShadow="lg"
@@ -41,7 +39,7 @@ export default function InfoCadastro() {
                 <Logo />
                 <Heading
                 ml={4}
-                fontSize={["xl", "2xl", "3xl"]}
+                fontSize={["xl", "2xl"]}
                 fontFamily="quicksand"
                 fontWeight={900}
                 color="qui"
@@ -50,7 +48,7 @@ export default function InfoCadastro() {
                 </Heading>
             </Flex>
         )}
-        <VStack spacing={6} align="stretch" px={10} py={15}>
+        <VStack  align="stretch" px={10} py={15}>
             
 
         <Box>

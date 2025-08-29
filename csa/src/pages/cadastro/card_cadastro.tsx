@@ -1,17 +1,15 @@
-import { Box, Center, ChakraProviderProps, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
 import CardDefault from "csa/components/Card";
-import { ScreenSize } from "csa/utils/getScreenSize";
+import Logo from "csa/components/logo";
 import { isMobile } from "csa/utils/isMobile";
 
-export default function CardCadastro({ children, ...props}) {
-  const scrSize = ScreenSize();
-  const ehMobile = isMobile(scrSize.width, scrSize.height);
-
+export default function CardCadastro({ children, ...props}: BoxProps) {
+  const ehmobile = isMobile()
   const cardWidth = useBreakpointValue({
     base: "100%", // mobile
     sm: "100%",
     md: "90%",
-    lg: "600px", // trava no máximo
+    lg: "90%", // trava no máximo
   });
 
   return (
@@ -20,23 +18,26 @@ export default function CardCadastro({ children, ...props}) {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      px={[2, 3, 5]}
-      mt={[5, 8, 11]}
-      mx="auto"
+      px={[2, 3]}
+      my={[5, 8]}
+      mx="10%"
       { ...props}
     >
       <CardDefault
         w={cardWidth}
+        minW={"max-content"}
         maxW="600px"
         fontSize="md"
         justifyContent="center"
         alignContent="center"
         borderRadius="lg"
-        boxShadow="lg"
-        p={[4, 6, 8]}
+        boxShadow="12px 12px 0px #00000020"
+        
+        p={[4, 6]}
         Header={
           <Center mb={4}>
-            <Text fontSize={["xl", "2xl", "3xl"]} fontWeight="bold" textAlign="center">
+            <Text fontSize={["xl", "2xl"]} fontWeight="bold"  justifyItens="center" textAlign="center">
+              {ehmobile && <Center><Logo /></Center>}
               Se junte à Causa Solidária!
             </Text>
           </Center>

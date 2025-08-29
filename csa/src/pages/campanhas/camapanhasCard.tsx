@@ -15,10 +15,11 @@ export default function CampanhasCard({ idx, campanha }: { idx: number | string;
 
   return (
     <CardDefault
-      Root={<Image src={fotoSrc} alt={"thumbnail " + idx} />}
-      maxW="250px"
+      Root={<Image src={fotoSrc} aspectRatio={4/3} borderRadius={"md"} alt={"thumbnail " + idx} />}
+      maxW="300px"
+      aspectRatio={5/7}
       overflow="hidden"
-      p={0}
+      p={4}
       _hover={{ scale: 1.025 }}
       onClick={RedirecionaParaACampanha}
     >
