@@ -1,9 +1,10 @@
+import { ensureLogged, getToken, logoutAndRedirect } from "csa/utils/isloged";
 
 export const handleCriarCampanha = async (form: any, popup: any) => {
     try {
         // checando se ta logado
-        const token = localStorage.getItem("token");
-        if (!token) return popup("Você não está logado!");
+    if (!ensureLogged(popup)) return;
+    const token = getToken();
 
 
         /// enviando para a api para salvar no banco
@@ -33,9 +34,19 @@ export const handleCriarCampanha = async (form: any, popup: any) => {
 
         /// checando se a resposta foi bem sucedida
         if (!res.ok) {
-            const errorData = await res.json();
+            const errorData = await res.json().catch(() => ({}));
+        if (res.status === 401 && typeof errorData?.error === 'string') {
+                if (errorData.error.toLowerCase().includes('expirado')) {
+            logoutAndRedirect('Sua sessão expirou. Faça login novamente.', popup);
+                    return;
+                }
+                if (errorData.error.toLowerCase().includes('inválido') || errorData.error.toLowerCase().includes('nao fornecido') || errorData.error.toLowerCase().includes('não fornecido')) {
+            logoutAndRedirect('Token inválido. Faça login novamente.', popup);
+                    return;
+                }
+            }
             console.error(errorData);
-            return popup("Erro ao criar campanha: " + errorData.error);
+            return popup("Erro ao criar campanha: " + (errorData?.error ?? res.statusText));
         }
 
         /// processando a resposta

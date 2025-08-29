@@ -16,7 +16,18 @@ router.post(async (req, res) => {
     }
 
     const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: number };
+    let decoded: { id: number };
+    try {
+      decoded = jwt.verify(token, JWT_SECRET) as { id: number };
+    } catch (err: any) {
+      if (err?.name === "TokenExpiredError") {
+        return res.status(401).json({ error: "Token expirado" });
+      }
+      if (err?.name === "JsonWebTokenError") {
+        return res.status(401).json({ error: "Token inválido" });
+      }
+      throw err;
+    }
     const usuarioId = decoded.id;
 
     // 2. Pega dados do formulário
@@ -70,7 +81,7 @@ export const config = {
 
 export default router.handler({
   onError(err, req, res) {
-    console.error(err.stack);
+    console.error(err);
     res.status(500).end("Erro interno.");
   },
 });

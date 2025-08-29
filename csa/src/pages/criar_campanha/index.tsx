@@ -174,7 +174,7 @@ export default function QueroDoar() {
         <Box mt={3}>
           <textarea {...register("description")} 
             placeholder="descrição (mínimo 200 Linhas)" 
-            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid {ter}" }} />
+            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid", borderRadius: "5px"}} />
           {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
         </Box>
 
