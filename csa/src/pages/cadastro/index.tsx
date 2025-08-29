@@ -89,6 +89,7 @@ export default function Cadastro() {
       }
 
       popup("Cadastro realizado com sucesso!");
+      window.location.href = "/login"; // Redireciona para a página de campanha
     } catch (error) {
       popup(`Erro no cadastro: ${error.message}`);
     }
