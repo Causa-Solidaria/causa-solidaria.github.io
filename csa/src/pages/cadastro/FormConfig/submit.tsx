@@ -1,6 +1,6 @@
 
 
-export const handleCadastro = async (data: object, popup: any) => {
+export const handleCadastro = async (data: object, popup: any, reset?: any) => {
     try {
       const res = await fetch('/api/cadastro', {
         method: 'POST',
@@ -14,7 +14,12 @@ export const handleCadastro = async (data: object, popup: any) => {
         throw new Error(json.error || "Erro desconhecido");
       }
 
+      if (window.location) window.location.href = '/login';
+      
       popup("Cadastro realizado com sucesso!");
+
+      if (reset) reset();
+
     } catch (error) {
       popup(`Erro no cadastro: ${error.message}`);
     }

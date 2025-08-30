@@ -11,7 +11,7 @@ const LogoZone = () => {
         p={2}
         bg="ter"
         minH="4em"
-        maxH={`0.1dvh`}
+        maxH={`${mobile ? "10em" : "5em"}`}
         minW="max-content"
         w={mobile ? "full" : "min-content"}
         alignContent="center"

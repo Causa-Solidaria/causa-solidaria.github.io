@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleCadastro } from "./FormConfig/submit";
 import {motion} from "framer-motion"; 
+import { PasswordInput } from "csa/components/ui/password-input";
 
 function Logozone() {
   return (
@@ -46,8 +47,7 @@ export default function Cadastro() {
   });
   
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    await handleCadastro(data, popup);
-    reset();
+    await handleCadastro(data, popup, reset);
   };
 
   return (
@@ -112,13 +112,13 @@ export default function Cadastro() {
 
             <div>
               <Text>Senha</Text>
-              <Input {...register("password")} type="password" borderColor={"ter"} />
+              <PasswordInput {...register("password")} borderColor={"ter"} />
               {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
             </div>
 
             <div>
               <Text>Confirmar Senha</Text>
-              <Input {...register("confirmPassword")} type="password" borderColor={"ter"} />
+              <PasswordInput {...register("confirmPassword")} borderColor={"ter"} />
               {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{errors.confirmPassword.message}</span>}
             </div>
 
