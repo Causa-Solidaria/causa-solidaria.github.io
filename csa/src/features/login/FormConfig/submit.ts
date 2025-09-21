@@ -1,12 +1,8 @@
 import { apiUrl } from "csa/lib/apiBase";
-
-interface LoginData {
-  email: string;
-  password: string;
-}
+import type { SchemaType } from "./schema";
 
 export default async function handleLogin(
-  data: LoginData,
+  data: SchemaType,
   popupfunction?: (message: string) => void
 ) {
   try {

@@ -10,7 +10,7 @@ export default function Conquistas() {
             <Heading as="h1" size="xl" mb={8} textAlign="center">
                 Minhas Conquistas
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
                 {conquistas.map((c, idx) => (
                     <Conquista
                         key={idx}
