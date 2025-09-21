@@ -6,17 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_DATABASE_URL")
 }
 
-model Event {
-  id        Int     @id @default(autoincrement())
-  public_id String  @default(uuid())
-  title     String
-  detail    String?
-  slug      String  @unique
-}
 
 model User {
   id Int @id @default(autoincrement())
@@ -28,12 +21,14 @@ model User {
   senha     String
   campanhas Campanha[]
 }
+
 model TokenRedefinicaoSenha {
   id        Int      @id @default(autoincrement())
   email     String
   token     String   @unique
   expiresAt DateTime
 }
+
 model Campanha {
   id            String  @unique @id @default(uuid())
   titulo        String
