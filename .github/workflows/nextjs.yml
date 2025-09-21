@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,18 +43,14 @@ jobs:
         run: npm ci
         working-directory: csa
 
-      - name: Build with Next.js
-        run: npx --no-install next build
-        working-directory: csa
-
-      - name: Export static site
-        run: npx --no-install next build && mv out ../out
+      - name: Build (export static site)
+        run: npm run build:export
         working-directory: csa
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: csa/out
 
   deploy:
     environment:

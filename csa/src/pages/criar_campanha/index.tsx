@@ -5,10 +5,10 @@ import { ScreenSize } from "csa/utils/getScreenSize";
 import { useMemo, useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-import handleCriarCampanha  from "./FormConfig/submit";
+import handleCriarCampanha  from "csa/features/criar_campanha/FormConfig/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import formSchema from "./FormConfig/schema";
+import formSchema from "csa/features/criar_campanha/FormConfig/schema";
 import CardDefault from "csa/components/Card";
 
 export default function QueroDoar() {
