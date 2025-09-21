@@ -9,9 +9,7 @@ const LogoZone = () => {
     <Box transition="all 0.3s">
       <LinkBox
         p={2}
-        bg="ter"
         minH="4em"
-        maxH={`0.1dvh`}
         minW="max-content"
         w={mobile ? "full" : "min-content"}
         alignContent="center"
@@ -20,7 +18,14 @@ const LogoZone = () => {
       >
         <Link href="/" display={"flex"} flexDirection={mobile ? "column" : "row"} justifySelf={mobile ? "center" : "flex-start"} alignItems="center" textJustify={"center"}>
           <Logo width="4em" />
-          <Heading fontSize="24pt" minW="50%" color="qui">causa solidaria</Heading>
+          <Heading
+            fontSize="24pt"
+            minW="50%"
+            color="qui"
+            display={{ base: "none", sm: "block" }}
+          >
+            causa solidaria
+          </Heading>
         </Link>
       </LinkBox>
     </Box>

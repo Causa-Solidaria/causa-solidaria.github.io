@@ -3,7 +3,7 @@
 import DefaultPage from "csa/components/DefaultPage"
 import Link from "next/link"
 import { Box, Button, Container, Heading, HStack, Icon, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react"
-import { LuArrowRight, LuCheck, LuHandshake, LuHeart, LuInfo, LuMegaphone, LuUser } from "react-icons/lu"
+import { LuArrowRight, LuCheck, LuHandshake, LuHeart, LuInfo, LuMegaphone, LuUser, LuPlus } from "react-icons/lu"
 
 export default function Home(){
   return (
@@ -83,7 +83,22 @@ export default function Home(){
 
         {/* ONGs EM DESTAQUE */}
         <Box mt={10}>
-          <Heading size="md" mb={4}>ONGs em Destaque:</Heading>
+          <HStack justify="space-between" align="center" mb={4}>
+            <Heading size="md">ONGs em Destaque:</Heading>
+            <HStack gap={2}>
+              <Link href="/ongs">
+                <Button size="sm" variant="ghost" borderRadius="15px">Ver todas</Button>
+              </Link>
+              <Link href="/criar_nova_ong" aria-label="Criar nova ONG">
+                <Button size="sm" bg={"sec"} borderRadius="15px" boxShadow="sm">
+                  <HStack gap={2}>
+                    <Icon as={LuPlus} />
+                    <Text color="white">Criar ONG</Text>
+                  </HStack>
+                </Button>
+              </Link>
+            </HStack>
+          </HStack>
           <SimpleGrid columns={[2,3,4,4]} gap={6}>
             {["Banco De alimentos","Amigos Do Bem","mochila cheia de sonhos","Anjos Da Noite"].map((nome, idx) => (
               <VStack key={idx} bg="white" p={4} borderRadius="lg" boxShadow="sm" gap={3}>
