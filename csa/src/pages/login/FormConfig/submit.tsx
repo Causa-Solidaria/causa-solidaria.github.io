@@ -1,6 +1,6 @@
 
 
-export const handleLogin = async (data: any, popupfunction?) => {
+export default async function handleLogin (data: any, popupfunction?: any) {
     try {
         const res = await fetch('/api/login', {
             method: 'POST',
@@ -15,12 +15,12 @@ export const handleLogin = async (data: any, popupfunction?) => {
         // Salva o token no localStorage
         localStorage.setItem('token', json.token);
 
-        popupfunction("Login realizado com sucesso!");
+        if (popupfunction) popupfunction("Login realizado com sucesso!");
         // Redireciona para a página de campanhas
         window.location.href = '/campanhas';
         
 
     } catch (error: any) {
-        popupfunction(`Erro no login: ${error.message}`);
+        if (popupfunction) popupfunction(`Erro no login: ${error.message}`);
     }
 };

@@ -1,6 +1,6 @@
 
 
-export const handleCadastro = async (data: object, popup: any) => {
+export default async function handleCadastro (data: object, popup: any){
     try {
       const res = await fetch('/api/cadastro', {
         method: 'POST',
