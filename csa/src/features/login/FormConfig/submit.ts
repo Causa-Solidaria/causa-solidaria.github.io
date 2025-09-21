@@ -12,11 +12,26 @@ export default async function handleLogin(
       body: JSON.stringify(data),
     });
 
-    const json = await res.json();
+    let raw = '';
+    let payload: any = null;
+    try {
+      raw = await res.text();
+      payload = raw ? JSON.parse(raw) : null;
+    } catch (_) {
+      // corpo não-JSON ou vazio: manter payload como null
+    }
 
-    if (!res.ok) throw new Error(json.error || 'Erro desconhecido');
+    if (!res.ok) {
+      const errMsg = payload?.error || raw || res.statusText || 'Erro desconhecido';
+      throw new Error(errMsg);
+    }
 
-    localStorage.setItem('token', json.token);
+    const token = payload?.token;
+    if (!token) {
+      throw new Error('Resposta inválida do servidor (token ausente).');
+    }
+
+    localStorage.setItem('token', token);
 
     if (popupfunction) popupfunction('Login realizado com sucesso!');
     window.location.href = '/campanhas';
