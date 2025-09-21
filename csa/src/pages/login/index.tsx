@@ -15,7 +15,7 @@ import handleLogin  from "csa/features/login/FormConfig/submit";
 export default function Login(){
     const popup = usePopup();
 
-    const {register, handleSubmit, formState: { errors }, reset} = useForm<SchemaType, any, SchemaType>({
+    const {register, handleSubmit, formState: { errors }, reset} = useForm<SchemaType>({
         resolver: zodResolver(Schema)
     });
 
