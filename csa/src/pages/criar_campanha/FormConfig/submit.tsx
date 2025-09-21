@@ -14,10 +14,10 @@ interface FormData {
     thumbnailString?: string;
 }
 
-export const handleCriarCampanha = async (
+export default async function handleCriarCampanha(
     form: FormData,
     popup: (message: string) => void
-) => {
+) {
     try {
         // checando se ta logado
     if (!ensureLogged(popup)) return;
