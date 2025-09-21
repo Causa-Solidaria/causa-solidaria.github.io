@@ -40,7 +40,7 @@ export default function CriarNovaOng() {
             <Button 
                 bg={"transparent"}
                 color={"black"}
-                fontSize={"calc(100vw * 76/1932)"}
+                fontSize={"clamp(24px, calc(100vh * 76/1932), 38px)"}
             >
                 {"←"}
             </Button>
@@ -51,7 +51,8 @@ export default function CriarNovaOng() {
             >
                 <Heading
                     padding={"0 0 5% 0"}
-                    fontSize={"calc(100vw * 76/1932)"}
+                    fontSize={"clamp(24px, calc(100vh * 76/1932), 38px)"}
+                    maxH="76px"
                     fontWeight={"bold"}
                 >
                     Cadastrar Nova ONG
@@ -65,11 +66,10 @@ export default function CriarNovaOng() {
                     width="calc(100vw * 1497/2438)"
                     minWidth="500px"
                     maxWidth="800px"
-                    minH="700px"
                     borderRadius="calc(100vw * 50/2438)"
                     border="solid black"
-                    borderWidth="calc(100vw * 5/2438)"
-                    padding="calc(100vw * 100/2438)"
+                    borderWidth="clamp(1px, calc(100vw * 5/2438), 2px)"
+                    padding="clamp(10px, calc(100% * 100/2438), 60px)"
                     gap={"10px"}
                 >
                     <div>
@@ -77,7 +77,7 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                         />                       
                     </div>
                     <div>
@@ -85,7 +85,7 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                         />                       
                     </div>
                     <div>
@@ -122,7 +122,7 @@ export default function CriarNovaOng() {
                         <label>Descrição da ONG</label>
                         <textarea
                             style={{
-                                height: "calc(100vw * 144/1932)",
+                                height: "calc(100vh * 144/1932)",
                                 width: "100%",
                                 border: "1px black solid"
                             }}
@@ -133,7 +133,7 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                         />
                     </div>
 
@@ -142,7 +142,7 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                             
                         />
                     </div>
@@ -152,7 +152,7 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                         />                       
                     </div>
 
@@ -162,16 +162,17 @@ export default function CriarNovaOng() {
                         <Input
                             border="solid black"
                             borderWidth="calc(100vw * 2/2438)"
-                            height={"calc(100vw * 72/1932)"}
+                            height={"calc(100vh * 72/1932)"}
                         />                       
                     </div>
                     <Flex direction={"row"} justify={"space-between"} >
                         <Button
                             bg={"sec"}
                             color={"white"}
-                            fontSize={"calc(100vw * 36/1932)"}
-                            height={"calc(100vw * 72/1932)"}
-                            width={"30%"}
+                            fontSize={"calc(100vh * 36/1932)"}
+                            width={"calc(100vw * 432/2438)"}
+                            height={"calc(100vh * 72/1932)"}
+                            p={3}
                             marginTop={"5%"}
                             type="submit"
                         >
@@ -179,12 +180,13 @@ export default function CriarNovaOng() {
                         </Button>
 
                         <Button
+                            p={3}
                             bg={"qui"}
                             color={"black"}
                             border={"1px solid black"}
-                            fontSize={"calc(100vw * 36/1932)"}
-                            height={"calc(100vw * 72/1932)"}
-                            width={"30%"}
+                            fontSize={"calc(100vh * 36/1932)"}
+                            width={"calc(100vw * 216/2438)"}
+                            height={"calc(100vh * 72/1932)"}
                             marginTop={"5%"}
                             onClick={() => reset()}
                         >
