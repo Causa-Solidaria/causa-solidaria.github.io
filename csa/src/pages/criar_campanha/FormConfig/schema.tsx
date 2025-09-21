@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const formSchema = z.object({
+const formSchema = z.object({
     title: z
         .string()
         .min(3, "Nome é obrigatório")
@@ -52,4 +52,5 @@ export const formSchema = z.object({
         .optional(), 
 });
 
+export default formSchema;
 export type formSchemaType = z.infer<typeof formSchema>;
