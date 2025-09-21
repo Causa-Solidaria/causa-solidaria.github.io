@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild:export": "node ./scripts/switch-routes.mjs",
+    "build:export": "BUILD_TARGET=export next build && next export",
+    "postbuild:export": "node ./scripts/restore-routes.mjs",
+    "serve:static": "npx serve -s out",
+    "build:standalone": "BUILD_TARGET=standalone next build",
+    "start:standalone": "next start"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.19.0",

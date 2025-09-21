@@ -6,10 +6,10 @@ import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
 import usePopup from "csa/hooks/usePopup";
 import { isMobile } from "csa/utils/isMobile";
-import formSchema from "./FormConfig/schema";
+import formSchema from "csa/features/cadastro/FormConfig/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleCadastro  from "./FormConfig/submit";
+import handleCadastro  from "csa/features/cadastro/FormConfig/submit";
 import {motion} from "framer-motion"; 
 
 function Logozone() {
