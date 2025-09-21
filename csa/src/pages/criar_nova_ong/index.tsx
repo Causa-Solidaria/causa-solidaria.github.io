@@ -20,9 +20,15 @@ export default function CriarNovaOng() {
 
     const itens_atuacao = createListCollection({
             items:[
-                { label: 'option 1', value: 'option1' },
-                { label: 'option 2', value: 'option2' },
-                { label: 'option 3', value: 'option3' },
+                { label: 'educação', value: 'educacao' },
+                { label: 'saúde', value: 'saude' },
+                { label: 'meio ambiente', value: 'meio_ambiente' },
+                { label: 'direitos humanos', value: 'direitos_humanos' },
+                { label: 'animais', value: 'animais' },
+                { label: 'cultura e arte', value: 'cultura_e_arte' },
+                { label: 'assistência social', value: 'assistencia_social' },
+                { label: 'desenvolvimento comunitário', value: 'desenvolvimento_comunitario' },
+                { label: 'outros', value: 'outros' },
             ]
         })
 
