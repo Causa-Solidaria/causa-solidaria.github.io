@@ -5,6 +5,7 @@ import DefaultPage from "csa/components/DefaultPage";
 import formSchema from "csa/features/Criar_Nova_Ong/FormConfig/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useRouter } from "next/router";
 
 
 
@@ -12,6 +13,7 @@ import { z } from "zod";
 
 
 export default function CriarNovaOng() {
+    const router = useRouter();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema)
@@ -37,26 +39,38 @@ export default function CriarNovaOng() {
             bg={"white"} 
         >
             
-            <Button 
-                bg={"transparent"}
-                color={"black"}
-                fontSize={"clamp(24px, calc(100vh * 76/1932), 38px)"}
-            >
-                {"←"}
-            </Button>
-            
             <Center
                 display={"flex"}
                 flexDir={"column"}
             >
-                <Heading
-                    padding={"0 0 5% 0"}
-                    fontSize={"clamp(24px, calc(100vh * 76/1932), 38px)"}
-                    maxH="76px"
-                    fontWeight={"bold"}
+                <Box
+                    width="calc(100vw * 1497/2438)"
+                    minWidth="500px"
+                    maxWidth="800px"
+                    mx="auto"
+                    mb={{ base: 4, md: 6 }}
                 >
-                    Cadastrar Nova ONG
-                </Heading>
+                    <Flex align="center" justify="center" position="relative" minH="76px">
+                        <Button
+                            position="absolute"
+                            left={0}
+                            bg={"transparent"}
+                            color={"black"}
+                            fontSize={"clamp(24px, calc(100vh * 76/1932), 38px)"}
+                            type="button"
+                            onClick={() => router.back()}
+                        >
+                            {"←"}
+                        </Button>
+                        <Heading
+                            fontSize={"calc(100vh * 96/1932)"}
+                            fontWeight={"bold"}
+                            textAlign="center"
+                        >
+                            Cadastrar Nova ONG
+                        </Heading>
+                    </Flex>
+                </Box>
 
                 <Box
                     as="form"
@@ -124,8 +138,11 @@ export default function CriarNovaOng() {
                             style={{
                                 height: "calc(100vh * 144/1932)",
                                 width: "100%",
-                                border: "1px black solid"
+                                border: "1px black solid",
+                                alignContent: "center",
+                                padding: "6px",
                             }}
+                            placeholder="minimo 500 caracteres"
                         />
                     </div>
                     <div>
@@ -170,8 +187,9 @@ export default function CriarNovaOng() {
                             bg={"sec"}
                             color={"white"}
                             fontSize={"calc(100vh * 36/1932)"}
-                            width={"calc(100vw * 432/2438)"}
-                            height={"calc(100vh * 72/1932)"}
+                            width={"calc(100vw * 438/2438)"}
+                            maxW={"158px"}
+                            height={"calc(100vh * 97/1932)"}
                             p={3}
                             marginTop={"5%"}
                             type="submit"
@@ -185,8 +203,9 @@ export default function CriarNovaOng() {
                             color={"black"}
                             border={"1px solid black"}
                             fontSize={"calc(100vh * 36/1932)"}
-                            width={"calc(100vw * 216/2438)"}
-                            height={"calc(100vh * 72/1932)"}
+                            width={"calc(100vw * 438/2438)"}
+                            maxW={"158px"}
+                            height={"calc(100vh * 97/1932)"}
                             marginTop={"5%"}
                             onClick={() => reset()}
                         >

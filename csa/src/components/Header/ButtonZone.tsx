@@ -96,10 +96,11 @@ const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: C
     return (
         <Flex
             direction="row"
-            w={ehMobile ? "full" : "80%"}
-            gap={3} py={4}
-            justifyContent={ehMobile ? "center" : "right"}
-            alignContent={ehMobile ? "center" : "flex-end"}
+            flex={1}
+            gap={3}
+            py={4}
+            justifyContent={ehMobile ? "center" : "flex-end"}
+            alignItems={"center"}
             {...props}
         >
             {renderButtons(botoes)}
