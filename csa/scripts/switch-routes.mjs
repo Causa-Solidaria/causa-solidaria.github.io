@@ -10,6 +10,13 @@ const page = path.join(root, 'src/pages/c/[slug].tsx');
 const stub = path.join(root, 'src/pages/c/[slug].static.tsx');
 
 if (!fs.existsSync(stub) || !fs.existsSync(page)) {
+  if (!fs.existsSync(stub)) {
+    console.error(`Stub file not found: ${stub}`);
+  }
+  if (!fs.existsSync(page)) {
+    console.error(`Page file not found: ${page}`);
+  }
+  console.error('Exiting script because required file(s) are missing.');
   process.exit(0);
 }
 
