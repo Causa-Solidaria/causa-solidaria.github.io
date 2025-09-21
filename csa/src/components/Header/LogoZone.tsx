@@ -18,7 +18,14 @@ const LogoZone = () => {
       >
         <Link href="/" display={"flex"} flexDirection={mobile ? "column" : "row"} justifySelf={mobile ? "center" : "flex-start"} alignItems="center" textJustify={"center"}>
           <Logo width="4em" />
-          <Heading fontSize="24pt" minW="50%" color="qui">causa solidaria</Heading>
+          <Heading
+            fontSize="24pt"
+            minW="50%"
+            color="qui"
+            display={{ base: "none", sm: "block" }}
+          >
+            causa solidaria
+          </Heading>
         </Link>
       </LinkBox>
     </Box>

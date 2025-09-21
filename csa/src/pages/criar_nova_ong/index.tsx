@@ -42,6 +42,7 @@ export default function CriarNovaOng() {
             <Center
                 display={"flex"}
                 flexDir={"column"}
+                mb={10}
             >
                 <Box
                     width="calc(100vw * 1497/2438)"
