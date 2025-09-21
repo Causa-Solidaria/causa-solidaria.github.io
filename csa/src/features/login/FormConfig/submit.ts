@@ -1,6 +1,14 @@
 import { apiUrl } from "csa/lib/apiBase";
 
-export default async function handleLogin(data: any, popupfunction?: any) {
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+export default async function handleLogin(
+  data: LoginData,
+  popupfunction?: (message: string) => void
+) {
   try {
     const res = await fetch(apiUrl('/api/login'), {
       method: 'POST',
