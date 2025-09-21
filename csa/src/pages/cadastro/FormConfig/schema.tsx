@@ -14,7 +14,7 @@ function isMaiorDeIdade(dataNascimento: string): boolean {
   return idade >= 18;
 }
 
-export const formSchema = z.object(
+const formSchema = z.object(
     {
         name: z
             .string()
@@ -50,5 +50,5 @@ export const formSchema = z.object(
     }
 );
 
-
+export default formSchema;
 export type FormData = z.infer<typeof formSchema>;
