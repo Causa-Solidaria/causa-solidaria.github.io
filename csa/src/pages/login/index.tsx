@@ -4,10 +4,10 @@ import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
 import CardDefault from "csa/components/Card";
-import { Schema, SchemaType } from "./FormConfig/schema";
+import Schema, { SchemaType } from "./FormConfig/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { handleLogin } from "./FormConfig/submit";
+import handleLogin  from "./FormConfig/submit";
 
 
 
