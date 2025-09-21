@@ -14,8 +14,8 @@ export const handleCadastro = async (data: object, popup: any) => {
         throw new Error(json.error || "Erro desconhecido");
       }
 
-      popup("Cadastro realizado com sucesso!");
+      if (popup) popup("Cadastro realizado com sucesso!");
     } catch (error) {
-      popup(`Erro no cadastro: ${error.message}`);
+      if (popup) popup(`Erro no cadastro: ${error.message}`);
     }
   };
