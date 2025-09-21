@@ -42,13 +42,10 @@ function botoesUsuarioLogado(): Botao[] {
 
 
 function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
-    const BuildType = nextConfig.output
-    // botões padrão para usuários não logados
-    const botoesPadrao: Botao[] = BuildType == "standalone"  ? [
+    // botões padrão para usuários não logados (sem opção de demo)
+    const botoesPadrao: Botao[] = [
         { tipo: "link", href: "/login", text: "entrar" },
         { tipo: "link", href: "/cadastro", text: "cadastro" }
-    ] : [
-        { tipo: "link", href: "/login", text: "entrar na demo" }
     ]
 
     // caso seja mobile, retorna apenas os botões padrão
