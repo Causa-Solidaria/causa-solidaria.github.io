@@ -64,7 +64,7 @@ export default function Login(){
                     </div>
 
                     <div>
-                        <Text>password</Text>
+                        <Text>Senha</Text>
                         <Input {...register("password")} type="password" borderColor={"ter"} />
                         {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
                     </div>
