@@ -1,6 +1,23 @@
 import { ensureLogged, getToken, logoutAndRedirect } from "csa/utils/isloged";
 
-export const handleCriarCampanha = async (form: any, popup: any) => {
+interface FormData {
+    title: string;
+    description?: string;
+    nivelAjuda?: string;
+    cep?: string;
+    cidade?: string;
+    estado?: string;
+    bairro?: string;
+    rua?: string;
+    numero?: string;
+    endDate?: string;
+    thumbnailString?: string;
+}
+
+export const handleCriarCampanha = async (
+    form: FormData,
+    popup: (message: string) => void
+) => {
     try {
         // checando se ta logado
     if (!ensureLogged(popup)) return;
