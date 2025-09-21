@@ -40,8 +40,8 @@ export const formSchema = z.object(
             .string(),
 
         terms: z
-            .string()
-            .refine((value) => !!value, "Você deve aceitar os termos e condições"),
+            .boolean()
+            .refine((value) => value === true, "Você deve aceitar os termos e condições"),
     }
 ).refine(
     (dados) => dados.password === dados.confirmPassword, {
