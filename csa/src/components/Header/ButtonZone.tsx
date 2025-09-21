@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Botao, renderButtons } from "./headerUtils"
 import { isMobile } from "csa/utils/isMobile"
 import Foto_perfil from "../foto_de_perfil"
-
+import nextConfig from "../../../next.config"
 
 
 
@@ -42,13 +42,14 @@ function botoesUsuarioLogado(): Botao[] {
 
 
 function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
-
+    const BuildType = nextConfig.output
     // botões padrão para usuários não logados
-    const botoesPadrao: Botao[] = [
+    const botoesPadrao: Botao[] = BuildType == "standalone"  ? [
         { tipo: "link", href: "/login", text: "entrar" },
         { tipo: "link", href: "/cadastro", text: "cadastro" }
+    ] : [
+        { tipo: "link", href: "/login", text: "entrar na demo" }
     ]
-  
 
     // caso seja mobile, retorna apenas os botões padrão
     if (ehMobile) return [ ...botoesPadrao]
