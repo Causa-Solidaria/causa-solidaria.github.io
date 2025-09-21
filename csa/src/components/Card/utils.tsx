@@ -10,7 +10,7 @@ export interface PropsCard extends BoxProps {
 const Root = ({ children, ...props }: PropsCard) => {
     return (
         <Ca.Root
-            p={props?.p || 4}
+            p={props?.p || 1}
             width={props?.width || "max-content"}
             bg={props?.bg || "qui"}
             shadow="15px 15px 15px rgba(0,0,0,0.2)"

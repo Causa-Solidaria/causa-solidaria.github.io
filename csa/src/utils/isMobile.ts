@@ -1,5 +1,7 @@
+import { ScreenSize } from "./getScreenSize";
 
 
-export function isMobile(width: number, height: number, breakpoint = 700) {
-  return (width*2 <= height || width < breakpoint) && (height < 1000 || width < 1000)
+export function isMobile( breakpoint = 700) {
+  const { width, height } = ScreenSize();
+  return (width*4 <= height*3 || width < breakpoint)
 }

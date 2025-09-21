@@ -2,7 +2,7 @@ import { ScreenSize } from "csa/utils/getScreenSize";
 import Footer from "../Footer";
 import Header from "../Header";
 import Timeline from "../timeline";
-import { Box, JsxElement } from "@chakra-ui/react";
+import { Box, BoxProps, JsxElement } from "@chakra-ui/react";
 
 // para chamar a página padrão, basta importar o componente DefaultPage e usá-lo como um wrapper
 // Exemplo:
@@ -10,13 +10,13 @@ import { Box, JsxElement } from "@chakra-ui/react";
 //   <SeuComponente />
 // </DefaultPage>
 
-export default function DefaultPage({children}: {children?: React.ReactNode | JsxElement<any, any>}) {
+export default function DefaultPage({children, ...props}: {children?: React.ReactNode | JsxElement<any, any>} & BoxProps) {
     const scSize = ScreenSize()
     return (
         <Box w={"100%"} maxW={"100%"} h={scSize.height}>
             <Header />
             
-            <Timeline>
+            <Timeline {...props} >
                     {children}
             </Timeline>
             

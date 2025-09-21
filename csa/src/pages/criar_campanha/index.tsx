@@ -1,103 +1,192 @@
-import { Box, Button, FileUpload, Image } from "@chakra-ui/react";
+import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
-import Form from "csa/components/Form";
+import usePopup from "csa/hooks/usePopup";
 import { ScreenSize } from "csa/utils/getScreenSize";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-
-
-const formSchema = z.object({
-    title: z.string().min(1, "Título é obrigatório"),
-    description: z.string().optional(),
-    thumbnail: z.instanceof(File).optional(),
-    goal: z.number().min(1, "Meta deve ser maior que zero"),
-    endDate: z.string().refine((date) => new Date(date) > new Date(), "Data de término deve ser no futuro"),
-});
-
-
-const handleCriarCampanha = async (data: object) => {
-  // formulario par a criação de campanha
-};
-
+import { handleCriarCampanha } from "./FormConfig/submit";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { formSchema } from "./FormConfig/schema";
+import CardDefault from "csa/components/Card";
 
 export default function QueroDoar() {
   const scrSize = ScreenSize();
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const popup = usePopup();
+
+  const [thumbnailString, setThumbnailString] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const formArray = [
-    { 
-        label: "thumbnail", 
-        register: "thumbnail", 
-        type: "file", 
-        accept: ".jpg, .jpeg, .png",
-        isFileUpload: true,
-        customElement: (
-            <Box w={"85%"} m={4} aspectRatio={15/9} alignContent="flex-start" >
-                {preview && <Image 
-                  src={preview} 
-                  minW={'200px'} w={"70%"}
-                  minH={"120px"} maxH={"500px"}
-                  aspectRatio={15/9}
-                  borderRadius={"md"}
-                  justifySelf={"center"}
-                  align={"center"}
-                  alt="Thumbnail Preview" 
-                />}
-                <Box bg={"gray.100"} minW={"200px"} w={"70%"} justifySelf={"center"} borderRadius={"md"} p={4}>
-                  <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange} >
-                    <FileUpload.HiddenInput />
-                    <FileUpload.Trigger asChild>
-                      <Button variant="outline">
-                        <LuUpload /> Upload file
-                      </Button>
-                    </FileUpload.Trigger>
-                  </FileUpload.Root>
-                </Box>
-            </Box>
-        )
-    },
-    { label: "titulo", register: "title", placeholder: "coloque o título aqui", type: "text" },
-    { 
-      label: "descrição", 
-      register: "description", 
-      placeholder: "coloque a descrição aqui", 
-      type: "text",
-      as: "textarea" // Adicione esta linha
-    },
-    { label: "meta", register: "goal", placeholder: "coloque a meta aqui", type: "number" },
-    { label: "data de término", register: "endDate", type: "date" },
-  ];
-
-  function handleThumbnailChange(event: React.ChangeEvent<HTMLInputElement>) {
+  // Lê o arquivo, transforma em Base64 e comprime
+  const handleThumbnailChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setThumbnail(file);
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setThumbnail(null);
+    if (!file) return;
+
+    // Apenas JPG ou PNG
+    const isJpgPng = /image\/(jpeg|png)/.test(file.type) || /\.(jpe?g|png)$/i.test(file.name);
+    if (!isJpgPng) {
+      setUploadError("Apenas arquivos .jpg ou .png");
+      setThumbnailString(null);
       setPreview(null);
+      return;
     }
-  }
+
+    // Checar dimensões mínimas 300x300
+    const dimsOk = await new Promise<boolean>((resolve) => {
+      const img = new window.Image();
+      img.onload = () => resolve(img.width >= 300 && img.height >= 300);
+      img.onerror = () => resolve(false);
+      img.src = URL.createObjectURL(file);
+    });
+    if (!dimsOk) {
+      setUploadError("Dimensão mínima: 300x300");
+      setThumbnailString(null);
+      setPreview(null);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result?.toString().split(",")[1];
+      if (!base64) return;
+
+      const compressed = base64;
+      setThumbnailString(compressed);
+      setPreview(URL.createObjectURL(file));
+      setUploadError(null);
+    };
+    reader.readAsDataURL(file);
+  };
+
   
+  // Configuração dos campos do formulário
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema)
+  });
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    handleCriarCampanha({ ...data, thumbnailString }, popup);
+  }
+
   return (
-    <>
-        <DefaultPage>
-          <Box minH={scrSize.height * 0.75} flexDirection="column" px="15%" py={"5%"}>
-            <Box 
-              mt={15} p={"5%"} 
-              bg={"qui"} 
-              minW={"200px"}  minH={"120px"} 
-              borderRadius={"15px"} 
-              justifyContent={"center"}
-              alignContent={"center"}
-            >
-              
-              <Form formArray={formArray} schema={formSchema} set_rota={handleCriarCampanha}/>
+    <DefaultPage
+      justifyContent="center"
+      justifyItems={"center"}
+      alignItems={"center"}
+      alignContent={"center"}
+    >
+      <CardDefault
+        mx={10}
+        mt={5}
+        mb={2}
+        px={10}
+        pt={2}
+        pb={2}
+        w="95%"
+        minW={"320px"}
+        maxW={"1000px"}
+        as="form"
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: '100%' }}
+        display="flex"
+        flexDirection="column"
+        gapY={3}
+      >
+        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={10}>
+          crie sua campanha
+        </Text>
+
+        <HStack align="start" gap={6} flexWrap="wrap">
+          <VStack align="start" gap={2} flex={1} minW="320px">
+            <Box w={"full"}>
+              <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
+                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
+                <FileUpload.Trigger asChild>
+                  <Button variant="outline" w={"full"}>
+                    <LuUpload /> Upload imagem
+                  </Button>
+                </FileUpload.Trigger>
+              </FileUpload.Root>
+              {uploadError && (
+                <Text color="red.500" fontSize="xs" mt={1}>{uploadError}</Text>
+              )}
             </Box>
-          </Box>
-        </DefaultPage>
-    </>
+            {preview ? (
+              <Image
+                src={preview}
+                alt="Pré-visualização"
+                w="full"
+                aspectRatio={3/4}
+                maxH="260px"
+                objectFit="cover"
+                borderRadius="md"
+              />
+            ) : (
+              <Box w="100%" h="260px" bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
+            )}
+            <Text fontSize="sm" color="gray.600">
+              Tipos: jpg ou png
+              <br />
+              Tamanho mínimo: 300 × 300 px
+              <br />
+              Dimensão mínima: 300 × 300
+            </Text>
+
+            
+          </VStack>
+
+          <VStack align="stretch" gap={3} flex={1} minW="320px">
+            <Input {...register("title")} placeholder="Nome" borderColor="ter" />
+            {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
+
+            <NativeSelect.Root>
+              <NativeSelect.Field {...register("nivelAjuda")} borderColor="ter">
+                <option value="">escolha a sua categoria</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Higiene">Higiene</option>
+                <option value="Brinquedos">Brinquedos</option>
+                <option value="Outros">Outros</option>
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+            {errors.nivelAjuda && <Text color="red.500" fontSize="xs">{errors.nivelAjuda.message}</Text>}
+
+            <Input {...register("cep")} placeholder="Cep" borderColor="ter" onChange={(e)=>{
+              const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
+              e.target.value = v;
+            }}/>
+            {errors.cep && <Text color="red.500" fontSize="xs">{errors.cep.message}</Text>}
+
+            <Input {...register("cidade")} placeholder="Cidade" borderColor="ter" />
+            {errors.cidade && <Text color="red.500" fontSize="xs">{errors.cidade.message}</Text>}
+
+            <Input {...register("rua")} placeholder="nome da rua" borderColor="ter" />
+            {errors.rua && <Text color="red.500" fontSize="xs">{errors.rua.message}</Text>}
+
+            <Input {...register("numero")} placeholder="Número da casa" borderColor="ter" />
+            {errors.numero && <Text color="red.500" fontSize="xs">{errors.numero.message}</Text>}
+          </VStack>
+        </HStack>
+
+        <Box mt={3}>
+          <textarea {...register("description")} 
+            placeholder="descrição (mínimo 200 caracteres)" 
+            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid", borderRadius: "5px"}} />
+          {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
+        </Box>
+
+        <Box mt={3}>
+          <Input {...register("endDate")} type="date" borderColor="ter" />
+          {errors.endDate && <Text color="red.500" fontSize="xs">{errors.endDate.message}</Text>}
+        </Box>
+
+        <HStack justify="center" mt={6} bottom={0}>
+          <Button type="submit" minW={"100px"} maxW={"300px"} w={"25%"} colorScheme="green">Criar</Button>
+         </HStack>
+      </CardDefault>
+    </DefaultPage>
   );
 }

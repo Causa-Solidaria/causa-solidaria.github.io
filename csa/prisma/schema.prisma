@@ -26,10 +26,30 @@ model User {
   age       Int
   email     String @unique
   senha     String
+  campanhas Campanha[]
 }
 model TokenRedefinicaoSenha {
   id        Int      @id @default(autoincrement())
   email     String
   token     String   @unique
   expiresAt DateTime
+}
+model Campanha {
+  id            String  @unique @id @default(uuid())
+  titulo        String
+  descricao     String?
+  nivelAjuda    String
+  cep           String
+  cidade        String
+  estado        String
+  bairro        String
+  rua           String
+  numero        String
+  foto          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  endDate       DateTime
+
+  usuarioId     Int
+  usuario       User     @relation(fields: [usuarioId], references: [id])
 }

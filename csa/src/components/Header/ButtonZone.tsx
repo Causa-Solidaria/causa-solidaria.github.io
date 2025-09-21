@@ -1,11 +1,10 @@
 import { Box, ChakraProviderProps, Flex } from "@chakra-ui/react"
 import { MapButtons } from "csa/components/Buttom"
 import { useEffect, useState } from "react"
-import { ScreenSize } from "csa/utils/getScreenSize"
 import { Botao, renderButtons } from "./headerUtils"
 import { isMobile } from "csa/utils/isMobile"
 import Foto_perfil from "../foto_de_perfil"
-
+import nextConfig from "../../../next.config"
 
 
 
@@ -43,13 +42,14 @@ function botoesUsuarioLogado(): Botao[] {
 
 
 function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
-
+    const BuildType = nextConfig.output
     // botões padrão para usuários não logados
-    const botoesPadrao: Botao[] = [
+    const botoesPadrao: Botao[] = BuildType == "standalone"  ? [
         { tipo: "link", href: "/login", text: "entrar" },
         { tipo: "link", href: "/cadastro", text: "cadastro" }
+    ] : [
+        { tipo: "link", href: "/login", text: "entrar na demo" }
     ]
-  
 
     // caso seja mobile, retorna apenas os botões padrão
     if (ehMobile) return [ ...botoesPadrao]
@@ -82,8 +82,7 @@ function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
 
 const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: ChakraProviderProps}) => {
     const [usuarioLogado, setUsuarioLogado] = useState(false) // verifica se o usuário está logado
-    const { width, height } = ScreenSize() // obtém as dimensões da tela
-    const ehMobile = isMobile(width, height, 750) // verifica se é mobile
+    const ehMobile = isMobile(700) // verifica se é mobile
 
 
     // define os botões a serem exibidos com base no estado de login do usuário
