@@ -89,37 +89,37 @@ export default function Cadastro() {
                 width={"100%"}
                 borderColor={"ter"} 
               />
-              {errors.name && <span style={{fontSize: "12px", color: "red"}}>{errors.name.message}</span>}
+              {errors.name && <span style={{fontSize: "12px", color: "red"}}>{String(errors.name.message || "")}</span>}
             </div>
 
             <div>
               <Text>username</Text>
               <Input {...register("username")} type="text" borderColor={"ter"} />
-              {errors.username && <span style={{fontSize: "12px", color: "red"}}>{errors.username.message}</span>}
+              {errors.username && <span style={{fontSize: "12px", color: "red"}}>{String(errors.username.message || "")}</span>}
             </div>
 
             <div>
               <Text>Data de Nascimento</Text>
               <Input {...register("BornDate")} type="date" borderColor={"ter"} />
-            {errors.BornDate && <span style={{fontSize: "12px", color: "red"}}>{errors.BornDate.message}</span>}
+            {errors.BornDate && <span style={{fontSize: "12px", color: "red"}}>{String(errors.BornDate.message || "")}</span>}
             </div>
 
             <div>
               <Text>Email</Text>
               <Input {...register("email")} type="email" borderColor={"ter"} />
-              {errors.email && <span style={{fontSize: "12px", color: "red"}}>{errors.email.message}</span>}
+              {errors.email && <span style={{fontSize: "12px", color: "red"}}>{String(errors.email.message || "")}</span>}
             </div>
 
             <div>
               <Text>Senha</Text>
               <Input {...register("password")} type="password" borderColor={"ter"} />
-              {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
+              {errors.password && <span style={{fontSize: "12px", color: "red"}}>{String(errors.password.message || "")}</span>}
             </div>
 
             <div>
               <Text>Confirmar Senha</Text>
               <Input {...register("confirmPassword")} type="password" borderColor={"ter"} />
-              {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{errors.confirmPassword.message}</span>}
+              {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{String(errors.confirmPassword.message || "")}</span>}
             </div>
 
             <div>
@@ -132,7 +132,7 @@ export default function Cadastro() {
                   Aceitar <Link textDecor="underline" href="#">termos e condições</Link>
                 </Checkbox.Label>
               </Checkbox.Root><br />
-              {errors.terms && <span style={{fontSize: "12px", color: "red"}}>{errors.terms.message}</span>}
+              {errors.terms && <span style={{fontSize: "12px", color: "red"}}>{String((errors as any)?.terms?.message || "")}</span>}
             </div>
 
             <Button type="submit">Cadastrar</Button>
