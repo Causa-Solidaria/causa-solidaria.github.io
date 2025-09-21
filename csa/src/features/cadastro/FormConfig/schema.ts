@@ -17,7 +17,7 @@ const formSchema = z
     email: z.string().email("Email inválido"),
     password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
     confirmPassword: z.string(),
-    terms: z.boolean().refine((value) => !!value, "Você deve aceitar os termos e condições"),
+    terms: z.any().refine((value) => value !== true, "Você deve aceitar os termos e condições"),
   })
   .refine((dados) => dados.password === dados.confirmPassword, {
     message: "As senhas devem ser iguais",
