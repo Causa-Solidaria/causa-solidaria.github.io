@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prebuild:export": "node ./scripts/switch-routes.mjs",
-    "build:export": "BUILD_TARGET=export next build && next export",
+  "build:export": "BUILD_TARGET=export next build",
     "postbuild:export": "node ./scripts/restore-routes.mjs",
     "serve:static": "npx serve -s out",
     "build:standalone": "BUILD_TARGET=standalone next build",
