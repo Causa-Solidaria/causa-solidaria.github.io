@@ -4,10 +4,10 @@ import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
 import CardDefault from "csa/components/Card";
-import { Schema, SchemaType } from "./FormConfig/schema";
+import Schema, { SchemaType } from "csa/features/login/FormConfig/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { handleLogin } from "./FormConfig/submit";
+import handleLogin  from "csa/features/login/FormConfig/submit";
 
 
 
@@ -64,7 +64,7 @@ export default function Login(){
                     </div>
 
                     <div>
-                        <Text>password</Text>
+                        <Text>Senha</Text>
                         <Input {...register("password")} type="password" borderColor={"ter"} />
                         {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
                     </div>

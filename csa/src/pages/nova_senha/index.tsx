@@ -105,7 +105,7 @@ export default function NovaSenhaPage() {
             onClick={handleSubmit}
             textTransform="uppercase"
             borderRadius="md"
-            isLoading={isLoading}
+            loading={isLoading}
             loadingText="Enviando..."
             bg="sec"
             color="white"

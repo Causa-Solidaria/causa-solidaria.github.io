@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Botao, renderButtons } from "./headerUtils"
 import { isMobile } from "csa/utils/isMobile"
 import Foto_perfil from "../foto_de_perfil"
-
+import nextConfig from "../../../next.config"
 
 
 
@@ -42,13 +42,11 @@ function botoesUsuarioLogado(): Botao[] {
 
 
 function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
-
-    // botões padrão para usuários não logados
+    // botões padrão para usuários não logados (sem opção de demo)
     const botoesPadrao: Botao[] = [
         { tipo: "link", href: "/login", text: "entrar" },
         { tipo: "link", href: "/cadastro", text: "cadastro" }
     ]
-  
 
     // caso seja mobile, retorna apenas os botões padrão
     if (ehMobile) return [ ...botoesPadrao]
@@ -98,10 +96,11 @@ const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: C
     return (
         <Flex
             direction="row"
-            w={ehMobile ? "full" : "80%"}
-            gap={3} py={4}
-            justifyContent={ehMobile ? "center" : "right"}
-            alignContent={ehMobile ? "center" : "flex-end"}
+            flex={1}
+            gap={3}
+            py={4}
+            justifyContent={ehMobile ? "center" : "flex-end"}
+            alignItems={"center"}
             {...props}
         >
             {renderButtons(botoes)}

@@ -36,7 +36,7 @@ export default function CardCadastro({ children, ...props}: BoxProps) {
         p={[4, 6]}
         Header={
           <Center mb={4}>
-            <Text fontSize={["xl", "2xl"]} fontWeight="bold"  justifyItens="center" textAlign="center">
+            <Text fontSize={["xl", "2xl"]} fontWeight="bold" textAlign="center">
               {ehmobile && <Center><Logo /></Center>}
               Se junte à Causa Solidária!
             </Text>

@@ -1,16 +1,16 @@
 import type { NextConfig } from "next";
 
-
-const isGithubPages = process.env.GITHUB_ACTIONS || false;
+const buildTarget = process.env.BUILD_TARGET;
+const forceStandalone = true;
 
 const nextConfig: NextConfig = {
-  output: (isGithubPages ?  "export" : undefined),
-  reactStrictMode: true,
+  ...(forceStandalone ? { output: "standalone" } : {}),
   productionBrowserSourceMaps: true,
-  experimental : {
+  experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
   },
+  // Ajuda Next a rastrear corretamente dependências em monorepo/raiz multi-lockfile
+  outputFileTracingRoot: process.cwd(),
 };
-
 
 export default nextConfig;

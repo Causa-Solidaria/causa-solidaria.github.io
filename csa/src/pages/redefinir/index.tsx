@@ -75,7 +75,7 @@ export default function RedefinirSenha() {
             onClick={handleSubmit}
             textTransform="uppercase"
             borderRadius="md"
-            isLoading={isLoading}
+            loading={isLoading}
             loadingText="Enviando..."
             bg= "sec"
             color= "white"

@@ -12,7 +12,7 @@ export default function Conquista({ titulo, descricao, icone }) {
             _hover={{ boxShadow: "xl", transform: "scale(1.03)" }}
             transition="all 0.2s"
         >
-            <VStack spacing={4}>
+            <VStack gap={4}>
                 {icone}
                 <Text fontWeight="bold" fontSize="lg">
                     {titulo}
