@@ -20,50 +20,8 @@ type Ong = {
 }
 
 const ONGS: Ong[] = [
-  {
-    id: 'instituto-cidadania',
-    nome: 'instituto cidadania',
-    area: 'Educação',
-    descricao: 'promove a educação para todos e o desenvolvimento comunitário',
-    cidade: 'São Paulo',
-    uf: 'SP',
-    email: 'contato@institutocidadania.org',
-    icon: LuBookOpen,
-    color: 'purple.500',
-  },
-  {
-    id: 'green-earth',
-    nome: 'Green Earth',
-    area: 'Meio Ambiente',
-    descricao: 'Trabalhar na conservação da biodiversidade e sustentabilidade',
-    cidade: 'Curitiba',
-    uf: 'PR',
-    email: 'contato@greenearth.org',
-    icon: LuLeaf,
-    color: 'green.500',
-  },
-  {
-    id: 'saude-para-todos',
-    nome: 'Saúde para todos',
-    area: 'Saúde',
-    descricao: 'Oferece serviços de saúde de qualidade para populações carentes',
-    cidade: 'Belo Horizonte',
-    uf: 'MG',
-    email: 'contato@saudeparatodos.org',
-    icon: LuStethoscope,
-    color: 'red.500',
-  },
-  {
-    id: 'amigos-dos-animais',
-    nome: 'Amigos dos animais',
-    area: 'Animais',
-    descricao: 'protege animais em situação de risco e promove a adoção responsável',
-    cidade: 'Porto Alegre',
-    uf: 'RS',
-    email: 'contato@amigosdosanimais.org',
-    icon: LuPawPrint,
-    color: 'red.600',
-  },
+  
+    
 ]
 
 export default function ONGsPage() {

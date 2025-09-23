@@ -112,24 +112,14 @@ export default function Cadastro() {
 
             <div>
               <Text>Senha</Text>
-<<<<<<< HEAD
               <PasswordInput {...register("password")} borderColor={"ter"} />
               {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
-=======
-              <Input {...register("password")} type="password" borderColor={"ter"} />
-              {errors.password && <span style={{fontSize: "12px", color: "red"}}>{String(errors.password.message || "")}</span>}
->>>>>>> frontend
             </div>
 
             <div>
               <Text>Confirmar Senha</Text>
-<<<<<<< HEAD
               <PasswordInput {...register("confirmPassword")} borderColor={"ter"} />
               {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{errors.confirmPassword.message}</span>}
-=======
-              <Input {...register("confirmPassword")} type="password" borderColor={"ter"} />
-              {errors.confirmPassword && <span style={{fontSize: "12px", color: "red"}}>{String(errors.confirmPassword.message || "")}</span>}
->>>>>>> frontend
             </div>
 
             <div>

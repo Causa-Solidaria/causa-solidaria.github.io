@@ -10,10 +10,6 @@ const LogoZone = () => {
       <LinkBox
         p={2}
         minH="4em"
-<<<<<<< HEAD
-        maxH={`${mobile ? "10em" : "5em"}`}
-=======
->>>>>>> frontend
         minW="max-content"
         w={mobile ? "full" : "min-content"}
         alignContent="center"

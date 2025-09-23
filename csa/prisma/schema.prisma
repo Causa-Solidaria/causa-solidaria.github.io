@@ -1,14 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_DATABASE_URL")
-}
 
 
 model User {
@@ -20,6 +21,7 @@ model User {
   email     String @unique
   senha     String
   campanhas Campanha[]
+  ong       Ong[]
 }
 
 model TokenRedefinicaoSenha {
@@ -47,4 +49,20 @@ model Campanha {
 
   usuarioId     Int
   usuario       User     @relation(fields: [usuarioId], references: [id])
+}
+model Ong {
+  id            Int       @id @default(autoincrement())
+  nome          String
+  cnpj          String    @unique
+  areaAtuacao   String    
+  descricao     String   
+  cep           String
+  contato       String
+  siteOuRede    String  
+  logoUrl       String 
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  usuarioId     Int
+  usuario       User      @relation(fields: [usuarioId], references: [id])
 }
