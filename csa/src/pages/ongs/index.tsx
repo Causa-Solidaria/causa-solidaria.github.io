@@ -20,8 +20,7 @@ type Ong = {
 }
 
 const ONGS: Ong[] = [
-  
-    
+  // Os dados das ONGs serão carregados de uma fonte externa.
 ]
 
 export default function ONGsPage() {
