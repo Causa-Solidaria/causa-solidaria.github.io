@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd csa && npm run vercel-build",
-  "outputDirectory": "csa/.next",
-  "installCommand": "cd csa && npm install"
-}
