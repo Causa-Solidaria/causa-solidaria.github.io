@@ -70,14 +70,14 @@ export default function Login(){
                     </div>
 
                     <Text w={"full"} display={"flex"} gapX={2}>
-                        esqueceu a senha? 
+                        Esqueceu a senha?
                         <Link 
                             href="/nova-senha" 
                             color={"sec"}
                             fontWeight={"900"}
                             textDecor={"underline"}
                         >
-                             clique aqui
+                            clique aqui
                         </Link>
                     </Text>
 
