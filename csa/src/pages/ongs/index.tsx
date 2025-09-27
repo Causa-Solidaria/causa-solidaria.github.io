@@ -4,7 +4,7 @@ import DefaultPage from '../../components/DefaultPage'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Button, Container, Heading, HStack, Icon, Input, SimpleGrid, Text, VStack } from '@chakra-ui/react'
-import { LuArrowLeft, LuBookOpen, LuLeaf, LuPawPrint, LuSearch, LuStethoscope } from 'react-icons/lu'
+import { LuArrowLeft, LuSearch } from 'react-icons/lu'
 import { useMemo, useState } from 'react'
 
 type Ong = {
@@ -27,13 +27,7 @@ export default function ONGsPage() {
   const router = useRouter()
   const [q, setQ] = useState('')
 
-  const list = useMemo(() => {
-    const query = q.trim().toLowerCase()
-    if (!query) return ONGS
-    return ONGS.filter((o) =>
-      o.nome.toLowerCase().includes(query) || o.area.toLowerCase().includes(query)
-    )
-  }, [q])
+  const list = []
 
   return (
     <DefaultPage bg={"qui"}>
