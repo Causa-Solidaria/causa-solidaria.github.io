@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && prisma migrate deploy && npm run build:standalone",
+    "postinstall": "prisma generate --schema=./prisma/schema.dev.prisma",
+    "vercel-build": "prisma generate --schema=./prisma/schema.prod.prisma && prisma migrate deploy --schema=./prisma/schema.prod.prisma && npm run build:standalone",
     
     "build:standalone": "BUILD_TARGET=standalone next build",
     "start:standalone": "next start",
