@@ -1,6 +1,5 @@
 import { Box,  Link } from "@chakra-ui/react"
 import Buttom from "csa/components/Buttom";
-import { isMobile } from "csa/utils/isMobile";
 
 
 // tipos que o botão pode ser
@@ -12,7 +11,6 @@ export type Botao =
 
 
 export function renderButtons(botoes: Botao[]) {
-    const ehMobile = isMobile(700)
     
     return botoes.map(
             (botao, idx) => (
