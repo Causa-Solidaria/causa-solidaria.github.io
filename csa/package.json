@@ -11,7 +11,9 @@
     "vercel-build": "prisma generate && prisma migrate deploy && npm run build:standalone",
     
     "build:standalone": "BUILD_TARGET=standalone next build",
-    "start:standalone": "next start"
+    "start:standalone": "next start",
+    "db:dev": "prisma migrate dev --schema=./prisma/schema.dev.prisma",
+    "db:prod": "prisma migrate deploy --schema=./prisma/schema.prod.prisma"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.19.0",
