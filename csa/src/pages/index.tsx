@@ -117,7 +117,7 @@ export default function Home(){
             <VStack align="start" bg="white" p={4} borderRadius="lg" boxShadow="sm" gap={2}>
               <HStack gap={2}><Icon as={LuMegaphone} color="green.600"/><Heading size="sm">doando</Heading></HStack>
               <Text color="gray.700">contribua com qualquer valor</Text>
-              <Link href="/criar_campanha"><Button variant="ghost" colorScheme="green">doar agora</Button></Link>
+              <Link href="/campanhas"><Button variant="ghost" colorScheme="green">doar agora</Button></Link>
             </VStack>
             <VStack align="start" bg="white" p={4} borderRadius="lg" boxShadow="sm" gap={2}>
               <HStack gap={2}><Icon as={LuCheck} color="green.600"/><Heading size="sm">voluntariando-se</Heading></HStack>
