@@ -236,20 +236,21 @@ export default function Home(){
       <Container  py={[8, 12, 16, 20]}>
         <SimpleGrid 
           columns={[1, 1, 1, 3]} 
+          templateColumns={["1fr","1fr",,"1fr 2fr 1fr"]}
           gap={[6, 8, 12, "70px"]} 
           alignItems="start"
           minH={["auto", "auto", "400px"]}
         >
           {/* Imagem */}
           <Box 
-            order={[2, 2, 2, 1]}
+            order={[1, 1, 1, 1]}
             transition="all 0.5s ease-in-out"
           >
             <Image 
               src="./ChatGPT Image 11 de ago. de 2025, 15_44_28 2.png" 
               alt="Banco de Alimentos"
-              w="100%"
-              maxW={["300px", "350px", "400px"]}
+              w="calc(100vw * 379/2593)"
+              maxW={"379px"}
               mx={["auto", "auto", "auto", "0"]}
               transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
             />
@@ -363,7 +364,7 @@ export default function Home(){
           ONGs em Destaque:
         </Heading>
         {ongs.length === 0 && (
-          <Text mt={4} color="gray.600">Nenhuma ONG cadastrada no momento.</Text>
+          <Text mt={4} >Nenhuma ONG cadastrada no momento.</Text>
         )}
         <SimpleGrid 
           columns={[2, 3, 4, 5]} 
@@ -405,7 +406,7 @@ export default function Home(){
                 variant="outline" 
                 colorScheme="green"
                 _hover={{
-                  bg: "green.50",
+                  bg: "sec",
                   transform: "translateY(-2px)"
                 }}
                 transition="all 0.2s ease"
@@ -414,6 +415,34 @@ export default function Home(){
               </Button>
             </VStack>
           ))}
+        </SimpleGrid>
+      </Container>
+
+      <Container>
+        <SimpleGrid
+          columns={[1, 1, 1, 3]}
+        >
+          {[
+            { title: "doando", description: "contribua com qualquer valor", buttonText: "doar agora", image: "/pngegg (1) 2.png", link: "/campanhas" },
+            { title: "voluntariando-se", description: "participe das ações presenciais", buttonText: "quero me voluntariar", image: "/pngegg (6) 2.png", link: "/campanhas" },
+            { title: "compartilhando", description: "compartilhe nossas campanhas", buttonText: "compartilhar", image: "/pngegg 3.png", link: "/campanhas" }
+          ].map((item, idx) => (
+            <HStack key={idx}>
+              <Image 
+                src={item.image} 
+                alt={item.title}
+                w="calc(100vw * 81/2593)" 
+                maxW={"81px"}
+                aspectRatio={1}
+              />
+              <VStack align="start" gap={2}>
+                <Heading size="sm">{item.title}</Heading>
+                <Text>{item.description}</Text>
+                <Link href={item.link}><Button variant="ghost" colorScheme="green">{item.buttonText}</Button></Link>
+              </VStack>
+            </HStack>
+          ))}
+
         </SimpleGrid>
       </Container>
     </DefaultPage>
