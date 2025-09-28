@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "csa/lib/prisma";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "secreto-temporario";
