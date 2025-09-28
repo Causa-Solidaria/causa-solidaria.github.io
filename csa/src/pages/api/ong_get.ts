@@ -1,4 +1,4 @@
-// pages/api/ongs.ts
+
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "csa/lib/prisma";
 
