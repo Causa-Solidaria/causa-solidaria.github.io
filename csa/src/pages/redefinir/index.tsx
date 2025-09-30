@@ -11,8 +11,11 @@ export default function RedefinirSenha() {
   const popup = usePopup()
 
   const handleSubmit = async () => {
-    setIsLoading(true)
-   
+    if (!email.trim()) {
+      popup("O email é obrigatório.");
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await fetch("/api/redefinir",{
         method: "POST",
@@ -21,15 +24,12 @@ export default function RedefinirSenha() {
         },
         body: JSON.stringify({ email })
       })
-
-      const data = await response.json()
-      popup(data.message)
-    }catch (error) {
-      console.error("Erro ao enviar o email de redefinição:", error)
+      const data = await response.json();
+      popup(data.message);
+    } catch (error) {
+      console.error("Erro ao enviar o email de redefinição:", error);
     }
-
-    setIsLoading(false)
-    
+    setIsLoading(false);
   }
 
   return (
@@ -55,7 +55,7 @@ export default function RedefinirSenha() {
           Redefinição de Senha!
         </Heading>
         <Text mb={6} color="gray.700" fontWeight="medium" textAlign="center" fontSize="sm">
-          Informe um email e enviaremos um link de recuperação da sua senha.
+          Informe seu email de uso para enviarmos seu codigo por email.
         </Text>
 
         <VStack>
