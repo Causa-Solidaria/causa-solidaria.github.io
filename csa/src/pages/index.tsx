@@ -11,7 +11,7 @@ export default function Home(){
       <Container maxW={["95%","90%","85%","80%","70%"]} py={6}>
         {/* HERO */}
         <Box
-          bgImage={["none","none","url('/logo.png')"]}
+          bgImage={["none","none","url('/sol.jpeg')"]}
           bgSize="cover"
           bgPos="center"
           borderRadius="xl"

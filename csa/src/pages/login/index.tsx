@@ -72,7 +72,7 @@ export default function Login(){
                     <Text w={"full"} display={"flex"} gapX={2}>
                         Esqueceu a senha?
                         <Link 
-                            href="/nova-senha" 
+                            href="/redefinir" 
                             color={"sec"}
                             fontWeight={"900"}
                             textDecor={"underline"}
