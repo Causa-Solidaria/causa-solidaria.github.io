@@ -9,16 +9,38 @@ import DefaultPage from "csa/components/DefaultPage";
 
 
 export default function Campanhas() {
-  const [campanhas, setCampanhas] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Tipagem mínima do que é usado no Card
+  type Campanha = {
+    id: string;
+    titulo: string;
+    descricao?: string | null;
+    foto?: string | null;
+    // ...campos não usados omitidos
+  };
+
+  const [campanhas, setCampanhas] = useState<Campanha[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // comando para requisita a api do lado do client
   useEffect(() => {
-    fetch("/api/campanhas/get") 
-      .then(res => res.json())
-      .then(data => setCampanhas(data))
-      .catch(() => setCampanhas([]))
-      .finally(() => setLoading(false));
+    const carregarCampanhas = async () => {
+      try {
+        const res = await fetch("/api/campanhas/get");
+        if (!res.ok) {
+          // Resposta inesperada da API: trata como lista vazia sem lançar erro
+          setCampanhas([]);
+          return;
+        }
+        const data = await res.json();
+        setCampanhas(Array.isArray(data) ? data : []);
+      } catch (e) {
+        console.error("Falha ao carregar campanhas:", e);
+        setCampanhas([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    carregarCampanhas();
   }, []);
 
 

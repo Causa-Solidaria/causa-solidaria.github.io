@@ -69,6 +69,18 @@ export default function Login(){
                         {errors.password && <span style={{fontSize: "12px", color: "red"}}>{errors.password.message}</span>}
                     </div>
 
+                    <Text w={"full"} display={"flex"} gapX={2}>
+                        Esqueceu a senha?
+                        <Link 
+                            href="/redefinir" 
+                            color={"sec"}
+                            fontWeight={"900"}
+                            textDecor={"underline"}
+                        >
+                            clique aqui
+                        </Link>
+                    </Text>
+
                     <Button type="submit" w={"full"}>Entrar</Button>
                 </Box>
             

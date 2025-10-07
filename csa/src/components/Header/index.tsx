@@ -21,6 +21,7 @@ const Header = () => {
     <Box 
       display="flex" 
       flexDirection={mobile ? "column" : "row"} 
+      alignItems="center"
       borderRadius={mobile ? "0 0 20px 20px" : "0"} 
       position={"sticky"}
       bg="sec"  
@@ -31,6 +32,7 @@ const Header = () => {
       top={0} 
       zIndex={100} 
       transition="all 0.2s ease"
+      px={4}
     >
       <LogoZone />
       <ButtonZone />
