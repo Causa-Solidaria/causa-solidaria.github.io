@@ -4,18 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "sh -c 'if [ -n \"$VERCEL\" ]; then npm run prisma:use:prod && prisma generate && npm run db:prod; else npm run prisma:use:dev; fi; next build'",
+    "build": "sh -c 'prisma generate && if [ -n \"$VERCEL\" ]; then npm run db:prod || exit 1; fi; next build'",
     "start": "next start",
     "lint": "next lint",
-  "postinstall": "sh -c 'if [ -z \"$VERCEL\" ]; then npm run prisma:use:dev && prisma generate; fi'",
-  "vercel-build": "npm run build",
-  "prisma:prod": "npm run prisma:use:prod && prisma generate || (npm run prisma:use:dev && prisma generate)",
-  "prisma:use:dev": "cp -f ./prisma/development/schema.prisma ./prisma/schema.prisma",
-  "prisma:use:prod": "cp -f ./prisma/prodution/schema.prisma ./prisma/schema.prisma",
+    "postinstall": "sh -c 'if [ -z \"$VERCEL\" ]; then prisma generate; fi'",
+    "vercel-build": "npm run build",
+    "prisma:generate": "prisma generate",
     "build:standalone": "BUILD_TARGET=standalone next build",
     "start:standalone": "next start",
-    "db:dev": "prisma migrate dev --schema=./prisma/development/schema.prisma",
-    "db:prod": "prisma db push --schema=./prisma/prodution/schema.prisma"
+    "db:dev": "prisma migrate dev",
+    "db:prod": "prisma db push"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.19.0",

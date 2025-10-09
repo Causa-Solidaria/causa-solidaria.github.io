@@ -1,5 +1,5 @@
 datasource db {
-  provider = env("DATABASE_PROVIDER")
+  provider = "postgresql"
   url      = env("DATABASE_URL") // string de conexão do banco de dados
 }
 
