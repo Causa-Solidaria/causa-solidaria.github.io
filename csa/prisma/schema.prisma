@@ -1,7 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  // Usa o banco local SQLite ao rodar em desenvolvimento
-  url      = env("DATABASE_URL")
+  provider = env("DATABASE_PROVIDER")
+  url      = env("DATABASE_URL") // string de conexão do banco de dados
 }
 
 generator client {
