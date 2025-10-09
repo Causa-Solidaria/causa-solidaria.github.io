@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "sh -c 'prisma generate && if [ -n \"$VERCEL\" ]; then npm run db:prod || exit 1; fi; next build'",
+    "build": "sh -c 'node scripts/select-prisma-schema.mjs && prisma generate && if [ -n \"$VERCEL\" ]; then npm run db:prod || exit 1; fi; next build'",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "sh -c 'if [ -z \"$VERCEL\" ]; then prisma generate; fi'",
+    "postinstall": "sh -c 'if [ -z \"$VERCEL\" ]; then node scripts/select-prisma-schema.mjs && prisma generate; fi'",
     "vercel-build": "npm run build",
-    "prisma:generate": "prisma generate",
+  "prisma:generate": "sh -c 'node scripts/select-prisma-schema.mjs && prisma generate'",
     "build:standalone": "BUILD_TARGET=standalone next build",
     "start:standalone": "next start",
-    "db:dev": "prisma migrate dev",
-    "db:prod": "prisma db push"
+    "db:dev": "sh -c 'node scripts/select-prisma-schema.mjs && prisma migrate dev'",
+    "db:prod": "sh -c 'node scripts/select-prisma-schema.mjs && prisma db push'"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.19.0",

@@ -1,7 +1,7 @@
-/// Schema para desenvolvimento local usando SQLite. Copiado automaticamente para `schema.prisma`.
+/// Schema para ambientes PostgreSQL. Copiado automaticamente para `schema.prisma`.
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // string de conexão do banco de dados
 }
 
 generator client {
