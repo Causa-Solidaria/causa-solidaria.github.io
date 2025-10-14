@@ -13,11 +13,9 @@ export const prisma =
   global.prisma ||
   new PrismaClient({
     log: isProduction ? [] : ["query"],
-    datasources: process.env.DATABASE_URL
-      ? {
-          db: { url: isProduction ? process.env.POSTGRES_PRISMA_URL : process.env.DATABASE_URL },
-        }
-      : undefined,
+    datasources: {
+      db: { url: process.env.DATABASE_URL },
+    },  
   });
 
-if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+global.prisma = prisma;

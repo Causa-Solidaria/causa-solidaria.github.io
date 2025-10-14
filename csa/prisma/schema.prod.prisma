@@ -1,7 +1,7 @@
 /// Schema para ambientes PostgreSQL. Copiado automaticamente para `schema.prisma`.
-datasource db {
+datasource db_prod {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // string de conexão do banco de dados
+  url      = env("POSTGRES_DATABASE_URL") // string de conexão do banco de dados
 }
 
 generator client {
