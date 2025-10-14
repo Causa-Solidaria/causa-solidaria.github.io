@@ -15,7 +15,7 @@ export const prisma =
     log: isProduction ? [] : ["query"],
     datasources: process.env.DATABASE_URL
       ? {
-          db: { url: isProduction ? process.env.POSTGRES_PRISMA_URL : process.env.DATABASE_URL },
+          db: { url: isProduction ? process.env.POSTGRES_DATABASE_URL : process.env.DATABASE_URL },
         }
       : undefined,
   });

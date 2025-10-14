@@ -64,7 +64,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    return res.status(201).json({ message: "Usuário criado com sucesso", user });
+    return res.status(201).json({ message: "Usuário criado com sucesso", userId: user.id });
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error("Erro de validação:", error.errors);
