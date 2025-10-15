@@ -2,4 +2,6 @@ node_modules
 # Keep environment variables out of version control
 .env
 .vercel
-dev.db
+*.db
+migration.sql
+migrations/

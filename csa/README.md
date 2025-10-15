@@ -2,6 +2,28 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Este projeto usa SQLite no desenvolvimento e Vercel Postgres na produção. O script `scripts/select-prisma-schema.mjs` escolhe automaticamente o schema correto antes de gerar o Prisma Client ou executar migrations.
+
+### Dev (SQLite)
+
+```bash
+npm run db:dev   # sincroniza o schema no SQLite local
+npm run dev
+```
+
+A seleção padrão fora do Vercel é `sqlite`, utilizando `prisma/schema.sqlite.prisma` e o arquivo `DATABASE_URL="file:./dev.db"` definido em `.env`.
+
+### Prod (Vercel Postgres)
+
+No Vercel, o script `vercel-build` roda automaticamente:
+
+1. Seleciona `prisma/schema.postgres.prisma`
+2. Gera o Prisma Client
+3. Aplica o schema com `prisma db push`
+4. Faz o `next build`
+
+Sem `.env.local` no Vercel — use as envs padrão: `POSTGRES_PRISMA_URL` e `POSTGRES_URL_NON_POOLING`.
+
 First, run the development server:
 
 ```bash

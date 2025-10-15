@@ -1,7 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-datasource db {  
+/// Schema para desenvolvimento local usando SQLite. Copiado automaticamente para `schema.prisma`.
+datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
@@ -10,15 +8,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
 model User {
-  id Int @id @default(autoincrement())
-  public_id String @default(uuid())
+  id        Int        @id @default(autoincrement())
+  public_id String     @default(uuid())
   name      String
-  username  String @unique
+  username  String     @unique
   age       Int
-  email     String @unique
+  email     String     @unique
   senha     String
   campanhas Campanha[]
   ong       Ong[]
@@ -32,37 +28,38 @@ model TokenRedefinicaoSenha {
 }
 
 model Campanha {
-  id            String  @unique @id @default(uuid())
-  titulo        String
-  descricao     String?
-  nivelAjuda    String
-  cep           String
-  cidade        String
-  estado        String
-  bairro        String
-  rua           String
-  numero        String
-  foto          String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  endDate       DateTime
+  id         String   @id @unique @default(uuid())
+  titulo     String
+  descricao  String?
+  nivelAjuda String
+  cep        String
+  cidade     String
+  estado     String
+  bairro     String
+  rua        String
+  numero     String
+  foto       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  endDate    DateTime
 
-  usuarioId     Int
-  usuario       User     @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id])
 }
-model Ong {
-  id            Int       @id @default(autoincrement())
-  nome          String
-  cnpj          String    @unique
-  areaAtuacao   String    
-  descricao     String   
-  cep           String
-  contato       String
-  siteOuRede    String  
-  logoUrl       String 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
 
-  usuarioId     Int
-  usuario       User      @relation(fields: [usuarioId], references: [id])
+model Ong {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  cnpj        String   @unique
+  areaAtuacao String
+  descricao   String
+  cep         String
+  contato     String
+  siteOuRede  String
+  logoUrl     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id])
 }

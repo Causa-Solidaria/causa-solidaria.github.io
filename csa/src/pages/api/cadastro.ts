@@ -32,7 +32,10 @@ const cadastroSchema = z.object({
 // Função handler correta para pages/api/
 export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Método não permitido" });
+    const message = "Método não permitido";
+
+    console.error(message);
+    return res.status(405).json({ error: message });
   }
 
   try {
@@ -61,12 +64,14 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    return res.status(201).json({ message: "Usuário criado com sucesso", user });
+    return res.status(201).json({ message: "Usuário criado com sucesso", userId: user.id });
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error("Erro de validação:", error.errors);
       return res.status(400).json({ error: error.errors });
     }
 
+    console.error("Erro inesperado:", error);
     return res.status(500).json({ error: "Erro ao cadastrar usuário" });
   }
 }

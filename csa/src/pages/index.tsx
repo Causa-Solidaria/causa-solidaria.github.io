@@ -236,7 +236,7 @@ export default function Home(){
       <Container  py={[8, 12, 16, 20]}>
         <SimpleGrid 
           columns={[1, 1, 1, 3]} 
-          templateColumns={["1fr","1fr",,"1fr 2fr 1fr"]}
+          templateColumns={["1fr","1fr","1fr","1fr 2fr 1fr"]}
           gap={[6, 8, 12, "70px"]} 
           alignItems="start"
           minH={["auto", "auto", "400px"]}
