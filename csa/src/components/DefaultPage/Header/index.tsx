@@ -1,12 +1,15 @@
 import { Box, Heading } from "@chakra-ui/react"
 import { staticPosition } from "csa/utils/staticPosition"
 import Logo from "csa/components/logo"
+import { ensureLogged } from "csa/utils/isloged";
 
 
 
 // O componente Main do Header
 
 const Header = () => {
+  const isLogged = ensureLogged();
+
   return (
     <Box 
       display="flex" 
@@ -55,8 +58,9 @@ const Header = () => {
         >
           causa solidaria
         </Heading>
-      </Box>
 
+        {isLogged ? <Box></Box> : <Box></Box>}
+      </Box>
     </Box>
   )
 }
