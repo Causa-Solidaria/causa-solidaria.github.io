@@ -8,9 +8,9 @@ export type Botao =
     | { tipo: "custom"; componente: React.ReactNode} 
     | { tipo: "link"; href: string; text: string }
 
-// Função utilitária para detectar mobile
 
 
+// função que renderiza os botões
 export function renderButtons(botoes: Botao[]) {
     
     return botoes.map(
