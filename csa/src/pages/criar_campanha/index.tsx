@@ -1,18 +1,16 @@
 import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
-import { ScreenSize } from "csa/utils/getScreenSize";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-import handleCriarCampanha  from "csa/features/criar_campanha/FormConfig/submit";
+import handleCriarCampanha  from "csa/forms_validate/criar_campanha/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import formSchema from "csa/features/criar_campanha/FormConfig/schema";
+import formSchema from "csa/forms_validate/criar_campanha/schema";
 import CardDefault from "csa/components/Card";
 
 export default function QueroDoar() {
-  const scrSize = ScreenSize();
   const popup = usePopup();
 
   const [thumbnailString, setThumbnailString] = useState<string | null>(null);

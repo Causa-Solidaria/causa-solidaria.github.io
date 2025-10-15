@@ -1,9 +1,7 @@
 import { Box, Center, HStack, Link, Text } from "@chakra-ui/react";
-import { ScreenSize } from "csa/utils/getScreenSize";
 
 
 export default function Footer() {
-    const scrSize = ScreenSize() 
     return (
         <>
             <Box 
@@ -12,8 +10,8 @@ export default function Footer() {
                 bg="ter" 
                 color="white" 
                 w="100%"
-                maxW={scrSize.width}
-                h={`${scrSize.height/4}px`} 
+                maxW={"100vmax"}
+                h={`25vmax`} 
                 bottom={0} 
                 textAlign="center"
                 display="inline-flex"

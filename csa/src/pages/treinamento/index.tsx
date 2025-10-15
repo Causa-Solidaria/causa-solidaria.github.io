@@ -1,5 +1,5 @@
 import DefaultPage from "csa/components/DefaultPage";
-import Header from "csa/components/Header";
+import Header from "csa/components/DefaultPage/Header";
 
 
 export default function Treinamento() {

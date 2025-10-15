@@ -1,10 +1,9 @@
 import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
 import CardDefault from "csa/components/Card";
 import Logo from "csa/components/logo";
-import { isMobile } from "csa/utils/isMobile";
 
 export default function CardCadastro({ children, ...props}: BoxProps) {
-  const ehmobile = isMobile()
+  const ehmobile = false
   const cardWidth = useBreakpointValue({
     base: "100%", // mobile
     sm: "100%",

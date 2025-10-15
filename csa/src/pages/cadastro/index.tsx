@@ -5,11 +5,10 @@ import { z } from "zod";
 import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
 import usePopup from "csa/hooks/usePopup";
-import { isMobile } from "csa/utils/isMobile";
-import formSchema from "csa/features/cadastro/FormConfig/schema";
+import formSchema from "csa/forms_validate/cadastro/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleCadastro  from "csa/features/cadastro/FormConfig/submit";
+import handleCadastro  from "csa/forms_validate/cadastro/submit";
 import {motion} from "framer-motion"; 
 import { PasswordInput } from "csa/components/ui/password-input";
 
@@ -34,13 +33,12 @@ function Logozone() {
 }
 
 
-const CardCadastroMotion = motion(CardCadastro)
-const InfoCadastroMotion = motion(InfoCadastro)
+const CardCadastroMotion = motion.create(CardCadastro)
+const InfoCadastroMotion = motion.create(InfoCadastro)
 
 export default function Cadastro() {
-  const ehMobile = isMobile();
   const popup = usePopup();
-
+  const ehMobile = false;
 
   const {register, handleSubmit, formState: { errors }, reset} = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)

@@ -1,7 +1,16 @@
-import {  ChakraProviderProps, Image } from "@chakra-ui/react";
+import { Image, ImageProps } from "@chakra-ui/react";
+import { staticPosition } from "csa/utils/staticPosition";
+import { stat } from "node:fs";
 
 
 
-export default function Logo(props: any & ChakraProviderProps) {
-    return <Image src={`/logo.png`} alt="logo" borderRadius={"15px"} width={props?.width || "20%"} />
+export default function Logo(props: any & ImageProps) {
+    return (
+        <Image 
+            src={`/logo.png`} 
+            alt="logo"
+            {...props}
+            border={` ${staticPosition(4, 3197)} solid #000`}  
+        />
+    )
 }

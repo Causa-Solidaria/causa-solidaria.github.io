@@ -2,7 +2,6 @@
 
 import { Box, Button, Heading, Input, Text, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-import RootPopup from "csa/components/ProviderPopup"
 import usePopup from "csa/hooks/usePopup"
 
 export default function RedefinirSenha() {

@@ -2,9 +2,7 @@ import { Box, ChakraProviderProps, Flex } from "@chakra-ui/react"
 import { MapButtons } from "csa/components/Buttom"
 import { useEffect, useState } from "react"
 import { Botao, renderButtons } from "./headerUtils"
-import { isMobile } from "csa/utils/isMobile"
-import Foto_perfil from "../foto_de_perfil"
-import nextConfig from "../../../next.config"
+import Foto_perfil from "../../foto_de_perfil"
 
 
 
@@ -79,7 +77,7 @@ function botoesUsuarioNaoLogado(ehMobile: boolean): Botao[] {
 
 const ButtonZone = ({children, ...props}: {children?: React.ReactNode, props?: ChakraProviderProps}) => {
     const [usuarioLogado, setUsuarioLogado] = useState(false) // verifica se o usuário está logado
-    const ehMobile = isMobile(700) // verifica se é mobile
+    const ehMobile = false // verifica se é mobile
 
 
     // define os botões a serem exibidos com base no estado de login do usuário
