@@ -1,12 +1,15 @@
-import { useLayoutEffect, useState } from "react"
+import { RefObject, useLayoutEffect, useState } from "react"
 
-export default function GetParentSize(ref) {
-    const [altura, setAltura] = useState({width: 0, height: 0})
+type Size = { width: number; height: number };
+
+export default function GetParentSize(ref: RefObject<HTMLElement>) {
+    const [altura, setAltura] = useState<Size>({ width: 0, height: 0 });
     useLayoutEffect(() => {
-        if (ref.current) {
-            const size = ref.current.parentElement?.getBoundingClientRect()
-            setAltura(size)
+        const parent = ref.current?.parentElement;
+        if (parent) {
+            const rect = parent.getBoundingClientRect();
+            setAltura({ width: rect.width, height: rect.height });
         }
-    }, [ref])
-    return altura
+    }, [ref]);
+    return altura;
 }

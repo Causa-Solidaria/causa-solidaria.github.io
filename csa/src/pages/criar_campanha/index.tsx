@@ -65,7 +65,7 @@ export default function QueroDoar() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    handleCriarCampanha({ ...data, thumbnailString }, popup);
+    handleCriarCampanha({ ...data, thumbnailString: thumbnailString ?? undefined }, popup);
   }
 
   return (
