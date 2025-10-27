@@ -8,12 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "vercel-build": "npm run build",
-    
     "prisma:generate": "prisma generate",
-    
     "build:standalone": "BUILD_TARGET=standalone next build",
     "start:standalone": "next start",
-    
     "db:dev": "prisma migrate dev --schema=./prisma/schema.dev.prisma",
     "db:prod": "prisma migrate deploy --schema=./prisma/schema.prod.prisma"
   },
@@ -30,12 +27,12 @@
     "jsonwebtoken": "^9.0.2",
     "lz-string": "^1.5.0",
     "multer": "^2.0.2",
-    "next": "^15.3.3",
+    "next": "^16.0.0",
     "next-connect": "^1.0.0-next.4",
     "next-themes": "^0.4.6",
     "nodemailer": "^7.0.5",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-hook-form": "^7.56.4",
     "react-icons": "^5.5.0",
     "react-shadow": "^20.6.0",
@@ -45,8 +42,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9",
     "eslint-config-next": "^15.3.3",
