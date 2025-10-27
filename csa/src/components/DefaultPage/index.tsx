@@ -1,5 +1,6 @@
 import Footer from "./Footer";
 import Header from "./Header";
+import Nav from "./Header/nav";
 import Timeline from "./timeline";
 import { Box, BoxProps, JsxElement } from "@chakra-ui/react";
 
