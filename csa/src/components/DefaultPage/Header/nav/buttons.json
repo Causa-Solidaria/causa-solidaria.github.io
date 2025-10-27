@@ -14,5 +14,9 @@
     {
         "title": "ONGs",
         "link": "/ongs"
+    },
+    {
+        "title": "Campanhas",
+        "link": "/campanhas"
     }
 ]

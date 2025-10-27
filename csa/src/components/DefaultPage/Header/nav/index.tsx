@@ -1,5 +1,7 @@
-import { Box, BoxProps, Flex, Link} from "@chakra-ui/react";
-import { staticPosition } from "csa/utils/staticPosition";
+"use client"
+
+import { Box, BoxProps} from "@chakra-ui/react";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
 import { motion } from "framer-motion";
 import { forwardRef } from "react";
 
@@ -22,6 +24,8 @@ function Nav_static(
             ref={ref}
             maxW={staticPosition(779, 3197)}
             minW={staticPosition(779, 3197)}
+            maxH={staticPosition(125*b.length,3197)}
+            minH={staticPosition(125*b.length,3197)}
             bg = {"qui"}
             pos={"absolute"}
             right={0}
@@ -34,58 +38,50 @@ function Nav_static(
         >
             {[...(b as any[])].map(
                 ({title, link}, index)=>(
-                    <Link 
+                    <a
                         key={index} 
-                        display={"flex"} 
-                        flexDir={"column"}
-                        alignItems={"baseline"}
-                        minH = {staticPosition(125, 3197)}
-                        maxH = {staticPosition(125, 3197)}
+                        href={link}
                     >
                         <Heading  
-                            onClick={()=>window.location.href = link}
                             color={"ter"}
                             fontSize={64}
-                            h={100}
+                            h={122}
                             px={staticPosition(40, 3197)}
-                            py={0}
                         >
                             {title}
                         </Heading>
-                        <Box w={"100%"} height={staticPosition(3, 3197)} bg={"ter"} />
-                    </Link>
+                        <Box  
+                            {...SetStaticPositionH(3, 3197)}
+                            {...SetStaticPositionW(779, 3197)}
+                            bg={"ter"} 
+                        />
+                    </a>
                 )
             )}
         </Box>
 }
 
 
-export default function Nav({open}:{open: boolean}){
+export default function Nav({open, anim}:{open: boolean, anim: boolean}){
     const Nav_motion = motion.create(forwardRef(Nav_static))
-    const Yi = !open ? staticPosition(0, 3197) : staticPosition(-(200*b.length),3197)
-    const Yf = open ? staticPosition(0, 3197) : staticPosition(-(200*b.length),3197)
+    const size = -(200 * b.length)
+    
+    const variants = {
+        open: { y: 0 },
+        closed: { y: size }
+    }
     
     return (
         <Nav_motion
-            initial={
-                {
-                    y: Yf
-                }
-            }
-            animate={
-                {
-                    y:Yi,
-                }
-            }
-            exit={
-                {
-                    y: Yf
-                }
-            }
-            transition={{
+            variants={variants}
+            initial={open ? "closed" : "open"}
+            animate={open ? "open" : "closed"}
+            transition={anim ? {
                 duration: 0.7,
                 type: "tween",
                 ease: "easeIn"
+            } : {
+                duration: 0
             }}
         />
     )

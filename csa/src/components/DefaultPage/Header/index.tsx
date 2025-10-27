@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Flex} from "@chakra-ui/react"
 import { staticPosition } from "csa/utils/staticPosition"
 import Logo from "csa/components/logo"
@@ -5,7 +7,6 @@ import { getToken } from "csa/utils/isloged";
 import Heading from "csa/components/ui/heading";
 import Nav from "./nav";
 import { useState } from "react";
-import { scale } from "framer-motion";
 import TextBorder from "csa/utils/textBorder";
 
 
@@ -15,6 +16,7 @@ import TextBorder from "csa/utils/textBorder";
 const Header = () => {
   const isLogged = getToken();
   const [openNav, setOpenNav] = useState<boolean>(false)
+  const [openAni, setOpenAni] = useState<boolean>(false)
 
   return (
     <Box>
@@ -26,7 +28,7 @@ const Header = () => {
         position={"sticky"} 
         top={0} 
 
-        bg="#00B944"  
+        bg="sec"  
         maxW={"100vmax"}
         minW={"100vmax"}
         minH={staticPosition(244, 3197)} 
@@ -34,6 +36,7 @@ const Header = () => {
         zIndex={100} 
         px={staticPosition(67, 3197)}
         border={`${staticPosition(2, 3197)} solid black`}
+        boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(0,0,0,0.15) `}
       >
         <Box
           onClick={()=>{ window.location.href="/" }}
@@ -57,7 +60,7 @@ const Header = () => {
             fontWeight={900}
 
             color="qui"
-            {...TextBorder(5, 3197)}
+            {...(TextBorder(5))}
           >
             Causa Solídaria
           </Heading>
@@ -119,13 +122,13 @@ const Header = () => {
             _hover={
               {scale: 1.05}
             }
-            onClick={()=>setOpenNav(!openNav)}
+            onClick={()=>{setOpenNav(!openNav); setOpenAni(true)}}
           >
           </Box>
         </Flex>
 
       </Flex>
-      <Nav open={openNav}/>
+      <Nav open={openNav} anim={openAni}/>
     </Box>
   )
 }

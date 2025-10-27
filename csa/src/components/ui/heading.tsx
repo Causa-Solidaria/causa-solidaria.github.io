@@ -1,6 +1,6 @@
 
 import { Heading as He, HeadingProps } from "@chakra-ui/react"
-import { staticPosition } from "csa/utils/staticPosition"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
 
 export default function Heading(
     {
@@ -18,18 +18,15 @@ export default function Heading(
         h?: number | string | (number | string)[],
     }
 ){
-    
-
     return (
     <He
         alignContent={"center"}
         fontSize={staticPosition(fontSize, MaxSizeDisplay)}
-        minW={staticPosition(w, MaxSizeDisplay)}
-        maxW={staticPosition(w, MaxSizeDisplay)}
-        minH={staticPosition(h, MaxSizeDisplay)}
-        maxH={staticPosition(h, MaxSizeDisplay)}
         lineHeight={1}
         color="qui"
+
+        {...SetStaticPositionW(w, MaxSizeDisplay)}
+        {...SetStaticPositionH(h, MaxSizeDisplay)}
         {...props}
     >
         {children}

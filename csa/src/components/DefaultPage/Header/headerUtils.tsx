@@ -1,3 +1,5 @@
+"use client"
+
 import { Box,  Link } from "@chakra-ui/react"
 import Buttom from "csa/components/Buttom";
 import { staticPosition } from "csa/utils/staticPosition";
