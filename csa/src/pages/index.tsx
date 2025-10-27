@@ -2,7 +2,7 @@
 
 import DefaultPage from "csa/components/DefaultPage"
 import Link from "next/link"
-import { Box, Button, Container, Grid, Heading, HStack, Icon, Image, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, HStack, Icon, Image, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import { LuArrowRight, LuCheck, LuHandshake, LuHeart, LuInfo, LuMegaphone, LuUser, LuPlus } from "react-icons/lu"
 import { staticPosition } from "csa/utils/staticPosition"
 
