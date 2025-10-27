@@ -1,18 +1,30 @@
-import { useState} from "react";
+import { forwardRef, useState} from "react";
 import { PopupContext, popupType } from "./utils";
 import { Box, Heading } from "@chakra-ui/react";
 import CardDefault from "../Card";
 import { AnimatePresence, motion } from "framer-motion"
 
 
-const PopupCard = motion(CardDefault)
+const PopupCard = motion.create(forwardRef(CardDefault))
 
-export default function ProviderPopup({timeout, children}:{timeout?: number | undefined, children: React.ReactNode}){
+export default function ProviderPopup(
+    {
+        timeout, 
+        children
+    }:{
+        timeout?: number | undefined, 
+        children: React.ReactNode
+    },
+){
     const [pilha, setPilha] = useState < popupType[] > ([])
     const time = timeout || 3000
 
     function AlertPopup(mensagem: string){
-        const Novo_popup = {id: Date.now(), mensagem: mensagem }
+        const Novo_popup = {
+            id: Date.now(), 
+            mensagem: mensagem 
+        }
+
         setPilha(prev => [...prev, Novo_popup])
 
         setTimeout(() => {
