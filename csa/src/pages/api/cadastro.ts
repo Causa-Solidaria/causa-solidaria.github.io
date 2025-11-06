@@ -29,7 +29,6 @@ const cadastroSchema = z.object({
   message: "As senhas devem ser iguais",
 });
 
-// Função handler correta para pages/api/
 export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     const message = "Método não permitido";

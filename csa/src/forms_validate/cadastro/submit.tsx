@@ -1,6 +1,9 @@
 import { apiUrl } from "csa/lib/apiBase";
 
-export default async function handleCadastro(data: object, popup: any, reset: any) {
+export default async function handleCadastro(
+  data: object,
+  popup: any,
+) {
   try {
     const res = await fetch(apiUrl('/api/cadastro'), {
       method: 'POST',
@@ -10,13 +13,13 @@ export default async function handleCadastro(data: object, popup: any, reset: an
 
     const json = await res.json();
 
+
     if (!res.ok) {
       throw new Error(json.error || 'Erro desconhecido');
     }
 
-    if (popup) popup('Cadastro realizado com sucesso!');
-    if (reset) reset();
+    popup('Cadastro realizado com sucesso!');
   } catch (error: any) {
-    if (popup) popup(`Erro no cadastro: ${error.message}`);
+    popup(`Erro no cadastro: ${error.message}`);
   }
 }

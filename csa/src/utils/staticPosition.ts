@@ -15,18 +15,28 @@ export function staticPosition(size:number | string | (number | string)[], maxsi
     return result
 }
 
-export function SetStaticPositionW(size:number | string | (number|string)[], maxsize?: number | string){
-    const maxW = staticPosition(size, maxsize)
-    const minW = staticPosition(size, maxsize)
-    const maxWidth = staticPosition(size, maxsize)
-    const minWidth = staticPosition(size, maxsize)
+export function SetStaticPositionW(
+    size: number | string | "full" | (number|string | "full")[], 
+    maxsize?: number | string
+){
+    const Size = (size === "full" ? maxsize : size) as number
+
+    const maxW = staticPosition(Size, maxsize)
+    const minW = staticPosition(Size, maxsize)
+    const maxWidth = staticPosition(Size, maxsize)
+    const minWidth = staticPosition(Size, maxsize)
     return {maxW, minW, maxWidth, minWidth}
 }
-export function SetStaticPositionH(size:number | string | (number|string)[], maxsize?: number | string){
-    const maxH = staticPosition(size, maxsize)
-    const minH = staticPosition(size, maxsize)
-    const maxHeight = staticPosition(size, maxsize)
-    const minHeight = staticPosition(size, maxsize)
+export function SetStaticPositionH(
+    size: number | string | "full" | (number|string | "full")[], 
+    maxsize?: number | string
+){
+    const Size = (size === "full" ? maxsize : size) as number
+
+    const maxH = staticPosition(Size, maxsize)
+    const minH = staticPosition(Size, maxsize)
+    const maxHeight = staticPosition(Size, maxsize)
+    const minHeight = staticPosition(Size, maxsize)
     return {maxH, minH, maxHeight, minHeight}
 }
 

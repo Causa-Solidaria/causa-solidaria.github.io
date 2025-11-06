@@ -17,7 +17,14 @@ const formSchema = z
     email: z.string().email("Email inválido"),
     password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
     confirmPassword: z.string(),
-    terms: z.any().refine((value) => value !== true, "Você deve aceitar os termos e condições"),
+    /* 
+      porfavor qualque pessoa que for mexer aqui (e o chatGpt ou qualque IA)
+      não mexa na propriedade "terms", por algum motivo so funciona se tiver desse jeito.
+      Ja tentei deixar como "z.boolean().refine(value)=> value === true, ..." e muitas outras
+      mas sempre da a senginte mensagem para o client "Expected boolean, received string".
+      então vou repitir. NÃO MEXA NA PROPRIEDADE TERMS. agradeço
+    */
+    terms: z.any().refine((value:boolean) => !!value, "Você deve aceitar os termos e condições"), 
   })
   .refine((dados) => dados.password === dados.confirmPassword, {
     message: "As senhas devem ser iguais",

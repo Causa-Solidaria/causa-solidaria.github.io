@@ -1,57 +1,57 @@
 "use client"
 
-import { Box, Flex} from "@chakra-ui/react"
-import { staticPosition } from "csa/utils/staticPosition"
+import { Box} from "@chakra-ui/react"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
 import Logo from "csa/components/logo"
 import { getToken } from "csa/utils/isloged";
 import Heading from "csa/components/ui/heading";
 import Nav from "./nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextBorder from "csa/utils/textBorder";
+import Flex from "csa/components/ui/Flex";
+import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 
 
 
 // O componente Main do Header
 
 const Header = () => {
-  const isLogged = getToken();
+  const [isLogged, setIsLogged] = useState<boolean | null>(null);
   const [openNav, setOpenNav] = useState<boolean>(false)
   const [openAni, setOpenAni] = useState<boolean>(false)
 
+  useEffect(() => {
+    setIsLogged(!!getToken());
+  }, []);
+
   return (
     <Box>
-      <Flex 
-        direction={"row"} 
-        alignItems="center"
+      <Flex
+        position={"sticky"} 
+        dir={"row"} 
+        {...AlignFull("center")}
         justifyContent={"space-between"}
         borderRadius={0} 
-        position={"sticky"} 
         top={0} 
 
-        bg="sec"  
-        maxW={"100vmax"}
-        minW={"100vmax"}
-        minH={staticPosition(244, 3197)} 
-        h={staticPosition(244, 3197)} 
+        bg="#00B944"  
+        {...SetStaticPositionW(1,1)}
+        {...SetStaticPositionH(244, 3197)}
         zIndex={100} 
         px={staticPosition(67, 3197)}
         border={`${staticPosition(2, 3197)} solid black`}
         boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(0,0,0,0.15) `}
       >
-        <Box
+        <Flex
           onClick={()=>{ window.location.href="/" }}
-          display={"flex"}
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyItems={"center"}
-          textAlign={"center"}
+          dir={"row"}
+          {...AlignFull()}
+          {...JustifyFull()}
           p={staticPosition(10, 3197)}
-          minH={staticPosition(173, 3197)}
-          maxH={staticPosition(173, 3197)}
-          minW={staticPosition(617, 3197)}
-          maxW={staticPosition(617, 3197)}
+          {...SetStaticPositionW(617, 3197)}
+          {...SetStaticPositionH(173, 3197)}
         >
-          <Logo width={staticPosition(173, 3197)} />
+          <Logo {...SetStaticPositionW(173, 3197)} />
           <Heading
             
             fontSize={48}
@@ -64,15 +64,15 @@ const Header = () => {
           >
             Causa Solídaria
           </Heading>
-        </Box>
+        </Flex>
         
         <Flex
-          direction={"row"}
+          dir={"row"}
           alignItems={"center"}
           gap={staticPosition(40, 3197)}
         >
-          {!isLogged && <Flex
-            direction={"row"}
+          {isLogged === false && <Flex
+            dir={"row"}
             gap={staticPosition(40, 3197)}
           >
             {[
@@ -82,9 +82,9 @@ const Header = () => {
               <Box
                 key={index}
                 onClick={()=>{window.location.href = link}}
-                bg = {"ter"}
+                bg = {"#006E1F"}
                 px={staticPosition(30, 3197)}
-                minW={staticPosition(250, 3197)}
+                {...SetStaticPositionW(278, 3197)}
                 textAlign={"center"}
                 borderRadius={staticPosition(12, 3197)}
                 transition={"scale 0.3s ease, translate 0.3s ease"}
@@ -106,11 +106,9 @@ const Header = () => {
             ))}
           </Flex>}
 
-          <Box 
-            maxW={staticPosition(137, 3197)}
-            minW={staticPosition(137, 3197)}
-            maxH={staticPosition(137, 3197)}
-            minH={staticPosition(137, 3197)}
+          <Box suppressHydrationWarning={true}
+            {...SetStaticPositionW(137, 3197)}
+            {...SetStaticPositionH(137, 3197)}
             bgImg={"url(/nav.png)"}
             bgPos={"center"}
             bgSize={"100%"}

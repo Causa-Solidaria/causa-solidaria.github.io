@@ -1,7 +1,11 @@
-import { Box, Flex, Heading, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, VStack, useBreakpointValue, BoxProps } from "@chakra-ui/react";
+import React, { forwardRef } from "react";
 import Logo from "csa/components/logo";
 
-export default function InfoCadastro() {
+function InfoCadastroInner(
+  { ...props }: BoxProps,
+  ref: React.Ref<HTMLDivElement>
+) {
   const ehMobile = useBreakpointValue({ base: true, sm: true, md: false });
 
   const headingSize = useBreakpointValue({
@@ -25,6 +29,8 @@ export default function InfoCadastro() {
       bg="sec"
       borderRadius="lg"
       boxShadow="lg"
+      ref={ref}
+      {...props}
     >
         {!ehMobile && (
             <Flex
@@ -77,3 +83,6 @@ export default function InfoCadastro() {
     </Box>
   );
 }
+
+const InfoCadastro = forwardRef<HTMLDivElement, BoxProps>(InfoCadastroInner);
+export default InfoCadastro;

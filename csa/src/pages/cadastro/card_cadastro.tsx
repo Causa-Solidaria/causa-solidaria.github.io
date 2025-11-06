@@ -1,16 +1,12 @@
 import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
+import React, { forwardRef } from "react";
 import CardDefault from "csa/components/Card";
 import Logo from "csa/components/logo";
+import { SetStaticPositionW } from "csa/utils/staticPosition";
 
-export default function CardCadastro({ children, ...props}: BoxProps) {
-  const ehmobile = false
-  const cardWidth = useBreakpointValue({
-    base: "100%", // mobile
-    sm: "100%",
-    md: "90%",
-    lg: "90%", // trava no máximo
-  });
-
+function CardCadastroInner({ children, ...props}: BoxProps, ref: React.Ref<HTMLDivElement>) {
+  
+  
   return (
     <Box
       minH="100vh"
@@ -20,12 +16,11 @@ export default function CardCadastro({ children, ...props}: BoxProps) {
       px={[2, 3]}
       my={[5, 8]}
       mx="10%"
+      ref={ref}
       { ...props}
     >
       <CardDefault
-        w={cardWidth}
-        minW={"max-content"}
-        maxW="600px"
+        {...SetStaticPositionW(650, 1980)}
         fontSize="md"
         justifyContent="center"
         alignContent="center"
@@ -36,7 +31,6 @@ export default function CardCadastro({ children, ...props}: BoxProps) {
         Header={
           <Center mb={4}>
             <Text fontSize={["xl", "2xl"]} fontWeight="bold" textAlign="center">
-              {ehmobile && <Center><Logo /></Center>}
               Se junte à Causa Solidária!
             </Text>
           </Center>
@@ -47,3 +41,7 @@ export default function CardCadastro({ children, ...props}: BoxProps) {
     </Box>
   );
 }
+
+const CardCadastro = forwardRef<HTMLDivElement, BoxProps>(CardCadastroInner);
+
+export default CardCadastro;

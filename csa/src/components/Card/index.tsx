@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { forwardRef, ForwardedRef } from "react";
+import React, { ForwardedRef, forwardRef } from "react";
 import Card, { PropsCard } from "./utils";
 
 interface CardDefaultProps extends PropsCard {
@@ -9,10 +9,10 @@ interface CardDefaultProps extends PropsCard {
     children?: React.ReactNode;
 }
 
-const CardDefault = (
+function CardDefault(
     { Header, Footer, children, Root, ...props }: CardDefaultProps,
     ref?: ForwardedRef<HTMLDivElement>
-) => {
+){
     return (
         <Box ref={ref}>
             <Card.Root {...props}>
@@ -25,7 +25,7 @@ const CardDefault = (
     );
 };
 
-const ForwardedCardDefault = forwardRef<HTMLDivElement, CardDefaultProps>(CardDefault);
+const ForwardedCardDefault = forwardRef(CardDefault);
 ForwardedCardDefault.displayName = "CardDefault";
 
 export default ForwardedCardDefault;

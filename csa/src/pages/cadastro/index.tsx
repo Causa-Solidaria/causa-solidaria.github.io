@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Checkbox, Flex, Image, Input, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex,  Input, Link, Text } from "@chakra-ui/react";
 import { z } from "zod";
 import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
@@ -9,29 +9,8 @@ import formSchema from "csa/forms_validate/cadastro/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import handleCadastro  from "csa/forms_validate/cadastro/submit";
-import {motion} from "framer-motion"; 
+import { motion } from "framer-motion"; 
 import { PasswordInput } from "csa/components/ui/password-input";
-
-function Logozone() {
-  return (
-    <Box
-      w="full"
-      py={6}
-      bg="ter"
-      display="flex"
-      flexDir="column"
-      alignItems="center"
-      justifyContent="center"
-      borderBottomRadius="15px"
-    >
-      <Image src="/logo.png" alt="Logo Causa Solidária" borderRadius="full" width="80px" mb={3} />
-      <Text fontSize={["xl", "2xl", "3xl"]} fontWeight="bold" color="qui" textAlign="center">
-        Causa Solidária
-      </Text>
-    </Box>
-  );
-}
-
 
 const CardCadastroMotion = motion.create(CardCadastro)
 const InfoCadastroMotion = motion.create(InfoCadastro)
@@ -39,13 +18,12 @@ const InfoCadastroMotion = motion.create(InfoCadastro)
 export default function Cadastro() {
   const popup = usePopup();
   const ehMobile = false;
-
-  const {register, handleSubmit, formState: { errors }, reset} = useForm<z.infer<typeof formSchema>>({
+  const {register, handleSubmit, formState: { errors }} = useForm({
     resolver: zodResolver(formSchema)
   });
   
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    await handleCadastro(data, popup, reset);
+  const onSubmit = async (data: any) => {
+    await handleCadastro(data, popup);
   };
 
   return (
@@ -121,8 +99,8 @@ export default function Cadastro() {
             </div>
 
             <div>
-              <Checkbox.Root {...register("terms")} my={5}>
-                <Checkbox.HiddenInput />
+              <Checkbox.Root my={5}>
+                <Checkbox.HiddenInput {...register("terms")} />
                 <Checkbox.Control borderColor={"ter"} >
                   <Checkbox.Indicator/>  
                 </Checkbox.Control>

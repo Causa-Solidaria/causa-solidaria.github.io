@@ -1,6 +1,6 @@
-import { Image } from "@chakra-ui/react";
-import CardDefault from "csa/components/Card";
-import Card from "csa/components/Card/utils";
+import { Box, Image } from "@chakra-ui/react";
+import Heading from "csa/components/ui/heading";
+import { SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
 
 export default function CampanhasCard({ idx, campanha }: { idx: number | string; campanha: any }) {
   const RedirecionaParaACampanha = () => {
@@ -14,17 +14,17 @@ export default function CampanhasCard({ idx, campanha }: { idx: number | string;
   }
 
   return (
-    <CardDefault
-      Root={<Image src={fotoSrc} aspectRatio={4/3} borderRadius={"md"} alt={"thumbnail " + idx} />}
-      maxW="300px"
+    <Box
       aspectRatio={5/7}
       overflow="hidden"
       p={4}
       _hover={{ scale: 1.025 }}
       onClick={RedirecionaParaACampanha}
+      {...SetStaticPositionW(400, 1970)}
     >
-      <Card.Title>{campanha?.titulo}</Card.Title>
-      <Card.Description>{campanha?.descricao}</Card.Description>
-    </CardDefault>
+      <Image src={fotoSrc} aspectRatio={4/3} borderRadius={staticPosition(15, 100)} alt={"thumbnail " + idx} />
+      <Heading fontSize={64}>{campanha?.titulo}</Heading>
+      <Heading fontSize={32}>{campanha?.descricao}</Heading>
+    </Box>
   );
 }
