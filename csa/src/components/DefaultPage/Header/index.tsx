@@ -31,15 +31,13 @@ const Header = () => {
         dir={"row"} 
         {...AlignFull("center")}
         justifyContent={"space-between"}
-        borderRadius={0} 
         top={0} 
 
         bg="#00B944"  
         {...SetStaticPositionW(1,1)}
         {...SetStaticPositionH(244, 3197)}
         zIndex={100} 
-        px={staticPosition(67, 3197)}
-        border={`${staticPosition(2, 3197)} solid black`}
+        pr={staticPosition(67, 3197)}
         boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(0,0,0,0.15) `}
       >
         <Flex
@@ -47,11 +45,14 @@ const Header = () => {
           dir={"row"}
           {...AlignFull()}
           {...JustifyFull()}
-          p={staticPosition(10, 3197)}
+          pl={staticPosition(67, 3197)}
           {...SetStaticPositionW(617, 3197)}
           {...SetStaticPositionH(173, 3197)}
         >
-          <Logo {...SetStaticPositionW(173, 3197)} />
+          <Logo 
+            {...SetStaticPositionW(173, 3197)}
+            borderRadius={staticPosition(1, 250)}  
+          />
           <Heading
             
             fontSize={48}
@@ -94,7 +95,6 @@ const Header = () => {
                     translate: `0 ${staticPosition(-2, 3197)}`
                   }
                 }
-                border={`${staticPosition(2, 3197)} solid black`}
               >
                 <Heading
                   h = {70}
@@ -106,7 +106,7 @@ const Header = () => {
             ))}
           </Flex>}
 
-          <Box suppressHydrationWarning={true}
+          <Box 
             {...SetStaticPositionW(137, 3197)}
             {...SetStaticPositionH(137, 3197)}
             bgImg={"url(/nav.png)"}

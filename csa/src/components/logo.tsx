@@ -10,7 +10,7 @@ export default function Logo(props: any & ImageProps) {
             alt="logo"
             {...props}
             width={props.width || `${staticPosition(100)}`}
-            border={` ${staticPosition(4, 3197)} solid #000`}  
+            border={` ${staticPosition(4, 3197)} solid rgba(0,0,0,0.3)`}  
         />
     )
 }
