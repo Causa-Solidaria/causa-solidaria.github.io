@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Link, Text } from "@chakra-ui/react";
+
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import Separador from "csa/components/ui/separador";

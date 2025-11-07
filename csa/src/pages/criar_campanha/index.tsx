@@ -8,7 +8,6 @@ import handleCriarCampanha  from "csa/forms_validate/criar_campanha/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import formSchema from "csa/forms_validate/criar_campanha/schema";
-import CardDefault from "csa/components/Card";
 
 export default function QueroDoar() {
   const popup = usePopup();
@@ -75,7 +74,7 @@ export default function QueroDoar() {
       alignItems={"center"}
       alignContent={"center"}
     >
-      <CardDefault
+      <Box
         mx={10}
         mt={5}
         mb={2}
@@ -185,7 +184,7 @@ export default function QueroDoar() {
         <HStack justify="center" mt={6} bottom={0}>
           <Button type="submit" minW={"100px"} maxW={"300px"} w={"25%"} colorScheme="green">Criar</Button>
          </HStack>
-      </CardDefault>
+      </Box>
     </DefaultPage>
   );
 }

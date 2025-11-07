@@ -1,44 +1,33 @@
 import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
 import React, { forwardRef } from "react";
-import CardDefault from "csa/components/Card";
-import Logo from "csa/components/logo";
-import { SetStaticPositionW } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import Flex from "csa/components/ui/Flex";
+import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 
 function CardCadastroInner({ children, ...props}: BoxProps, ref: React.Ref<HTMLDivElement>) {
   
   
   return (
-    <Box
-      minH="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      px={[2, 3]}
-      my={[5, 8]}
-      mx="10%"
+    <Flex
+      {...JustifyFull()}
+      
+      {...SetStaticPositionW(700, 1735)}
+      {...SetStaticPositionH(950, 1735)}
+
+      px={staticPosition([2, 3], 1735)}
+      my={staticPosition([5, 8], 1735)}
       ref={ref}
+
+      fontSize={staticPosition(24, 1735)}
+      justifyContent="center"
+      boxShadow={`${staticPosition(24, 1735)} ${staticPosition(24, 1735)} ${staticPosition(0, 1735)} #00000020`}
+      borderRadius={staticPosition(15, 1735)}
+      bg={"#fff"}
+      pt={staticPosition([25, 50], 1735)}        
       { ...props}
     >
-      <CardDefault
-        {...SetStaticPositionW(650, 1980)}
-        fontSize="md"
-        justifyContent="center"
-        alignContent="center"
-        borderRadius="lg"
-        boxShadow="12px 12px 0px #00000020"
-        
-        p={[4, 6]}
-        Header={
-          <Center mb={4}>
-            <Text fontSize={["xl", "2xl"]} fontWeight="bold" textAlign="center">
-              Se junte à Causa Solidária!
-            </Text>
-          </Center>
-        }
-      >
-        {children}
-      </CardDefault>
-    </Box>
+      {children}
+    </Flex>
   );
 }
 
