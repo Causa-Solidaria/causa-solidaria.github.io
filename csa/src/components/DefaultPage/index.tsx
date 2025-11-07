@@ -10,19 +10,16 @@ import { BoxProps } from "@chakra-ui/react";
 //   <SeuComponente />
 // </DefaultPage>
 
-export default function DefaultPage({children, ...props}: {children?: React.ReactNode} & BoxProps) {
+export default function DefaultPage({children,bg, ...props}: {children?: React.ReactNode} & BoxProps) {
     
     return (
         <Box
-            minW={"100vmax"} 
-            maxW={"100vmax"} 
-            minH={"100vmax"}
             overflowX={"hidden"} 
             bg={"rgba(0,0,0,0)"}
         >
             <Header />
             
-            <Timeline {...props} >
+            <Timeline bg={bg || "#fff"} {...props} >
                     {children}
             </Timeline>
             
