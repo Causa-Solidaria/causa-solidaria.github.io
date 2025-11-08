@@ -16,6 +16,7 @@ import {
   mergeRefs,
   useControllableState,
 } from "@chakra-ui/react"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
 import * as React from "react"
 import { LuEye, LuEyeOff } from "react-icons/lu"
 
@@ -52,7 +53,6 @@ export const PasswordInput = React.forwardRef<
   })
 
   const inputRef = React.useRef<HTMLInputElement>(null)
-
   return (
     <InputGroup
       endElement={
@@ -83,14 +83,11 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function VisibilityTrigger(props, ref) {
     return (
       <IconButton
-        tabIndex={-1}
         ref={ref}
-        me="-2"
         aspectRatio="square"
-        size="sm"
-        variant="ghost"
-        height="calc(100% - {spacing.2})"
-        aria-label="Toggle password visibility"
+        variant={"ghost"}
+        {...SetStaticPositionW(40, 1735)}
+        {...SetStaticPositionH(40, 1735)}
         {...props}
       />
     )
@@ -118,15 +115,8 @@ export const PasswordStrengthMeter = React.forwardRef<
           <Box
             key={index}
             height="1"
-            flex="1"
-            rounded="sm"
             data-selected={index < value ? "" : undefined}
-            layerStyle="fill.subtle"
-            colorPalette="gray"
-            _selected={{
-              colorPalette,
-              layerStyle: "fill.solid",
-            }}
+            
           />
         ))}
       </HStack>
