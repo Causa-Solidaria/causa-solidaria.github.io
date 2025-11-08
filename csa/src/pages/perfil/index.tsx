@@ -1,4 +1,4 @@
-import { Center, Icon, Image } from "@chakra-ui/react";
+import { Center, Image } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import Box from "csa/components/ui/Box";
 import Flex from "csa/components/ui/Flex";
