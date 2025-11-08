@@ -67,7 +67,7 @@ export default function Footer() {
                             >
                                 <Heading fontSize={75} textAlign={"left"}> {Topico.title} </Heading>
                                 {
-                                    Topico.links.map((link, id)=>(
+                                    Topico.links.map((link: any, id: number)=>(
                                         <a href={link.link} key={id}>
                                             <Heading
                                                 fontSize={32}
