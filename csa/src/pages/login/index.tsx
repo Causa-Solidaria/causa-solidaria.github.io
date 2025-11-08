@@ -3,11 +3,10 @@
 import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
-import CardDefault from "csa/components/Card";
-import Schema, { SchemaType } from "csa/features/login/FormConfig/schema";
+import Schema, { SchemaType } from "csa/forms_validate/login/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleLogin  from "csa/features/login/FormConfig/submit";
+import handleLogin  from "csa/forms_validate/login/submit";
 
 
 
@@ -45,7 +44,7 @@ export default function Login(){
                 </Text>
             </Box>
 
-            <CardDefault
+            <Box
                 width="400px" justifySelf="center" alignContent="center" m={4}
             > 
 
@@ -84,7 +83,7 @@ export default function Login(){
                     <Button type="submit" w={"full"}>Entrar</Button>
                 </Box>
             
-            </CardDefault>
+            </Box>
 
             <Box
                 bg="qui"

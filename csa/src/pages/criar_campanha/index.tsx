@@ -1,18 +1,15 @@
 import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
-import { ScreenSize } from "csa/utils/getScreenSize";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-import handleCriarCampanha  from "csa/features/criar_campanha/FormConfig/submit";
+import handleCriarCampanha  from "csa/forms_validate/criar_campanha/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import formSchema from "csa/features/criar_campanha/FormConfig/schema";
-import CardDefault from "csa/components/Card";
+import formSchema from "csa/forms_validate/criar_campanha/schema";
 
 export default function QueroDoar() {
-  const scrSize = ScreenSize();
   const popup = usePopup();
 
   const [thumbnailString, setThumbnailString] = useState<string | null>(null);
@@ -67,7 +64,7 @@ export default function QueroDoar() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    handleCriarCampanha({ ...data, thumbnailString }, popup);
+    handleCriarCampanha({ ...data, thumbnailString: thumbnailString ?? undefined }, popup);
   }
 
   return (
@@ -77,7 +74,7 @@ export default function QueroDoar() {
       alignItems={"center"}
       alignContent={"center"}
     >
-      <CardDefault
+      <Box
         mx={10}
         mt={5}
         mb={2}
@@ -187,7 +184,7 @@ export default function QueroDoar() {
         <HStack justify="center" mt={6} bottom={0}>
           <Button type="submit" minW={"100px"} maxW={"300px"} w={"25%"} colorScheme="green">Criar</Button>
          </HStack>
-      </CardDefault>
+      </Box>
     </DefaultPage>
   );
 }

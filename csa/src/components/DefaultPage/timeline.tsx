@@ -1,16 +1,14 @@
 import { Box, ChakraProviderProps } from "@chakra-ui/react";
-import { ScreenSize } from "csa/utils/getScreenSize";
 
 
 export default function Timeline({children, ...props}: any & ChakraProviderProps) {
-    const getScreenSize = ScreenSize();
 
     return (
         <Box 
-            minW={ props.minW ? props?.minW : "100%" }
-            minH={ props.minH ? props?.minH : getScreenSize.height*0.75 }
+            minH={"25vmax"}
             p={4}
-            bg={props?.bg ? props?.bg : "pri"}
+            bg={"pri"}
+            overflowX={"hidden"}
             {...props}
         >
             {children}

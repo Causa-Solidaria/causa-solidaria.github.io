@@ -5,6 +5,8 @@ import { system } from "csa/theme";
 import ProviderPopup from "csa/components/ProviderPopup";
 import { AnimatePresence } from "framer-motion";
 
+import "./global.css";
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>

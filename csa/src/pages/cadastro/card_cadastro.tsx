@@ -1,50 +1,33 @@
 import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
-import CardDefault from "csa/components/Card";
-import Logo from "csa/components/logo";
-import { isMobile } from "csa/utils/isMobile";
+import React, { forwardRef } from "react";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import Flex from "csa/components/ui/Flex";
+import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 
-export default function CardCadastro({ children, ...props}: BoxProps) {
-  const ehmobile = isMobile()
-  const cardWidth = useBreakpointValue({
-    base: "100%", // mobile
-    sm: "100%",
-    md: "90%",
-    lg: "90%", // trava no máximo
-  });
-
+function CardCadastroInner({ children, ...props}: BoxProps, ref: React.Ref<HTMLDivElement>) {
+  
+  
   return (
-    <Box
-      minH="100vh"
-      display="flex"
+    <Flex
+      {...JustifyFull()}
+      
+      {...SetStaticPositionW(585, 1735)}
+
+      ref={ref}
+
+      fontSize={staticPosition(24, 1735)}
       justifyContent="center"
-      alignItems="center"
-      px={[2, 3]}
-      my={[5, 8]}
-      mx="10%"
+      boxShadow={`${staticPosition(24, 1735)} ${staticPosition(24, 1735)} ${staticPosition(0, 1735)} #00000020`}
+      borderRadius={staticPosition(5, 1735)}
+      bg={"#fff"}
+      py={staticPosition([15, 25], 1735)}        
       { ...props}
     >
-      <CardDefault
-        w={cardWidth}
-        minW={"max-content"}
-        maxW="600px"
-        fontSize="md"
-        justifyContent="center"
-        alignContent="center"
-        borderRadius="lg"
-        boxShadow="12px 12px 0px #00000020"
-        
-        p={[4, 6]}
-        Header={
-          <Center mb={4}>
-            <Text fontSize={["xl", "2xl"]} fontWeight="bold" textAlign="center">
-              {ehmobile && <Center><Logo /></Center>}
-              Se junte à Causa Solidária!
-            </Text>
-          </Center>
-        }
-      >
-        {children}
-      </CardDefault>
-    </Box>
+      {children}
+    </Flex>
   );
 }
+
+const CardCadastro = forwardRef<HTMLDivElement, BoxProps>(CardCadastroInner);
+
+export default CardCadastro;

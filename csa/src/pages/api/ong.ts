@@ -51,8 +51,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         descricao: data.descricao,
         cep: data.cep,
         contato: data.contato,
-        siteOuRede: data.site,
-        logoUrl: data.logo,
+        /*
+          profuso antes não tinha os ' || "" ' abaixo, mas a falta desses detalhes dava 
+          erro de verificação quando vou fazer deploy. pq da erro? - vc deve ta se 
+          perguntando. É pq a variavel  sieteOuRede so recebe variaveis do tipo string, e 
+          como ela tava recebendo uma variavel opcional, essa no  qual é uma string ou um 
+          undefinied dava erro de verificação/segurança(/num sei...). ai eu adiciomei esse
+          codigo para garantir que suba para o banco apenas como string (caso o campo não
+          seja preenchido) e tbm para conseguir fazer o deploy
+        */
+        siteOuRede: (data.site) || "", 
+        logoUrl: data.logo || "",
         usuarioId,
       },
     });

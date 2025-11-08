@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useMemo } from "react";
-import { Box, Button, Center, Container, Grid, Heading, HStack, Icon, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Container, Heading, HStack, Icon, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
 import DefaultPage from '../../components/DefaultPage';
 import Link from 'next/link';

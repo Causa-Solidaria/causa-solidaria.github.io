@@ -7,7 +7,7 @@ export type popupType = {
 }
 
 type popupContextType = {
-    AlertPopup: (mensagem: string)=>void;
+    AlertPopup?: (mensagem: string)=>void;
 }
 
 export interface PopupProps {
@@ -16,4 +16,4 @@ export interface PopupProps {
 }
 
 
-export const PopupContext = createContext< popupContextType >(undefined);
+export const PopupContext = createContext< popupContextType >({});

@@ -1,7 +1,17 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 
 
-export default function Conquista({ titulo, descricao, icone }) {
+export default function Conquista(
+    { 
+        titulo, 
+        descricao, 
+        icone 
+    }: {
+        titulo: string, 
+        descricao: string, 
+        icone: string
+    }
+) {
     return (
         <Box
             bg="white"

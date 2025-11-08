@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Button, Center, createListCollection, Flex, Heading, Input, Portal, Select } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DefaultPage from "csa/components/DefaultPage";
-import formSchema from "csa/features/Criar_Nova_Ong/FormConfig/schema";
+import formSchema from "csa/forms_validate/Criar_Nova_Ong/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/router";
