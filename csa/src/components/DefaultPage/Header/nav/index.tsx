@@ -64,7 +64,7 @@ function Nav_static(
 
 export default function Nav({open, anim}:{open: boolean, anim: boolean}){
     const Nav_motion = motion.create(forwardRef(Nav_static))
-    const size = -(200 * b.length)
+    const size = staticPosition(-(200 * b.length), 3197)
     
     const variants = {
         open: { y: 0 },

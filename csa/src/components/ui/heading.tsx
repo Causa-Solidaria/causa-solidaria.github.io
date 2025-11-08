@@ -9,6 +9,7 @@ export default function Heading(
         fontSize = 36, 
         w = "min-content",
         h = "min-content",
+        color,
         ...props
     }: 
     HeadingProps & {
@@ -23,7 +24,7 @@ export default function Heading(
         alignContent={"center"}
         fontSize={staticPosition(fontSize, MaxSizeDisplay)}
         lineHeight={1}
-        color="qui"
+        color={color || "qui"}
 
         {...SetStaticPositionW(w, MaxSizeDisplay)}
         {...SetStaticPositionH(h, MaxSizeDisplay)}
