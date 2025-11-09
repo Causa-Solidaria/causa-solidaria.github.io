@@ -3,48 +3,62 @@ import DefaultPage from "csa/components/DefaultPage";
 import Box from "csa/components/ui/Box";
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
-import { getToken } from "csa/utils/isloged";
+import { getToken, isTokenExpired } from "csa/utils/isloged";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { use, useEffect, useState } from "react";
 import { LuContact, LuPersonStanding } from "react-icons/lu";
+import { set } from "zod";
 
 
 
 
 
 export default function Perfil(){
-    const TokenUser = getToken() 
-    
+    const TokenUser = getToken();
+    const [profiloData, setPerfilData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
 
-    const requisicao = {// trocar  por uma requisição api
-        nome: "testNome", 
-        bio: "testBio", 
-        genero: "masculino",
-        foto: undefined, 
-        numero: "4002-8922",
-        email: "test@test.test",
-        localizacao: "R. test, test (TEST)",
-        areasDeInteresse: ["area1", "area2", "area3"],
-        ong: [{ title: "é um test de ong no Perfil", foto: undefined}],
-        capanhas: [{title: "Isso é um test de Campanha no Perfil1", foto: undefined},{title: "Isso é um test de Campanha no Perfil2", foto: undefined}]
-    }
+    useEffect(() => {
+        const fetchPerfilData = async () => {
+            try {
+                const response = await fetch('/api/perfil', {
+                    headers: {
+                        'Authorization': `Bearer ${TokenUser}`
+                    }                
+                });
+                const data = await response.json();
+                setPerfilData(data);       
+            } catch (error) {
+                console.error('Erro ao buscar dados do perfil:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-
-
+    fetchPerfilData();
+},[TokenUser]);
+  if (loading) {
+    return <DefaultPage>Carregando...</DefaultPage>;
+  }
+  if (!profiloData) {
+    return <DefaultPage>Erro ao carregar dados do perfil.</DefaultPage>;
+  }
+  if (isTokenExpired(getToken() as string)) {
+    return <DefaultPage>Por favor faça login.</DefaultPage>;
+  }
     const {
         nome,
-        bio, // adicionar essa coluna ao baco de dados 
-        foto, // adicionar essa coluna ao baco de dados
-        numero, // adicionar essa coluna ao baco de dados
+        bio,
+        foto,
+        numero,
         email,
-        localizacao, // adicionar essa coluna ao baco de dados
-        areasDeInteresse, // adicionar essa coluna ao baco de dados
-        genero, // adiciona tbm
-        ong,
-        capanhas
-    }: any = requisicao
-
-
+        localizacao,
+        areasDeInteresse = [], // fornecendo um valor padrão como array vazio
+        genero, 
+        ong = [], // fornecendo um valor padrão como array vazio
+        capanhas = []
+    } = profiloData;
 
 
     return <DefaultPage 
@@ -157,10 +171,10 @@ export default function Perfil(){
                     fontSize={40} MaxSizeDisplay={1871}
                     mb={staticPosition(30, 1871)}
                 >
-                    Area{areasDeInteresse.length > 1 ? "s" : ""} de Interesse
+                    Area{(areasDeInteresse?.length || 0) > 1 ? "s" : ""} de Interesse
                 </Heading>
                 <Flex gap={staticPosition(30,1871)}>
-                    {areasDeInteresse.map(
+                    {(areasDeInteresse || []).map(
                         (Interesse: string)=><Box 
                             key={Interesse}
                             borderRadius={staticPosition(12, 1871)}
@@ -182,10 +196,10 @@ export default function Perfil(){
                     fontSize={40} MaxSizeDisplay={1871}
                     mb={staticPosition(30, 1871)}
                 >
-                    ONG{ong.length > 1 ? "s" : ""} que apoio
+                    ONG{(ong?.length || 0) > 1 ? "s" : ""} que apoio
                 </Heading>
                 <Flex gap={staticPosition(30,1871)}>
-                    {ong.map(
+                    {(ong || []).map(
                         (Ong: any, id: number)=><Flex
                             key={id}
                             borderRadius={staticPosition(12, 1871)}
