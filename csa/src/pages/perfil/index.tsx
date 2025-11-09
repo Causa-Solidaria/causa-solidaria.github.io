@@ -65,7 +65,7 @@ export default function Perfil(){
         </Heading>
         
         <Box 
-            margin={staticPosition(25, 1871)}
+            m={staticPosition(25, 1871)}
             p={staticPosition(50, 1871)}
             borderRadius={staticPosition(25, 1871)}
             {...SetStaticPositionW(1430, 1871)}

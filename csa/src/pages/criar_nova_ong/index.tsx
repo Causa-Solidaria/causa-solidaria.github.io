@@ -16,6 +16,7 @@ import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/util
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { getToken } from "csa/utils/isloged";
 import { LuUpload } from "react-icons/lu";
+import BackRouteBT from "csa/components/BackRouteButton";
 
 
 export default function CriarNovaOng() {
@@ -160,17 +161,7 @@ export default function CriarNovaOng() {
                     mb={staticPosition(24,2438)}
                 >
                     <Flex alignItems="center" justifyContent="center" position="relative" {...SetStaticPositionH(76,2438)}>
-                        <Button
-                            position="absolute"
-                            left={0}
-                            bg={"transparent"}
-                            color={"black"}
-                            fontSize={staticPosition(76,2438)}
-                            type="button"
-                            onClick={() => router.back()}
-                        >
-                            {"←"}
-                        </Button>
+                        <BackRouteBT />
                         <Heading fontSize={96} MaxSizeDisplay={2438} fontWeight={900} color="#000" w={"full"} textAlign="center">
                             Cadastrar Nova ONG
                         </Heading>
