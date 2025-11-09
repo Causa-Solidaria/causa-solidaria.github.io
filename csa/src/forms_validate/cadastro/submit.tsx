@@ -1,11 +1,12 @@
 import { apiUrl } from "csa/lib/apiBase";
+import {Apis} from "csa/Rotas.json"
 
 export default async function handleCadastro(
   data: object,
   popup: any,
 ) {
   try {
-    const res = await fetch(apiUrl('/api/cadastro'), {
+    const res = await fetch(apiUrl(Apis.Cadastro), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
