@@ -1,11 +1,19 @@
 'use client'
 
 import { useEffect, useState, useMemo } from "react";
-import { Box, Button, Center, Container, Heading, HStack, Icon, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
-import DefaultPage from '../../components/DefaultPage';
+import { Button, Icon, Text } from "@chakra-ui/react";
+import Box from "csa/components/ui/Box";
+import Flex from "csa/components/ui/Flex";
+import Heading from "csa/components/ui/heading";
+import Input from "csa/components/ui/input";
+import DefaultPage from "csa/components/DefaultPage";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
+import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPosition";
+import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
+
+const DISPLAY_BASE = 2008;
 
 type Ong = {
   id: string;
@@ -55,79 +63,230 @@ export default function ONGsPage() {
   }, [q, ongs]);
 
   return (
-    <DefaultPage bg={"qui"}>
-      <Container maxW={["95%","90%","85%","80%","70%"]} py={6}>
+    <DefaultPage
+      bg={"qui"}
+      {...JustifyFull()}
+      {...AlignFull()}
+    >
+      <Box
+        mx={"auto"}
+        {...SetStaticPositionW(DISPLAY_BASE, DISPLAY_BASE)}
+        p={staticPosition(40, DISPLAY_BASE)}
+        pt={staticPosition(60, DISPLAY_BASE)}
+      >
         {/* Top bar */}
-        <HStack justify="space-between" align="center" mb={4}>
-          <Button variant="ghost" onClick={() => router.back()}>
-            <HStack gap={2}>
-              <Icon as={LuArrowLeft} />
-              <Text>Voltar</Text>
-            </HStack>
+        <Flex
+          dir="row"
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          mb={staticPosition(40, DISPLAY_BASE)}
+        >
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+            fontSize={staticPosition(28, DISPLAY_BASE)}
+          >
+            <Flex
+              dir="row"
+              gap={staticPosition(10, DISPLAY_BASE)}
+              alignItems={"center"}
+            >
+              <Icon
+                as={LuArrowLeft}
+                boxSize={staticPosition(32, DISPLAY_BASE)}
+              />
+              <Text
+                fontSize={staticPosition(32, DISPLAY_BASE)}
+              >
+                Voltar
+              </Text>
+            </Flex>
           </Button>
-          <Heading size="lg">ONGs</Heading>
+          <Heading
+            fontSize={64}
+            MaxSizeDisplay={DISPLAY_BASE}
+            fontWeight={900}
+            color="#000"
+          >
+            ONGs
+          </Heading>
           <Link href="/criar_nova_ong">
-            <Button bg={"ter"} borderRadius="15px">Cadastrar ONG</Button>
+            <Button
+              bg={"ter"}
+              borderRadius={staticPosition(30, DISPLAY_BASE)}
+              fontSize={staticPosition(28, DISPLAY_BASE)}
+              px={staticPosition(30, DISPLAY_BASE)}
+            >
+              Cadastrar ONG
+            </Button>
           </Link>
-        </HStack>
+        </Flex>
 
         {/* Search */}
-        <Box position="relative" mb={6} border={"1px solid"} borderColor={"ter"} borderRadius="15px">
-          <Icon as={LuSearch} color="ter" position="absolute" left={3} top="50%" transform="translateY(-50%)" />
+        <Box
+          position="relative"
+          mb={staticPosition(60, DISPLAY_BASE)}
+          border={`${staticPosition(2, DISPLAY_BASE)} solid`}
+          borderColor={"ter"}
+          borderRadius={staticPosition(30, DISPLAY_BASE)}
+          {...SetStaticPositionW(DISPLAY_BASE, DISPLAY_BASE)}
+        >
+          <Icon
+            as={LuSearch}
+            color="ter"
+            position="absolute"
+            left={staticPosition(30, DISPLAY_BASE)}
+            top="50%"
+            transform="translateY(-50%)"
+            boxSize={staticPosition(40, DISPLAY_BASE)}
+          />
           <Input
-            pl={10}
-            borderRadius="15px"
+            pl={staticPosition(90, DISPLAY_BASE)}
+            borderRadius={staticPosition(30, DISPLAY_BASE)}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Pesquisar ONG por nome ou área"
             bg="white"
+            fontSize={staticPosition(28, DISPLAY_BASE)}
+            {...SetStaticPositionH(70, DISPLAY_BASE)}
           />
         </Box>
 
         {/* Renderização condicional */}
-        <Center>
+        <Flex
+          dir="column"
+          {...AlignFull()}
+          gap={staticPosition(40, DISPLAY_BASE)}
+        >
           {loading ? (
-            <Text>Carregando ONGs...</Text>
+            <Text
+              fontSize={staticPosition(32, DISPLAY_BASE)}
+            >
+              Carregando ONGs...
+            </Text>
           ) : list.length === 0 ? (
-            <Text>Nenhuma ONG encontrada.</Text>
+            <Text
+              fontSize={staticPosition(32, DISPLAY_BASE)}
+            >
+              Nenhuma ONG encontrada.
+            </Text>
           ) : (
-            <SimpleGrid columns={[1, 1, 2, 2]} gap={6}>
+            <Flex
+              dir="row"
+              flexWrap="wrap"
+              gap={staticPosition(40, DISPLAY_BASE)}
+              justifyContent={"center"}
+            >
               {list.map((o) => (
-                <Box key={o.id} bg="white" p={4} borderRadius="lg" boxShadow="sm" borderWidth="1px">
-                  <HStack align="start" gap={3} mb={2}>
+                <Box
+                  key={o.id}
+                  bg="white"
+                  p={staticPosition(40, DISPLAY_BASE)}
+                  borderRadius={staticPosition(30, DISPLAY_BASE)}
+                  border={`${staticPosition(2, DISPLAY_BASE)} solid #000`}
+                  boxShadow={`0 ${staticPosition(10, DISPLAY_BASE)} ${staticPosition(25, DISPLAY_BASE)} rgba(0,0,0,0.08)`}
+                  {...SetStaticPositionW((DISPLAY_BASE - 200) / 2, DISPLAY_BASE)}
+                  minW={staticPosition(600, DISPLAY_BASE)}
+                >
+                  <Flex
+                    dir="row"
+                    alignItems="flex-start"
+                    gap={staticPosition(30, DISPLAY_BASE)}
+                    mb={staticPosition(20, DISPLAY_BASE)}
+                  >
                     <Box
                       bg={o.color}
                       color="white"
-                      borderRadius="full"
-                      boxSize="32px"
+                      borderRadius={"100%"}
+                      {...SetStaticPositionW(80, DISPLAY_BASE)}
+                      {...SetStaticPositionH(80, DISPLAY_BASE)}
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
+                      fontSize={staticPosition(40, DISPLAY_BASE)}
                     >
-                      <Icon as={o.icon} />
+                      <Icon
+                        as={o.icon}
+                        boxSize={staticPosition(48, DISPLAY_BASE)}
+                      />
                     </Box>
-                    <VStack align="start" gap={0}>
-                      <Text fontWeight="bold">{o.nome}</Text>
-                      <Text fontSize="sm" color="gray.600">{o.area}</Text>
-                    </VStack>
-                  </HStack>
-                  <Text fontSize="sm" color="gray.800" mb={2}>{o.descricao}</Text>
-                  <Text fontSize="sm" color="gray.700">{o.cidade}, {o.uf}</Text>
-                  <Text fontSize="sm" color="gray.600" mb={4}>{o.email}</Text>
-                  <HStack>
-                    <Link href="#">
-                      <Button size="sm" variant="outline" borderRadius="15px" colorScheme="gray">Ver Detalhes</Button>
+                    <Flex
+                      dir="column"
+                      gap={staticPosition(10, DISPLAY_BASE)}
+                      alignItems="flex-start"
+                    >
+                      <Text
+                        fontWeight="bold"
+                        fontSize={staticPosition(40, DISPLAY_BASE)}
+                      >
+                        {o.nome}
+                      </Text>
+                      <Text
+                        fontSize={staticPosition(28, DISPLAY_BASE)}
+                        color="gray.600"
+                      >
+                        {o.area}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                  <Text
+                    fontSize={staticPosition(28, DISPLAY_BASE)}
+                    color="gray.800"
+                    mb={staticPosition(20, DISPLAY_BASE)}
+                  >
+                    {o.descricao}
+                  </Text>
+                  <Text
+                    fontSize={staticPosition(26, DISPLAY_BASE)}
+                    color="gray.700"
+                    mb={staticPosition(10, DISPLAY_BASE)}
+                  >
+                    {o.cidade}, {o.uf}
+                  </Text>
+                  <Text
+                    fontSize={staticPosition(24, DISPLAY_BASE)}
+                    color="gray.600"
+                    mb={staticPosition(30, DISPLAY_BASE)}
+                  >
+                    {o.email}
+                  </Text>
+                  <Flex
+                    dir="row"
+                    gap={staticPosition(20, DISPLAY_BASE)}
+                  >
+                    <Link href={`/#ong/${o.id}`}>
+                      <Button
+                        variant="outline"
+                        borderRadius={staticPosition(25, DISPLAY_BASE)}
+                        fontSize={staticPosition(26, DISPLAY_BASE)}
+                        border={`${staticPosition(2, DISPLAY_BASE)} solid #000`}
+                        bg="white"
+                        color="#000"
+                        px={staticPosition(30, DISPLAY_BASE)}
+                        {...SetStaticPositionH(70, DISPLAY_BASE)}
+                      >
+                        Ver Detalhes
+                      </Button>
                     </Link>
                     <Link href="/campanhas">
-                      <Button size="sm" borderRadius="15px" bg="sec">Apoiar</Button>
+                      <Button
+                        borderRadius={staticPosition(25, DISPLAY_BASE)}
+                        fontSize={staticPosition(26, DISPLAY_BASE)}
+                        bg="sec"
+                        color="white"
+                        px={staticPosition(30, DISPLAY_BASE)}
+                        {...SetStaticPositionH(70, DISPLAY_BASE)}
+                      >
+                        Apoiar
+                      </Button>
                     </Link>
-                  </HStack>
+                  </Flex>
                 </Box>
               ))}
-            </SimpleGrid>
+            </Flex>
           )}
-        </Center>
-      </Container>
+        </Flex>
+      </Box>
     </DefaultPage>
   );
 }
