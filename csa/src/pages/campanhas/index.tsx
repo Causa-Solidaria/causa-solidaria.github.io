@@ -9,12 +9,14 @@ import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { LuPlus } from "react-icons/lu";
 import Flex from "csa/components/ui/Flex";
 import { motion } from "framer-motion";
+import { Campanhas as Ca } from "csa/Rotas.json"
+
 
 function Buttonparacriar({...props}:BoxProps){
   const [hover, setHover] = useState<boolean>(false)
 
   return (
-    <a href={"/criar_campanha"}
+    <a href={Ca.Criar}
       style={
         {
           position: "fixed",

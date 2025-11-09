@@ -2,8 +2,7 @@ import { createRouter } from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { prisma } from "csa/lib/prisma";
-
-const JWT_SECRET = process.env.JWT_SECRET || "secreto-temporario";
+import { getJwtSecret } from "csa/lib/JWT";
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
@@ -18,7 +17,7 @@ router.post(async (req, res) => {
     const token = authHeader.split(" ")[1];
     let decoded: { id: number };
     try {
-      decoded = jwt.verify(token, JWT_SECRET) as { id: number };
+      decoded = jwt.verify(token, getJwtSecret()) as { id: number };
     } catch (err: any) {
       if (err?.name === "TokenExpiredError") {
         return res.status(401).json({ error: "Token expirado" });

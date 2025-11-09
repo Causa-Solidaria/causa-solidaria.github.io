@@ -11,7 +11,7 @@ import Box from "csa/components/ui/Box";
 type campanhaProps = {
     id: string | number, 
     titulo: string,
-    Descricao: string,
+    descricao: string,
     Nivel_de_ajuda: number,
     CEP: string | number,
     Estado?: string,
@@ -57,7 +57,7 @@ export default function Campanha(c: campanhaProps){
                 />
                 <Heading> {c.titulo}</Heading>
                 
-                <Heading >{c.Descricao}</Heading>
+                <Heading >{c.descricao}</Heading>
 
                 <Progress.Root maxW="100%" size="xl" variant="outline" max={1} min={0} shape="rounded" value={0.5} >
                     <Progress.Label> 
