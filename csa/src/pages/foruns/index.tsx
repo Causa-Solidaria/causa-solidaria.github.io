@@ -9,14 +9,42 @@ import { getToken } from "csa/utils/isloged"
 import JustifyFull from "csa/utils/JustifyFullCenter"
 import { BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
 import { Form, useForm } from "react-hook-form"
+import {Fóruns} from "csa/Rotas.json"
+import { useState } from "react"
 
+interface FórunProps{
+    Titulo: string,
+    Descrição: string,
+    Joinhas: number,
+    Foto: string ,
+    Tags?: {title: string, color: string}[],
+    NumeroDeComentarios?: number,
+    NomeDoCriador: string,
+    EmAlta?: boolean,
+    Data: string 
+}
 
 export default function Foruns(){
+    const [Foruns, setForuns] = useState<FórunProps[]>([
+        {
+            Titulo: "test de Foruns 1",
+            Descrição: "isso é um test",
+            Joinhas: 0,
+            Foto: "", 
+            NomeDoCriador: "davi",
+            Data: "12/12/1212"
+        }
+    ])
+
+    ///Funções do Back
     const Token = getToken()
-    const {control, formState: {errors}, register} = useForm()
+    const {control, formState: {errors}, register} = useForm() /// ja ta preparado para vc fazer a parte de validação
+    
 
+    /* função de pesquisa */
+    const Search  = (Event: any)=>{} /// subistituir por uma funçaão que recebe a pesquisa e retorna um array com os foruns parecidos
 
-
+    /// funções do Front
     const st =(s: number)=>staticPosition(s, 2835) as string
 
     return <DefaultPage
@@ -57,7 +85,7 @@ export default function Foruns(){
                     gapX={st(20)}
                     {...JustifyFull("center")}
                 >
-                    <Form control={control}>
+                    <Form control={control} action={"" /* adicionar no back */}>
                         <Input 
                             {...register("Search")}
                             placeholder="Buscar Tópicos ou Palavra-Chave"
@@ -65,19 +93,29 @@ export default function Foruns(){
                             borderRadius={st(25)}
                             fontSize={st(32)}
                             px={st(30)}
+                            onChange={Search}
                             {...SetStaticPositionH(85, 2835)}
                             {...SetStaticPositionW(1480, 2835)}
                         >
 
                         </Input>
-                        <Button
-                            {...SetStaticPositionH(85, 2835)}
-                            {...SetStaticPositionW(345, 2835)}
-                            borderRadius={st(25)}
-                        >
-                            <Heading>Criar Novo Tópico</Heading>
-                        </Button>
                     </Form>
+                    <Button
+                        {...SetStaticPositionH(85, 2835)}
+                        {...SetStaticPositionW(345, 2835)}
+                        {...BorderStatic(3, "solid", "#000", 2835)}
+                        bg={"#097D03"}
+                        transition={"all 0.6s ease"}
+                        _hover={{
+                            translate: `0 ${st(-5)}`,
+                            scale: 1.01
+                        }}
+                        borderRadius={st(25)}
+                        onClick={()=>window.location.href = Fóruns.criar}
+                    >
+                        <Heading>Criar Novo Tópico</Heading>
+                    </Button>
+
                 </Flex>
             </Box>
         </Center>

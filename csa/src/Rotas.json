@@ -27,7 +27,8 @@
     },
 
     "Fóruns": {
-        "Home": "/foruns"
+        "Home": "/foruns",
+        "criar": "/foruns"
     },
 
 
