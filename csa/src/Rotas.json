@@ -1,0 +1,36 @@
+{
+    "Apis": {
+
+    },
+    
+    "Home": "/",
+    "Contatos": "#",
+    "PoliticasDePrivacidade": "#",
+    "TermosDeUso": "#",
+
+    "Campanhas": {
+        "Home": "/campanhas",
+        "slug": "/campanhas/c/",
+        "Criar": "/campanhas/criar"
+    },
+
+    "Cadastro": "/cadastro",
+    "Login": "/login",
+    "Perfil": "/perfil",
+    "Nova Senha": "/nova_senha",
+    "Redefinir": "/redefinir",
+
+
+    "ONGs": {
+        "Home": "/ongs",
+        "Criar": "/ongs/criar"
+    },
+
+    "Fóruns": {
+        "Home": "/foruns"
+    },
+
+
+    "Treinamento": "/treinamento",
+    "Conquistas": "/conquistas"
+}
