@@ -16,6 +16,14 @@ model User {
   age       Int
   email     String     @unique
   senha     String
+  bio       String? 
+  foto      String?  
+  numero    String?  
+  localizacao     String?  
+  areasDeInteresse String?
+  genero    String?  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   campanhas Campanha[]
   ong       Ong[]
 }
