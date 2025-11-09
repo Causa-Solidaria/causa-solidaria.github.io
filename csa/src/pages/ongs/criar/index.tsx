@@ -12,7 +12,7 @@ import formSchema from "csa/forms_validate/Criar_Nova_Ong/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/router";
-import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPosition";
+import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPositions";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { getToken } from "csa/utils/isloged";
 import { LuUpload } from "react-icons/lu";

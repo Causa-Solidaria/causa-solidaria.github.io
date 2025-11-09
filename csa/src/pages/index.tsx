@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Campanhas } from "csa/Rotas.json"
 import { Box, Button, Container, Heading, HStack, Icon, Image, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import { LuArrowRight, LuCheck, LuHandshake, LuHeart, LuInfo, LuMegaphone, LuUser, LuPlus } from "react-icons/lu"
-import { staticPosition } from "csa/utils/staticPosition"
+import { staticPosition } from "csa/utils/staticPositions"
 
 export default function Home(){
 

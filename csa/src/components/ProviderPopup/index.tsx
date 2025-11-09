@@ -5,7 +5,7 @@ import { PopupContext, popupType } from "csa/components/ProviderPopup/utils";
 import { Box, Heading } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion"
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 
 
 export default function ProviderPopup(
@@ -44,50 +44,54 @@ export default function ProviderPopup(
 
         <PopupContext.Provider value={{AlertPopup}} >
             
-            <Box 
-                position={"fixed"} 
-                display={"flex"}
-                zIndex={9999} 
-                p={5} 
-                top = {0}
-                {...SetStaticPositionH("full")}
-                {...SetStaticPositionW("full")}
-                {...JustifyFull("center")}
-                {...AlignFull("center")}
-            >
-                <AnimatePresence>
-                {
-                    pilha.map(
-                        popup=>(
-                            <motion.div
-                                key={popup.id}
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -40 }}
-                                transition={{ duration: 0.6 }}
-
-                                {...JustifyFull("center")}
-                                {...AlignFull("center")}
-                                
-                            >
-                                <Box 
-                                    bg={"qui"} 
-                                    mb={5} 
-                                    {...SetStaticPositionW(350)}
-                                    {...SetStaticPositionH(150)}
-                                    borderRadius={"15px"}
-                                    p={staticPosition(15)}         
+            {/* Renderiza o overlay somente quando há popups, evitando bloquear cliques quando vazio */}
+            {pilha.length > 0 && (
+                <Box 
+                    position={"fixed"} 
+                    display={"flex"}
+                    zIndex={9999} 
+                    p={5} 
+                    top = {0}
+                    pointerEvents={"none"} /* Não captura cliques; filhos específicos podem reativar */
+                    {...SetStaticPositionH("full")}
+                    {...SetStaticPositionW("full")}
+                    {...JustifyFull("center")}
+                    {...AlignFull("center")}
+                >
+                    <AnimatePresence>
+                    {
+                        pilha.map(
+                            popup=>(
+                                <motion.div
+                                    key={popup.id}
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -40 }}
+                                    transition={{ duration: 0.6 }}
+                                    style={{pointerEvents: "auto"}} /* Este elemento pode receber eventos se necessário */
+                                    {...JustifyFull("center")}
+                                    {...AlignFull("center")}
                                 >
-                                    <Heading fontFamily="quicksand" fontWeight={900} color={"ter"}>
-                                        {popup.mensagem}
-                                    </Heading>
-                                </Box>
-                            </motion.div>
+                                    <Box 
+                                        bg={"qui"} 
+                                        mb={5} 
+                                        pointerEvents={"auto"}
+                                        {...SetStaticPositionW(350)}
+                                        {...SetStaticPositionH(150)}
+                                        borderRadius={"15px"}
+                                        p={staticPosition(15)}         
+                                    >
+                                        <Heading fontFamily="quicksand" fontWeight={900} color={"ter"}>
+                                            {popup.mensagem}
+                                        </Heading>
+                                    </Box>
+                                </motion.div>
+                            )
                         )
-                    )
-                }
-                </AnimatePresence>
-            </Box>
+                    }
+                    </AnimatePresence>
+                </Box>
+            )}
             
             {children}
         

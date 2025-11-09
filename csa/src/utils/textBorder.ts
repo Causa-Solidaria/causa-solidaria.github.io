@@ -1,4 +1,4 @@
-import { staticPosition } from "./staticPosition";
+import { staticPosition } from "csa/utils/staticPositions";
 
 
 

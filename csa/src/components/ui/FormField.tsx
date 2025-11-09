@@ -2,7 +2,7 @@ import React from "react";
 import Box from "csa/components/ui/Box";
 import Input, { SelectOption } from "csa/components/ui/input";
 import { Text } from "@chakra-ui/react";
-import { staticPosition, SetStaticPositionH } from "csa/utils/staticPosition";
+import { staticPosition, SetStaticPositionH } from "csa/utils/staticPositions";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 export interface FormFieldProps {

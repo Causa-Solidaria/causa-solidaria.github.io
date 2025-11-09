@@ -5,7 +5,7 @@ import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import { getToken, isTokenExpired } from "csa/utils/isloged";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import { use, useEffect, useState } from "react";
 import { LuContact, LuPersonStanding } from "react-icons/lu";
 import { set } from "zod";

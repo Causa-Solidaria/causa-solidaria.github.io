@@ -1,37 +1,45 @@
-import { Center } from "@chakra-ui/react"
+import { Button, Center } from "@chakra-ui/react"
 import BackRouteBT from "csa/components/BackRouteButton"
 import DefaultPage from "csa/components/DefaultPage"
 import Box from "csa/components/ui/Box"
+import Flex from "csa/components/ui/Flex"
 import Heading from "csa/components/ui/heading"
+import Input from "csa/components/ui/input"
 import { getToken } from "csa/utils/isloged"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
+import JustifyFull from "csa/utils/JustifyFullCenter"
+import { BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
+import { Form, useForm } from "react-hook-form"
 
 
 export default function Foruns(){
     const Token = getToken()
-    
+    const {control, formState: {errors}, register} = useForm()
+
+
+
+    const st =(s: number)=>staticPosition(s, 2835) as string
 
     return <DefaultPage
-        px={staticPosition(142, 2835)}
-        py={staticPosition(35, 2835)}
+        px={st(142)}
+        py={st(35)}
     >
         <BackRouteBT 
-            scale={staticPosition(56, 2835) as string}
+            scale={st(56) as string}
             {...SetStaticPositionH(67, 2835)}
         /> 
         <Center
-            py={staticPosition(30, 2385)}
+            py={st(30)}
         >
             <Box
                 {...SetStaticPositionW(2425, 2835)}
-                minH={staticPosition(2001,2835)}
-                border={`${staticPosition(3, 1871)} solid #000 `}
-                borderRadius={staticPosition(30, 2835)}
+                minH={st(2001)}
+                {...BorderStatic(3, "solid", "#000", 2835)}
+                borderRadius={st(30)}
             >
 
                 <Box
-                    padding={staticPosition(40, 2835)}
-                    borderBottom={`${staticPosition(3, 1871)} solid #000 `}
+                    padding={st(40)}
+                    borderBottom={`${st(3)} solid #000 `}
                 >
                     <Center>
                         <Heading
@@ -44,6 +52,33 @@ export default function Foruns(){
                     </Center>
                 </Box>
 
+                <Flex
+                    p={st(80)}
+                    gapX={st(20)}
+                    {...JustifyFull("center")}
+                >
+                    <Form control={control}>
+                        <Input 
+                            {...register("Search")}
+                            placeholder="Buscar Tópicos ou Palavra-Chave"
+                            {...BorderStatic(3, "solid", "#000", 2835)}
+                            borderRadius={st(25)}
+                            fontSize={st(32)}
+                            px={st(30)}
+                            {...SetStaticPositionH(85, 2835)}
+                            {...SetStaticPositionW(1480, 2835)}
+                        >
+
+                        </Input>
+                        <Button
+                            {...SetStaticPositionH(85, 2835)}
+                            {...SetStaticPositionW(345, 2835)}
+                            borderRadius={st(25)}
+                        >
+                            <Heading>Criar Novo Tópico</Heading>
+                        </Button>
+                    </Form>
+                </Flex>
             </Box>
         </Center>
     </DefaultPage>

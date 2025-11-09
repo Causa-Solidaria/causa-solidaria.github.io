@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { staticPosition } from "csa/utils/staticPosition";
+import { staticPosition } from "csa/utils/staticPositions";
 import { useRouter } from "next/router";
 
 

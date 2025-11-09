@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import { PasswordInput } from "csa/components/ui/password-input";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import Box from "csa/components/ui/Box";
 import Input from "csa/components/ui/input";
 

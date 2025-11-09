@@ -1,5 +1,5 @@
 import { Image, ImageProps } from "@chakra-ui/react";
-import { staticPosition } from "csa/utils/staticPosition";
+import { staticPosition } from "csa/utils/staticPositions";
 
 
 

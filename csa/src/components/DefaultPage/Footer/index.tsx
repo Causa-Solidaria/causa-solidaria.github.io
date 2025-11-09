@@ -3,7 +3,7 @@ import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import Separador from "csa/components/ui/separador";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 
 import {
     Home , 

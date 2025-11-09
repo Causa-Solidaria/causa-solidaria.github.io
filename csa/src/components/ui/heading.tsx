@@ -1,6 +1,6 @@
 
 import { Heading as He, HeadingProps } from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
 
 export default function Heading(
     {

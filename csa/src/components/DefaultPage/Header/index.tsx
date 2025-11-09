@@ -1,7 +1,7 @@
 "use client"
 
 import { Box} from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
 import Logo from "csa/components/logo"
 import { getToken } from "csa/utils/isloged";
 import Heading from "csa/components/ui/heading";

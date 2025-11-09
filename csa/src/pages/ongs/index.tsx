@@ -10,7 +10,7 @@ import DefaultPage from "csa/components/DefaultPage";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
-import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPosition";
+import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPositions";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { ONGs, Campanhas } from "csa/Rotas.json"
 

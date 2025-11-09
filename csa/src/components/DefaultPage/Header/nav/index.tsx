@@ -1,7 +1,7 @@
 "use client"
 
 import { Box, BoxProps} from "@chakra-ui/react";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import { motion } from "framer-motion";
 import { forwardRef } from "react";
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BoxProps, Center, Grid, Text } from "@chakra-ui/react";
 import CampanhasCard from "./camapanhasCard";
 import DefaultPage from "csa/components/DefaultPage";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { LuPlus } from "react-icons/lu";
 import Flex from "csa/components/ui/Flex";

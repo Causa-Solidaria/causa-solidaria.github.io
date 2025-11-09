@@ -1,6 +1,6 @@
 import { Box, BoxProps, Center, Text, useBreakpointValue } from "@chakra-ui/react";
 import React, { forwardRef } from "react";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 
