@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../lib/prisma';
+import { prisma } from "../../lib/prisma";
 import jwt from 'jsonwebtoken';
+
+const secret = process.env.JWT_SECRET || 'secreto-temporario';
 
 // Estrutura esperada do payload decodificado do JWT.
 // Quando chamamos `jwt.verify(...)` esperamos receber um objeto
@@ -43,27 +45,44 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = authHeader.split(' ')[1]; // Remove o "Bearer " do início
     
     // Verificar e decodificar o token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as DecodedToken;
+    const decoded = jwt.verify(token, secret) as DecodedToken;
 
-    // Buscar o usuário no banco de dados
-    const user = await prisma.user.findUnique({
-      where: {
-        id: decoded.id
-      },
+    // Buscar o usuário no banco de dados com suas campanhas
+const user = await prisma.user.findUnique({
+  where: {
+    id: decoded.id
+  },
+  select: {
+    id: true,
+    name: true,
+    email: true,
+    bio: true,
+    foto: true,
+    numero: true,
+    localizacao: true,
+    areasDeInteresse: true,
+    genero: true,
+    createdAt: true,
+    updatedAt: true,
+    campanhas: {
       select: {
         id: true,
-        name: true,
-        email: true,
-        bio: true,
+        titulo: true,
+        descricao: true,
+        nivelAjuda: true,
         foto: true,
-        numero: true,
-        localizacao: true,
-        areasDeInteresse: true,
-        genero: true,
+        cidade: true,
+        estado: true,
         createdAt: true,
-        updatedAt: true
+        endDate: true
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
-    });
+    }
+  }   
+});
+
 
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });

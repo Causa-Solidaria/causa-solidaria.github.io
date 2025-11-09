@@ -10,10 +10,6 @@ import { use, useEffect, useState } from "react";
 import { LuContact, LuPersonStanding } from "react-icons/lu";
 import { set } from "zod";
 
-
-
-
-
 export default function Perfil(){
     const TokenUser = getToken();
     const [profiloData, setPerfilData] = useState<any>(null);
@@ -47,18 +43,30 @@ export default function Perfil(){
   if (isTokenExpired(getToken() as string)) {
     return <DefaultPage>Por favor faça login.</DefaultPage>;
   }
+
+    
     const {
-        nome,
+        name, 
         bio,
         foto,
         numero,
         email,
         localizacao,
         areasDeInteresse = [], // fornecendo um valor padrão como array vazio
-        genero, 
-        ong = [], // fornecendo um valor padrão como array vazio
-        capanhas = []
-    } = profiloData;
+        genero,
+        ong = [] // fornecendo um valor padrão como array vazio
+    } = profiloData || {}; // Fornecendo um objeto vazio como fallback
+    
+    console.log('Dados após desestruturação:', { // Debug
+        name,
+        bio,
+        foto,
+        numero,
+        email,
+        localizacao,
+        areasDeInteresse,
+        genero
+    });
 
 
     return <DefaultPage 
@@ -94,7 +102,7 @@ export default function Perfil(){
                 >
                     {
                     foto ? 
-                        <Image {...SetStaticPositionW(298, 1871)} alt={nome}></Image> 
+                        <Image {...SetStaticPositionW(298, 1871)} alt={name}></Image> 
                     :
                         <LuContact size={staticPosition(298, 1871) as string} radius={"100%"}/>
                     }
@@ -107,23 +115,16 @@ export default function Perfil(){
                         fontStyle={"italic"} 
                         fontWeight={900}
                     >
-                        {nome}
+                        {name || 'Nome não informado'}
                     </Heading>
+                    
                     <Heading 
                         color="#000" 
                         fontSize={40} 
                         MaxSizeDisplay={1871} 
                         fontStyle={"italic"} 
                     >
-                        Voluntari{genero=="masculino"? "o" : "a"}
-                    </Heading>
-                    <Heading
-                        color="#000" 
-                        fontSize={40} 
-                        fontWeight={900}
-                        MaxSizeDisplay={1871} 
-                    >
-                        {email}
+                        {genero ? `Voluntári${genero === "masculino" ? "o" : "a"}` : 'Gênero não informado'}
                     </Heading>
                     
                     <Heading
@@ -132,7 +133,18 @@ export default function Perfil(){
                         fontWeight={900}
                         MaxSizeDisplay={1871} 
                     >
-                        {numero}
+                        <span style={{ fontWeight: 'normal' }}>Email: </span>
+                        {email || 'Não informado'}
+                    </Heading>
+                    
+                    <Heading
+                        color="#000" 
+                        fontSize={40} 
+                        fontWeight={900}
+                        MaxSizeDisplay={1871} 
+                    >
+                        <span style={{ fontWeight: 'normal' }}>Telefone: </span>
+                        {numero || 'Não informado'}
                     </Heading>
 
                     <Heading
@@ -141,7 +153,8 @@ export default function Perfil(){
                         MaxSizeDisplay={1871} 
                         fontWeight={900}
                     >
-                        {localizacao}
+                        <span style={{ fontWeight: 'normal' }}>Localização: </span>
+                        {localizacao || 'Não informada'}
                     </Heading>
                 </Flex>
             </Flex>
@@ -159,7 +172,7 @@ export default function Perfil(){
                     color={"#000"} 
                     fontSize={40} fontStyle={"italic"} MaxSizeDisplay={1871}
                 >
-                    {bio}
+                    {bio || 'Biografia não informada'}
                 </Heading>
 
             </Flex>
@@ -211,7 +224,7 @@ export default function Perfil(){
                         >
                             {
                             Ong.foto ? 
-                                <Image {...SetStaticPositionW(100, 1871)} src={Ong.foto} alt={nome}></Image> 
+                                <Image {...SetStaticPositionW(100, 1871)} src={Ong.foto} alt={name}></Image> 
                             :
                                 <LuContact size={staticPosition(100, 1871) as string} />
                             }
@@ -235,12 +248,21 @@ export default function Perfil(){
                     fontSize={40} MaxSizeDisplay={1871}
                     mb={staticPosition(30, 1871)}
                 >
-                    Campanhas{capanhas.length > 1 ? "s" : ""} que Fiz
+                    Campanhas{profiloData?.campanhas?.length > 1 ? "s" : ""} que Fiz
                 </Heading>
-                <Flex gap={staticPosition(30,1871)}>
-                    {capanhas.map(
-                        (can: any, id: number)=><Flex
-                            key={id}
+                <Flex gap={staticPosition(30,1871)} flexWrap="wrap">
+                    {!profiloData?.campanhas?.length ? (
+                        <Heading
+                            color={"#666"} 
+                            fontSize={30} 
+                            MaxSizeDisplay={1871}
+                            fontStyle="italic"
+                        >
+                            Você ainda não criou nenhuma campanha
+                        </Heading>
+                    ) : profiloData.campanhas.map((campanha: any) => (
+                        <Flex
+                            key={campanha.id}
                             dir="column"
                             borderRadius={staticPosition(12, 1871)}
                             p={staticPosition(20, 1871)}
@@ -249,23 +271,40 @@ export default function Perfil(){
                             {...SetStaticPositionW(1300/2,1871)}
                             {...SetStaticPositionH(400,1871)}
                         >
-                            <Center>{
-                                can.foto ? 
-                                    <Image {...SetStaticPositionW(200, 1871)} src={can.foto} alt={nome}></Image> 
-                                :
+                            <Center>
+                                {campanha.foto ? (
+                                    <Image {...SetStaticPositionW(200, 1871)} src={campanha.foto} alt={campanha.titulo} />
+                                ) : (
                                     <LuContact size={staticPosition(200, 1871) as string} />
-                                }
+                                )}
                             </Center>
-                            <Flex px={staticPosition(10, 1871)} {...AlignFull("Justify")}>
+                            <Flex dir="column" gap={staticPosition(10, 1871)} px={staticPosition(10, 1871)} {...AlignFull("Justify")}>
                                 <Heading
                                     color={"#000"} 
-                                    fontSize={40} MaxSizeDisplay={1871}
+                                    fontSize={40} 
+                                    MaxSizeDisplay={1871}
                                 >
-                                    {can.title}
+                                    {campanha.titulo}
+                                </Heading>
+                                {campanha.cidade && campanha.estado && (
+                                    <Heading
+                                        color={"#666"} 
+                                        fontSize={30} 
+                                        MaxSizeDisplay={1871}
+                                    >
+                                        {campanha.cidade}, {campanha.estado}
+                                    </Heading>
+                                )}
+                                <Heading
+                                    color={"#666"} 
+                                    fontSize={25} 
+                                    MaxSizeDisplay={1871}
+                                >
+                                    {new Date(campanha.endDate).toLocaleDateString('pt-BR')}
                                 </Heading>
                             </Flex>
                         </Flex>
-                    )}
+                    ))}
                 </Flex>
             </Flex>
 

@@ -1,6 +1,8 @@
 {
     "Apis": {
-        "Cadastro": "/api/cadastro"
+        "Cadastro": "/api/cadastro",
+        "ongs": "/api/ong",
+        "campanhas": "/api/campanhas/add"
     },
     
     "Home": "/",
