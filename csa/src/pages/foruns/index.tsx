@@ -7,10 +7,9 @@ import { getToken } from "csa/utils/isloged"
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition"
 
 
-
-
 export default function Foruns(){
     const Token = getToken()
+    
 
     return <DefaultPage
         px={staticPosition(142, 2835)}

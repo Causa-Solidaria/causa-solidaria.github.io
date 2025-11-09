@@ -1,10 +1,12 @@
 import { Box, Image } from "@chakra-ui/react";
 import Heading from "csa/components/ui/heading";
 import { SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
+import {Campanhas} from "csa/Rotas.json"
+
 
 export default function CampanhasCard({ idx, campanha }: { idx: number | string; campanha: any }) {
   const RedirecionaParaACampanha = () => {
-    window.location.href = "/c/" + campanha.id;
+    window.location.href = Campanhas.slug + campanha.id;
   };
 
   // Se salvou no campo "foto" do banco

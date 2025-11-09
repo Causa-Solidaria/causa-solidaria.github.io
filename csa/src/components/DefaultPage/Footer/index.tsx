@@ -5,24 +5,34 @@ import Separador from "csa/components/ui/separador";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPosition";
 
+import {
+    Home , 
+    Contatos, 
+    PoliticasDePrivacidade, 
+    TermosDeUso,
+    Campanhas,
+    ONGs,
+    Fóruns
+} from "csa/Rotas.json"
+import Foruns from "csa/pages/foruns";
 
 
 const FooterContent: any[] = [
     {
         title: "institucional",
         links:[
-            {title: "sobre", link: "/"},
-            {title: "Contato", link: "/contato"},
-            {title: "Politica de Privacidade", link: "/politicaDePrivacidade"},
-            {title: "termos de uso", link: "/termosDeUso"},
+            {title: "sobre", link: Home},
+            {title: "Contato", link: Contatos},
+            {title: "Politica de Privacidade", link: PoliticasDePrivacidade},
+            {title: "termos de uso", link: TermosDeUso},
         ]
     },
     {
         title: "Participe",
         links:[
-            {title: "Doe agora", link: "/campanhas"},
-            {title: "ONGs", link: "/ongs"},
-            {title: "Crie uma campanha", link: "/criar_campanha"},
+            {title: "Doe agora", link: Campanhas.Home},
+            {title: "ONGs", link: ONGs.Home},
+            {title: "Veja nossos Fóruns", link: Fóruns.Home},
         ]
     },
     {

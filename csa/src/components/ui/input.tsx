@@ -2,6 +2,7 @@ import { InputProps, Textarea, TextareaProps } from "@chakra-ui/react";
 import { PasswordInput, PasswordInputProps } from "./password-input";
 import { Input as In} from "@chakra-ui/react";
 import React from "react";
+import { isTokenExpired } from "csa/utils/isloged";
 
 export type SelectOption = { label: string; value: string };
 type NativeSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>;
@@ -35,7 +36,6 @@ export default function Input({children, type, ...props}: InputUnionProps){
             </select>
         );
     }
-    
     const rest = props as InputProps;
 
     return <In type={type} {...rest}>{children}</In>

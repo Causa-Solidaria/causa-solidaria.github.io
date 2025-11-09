@@ -5,9 +5,8 @@ import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/util
 import { motion } from "framer-motion";
 import { forwardRef } from "react";
 
-import b from "./buttons.json"
+import b from "./buttons"
 import Heading from "csa/components/ui/heading";
-
 
 
 

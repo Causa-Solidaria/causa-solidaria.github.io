@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
 import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPosition";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
+import { ONGs, Campanhas } from "csa/Rotas.json"
 
 const DISPLAY_BASE = 2008;
 
@@ -110,7 +111,7 @@ export default function ONGsPage() {
           >
             ONGs
           </Heading>
-          <Link href="/criar_nova_ong">
+          <Link href={ONGs.Criar}>
             <Button
               bg={"ter"}
               borderRadius={staticPosition(30, DISPLAY_BASE)}
@@ -268,7 +269,7 @@ export default function ONGsPage() {
                         Ver Detalhes
                       </Button>
                     </Link>
-                    <Link href="/campanhas">
+                    <Link href={Campanhas.Home}>
                       <Button
                         borderRadius={staticPosition(25, DISPLAY_BASE)}
                         fontSize={staticPosition(26, DISPLAY_BASE)}

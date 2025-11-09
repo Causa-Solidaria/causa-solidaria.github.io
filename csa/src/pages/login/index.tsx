@@ -1,6 +1,7 @@
 'use client'
 
 import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
+import { Redefinir, Cadastro } from "csa/Rotas.json";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
 import Schema, { SchemaType } from "csa/forms_validate/login/schema";
@@ -71,7 +72,7 @@ export default function Login(){
                     <Text w={"full"} display={"flex"} gapX={2}>
                         Esqueceu a senha?
                         <Link 
-                            href="/redefinir" 
+                            href={Redefinir} 
                             color={"sec"}
                             fontWeight={"900"}
                             textDecor={"underline"}
@@ -101,7 +102,7 @@ export default function Login(){
                 </Text>
 
                 <Link 
-                    href="/cadastro" 
+                    href={Cadastro} 
                     pl={2} 
                     color="qua" 
                     textDecoration="underline"

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import TextBorder from "csa/utils/textBorder";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-
+import {Cadastro, Login} from "csa/Rotas.json"
 
 
 // O componente Main do Header
@@ -77,8 +77,8 @@ const Header = () => {
             gap={staticPosition(40, 3197)}
           >
             {[
-              {label: "entrar", link: "/login"},
-              {label: "cadastrar", link: "/cadastro"}
+              {label: "entrar", link: Login },
+              {label: "cadastrar", link: Cadastro}
             ].map(({label, link}, index) => (
               <Box
                 key={index}

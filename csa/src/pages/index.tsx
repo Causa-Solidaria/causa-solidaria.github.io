@@ -2,6 +2,7 @@
 
 import DefaultPage from "csa/components/DefaultPage"
 import Link from "next/link"
+import { Campanhas } from "csa/Rotas.json"
 import { Box, Button, Container, Heading, HStack, Icon, Image, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import { LuArrowRight, LuCheck, LuHandshake, LuHeart, LuInfo, LuMegaphone, LuUser, LuPlus } from "react-icons/lu"
 import { staticPosition } from "csa/utils/staticPosition"
@@ -85,7 +86,7 @@ export default function Home(){
           >
             doe amor e compartilhe esperança
           </Text>
-          <Link href="/campanhas">
+          <Link href={Campanhas.Home}>
             <Button 
               bg={"sec"}
               color={"white"}
@@ -158,7 +159,7 @@ export default function Home(){
             >
               somos uma organização que acredita no poder da empatia, atuamos com campanhas de arrecadação de alimentos, brinquedos, agasalhos e apoio a comunidades vulneráveis em todo o brasil
             </Text>
-            <Link href="/campanhas">
+            <Link href={Campanhas.Home}>
               <Button 
                 variant="ghost" 
                 color="sec"
@@ -302,11 +303,11 @@ export default function Home(){
         <SimpleGrid
           columns={[1, 1, 1, 3]}
         >
-          {[
-            { title: "doando", description: "contribua com qualquer valor", buttonText: "doar agora", image: "/pngegg (1) 2.png", link: "/campanhas" },
-            { title: "voluntariando-se", description: "participe das ações presenciais", buttonText: "quero me voluntariar", image: "/pngegg (6) 2.png", link: "/campanhas" },
-            { title: "compartilhando", description: "compartilhe nossas campanhas", buttonText: "compartilhar", image: "/pngegg 3.png", link: "/campanhas" }
-          ].map((item, idx) => (
+            {[
+              { title: "doando", description: "contribua com qualquer valor", buttonText: "doar agora", image: "/pngegg (1) 2.png", link: Campanhas.Home },
+              { title: "voluntariando-se", description: "participe das ações presenciais", buttonText: "quero me voluntariar", image: "/pngegg (6) 2.png", link: Campanhas.Home },
+              { title: "compartilhando", description: "compartilhe nossas campanhas", buttonText: "compartilhar", image: "/pngegg 3.png", link: Campanhas.Home }
+            ].map((item, idx) => (
             <HStack key={idx}>
               <Image 
                 src={item.image} 

@@ -32,7 +32,7 @@ export default function Cadastro() {
   const textFieldConfigs = [
     {name: "name", label: "name"},
     { name: "username", label: "username"},
-    { name: "BornDate", label: "Data de Nascimento"},
+    { name: "BornDate", label: "Data de Nascimento", type: "date"},
     { name: "email", label: "Email", },
     { name: "password", type: "password", label: "Senha" },
     { name: "confirmPassword", type: "password", label: "Confirmar Senha" },
