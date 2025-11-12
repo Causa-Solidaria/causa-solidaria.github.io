@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from "../../lib/prisma";
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from 'csa/lib/JWT';
 
-const secret = process.env.JWT_SECRET || 'secreto-temporario';
+const secret = getJwtSecret()
 
 // Estrutura esperada do payload decodificado do JWT.
 // Quando chamamos `jwt.verify(...)` esperamos receber um objeto
@@ -47,40 +48,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Verificar e decodificar o token
     const decoded = jwt.verify(token, secret) as DecodedToken;
 
+  
     // Buscar o usuário no banco de dados com suas campanhas
-    const user = await prisma.user.findUnique({
+    const options = {
       where: {
         id: decoded.id
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        foto: true,
-        numero: true,
-        localizacao: true,
-        areasDeInteresse: true,
-        genero: true,
-        createdAt: true,
-        updatedAt: true,
-        campanhas: {
-          select: {
-            id: true,
-            titulo: true,
-            descricao: true,
-            nivelAjuda: true,
-            foto: true,
-            cidade: true,
-            estado: true,
-            createdAt: true,
-            endDate: true
-          },
-          orderBy: {
-            createdAt: 'desc'
-          }
-        }
       }
-    });
+    }
+    const user = await prisma.user.findUnique(options);
 
 
     if (!user) {
