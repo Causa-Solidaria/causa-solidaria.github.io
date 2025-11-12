@@ -44,8 +44,8 @@ export default function Perfil(){
     return <DefaultPage>Por favor faça login.</DefaultPage>;
   }
     const {
-        name, 
-        bio,
+        name,
+        //bio ,
         foto,
         numero,
         email,
@@ -158,7 +158,7 @@ export default function Perfil(){
                     color={"#000"} 
                     fontSize={40} fontStyle={"italic"} MaxSizeDisplay={1871}
                 >
-                    {bio || 'Biografia não informada'}
+                    {/*}{bio || 'Biografia não informada'}*/}
                 </Heading>
 
             </Flex>
