@@ -80,7 +80,7 @@ const user = await prisma.user.findUnique({
         createdAt: 'desc'
       }
     }
-  }   
+  }
 });
 
 
