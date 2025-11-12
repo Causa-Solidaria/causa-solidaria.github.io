@@ -48,40 +48,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const decoded = jwt.verify(token, secret) as DecodedToken;
 
     // Buscar o usuário no banco de dados com suas campanhas
-const user = await prisma.user.findUnique({
-  where: {
-    id: decoded.id
-  },
-  select: {
-    id: true,
-    name: true,
-    email: true,
-    //bio: true,
-    foto: true,
-    numero: true,
-    localizacao: true,
-    areasDeInteresse: true,
-    genero: true,
-    createdAt: true,
-    updatedAt: true,
-    campanhas: {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: decoded.id
+      },
       select: {
         id: true,
-        titulo: true,
-        descricao: true,
-        nivelAjuda: true,
+        name: true,
+        email: true,
         foto: true,
-        cidade: true,
-        estado: true,
+        numero: true,
+        localizacao: true,
+        areasDeInteresse: true,
+        genero: true,
         createdAt: true,
-        endDate: true
-      },
-      orderBy: {
-        createdAt: 'desc'
+        updatedAt: true,
+        campanhas: {
+          select: {
+            id: true,
+            titulo: true,
+            descricao: true,
+            nivelAjuda: true,
+            foto: true,
+            cidade: true,
+            estado: true,
+            createdAt: true,
+            endDate: true
+          },
+          orderBy: {
+            createdAt: 'desc'
+          }
+        }
       }
-    }
-  }
-});
+    });
 
 
     if (!user) {
@@ -89,6 +88,7 @@ const user = await prisma.user.findUnique({
     }
 
     return res.status(200).json(user);
+
   } catch (error) {
     if (error instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({ message: 'Token inválido' });

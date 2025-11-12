@@ -10,7 +10,7 @@ import { LuPlus } from "react-icons/lu";
 import Flex from "csa/components/ui/Flex";
 import { motion } from "framer-motion";
 import { Campanhas as Ca } from "csa/Rotas.json"
-
+import {Apis} from "csa/Rotas.json"
 
 function Buttonparacriar({...props}:BoxProps){
   const [hover, setHover] = useState<boolean>(false)
@@ -76,7 +76,7 @@ export default function Campanhas() {
   useEffect(() => {
     const carregarCampanhas = async () => {
       try {
-        const res = await fetch("/api/campanhas/get");
+        const res = await fetch(Apis.campanhas.get);
         if (!res.ok) {
           // Resposta inesperada da API: trata como lista vazia sem lançar erro
           setCampanhas([]);

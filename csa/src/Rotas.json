@@ -2,7 +2,10 @@
     "Apis": {
         "Cadastro": "/api/cadastro",
         "ongs": "/api/ong",
-        "campanhas": "/api/campanhas/add"
+        "campanhas" : {
+            "add": "/api/campanhas/add",
+            "get": "/api/campanhas/get"
+        }
     },
     
     "Home": "/",
