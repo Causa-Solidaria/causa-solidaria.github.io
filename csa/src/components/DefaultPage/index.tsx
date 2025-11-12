@@ -15,11 +15,11 @@ export default function DefaultPage({children,bg, ...props}: {children?: React.R
     return (
         <Box
             overflowX={"hidden"} 
-            bg={"rgba(0,0,0,0)"}
+            bg={"#02E351"}
         >
             <Header />
             
-            <Timeline bg={bg || "#fff"} {...props} >
+            <Timeline bg={bg || "#02E351"} {...props} >
                     {children}
             </Timeline>
             

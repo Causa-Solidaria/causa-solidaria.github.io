@@ -25,7 +25,9 @@ const Header = () => {
   }, []);
 
   return (
-    <Box>
+    <Box
+      borderBottom={`${staticPosition(1)} solid #000`}
+    >
       <Flex
         position={"sticky"} 
         dir={"row"} 

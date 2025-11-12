@@ -7,7 +7,7 @@ import { useState } from "react"
 import Heading from "csa/components/ui/heading";
 import Box from "csa/components/ui/Box";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, staticPosition } from "csa/utils/staticPositions";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import Rotas from "csa/Rotas.json"
 
 type campanhaProps = {
@@ -56,7 +56,10 @@ export default function Campanha(c: campanhaProps){
                 {...JustifyFull("center")} 
                 {...AlignFull("center")} 
                 {...SetStaticPositionH(200, 750)}
+                {...SetStaticPositionW(200, 750)}
                 m={staticPosition(30, 750)}
+                bg={"#fff"}
+                borderRadius={staticPosition(15)}
             >
                 <Heading color={"#000"}>não existe essa campanha</Heading>
                 <Button 
@@ -64,7 +67,7 @@ export default function Campanha(c: campanhaProps){
                     bg={"#097D03"}
                     mt={staticPosition(25,750)}
                     p={staticPosition(25)}
-                    borderRadius={staticPosition(20)}
+                    borderRadius={staticPosition(15)}
                 >
                     <Heading> procurar por outras </Heading>
                 </Button>

@@ -7,7 +7,6 @@ export default function Timeline({children, ...props}: any & ChakraProviderProps
         <Box 
             minH={"25vmax"}
             p={4}
-            bg={"pri"}
             overflowX={"hidden"}
             {...props}
         >
