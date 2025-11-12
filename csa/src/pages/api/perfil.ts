@@ -56,7 +56,7 @@ const user = await prisma.user.findUnique({
     id: true,
     name: true,
     email: true,
-    bio: true,
+    bio: false,
     foto: true,
     numero: true,
     localizacao: true,
