@@ -24,7 +24,7 @@ export default async function handleCriarCampanha(
     if (!ensureLogged(popup)) return;
     const token = getToken();
 
-    const res = await fetch(apiUrl(apiUrl(Apis.campanhas)), {
+    const res = await fetch(apiUrl(apiUrl(Apis.campanhas.add)), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
