@@ -56,18 +56,6 @@ export default function Perfil(){
         genero,
         ong = [] // fornecendo um valor padrão como array vazio
     } = profiloData || {}; // Fornecendo um objeto vazio como fallback
-    
-    console.log('Dados após desestruturação:', { // Debug
-        name,
-        bio,
-        foto,
-        numero,
-        email,
-        localizacao,
-        areasDeInteresse,
-        genero
-    });
-
 
     return <DefaultPage 
         p={staticPosition(50, 1871)} 
