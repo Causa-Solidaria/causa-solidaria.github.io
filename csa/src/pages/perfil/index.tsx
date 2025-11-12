@@ -43,8 +43,6 @@ export default function Perfil(){
   if (isTokenExpired(getToken() as string)) {
     return <DefaultPage>Por favor faça login.</DefaultPage>;
   }
-
-    
     const {
         name, 
         bio,

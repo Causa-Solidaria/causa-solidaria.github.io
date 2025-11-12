@@ -59,7 +59,9 @@ export default function ONGsPage() {
     const query = q.trim().toLowerCase();
     if (!query) return ongs;
     return ongs.filter(o =>
-      o.nome.toLowerCase().includes(query) || o.area.toLowerCase().includes(query)
+      (o.nome && o.nome.toLowerCase().includes(query)) || 
+      (o.area && o.area.toLowerCase().includes(query)) ||
+      (o.cidade && o.cidade.toLowerCase().includes(query))
     );
   }, [q, ongs]);
 
