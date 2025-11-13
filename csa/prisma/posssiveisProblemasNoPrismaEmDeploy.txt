@@ -1,0 +1,63 @@
+Agora vejo o problema completo! O erro que você está recebendo é:
+
+```
+Error: P1001
+Can't reach database server at `db.prisma.io:5432`
+Please make sure your database server is running at `db.prisma.io:5432`.
+```
+
+## Problema Principal: Prisma não consegue conectar ao banco de dados
+
+Este é o erro **P1001**, que indica que o Prisma não consegue alcançar o servidor do banco de dados durante o build no Vercel.
+
+## Causas Possíveis
+
+De acordo com as discussões sobre [Can't reach database server vercel & supabase](https://github.com/prisma/prisma/discussions/21741) e [Error: P1001: Can't reach database server](https://github.com/prisma/prisma/discussions/20794), as causas mais comuns são:
+
+### 1. **Variável de ambiente `DATABASE_URL` não configurada**
+
+Certifique-se de que a variável `DATABASE_URL` está configurada nas **Environment Variables** do seu projeto no Vercel. Como mencionado na [documentação sobre Vercel Postgres](https://www.prisma.io/docs/orm/prisma-client/deployment/edge/deploy-to-vercel#vercel-postgres):
+
+> be aware that Vercel by default calls the environment variable for the database connection string `POSTGRES_PRISMA_URL` while the default name used in the Prisma docs is typically `DATABASE_URL`
+
+Verifique se:
+- A variável está definida no painel do Vercel
+- O nome da variável corresponde ao usado no seu `schema.prod.prisma`
+- A string de conexão está correta e sem aspas extras
+
+### 2. **Porta ou host incorretos**
+
+Como explicado em [Error: P1001: Can't reach database server at `localhost`:`5432`](https://github.com/prisma/prisma/discussions/20794):
+
+> You are exposing port `5434` in your Docker Compose config, but your Prisma configuration is set up to connect to port `5432`
+
+Verifique se a porta `5432` e o host `db.prisma.io` estão corretos na sua string de conexão.
+
+### 3. **Timeout de conexão**
+
+Como mencionado em [Can't reach database server can also be avoided via longer `connect_timeout`](https://github.com/prisma/prisma/issues/8223), você pode adicionar um timeout maior à sua connection string:
+
+```
+postgresql://user:password@db.prisma.io:5432/postgres?connect_timeout=15
+```
+
+### 4. **Certificado SSL incorreto**
+
+De acordo com a discussão sobre [Error: P1001: Can't reach database server (PlanetScale)](https://github.com/prisma/prisma/issues/8875), problemas com certificados SSL podem causar esse erro:
+
+> replacing `/etc/pki/tls/certs/ca-bundle.crt` with `/etc/ssl/certs/ca-certificates.crt` for local environment solved the issue
+
+## Solução Recomendada
+
+1. **Verifique as variáveis de ambiente no Vercel**: Acesse o painel do Vercel → Settings → Environment Variables e confirme que `DATABASE_URL` está configurada corretamente
+
+2. **Teste a conexão**: Tente conectar ao banco de dados usando outro cliente (como `psql` ou uma GUI) com a mesma string de conexão para confirmar que o banco está acessível
+
+3. **Adicione timeout**: Modifique sua connection string para incluir um timeout maior:
+   ```
+   postgresql://user:password@db.prisma.io:5432/postgres?connect_timeout=30
+   ```
+
+4. **Verifique se o banco está rodando**: O erro sugere verificar se o servidor está rodando em `db.prisma.io:5432`
+
+Se o problema persistir, verifique se há restrições de firewall ou se o banco de dados está configurado para aceitar conexões do IP do Vercel.
