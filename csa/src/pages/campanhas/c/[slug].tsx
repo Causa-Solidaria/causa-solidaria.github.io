@@ -82,10 +82,10 @@ export default function Campanha(c: campanhaProps){
                 justifySelf="center" alignSelf="center" 
             >
                 <Image 
-                    w={size.w}
-                    h={size.h}
-                    justifySelf={"center"} 
-                    alignSelf={"center"}
+                    {...SetStaticPositionW(size.w)}
+                    {...SetStaticPositionW(size.h)}
+                    {...JustifyFull("center")}
+                    {...AlignFull("center")}
                     src={fotoSrc} 
                     alt={c.titulo} 
                     borderRadius={"xl"}
@@ -96,7 +96,7 @@ export default function Campanha(c: campanhaProps){
                 
                 <Heading >{c.descricao}</Heading>
 
-                <Progress.Root maxW="100%" size="xl" variant="outline" max={1} min={0} shape="rounded" value={0.5} >
+                <Progress.Root maxW="100%"  variant="outline"  shape="rounded" value={0.5} >
                     <Progress.Label> 
                         <Heading>Progresso</Heading>  
                     </Progress.Label>

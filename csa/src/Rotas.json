@@ -21,7 +21,10 @@
 
     "Cadastro": "/cadastro",
     "Login": "/login",
-    "Perfil": "/perfil",
+    "Perfil": {
+        "Home": "/perfil",
+        "search": "/perfil/"
+    },
     "Nova Senha": "/nova_senha",
     "Redefinir": "/redefinir",
 
@@ -33,7 +36,8 @@
 
     "Fóruns": {
         "Home": "/foruns",
-        "criar": "/foruns"
+        "criar": "/foruns",
+        "search": "/foruns/f/"
     },
 
 
