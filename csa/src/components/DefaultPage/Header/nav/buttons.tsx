@@ -5,7 +5,7 @@ import {Perfil, Home, Fóruns, ONGs, Campanhas} from "csa/Rotas.json"
 const b =  [
     {
         title: "Perfil",
-        link: Perfil
+        link: Perfil.Home
     },
     {
         title: "Inicio",
