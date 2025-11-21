@@ -23,5 +23,7 @@
         "ferdelamad.styled-snippets",
         "jock.svg",
         "bradlc.vscode-tailwindcss"
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": []
 }

@@ -9,7 +9,7 @@ export default function Heading(
         fontSize = 36, 
         w = "min-content",
         h = "min-content",
-        color,
+        color = "#000",
         ...props
     }: 
     HeadingProps & {

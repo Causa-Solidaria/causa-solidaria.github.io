@@ -10,20 +10,33 @@ import { BoxProps } from "@chakra-ui/react";
 //   <SeuComponente />
 // </DefaultPage>
 
-export default function DefaultPage({children,bg, ...props}: {children?: React.ReactNode} & BoxProps) {
+export default function DefaultPage(
+    {
+        children, 
+        bg, 
+        hiddenFooter = false,
+        hiddenHeader = false,
+        ...props
+    }: 
+    {
+        children?: React.ReactNode,
+        hiddenFooter?: boolean,
+        hiddenHeader?: boolean
+    } & BoxProps
+) {
     
     return (
         <Box
             overflowX={"hidden"} 
             bg={"#02E351"}
         >
-            <Header />
+            {(!hiddenHeader) ? <Header /> : null}
             
-            <Timeline bg={bg || "#02E351"} {...props} >
+            <Timeline bg={bg || "rgba(0,0,0,0)"} {...props} >
                     {children}
             </Timeline>
             
-            <Footer />
+            {(!hiddenFooter) ? <Footer /> : null}
         </Box>
     );
 }

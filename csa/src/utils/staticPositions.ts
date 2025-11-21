@@ -53,7 +53,27 @@ export function BorderStatic(
         border:`${staticPosition(size, maxDisplaySize) as string} ${type} ${color}`
     }
 }
+export function BorderRadiusStatic(
+    size: number|string = 0,
+    maxDisplaySize: number = 1920
+){
+    return {
+        borderRadius: staticPosition(size, maxDisplaySize)
+    }
+}
 
+
+export function shadowStatic(
+    x: number = 0, 
+    y: number = 0,
+    blur: number = 0,
+    color: string = "#000",
+    maxDisplaySize: number = 1920
+){
+    return {
+        boxShadow:`${staticPosition(x, maxDisplaySize) as string} ${staticPosition(y, maxDisplaySize) as string} ${staticPosition(blur, maxDisplaySize) as string} ${color}`
+    }
+}
 
 /*
  <Component 

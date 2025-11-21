@@ -2,7 +2,7 @@
 
 
 
-export default function JustifyFull(value? : string, includeSelf: boolean = false){
+export default function JustifyFull(value: string, includeSelf: boolean = false){
     const justifyContent = value || "center"
     const justifyItems = value || "center"
     const justifySelf = value || "center"
