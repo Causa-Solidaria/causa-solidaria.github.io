@@ -45,7 +45,7 @@ export default function Perfil(){
   }
     const {
         name,
-        //bio ,
+        bio ,
         foto,
         numero,
         email,

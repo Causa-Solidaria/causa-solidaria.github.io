@@ -1,6 +1,5 @@
 "use client"
 
-import { Box} from "@chakra-ui/react"
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
 import Logo from "csa/components/logo"
 import { getToken } from "csa/utils/isloged";
@@ -11,6 +10,7 @@ import TextBorder from "csa/utils/textBorder";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import {Cadastro, Login} from "csa/Rotas.json"
+import Box from "csa/components/ui/Box";
 
 
 // O componente Main do Header
@@ -101,6 +101,7 @@ const Header = () => {
                 <Heading
                   h = {70}
                   {...TextBorder(3, 3197)}
+                  color={"qui"}
                 >
                   {label}
                 </Heading>
