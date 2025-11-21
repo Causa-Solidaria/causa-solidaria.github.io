@@ -53,7 +53,7 @@ export default function Login(){
 
             <Flex
                 {...sstW(680)}
-                minH={st(900)}
+                minH={st(800)}
                 dir="column"
                 justifySelf="center" 
                 alignContent="center" 
@@ -88,7 +88,7 @@ export default function Login(){
                     onSubmit={handleSubmit(onSubmit)} 
                     dir={"column"}
                     alignItems={"center"}
-                    gap={st(50)}
+                    gap={st(25)}
                     my={st(50)}
                     px={st(50)}
                 >
