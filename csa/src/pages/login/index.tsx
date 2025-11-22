@@ -63,6 +63,7 @@ export default function Login(){
                 p={st(10)}
                 bg={"white"}
                 {...shSt(30, 30)}
+                {...bordR(20)} // Adiciona borda arredondada
                 
             > 
                 {/* logo */}
@@ -145,7 +146,7 @@ export default function Login(){
                     {...JustifyFull("center", true)} 
                     {...AlignFull()}
                     {...bordR(15)}
-                    m={st(20)} // Adiciona margem superior
+                    m={st(-50)} //eu mexi aqui aqui davi   // Adiciona margem superior
                     zIndex={2} // Garante que fique acima do fundo
                 >
                     <Heading
