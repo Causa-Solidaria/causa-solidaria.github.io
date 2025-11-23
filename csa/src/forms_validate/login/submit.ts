@@ -1,12 +1,13 @@
 import { apiUrl } from "csa/lib/apiBase";
 import type { SchemaType } from "./schema";
+import { Apis } from "csa/Rotas.json";
 
 export default async function handleLogin(
   data: SchemaType,
   popupfunction?: (message: string) => void
 ) {
   try {
-    const res = await fetch(apiUrl('/api/login'), {
+    const res = await fetch(apiUrl(Apis.login), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

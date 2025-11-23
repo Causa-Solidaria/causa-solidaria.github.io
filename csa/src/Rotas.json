@@ -2,6 +2,7 @@
     "Apis": {
         "Cadastro": "/api/cadastro",
         "ongs": "/api/ong",
+        "login": "/api/login",
         "campanhas" : {
             "add": "/api/campanhas/add",
             "get": "/api/campanhas/get"

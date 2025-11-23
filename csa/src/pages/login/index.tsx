@@ -105,7 +105,7 @@ export default function Login(){
                             </Heading>
                             <Input 
                                 {...register(value)} 
-                                type={value} 
+                                type={value === "senha" ? "password" : "email"} 
                                 borderColor={"ter"} 
                                 p={st(10)}
                                 fontSize={st(24)}
