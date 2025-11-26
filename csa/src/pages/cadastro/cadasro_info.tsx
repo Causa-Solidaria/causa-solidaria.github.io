@@ -30,6 +30,7 @@ function InfoCadastroInner(
 
       <Logo 
         borderRadius={staticPosition(20, 1735)}
+        {...SetStaticPositionW(150, 1735)}
       />
       <Center
         bg={"#fff"}

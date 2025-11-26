@@ -138,7 +138,7 @@ export default function Home(){
                 p={st(40)}
                 as="button" 
                 aria-label="Conheça Nossas Ações"
-                {...sstW(620)}
+                minW={st(620)}
               >
                 <Heading 
                 color={"#fff"}

@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import handleCadastro  from "csa/forms_validate/cadastro/submit";
 import { motion } from "framer-motion"; 
-import { PasswordInput } from "csa/components/ui/password-input";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";

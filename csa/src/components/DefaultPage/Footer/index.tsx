@@ -15,7 +15,7 @@ import {
     Fóruns
 } from "csa/Rotas.json"
 import Foruns from "csa/pages/foruns";
-import { HeadingProps } from "@chakra-ui/react";
+import { HeadingProps, Image } from "@chakra-ui/react";
 
 
 const FooterContent: any[] = [
@@ -39,6 +39,7 @@ const FooterContent: any[] = [
     {
         title: "Siga-nos",
         links:[
+           {src: "pngwing.com (13) 1.svg", link: "https://www.instagram.com/causasolidaria2025/"}
         ]
     },
     
@@ -79,22 +80,34 @@ export default function Footer() {
                             >
                                 <Heading fontSize={75} textAlign={"left"} color="#fff"> {Topico.title} </Heading>
                                 {
-                                    Topico.links.map((link: any, id: number)=>(
-                                        <a href={link.link} key={id}>
-                                            <Heading
-                                                fontSize={32}
-                                                textAlign={"left"}
-                                                color="#fff"
-                                                transition={"0.6s all easy"}
-                                                _hover={
-                                                    {
-                                                        color: "sec"
+                                    Topico.links.map((link: any, id: number)=>(<>
+                                            {link.title 
+                                                ? <a href={link.link} key={id}>
+                                                <Heading
+                                                    fontSize={32}
+                                                    textAlign={"left"}
+                                                    color="#fff"
+                                                    transition={"0.6s all easy"}
+                                                    _hover={
+                                                        {
+                                                            color: "sec"
+                                                        }
                                                     }
-                                                }
-                                            >
-                                                {link.title}
-                                            </Heading>
-                                        </a>
+                                                >
+                                                    {link.title}
+                                                </Heading>
+                                            </a> : null}
+                                            {link.src 
+                                                ? <a href={link.link} key={id}>
+                                                <Image
+                                                    {...SetStaticPositionW(63, 2935)}
+                                                    {...SetStaticPositionH(63, 2935)}
+                                                    src={link.src}
+                                                    alt={"imag"+id}
+                                                />
+                                            </a> : null}
+
+                                        </>
                                     ))
                                 }
 
