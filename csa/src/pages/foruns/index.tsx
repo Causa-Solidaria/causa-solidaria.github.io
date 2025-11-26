@@ -70,9 +70,15 @@ export default function Foruns(){
 
     return <DefaultPage
         py={st(35)}
-        bg={"white"}
     >
-        <Center mb={st(100)}>
+        <Center 
+                borderRadius={staticPosition(25,  2835)}
+                m={staticPosition(100,  2835)}
+                minW={staticPosition( 2835*0.9,  2835)}
+                minH={staticPosition( 2835*0.4,  2835)}
+                p={staticPosition(40,  2835)}
+                bg={"white"}
+        >
             <Box>
                 <BackRouteBT 
                     scale={st(56) as string}

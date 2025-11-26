@@ -148,7 +148,7 @@ export default function CriarNovaOng() {
 
     return (
         <DefaultPage 
-            bg={"white"}
+            bg={"#02E351"}
         >
             
             <Center
@@ -158,11 +158,12 @@ export default function CriarNovaOng() {
             >
                 <Box
                     {...SetStaticPositionW(1497,2438)}
-                    mb={staticPosition(24,2438)}
+                    m={staticPosition(60,2438)}
                 >
-                    <Flex alignItems="center" justifyContent="center" position="relative" {...SetStaticPositionH(76,2438)}>
-                        <BackRouteBT />
-                        <Heading fontSize={96} MaxSizeDisplay={2438} fontWeight={900} color="#000" w={"full"} textAlign="center">
+
+                    <BackRouteBT pos={"absolute"} left={staticPosition(50, 2438)} color={"#fff"} {...SetStaticPositionW(89,2438)}/>
+                    <Flex {...JustifyFull()} m={staticPosition(50,2438)}>
+                        <Heading fontSize={96} MaxSizeDisplay={2438} fontWeight={900} color="#fff" textAlign="center">
                             Cadastrar Nova ONG
                         </Heading>
                     </Flex>
@@ -172,6 +173,7 @@ export default function CriarNovaOng() {
                     as="form"
                     display={"flex"}
                     flexDir={"column"}
+                    bg={"#fff"}
                     onSubmit={handleSubmit(onSubmit)} 
                     {...SetStaticPositionW(1497,2438)}
                     borderRadius={staticPosition(50,2438)}

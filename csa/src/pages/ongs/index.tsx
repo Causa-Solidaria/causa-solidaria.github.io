@@ -67,15 +67,17 @@ export default function ONGsPage() {
 
   return (
     <DefaultPage
-      bg={"qui"}
+      bg={"#02E351"}
       {...JustifyFull()}
       {...AlignFull()}
     >
       <Box
-        mx={"auto"}
-        {...SetStaticPositionW(DISPLAY_BASE, DISPLAY_BASE)}
+        borderRadius={staticPosition(25, DISPLAY_BASE)}
+        m={staticPosition(100, DISPLAY_BASE)}
+        minW={staticPosition(DISPLAY_BASE*0.9, DISPLAY_BASE)}
+        minH={staticPosition(DISPLAY_BASE*0.4, DISPLAY_BASE)}
         p={staticPosition(40, DISPLAY_BASE)}
-        pt={staticPosition(60, DISPLAY_BASE)}
+        bg={"white"}
       >
         {/* Top bar */}
         <Flex
@@ -89,21 +91,10 @@ export default function ONGsPage() {
             onClick={() => router.back()}
             fontSize={staticPosition(28, DISPLAY_BASE)}
           >
-            <Flex
-              dir="row"
-              gap={staticPosition(10, DISPLAY_BASE)}
-              alignItems={"center"}
-            >
               <Icon
                 as={LuArrowLeft}
                 boxSize={staticPosition(32, DISPLAY_BASE)}
               />
-              <Text
-                fontSize={staticPosition(32, DISPLAY_BASE)}
-              >
-                Voltar
-              </Text>
-            </Flex>
           </Button>
           <Heading
             fontSize={64}
@@ -132,7 +123,6 @@ export default function ONGsPage() {
           border={`${staticPosition(2, DISPLAY_BASE)} solid`}
           borderColor={"ter"}
           borderRadius={staticPosition(30, DISPLAY_BASE)}
-          {...SetStaticPositionW(DISPLAY_BASE, DISPLAY_BASE)}
         >
           <Icon
             as={LuSearch}
@@ -188,7 +178,6 @@ export default function ONGsPage() {
                   borderRadius={staticPosition(30, DISPLAY_BASE)}
                   border={`${staticPosition(2, DISPLAY_BASE)} solid #000`}
                   boxShadow={`0 ${staticPosition(10, DISPLAY_BASE)} ${staticPosition(25, DISPLAY_BASE)} rgba(0,0,0,0.08)`}
-                  {...SetStaticPositionW((DISPLAY_BASE - 200) / 2, DISPLAY_BASE)}
                   minW={staticPosition(600, DISPLAY_BASE)}
                 >
                   <Flex
