@@ -1,9 +1,8 @@
-
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import Separador from "csa/components/ui/separador";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
 
 import {
     Home , 
@@ -48,26 +47,34 @@ const FooterContent: any[] = [
 
 
 export default function Footer() {
-    // Heading já está importado diretamente acima
+    
+    ///esses são os helpers
+    const MaxSize = 2940
+    const st = (s: number | number[])=>(staticPosition as any)(s, MaxSize)
+    const sstW = (w: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionW as any)(w, MaxSize)
+    const sstH = (h: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionH as any)(h, MaxSize)
+    const bordR = (s: number|string)=>BorderRadiusStatic(s, MaxSize)
+    const shSt = (x: number, y: number)=>shadowStatic(x, y, 10, "rgba(0,0,0,0.3)", MaxSize)
+
     return (
         <>
             <Flex
                 dir={"column"}
                 bg={"#1F5E43"}
-                padding={staticPosition(1, 7)}
-                gapY={staticPosition(25, 2935)}
-                {...SetStaticPositionH(740, 2935)}
-                {...SetStaticPositionW("full" , 2935)}
+                padding={st(MaxSize/7)}
+                gapY={st(25)}
+                {...sstH(740)}
+                {...sstW("full")}
                 {...JustifyFull()}
                 {...AlignFull()}
             >
-                <Heading fontSize={75} p={staticPosition(10)} color="#fff"> Causa Solidaria</Heading>
+                <Heading fontSize={75} p={st(10)} color="#fff"> Causa Solidaria</Heading>
                 <Heading fontSize={48} color="#fff">Conectando pessoas e ONGs em ações que transformam vidas</Heading>
                 <Flex 
                     dir="row" 
-                    m={staticPosition(20)} 
-                    p={staticPosition(20)} 
-                    gapX={staticPosition(5)}
+                    m={st(20)} 
+                    p={st(20)} 
+                    gapX={st(5)}
                 >
                     {FooterContent.map(
                         (Topico, id)=>(
@@ -75,8 +82,8 @@ export default function Footer() {
                                 key={id} 
                                 dir="column" 
 
-                                gapY={staticPosition(10, 2935)}
-                                {...SetStaticPositionW(615, 2935)}
+                                gapY={st(10)}
+                                minW={st(615)}
                             >
                                 <Heading fontSize={75} textAlign={"left"} color="#fff"> {Topico.title} </Heading>
                                 {
@@ -100,8 +107,8 @@ export default function Footer() {
                                             {link.src 
                                                 ? <a href={link.link} key={id}>
                                                 <Image
-                                                    {...SetStaticPositionW(63, 2935)}
-                                                    {...SetStaticPositionH(63, 2935)}
+                                                    {...sstW(32)}
+                                                    {...sstH(32)}
                                                     src={link.src}
                                                     alt={"imag"+id}
                                                 />

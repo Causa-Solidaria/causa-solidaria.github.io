@@ -1,4 +1,4 @@
-import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect } from "@chakra-ui/react";
+import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import handleCriarCampanha  from "csa/forms_validate/criar_campanha/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import formSchema from "csa/forms_validate/criar_campanha/schema";
+import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
 
 export default function QueroDoar() {
   const popup = usePopup();
@@ -67,6 +68,15 @@ export default function QueroDoar() {
     handleCriarCampanha({ ...data, thumbnailString: thumbnailString ?? undefined }, popup);
   }
 
+
+      ///esses são os helpers
+      const MaxSize = 2440
+      const st = (s: number | string | (number | string)[])=>(staticPosition as any)(s, MaxSize)
+      const sstW = (w: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionW as any)(w, MaxSize)
+      const sstH = (h: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionH as any)(h, MaxSize)
+      const bordR = (s: number|string)=>BorderRadiusStatic(s, MaxSize)
+      const shSt = (x: number, y: number)=>shadowStatic(x, y, 10, "rgba(0,0,0,0.3)", MaxSize)
+
   return (
     <DefaultPage
       justifyContent="center"
@@ -75,53 +85,53 @@ export default function QueroDoar() {
       alignContent={"center"}
     >
       <Box
-        mx={10}
-        mt={5}
-        mb={2}
-        px={10}
-        pt={2}
-        pb={2}
-        w="95%"
-        minW={"320px"}
-        maxW={"1000px"}
+        mx={st(10)}
+        mt={st(5)}
+        mb={st(2)}
+        px={st(10)}
+        pt={st(2)}
+        pb={st(2)}
+        w={st("95%")}
+        minW={st(320)}
+        maxW={st(1000)}
         as="form"
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: '100%' }}
         display="flex"
         flexDirection="column"
-        gapY={3}
+        gapY={st(3)}
       >
-        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={10}>
+        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={st(10)}>
           crie sua campanha
         </Text>
 
-        <HStack align="start" gap={6} flexWrap="wrap">
-          <VStack align="start" gap={2} flex={1} minW="320px">
-            <Box w={"full"}>
+        <HStack align="start" gap={st(6)} flexWrap="wrap">
+          <VStack align="start" gap={st(2)} flex={1} minW="320px">
+            <Box {...sstW("full")}>
               <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
                 <FileUpload.HiddenInput accept="image/jpeg,image/png" />
                 <FileUpload.Trigger asChild>
-                  <Button variant="outline" w={"full"}>
+                  <Button variant="outline" {...sstW("full")}>
                     <LuUpload /> Upload imagem
                   </Button>
                 </FileUpload.Trigger>
               </FileUpload.Root>
               {uploadError && (
-                <Text color="red.500" fontSize="xs" mt={1}>{uploadError}</Text>
+                <Text color="red.500" fontSize="xs" mt={st(1)}>{uploadError}</Text>
               )}
             </Box>
             {preview ? (
               <Image
                 src={preview}
                 alt="Pré-visualização"
-                w="full"
+                {...sstW("full")}
                 aspectRatio={3/4}
-                maxH="260px"
+                maxH={st(260)}
                 objectFit="cover"
                 borderRadius="md"
               />
             ) : (
-              <Box w="100%" h="260px" bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
+              <Box {...sstW("full")} {...sstH(260)} bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
             )}
             <Text fontSize="sm" color="gray.600">
               Tipos: jpg ou png
@@ -134,7 +144,7 @@ export default function QueroDoar() {
             
           </VStack>
 
-          <VStack align="stretch" gap={3} flex={1} minW="320px">
+          <VStack align="stretch" gap={st(3)} flex={1} minW={st(320)}>
             <Input {...register("title")} placeholder="Nome" borderColor="ter" />
             {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
 
@@ -168,21 +178,26 @@ export default function QueroDoar() {
           </VStack>
         </HStack>
 
-        <Box mt={3}>
-          <textarea {...register("description")} 
-            placeholder="descrição (mínimo 200 caracteres)" 
-            style={{ borderColor: "ter", minHeight: "120px", width: "100%", border: "1px solid", borderRadius: "5px"}} 
+        <Box mt={st(3)}>
+          <Textarea
+            {...register("description")}
+            placeholder="descrição (mínimo 200 caracteres)"
+            borderColor="ter"
+            borderWidth="1px"
+            borderRadius="5px"
+            {...sstW("full")}
+            {...sstH(120)}
           />
           {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
         </Box>
 
-        <Box mt={3}>
+        <Box mt={st(3)}>
           <Input {...register("endDate")} type="date" borderColor="ter" />
           {errors.endDate && <Text color="red.500" fontSize="xs">{errors.endDate.message}</Text>}
         </Box>
 
-        <HStack justify="center" mt={6} bottom={0}>
-          <Button type="submit" minW={"100px"} maxW={"300px"} w={"25%"} colorScheme="green">Criar</Button>
+        <HStack justify="center" mt={st(6)} bottom={0}>
+          <Button type="submit" minW={st(100)} maxW={st(300)} w={"25%"} colorScheme="green">Criar</Button>
          </HStack>
       </Box>
     </DefaultPage>

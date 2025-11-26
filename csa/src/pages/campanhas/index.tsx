@@ -20,15 +20,19 @@ function Buttonparacriar({...props}:BoxProps){
     <a href={Ca.Criar}
       style={
         {
-          position: "fixed",
-          bottom: staticPosition(15,1735) as string,
+          position: "absolute",
+          left: 0,
+          top:0,
+          marginBlock: staticPosition(150, 1736) as string,
+          marginInline: staticPosition(20, 1736) as string
+
         }
       }
     >
       <Flex
         dir="row"
-        {...SetStaticPositionW(60,1735)} 
-        {...SetStaticPositionH(60,1735)} 
+        {...SetStaticPositionW(70,1735)} 
+        {...SetStaticPositionH(70,1735)} 
         {...JustifyFull()}
         {...AlignFull()}
         borderRadius={staticPosition(15, 1735)}
@@ -38,7 +42,7 @@ function Buttonparacriar({...props}:BoxProps){
         onMouseLeave={()=>setHover(false)}
         _hover={{
           translate: `0 ${staticPosition(-5,1735)}`,
-          ...SetStaticPositionW(120,1735)
+          ...SetStaticPositionW(130,1735)
         }}
         color="#fff"
         {...props}
@@ -99,15 +103,13 @@ export default function Campanhas() {
   // rederizacao
   return (
     <DefaultPage p={staticPosition(100, 2000)}>  
+      <Buttonparacriar />
       <Center>
         {loading ? (
           <Heading color={"#fff"}>Carregando campanhas...</Heading>
-        
         ) : campanhas.length === 0 ? (
-	 	
-		<Heading color={"#fff"}>Não foi possível encontrar campanhas.</Heading>
-        
-	) : (
+		       <Heading color={"#fff"}>Não foi possível encontrar campanhas.</Heading>
+	      ) : (
         	<Grid
             		templateColumns={`repeat(auto-fit, 350px)`}
             		gap={staticPosition(4, 1735)} m={staticPosition(10, 1735)}
@@ -120,7 +122,6 @@ export default function Campanhas() {
           
           	</Grid>
         )}
-      <Buttonparacriar />
       </Center>
 
     </DefaultPage>

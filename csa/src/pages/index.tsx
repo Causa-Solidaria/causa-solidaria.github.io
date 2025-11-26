@@ -139,6 +139,7 @@ export default function Home(){
                 as="button" 
                 aria-label="Conheça Nossas Ações"
                 minW={st(620)}
+                onClick={()=>{window.location.href = Rotas.Campanhas.Home}}
               >
                 <Heading 
                 color={"#fff"}
