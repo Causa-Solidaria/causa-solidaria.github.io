@@ -184,7 +184,7 @@ export default function Home(){
                   transition="all 0.3s ease"
                 />
                 <Heading
-                  fontSize={st([18,24,32,40])}
+                  fontSize={40}
                   MaxSizeDisplay={MaxSize}
                   fontWeight="bold"
                   color="gray.800"
