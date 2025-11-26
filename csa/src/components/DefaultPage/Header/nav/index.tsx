@@ -31,7 +31,7 @@ function Nav_static(
             zIndex={99}
             display={"flex"}
             flexDir={"column"}
-            boxShadow={`${staticPosition(-30, 3197)} ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(0,0,0,0.15) `}
+            boxShadow={`${staticPosition(-30, 3197)} ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(255,255,255,0.15) `}
             
             {...props}
         >

@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <Box
-      borderBottom={`${staticPosition(1)} solid #000`}
+      borderBottom={`${staticPosition(1)} solid rgba(255,255,255,0.6)`}
     >
       <Flex
         position={"sticky"} 
@@ -40,7 +40,7 @@ const Header = () => {
         {...SetStaticPositionH(244, 3197)}
         zIndex={100} 
         pr={staticPosition(67, 3197)}
-        boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(0,0,0,0.15) `}
+        boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(255,255,255,0.15) `}
       >
         <Flex
           onClick={()=>{ window.location.href="/" }}
@@ -63,7 +63,6 @@ const Header = () => {
             fontWeight={900}
 
             color="qui"
-            {...(TextBorder(5))}
           >
             Causa Solídaria
           </Heading>
@@ -100,7 +99,6 @@ const Header = () => {
               >
                 <Heading
                   h = {70}
-                  {...TextBorder(3, 3197)}
                   color={"qui"}
                 >
                   {label}
