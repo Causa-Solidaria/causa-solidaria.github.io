@@ -1,28 +1,14 @@
 
 import {Perfil, Home, Fóruns, ONGs, Campanhas} from "csa/Rotas.json"
+import { getToken, isTokenExpired } from "csa/utils/isloged"
 
 
-const b =  [
-    {
-        title: "Perfil",
-        link: Perfil.Home
-    },
-    {
-        title: "Inicio",
-        link: Home
-    },
-    {
-        title: "Forúns",
-        link: Fóruns.Home
-    },
-    {
-        title: "ONGs",
-        link: ONGs.Home
-    },
-    {
-        title: "Campanhas",
-        link: Campanhas.Home
-    }
-]
+const b =  []
+
+if (!isTokenExpired(getToken() as string))b.push( { title: "Perfil",link: Perfil.Home});
+b.push({title: "Inicio",link: Home});
+b.push({title: "Forúns", link: Fóruns.Home});
+b.push({title: "ONGs", link: ONGs.Home});
+b.push({title: "Campanhas", link: Campanhas.Home});
 
 export default b

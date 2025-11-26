@@ -39,14 +39,14 @@ export default function Login(){
     const shSt = (x: number, y: number)=>shadowStatic(x, y, 0, "rgba(0,0,0,0.2)", 1890)
 
     return( 
-        <DefaultPage position={"relative"} zIndex={0} hiddenFooter hiddenHeader>
+        <DefaultPage position={"relative"} minH={"100vh"} bg={"#C0F5B4"} zIndex={0} hiddenFooter hiddenHeader>
             <Box 
                 {...SetStaticPositionW("full")}
                 {...SetStaticPositionH(25, 100)}
-                bg={"#C0F5B4"} 
                 position={"absolute"} 
+                bg={"#4DCD58"}  
                 zIndex={-1}
-                top={0}
+                bottom={0}
                 left={0}
             />
 

@@ -32,17 +32,20 @@ export default function Perfil(){
             }
         };
 
-    fetchPerfilData();
-},[TokenUser]);
-  if (loading) {
-    return <DefaultPage>Carregando...</DefaultPage>;
-  }
-  if (!profiloData) {
-    return <DefaultPage>Erro ao carregar dados do perfil.</DefaultPage>;
-  }
-  if (isTokenExpired(getToken() as string)) {
-    return <DefaultPage>Por favor faça login.</DefaultPage>;
-  }
+        fetchPerfilData();
+    },[TokenUser]);
+
+
+    const Msg = ({ children }: { children: React.ReactNode }) => (
+        <DefaultPage color={"#fff"} fontSize={staticPosition(64, 1783)} {...JustifyFull()}>
+            {children}
+        </DefaultPage>
+    );
+
+    if (loading) return                                 <Msg>...carregando</Msg>; 
+    if (!profiloData) return                            <Msg>Erro ao carregar dados do perfil.</Msg>;
+    if (isTokenExpired(getToken() as string)) return    <Msg>Por favor faça login.</Msg>;
+    
     const {
         name,
         bio ,
