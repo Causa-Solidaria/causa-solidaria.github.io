@@ -72,7 +72,7 @@ export default function Foruns(){
         py={st(35)}
         bg={"white"}
     >
-        <Center>
+        <Center mb={st(100)}>
             <Box>
                 <BackRouteBT 
                     scale={st(56) as string}
@@ -83,6 +83,7 @@ export default function Foruns(){
                         color={"#000"}
                         fontSize={85}
                         MaxSizeDisplay={2835}
+                        mb={st(50)}
                     >
                         Fóruns
                     </Heading>
@@ -122,7 +123,7 @@ export default function Foruns(){
                         borderRadius={st(25)}
                         onClick={()=>window.location.href = Fóruns.criar}
                     >
-                        <Heading>Criar Novo Tópico</Heading>
+                        <Heading color={"#fff"}>Criar Novo Tópico</Heading>
                     </Button>
 
                 </Flex>
@@ -182,6 +183,7 @@ export default function Foruns(){
                                         <Flex
                                             {...SetStaticPositionW(257, 2835)}
                                             dir="column"
+                                            pt={st(20)}
                                         >
                                             {F.Tags?.map((tag, idx)=><Box 
                                                 key={idx} 
@@ -202,8 +204,10 @@ export default function Foruns(){
                                             </Box>)}
                                         </Flex>
                                         <Heading 
-                                            color={"#000"}
-                                            fontSize={48}
+                                            color={"#666"}
+                                            fontSize={40}
+                                            pl={st(50)}
+                                            fontWeight={600}
                                             MaxSizeDisplay={2835}
                                         >
                                             {F.Descrição}

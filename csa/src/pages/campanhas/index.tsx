@@ -11,6 +11,7 @@ import Flex from "csa/components/ui/Flex";
 import { motion } from "framer-motion";
 import { Campanhas as Ca } from "csa/Rotas.json"
 import {Apis} from "csa/Rotas.json"
+import Heading from "csa/components/ui/heading";
 
 function Buttonparacriar({...props}:BoxProps){
   const [hover, setHover] = useState<boolean>(false)
@@ -97,14 +98,14 @@ export default function Campanhas() {
 
   // rederizacao
   return (
-    <DefaultPage >  
+    <DefaultPage p={staticPosition(100, 2000)}>  
       <Center>
         {loading ? (
-          <Text>Carregando campanhas...</Text>
+          <Heading color={"#fff"}>Carregando campanhas...</Heading>
         
         ) : campanhas.length === 0 ? (
 	 	
-		<Text>Não foi possível encontrar campanhas.</Text>
+		<Heading color={"#fff"}>Não foi possível encontrar campanhas.</Heading>
         
 	) : (
         	<Grid
