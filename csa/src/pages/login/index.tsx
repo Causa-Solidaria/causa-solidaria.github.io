@@ -94,7 +94,7 @@ export default function Login(){
                     px={st(50)}
                 >
 
-                {(["email", "password"] as (keyof SchemaType)[]).map((field) => ( //percorrer os campos do formulário/
+                {(["email", "password"] as (keyof SchemaType)[]).map((field) => ( //percorrer os campos do formulário
                      <div key={field}>                                              
                     <Heading fontSize={24} MaxSizeDisplay={1890}> 
                     {capitalizarPrimeiraLetra(field)}
