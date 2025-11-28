@@ -95,7 +95,7 @@ export default function Login(){
                 >
 
                 {(["email", "password"] as (keyof SchemaType)[]).map((field) => ( //percorrer os campos do formulário
-                     <div key={field}>                                              
+                     <div key={field}>                                             
                     <Heading fontSize={24} MaxSizeDisplay={1890}> 
                     {capitalizarPrimeiraLetra(field)}
                     </Heading>
@@ -113,14 +113,14 @@ export default function Login(){
                     />
                     <br/>
 
-                    {errors[field] && (
+                    {errors[field] && ( // Exibe a mensagem de erro se existir
                     <span
                         style={{
                         fontSize: st(15) as string,
                         color: "red",
                         }}
                              >
-                         {errors[field]?.message}
+                         {errors[field]?.message} 
                         </span>
                         )}
                     </div>
