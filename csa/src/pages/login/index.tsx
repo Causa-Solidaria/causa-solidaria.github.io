@@ -94,30 +94,37 @@ export default function Login(){
                     px={st(50)}
                 >
 
-                    {["email", "senha"].map(
-                        (value: any)=><div key={value}>
-                            <Heading
-                                fontSize={24}
-                                MaxSizeDisplay={1890}
+                {(["email", "password"] as (keyof SchemaType)[]).map((field) => (
+                <div key={field}>
+                    <Heading fontSize={24} MaxSizeDisplay={1890}>
+                    {capitalizarPrimeiraLetra(field)}
+                    </Heading>
 
-                            >
-                                {capitalizarPrimeiraLetra(value)}
-                            </Heading>
-                            <Input 
-                                {...register(value)} 
-                                type={value === "senha" ? "password" : "email"} 
-                                borderColor={"ter"} 
-                                p={st(10)}
-                                fontSize={st(24)}
-                                {...BorderStatic(1, "solid", "#000")}
-                                {...sstW(400)}
-                                {...sstH(67)}
-                                {...bordR(20)}
-                            /><br/>
-                            {errors.email && <span style={{fontSize: st(15) as string, color: "red"}}>{errors.email.message}</span>}
-                        </div>
-                    )}
+                    <Input
+                    {...register(field)}
+                    type={field === "password" ? "password" : "email"}
+                    borderColor={"ter"}
+                    p={st(10)}
+                    fontSize={st(24)}
+                    {...BorderStatic(1, "solid", "#000")}
+                    {...sstW(400)}
+                    {...sstH(67)}
+                    {...bordR(20)}
+                    />
+                    <br/>
 
+                    {errors[field] && (
+                    <span
+                        style={{
+                        fontSize: st(15) as string,
+                        color: "red",
+                        }}
+                             >
+                         {errors[field]?.message}
+                        </span>
+                        )}
+                    </div>
+                ))}
                     <Heading gapX={2}>
                         Esqueceu a senha?
                         <Link 
