@@ -2,20 +2,23 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Button, Icon, Text } from "@chakra-ui/react";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
 import Box from "csa/components/ui/Box";
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import Input from "csa/components/ui/input";
 import DefaultPage from "csa/components/DefaultPage";
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { LuArrowLeft, LuLeaf, LuSearch } from 'react-icons/lu';
 import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPositions";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { ONGs, Campanhas } from "csa/Rotas.json"
+import { ONGs, Campanhas } from "csa/Rotas.json";
+import usePopup from "csa/hooks/usePopup";
 
+// Constantes
 const DISPLAY_BASE = 2008;
 
+// Types
 type Ong = {
   id: string;
   nome: string;
@@ -29,22 +32,31 @@ type Ong = {
 };
 
 export default function ONGsPage() {
+  const popup = usePopup()
   const router = useRouter();
-  const [q, setQ] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [ongs, setOngs] = useState<Ong[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper functions
+  const responsive = (s: number | number[]) => staticPosition(s, DISPLAY_BASE);
+  const responsiveW = (w: number | number[]) => SetStaticPositionW(w, DISPLAY_BASE);
+  const responsiveH = (h: number | number[]) => SetStaticPositionH(h, DISPLAY_BASE);
+
+  // Fetch ONGs
   useEffect(() => {
     async function fetchOngs() {
       try {
         const res = await fetch('/api/ong_get');
+        if (!res.ok) throw popup('Erro ao buscar ONGs');
+        
         const data: Ong[] = await res.json();
-        const mapped = data.map(o => ({
-          ...o,
+        const mappedOngs = data.map(ong => ({
+          ...ong,
           icon: LuLeaf,
           color: 'green.400'
         }));
-        setOngs(mapped);
+        setOngs(mappedOngs);
       } catch (err) {
         console.error('Erro ao carregar ONGs:', err);
         setOngs([]);
@@ -55,219 +67,260 @@ export default function ONGsPage() {
     fetchOngs();
   }, []);
 
-  const list = useMemo(() => {
-    const query = q.trim().toLowerCase();
+  // Filtro de busca
+  const filteredOngs = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
     if (!query) return ongs;
-    return ongs.filter(o =>
-      (o.nome && o.nome.toLowerCase().includes(query)) || 
-      (o.area && o.area.toLowerCase().includes(query)) ||
-      (o.cidade && o.cidade.toLowerCase().includes(query))
+    
+    return ongs.filter(ong =>
+      ong.nome?.toLowerCase().includes(query) || 
+      ong.area?.toLowerCase().includes(query) ||
+      ong.cidade?.toLowerCase().includes(query)
     );
-  }, [q, ongs]);
+  }, [searchQuery, ongs]);
 
   return (
     <DefaultPage
-      bg={"#02E351"}
+      bg="#02E351"
       {...JustifyFull()}
       {...AlignFull()}
+      minH="100vh"
     >
       <Box
-        borderRadius={staticPosition(25, DISPLAY_BASE)}
-        m={staticPosition(100, DISPLAY_BASE)}
-        minW={staticPosition(DISPLAY_BASE*0.9, DISPLAY_BASE)}
-        minH={staticPosition(DISPLAY_BASE*0.4, DISPLAY_BASE)}
-        p={staticPosition(40, DISPLAY_BASE)}
-        bg={"white"}
+        borderRadius={responsive(25)}
+        m={{ base: responsive(20), md: responsive(100) }}
+        w={{ base: "95%", md: "90%" }}
+        maxW={responsive(DISPLAY_BASE * 0.9)}
+        minH={responsive(DISPLAY_BASE * 0.4)}
+        p={{ base: responsive(20), md: responsive(40) }}
+        bg="white"
       >
-        {/* Top bar */}
+        {/* Header */}
         <Flex
           dir="row"
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          mb={staticPosition(40, DISPLAY_BASE)}
+          justifyContent="space-between"
+          alignItems="center"
+          mb={responsive(40)}
+          flexWrap="wrap"
+          gap={responsive(20)}
         >
           <Button
             variant="ghost"
             onClick={() => router.back()}
-            fontSize={staticPosition(28, DISPLAY_BASE)}
+            fontSize={{ base: responsive(20), md: responsive(28) }}
+            _hover={{ bg: "gray.100" }}
           >
-              <Icon
-                as={LuArrowLeft}
-                boxSize={staticPosition(32, DISPLAY_BASE)}
-              />
+            <Icon
+              as={LuArrowLeft}
+              boxSize={{ base: responsive(24), md: responsive(32) }}
+            />
           </Button>
+
           <Heading
-            fontSize={64}
+            fontSize={{ base: 40, md: 64 }}
             MaxSizeDisplay={DISPLAY_BASE}
             fontWeight={900}
             color="#000"
           >
             ONGs
           </Heading>
+
           <Link href={ONGs.Criar}>
             <Button
-              bg={"ter"}
-              borderRadius={staticPosition(30, DISPLAY_BASE)}
-              fontSize={staticPosition(28, DISPLAY_BASE)}
-              px={staticPosition(30, DISPLAY_BASE)}
+              bg="ter"
+              borderRadius={responsive(30)}
+              fontSize={{ base: responsive(20), md: responsive(28) }}
+              px={{ base: responsive(20), md: responsive(30) }}
+              _hover={{ opacity: 0.9 }}
             >
               Cadastrar ONG
             </Button>
           </Link>
         </Flex>
 
-        {/* Search */}
+        {/* Busca */}
         <Box
           position="relative"
-          mb={staticPosition(60, DISPLAY_BASE)}
-          border={`${staticPosition(2, DISPLAY_BASE)} solid`}
-          borderColor={"ter"}
-          borderRadius={staticPosition(30, DISPLAY_BASE)}
+          mb={responsive(60)}
+          border={`${responsive(2)} solid`}
+          borderColor="ter"
+          borderRadius={responsive(30)}
         >
           <Icon
             as={LuSearch}
             color="ter"
             position="absolute"
-            left={staticPosition(30, DISPLAY_BASE)}
+            left={responsive(30)}
             top="50%"
             transform="translateY(-50%)"
-            boxSize={staticPosition(40, DISPLAY_BASE)}
+            boxSize={{ base: responsive(28), md: responsive(40) }}
           />
           <Input
-            pl={staticPosition(90, DISPLAY_BASE)}
-            borderRadius={staticPosition(30, DISPLAY_BASE)}
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
+            pl={responsive(90)}
+            borderRadius={responsive(30)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Pesquisar ONG por nome ou área"
             bg="white"
-            fontSize={staticPosition(28, DISPLAY_BASE)}
-            {...SetStaticPositionH(70, DISPLAY_BASE)}
+            fontSize={{ base: responsive(20), md: responsive(28) }}
+            {...responsiveH(70)}
+            borderWidth={0}
           />
         </Box>
 
-        {/* Renderização condicional */}
+        {/* Lista de ONGs */}
         <Flex
           dir="column"
           {...AlignFull()}
-          gap={staticPosition(40, DISPLAY_BASE)}
+          gap={responsive(40)}
         >
           {loading ? (
-            <Text
-              fontSize={staticPosition(32, DISPLAY_BASE)}
+            <Flex
+              {...JustifyFull()}
+              {...AlignFull()}
+              minH={responsive(300)}
             >
-              Carregando ONGs...
-            </Text>
-          ) : list.length === 0 ? (
-            <Text
-              fontSize={staticPosition(32, DISPLAY_BASE)}
+              <Text fontSize={{ base: responsive(24), md: responsive(32) }}>
+                Carregando ONGs...
+              </Text>
+            </Flex>
+          ) : filteredOngs.length === 0 ? (
+            <Flex
+              {...JustifyFull()}
+              {...AlignFull()}
+              minH={responsive(300)}
             >
-              Nenhuma ONG encontrada.
-            </Text>
+              <Text fontSize={{ base: responsive(24), md: responsive(32) }}>
+                {searchQuery ? 'Nenhuma ONG encontrada.' : 'Nenhuma ONG cadastrada.'}
+              </Text>
+            </Flex>
           ) : (
             <Flex
               dir="row"
               flexWrap="wrap"
-              gap={staticPosition(40, DISPLAY_BASE)}
-              justifyContent={"center"}
+              gap={responsive(40)}
+              justifyContent="center"
             >
-              {list.map((o) => (
+              {filteredOngs.map((ong) => (
                 <Box
-                  key={o.id}
+                  key={ong.id}
                   bg="white"
-                  p={staticPosition(40, DISPLAY_BASE)}
-                  borderRadius={staticPosition(30, DISPLAY_BASE)}
-                  border={`${staticPosition(2, DISPLAY_BASE)} solid #000`}
-                  boxShadow={`0 ${staticPosition(10, DISPLAY_BASE)} ${staticPosition(25, DISPLAY_BASE)} rgba(0,0,0,0.08)`}
-                  minW={staticPosition(600, DISPLAY_BASE)}
+                  p={{ base: responsive(20), md: responsive(40) }}
+                  borderRadius={responsive(30)}
+                  border={`${responsive(2)} solid #000`}
+                  boxShadow={`0 ${responsive(10)} ${responsive(25)} rgba(0,0,0,0.08)`}
+                  w={{ base: "100%", sm: "48%", lg: responsive(600) }}
+                  minW={{ base: "auto", md: responsive(400) }}
+                  _hover={{
+                    boxShadow: `0 ${responsive(15)} ${responsive(35)} rgba(0,0,0,0.12)`,
+                    transform: "translateY(-2px)",
+                    transition: "all 0.2s"
+                  }}
                 >
+                  {/* Header do Card */}
                   <Flex
                     dir="row"
                     alignItems="flex-start"
-                    gap={staticPosition(30, DISPLAY_BASE)}
-                    mb={staticPosition(20, DISPLAY_BASE)}
+                    gap={responsive(30)}
+                    mb={responsive(20)}
                   >
                     <Box
-                      bg={o.color}
+                      bg={ong.color}
                       color="white"
-                      borderRadius={"100%"}
-                      {...SetStaticPositionW(80, DISPLAY_BASE)}
-                      {...SetStaticPositionH(80, DISPLAY_BASE)}
+                      borderRadius="100%"
+                      {...responsiveW(80)}
+                      {...responsiveH(80)}
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
-                      fontSize={staticPosition(40, DISPLAY_BASE)}
+                      flexShrink={0}
                     >
                       <Icon
-                        as={o.icon}
-                        boxSize={staticPosition(48, DISPLAY_BASE)}
+                        as={ong.icon}
+                        boxSize={responsive(48)}
                       />
                     </Box>
                     <Flex
                       dir="column"
-                      gap={staticPosition(10, DISPLAY_BASE)}
+                      gap={responsive(10)}
                       alignItems="flex-start"
+                      flex={1}
                     >
                       <Text
                         fontWeight="bold"
-                        fontSize={staticPosition(40, DISPLAY_BASE)}
+                        fontSize={{ base: responsive(28), md: responsive(40) }}
+                        noOfLines={2}
                       >
-                        {o.nome}
+                        {ong.nome}
                       </Text>
                       <Text
-                        fontSize={staticPosition(28, DISPLAY_BASE)}
+                        fontSize={{ base: responsive(20), md: responsive(28) }}
                         color="gray.600"
                       >
-                        {o.area}
+                        {ong.area}
                       </Text>
                     </Flex>
                   </Flex>
+
+                  {/* Descrição */}
                   <Text
-                    fontSize={staticPosition(28, DISPLAY_BASE)}
+                    fontSize={{ base: responsive(20), md: responsive(28) }}
                     color="gray.800"
-                    mb={staticPosition(20, DISPLAY_BASE)}
+                    mb={responsive(20)}
+                    noOfLines={3}
                   >
-                    {o.descricao}
+                    {ong.descricao}
                   </Text>
+
+                  {/* Localização */}
                   <Text
-                    fontSize={staticPosition(26, DISPLAY_BASE)}
+                    fontSize={{ base: responsive(18), md: responsive(26) }}
                     color="gray.700"
-                    mb={staticPosition(10, DISPLAY_BASE)}
+                    mb={responsive(10)}
                   >
-                    {o.cidade}, {o.uf}
+                    {ong.cidade}, {ong.uf}
                   </Text>
+
+                  {/* Email */}
                   <Text
-                    fontSize={staticPosition(24, DISPLAY_BASE)}
+                    fontSize={{ base: responsive(16), md: responsive(24) }}
                     color="gray.600"
-                    mb={staticPosition(30, DISPLAY_BASE)}
+                    mb={responsive(30)}
+                    noOfLines={1}
                   >
-                    {o.email}
+                    {ong.email}
                   </Text>
+
+                  {/* Botões de ação */}
                   <Flex
                     dir="row"
-                    gap={staticPosition(20, DISPLAY_BASE)}
+                    gap={responsive(20)}
+                    flexWrap="wrap"
                   >
-                    <Link href={`/#ong/${o.id}`}>
+                    <Link href={`/#ong/${ong.id}`}>
                       <Button
                         variant="outline"
-                        borderRadius={staticPosition(25, DISPLAY_BASE)}
-                        fontSize={staticPosition(26, DISPLAY_BASE)}
-                        border={`${staticPosition(2, DISPLAY_BASE)} solid #000`}
+                        borderRadius={responsive(25)}
+                        fontSize={{ base: responsive(20), md: responsive(26) }}
+                        border={`${responsive(2)} solid #000`}
                         bg="white"
                         color="#000"
-                        px={staticPosition(30, DISPLAY_BASE)}
-                        {...SetStaticPositionH(70, DISPLAY_BASE)}
+                        px={{ base: responsive(20), md: responsive(30) }}
+                        {...responsiveH(70)}
+                        _hover={{ bg: "gray.50" }}
                       >
                         Ver Detalhes
                       </Button>
                     </Link>
                     <Link href={Campanhas.Home}>
                       <Button
-                        borderRadius={staticPosition(25, DISPLAY_BASE)}
-                        fontSize={staticPosition(26, DISPLAY_BASE)}
+                        borderRadius={responsive(25)}
+                        fontSize={{ base: responsive(20), md: responsive(26) }}
                         bg="sec"
                         color="white"
-                        px={staticPosition(30, DISPLAY_BASE)}
-                        {...SetStaticPositionH(70, DISPLAY_BASE)}
+                        px={{ base: responsive(20), md: responsive(30) }}
+                        {...responsiveH(70)}
+                        _hover={{ opacity: 0.9 }}
                       >
                         Apoiar
                       </Button>
