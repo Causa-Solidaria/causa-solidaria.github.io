@@ -7,23 +7,26 @@ import usePopup from "csa/hooks/usePopup";
 import Schema, { SchemaType } from "csa/forms_validate/login/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleLogin  from "csa/forms_validate/login/submit";
-import Box from "csa/components/ui/Box";
-import Input from "csa/components/ui/input";
-import Heading from "csa/components/ui/heading";
+import handleLogin from "csa/forms_validate/login/submit";
 import DefaultPage from "csa/components/DefaultPage";
-import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { BorderRadiusStatic, BorderStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
-import capitalizarPrimeiraLetra from "csa/utils/capitalizarPrimeiraLetra";
+import { SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
+import { Card, Flex, Heading, Input } from "csa/components/ui";
 
+// Constantes para melhor manutenção
+const FORM_FIELDS: (keyof SchemaType)[] = ["email", "password"];
+const BREAKPOINT = 1890;
 
+// Labels traduzidos para melhor UX
+const FIELD_LABELS: Record<keyof SchemaType, string> = {
+    email: "E-mail",
+    password: "Senha"
+};
 
-
-export default function Login(){
+export default function Login() {
     const popup = usePopup();
 
-    const {register, handleSubmit, formState: { errors }, reset} = useForm<SchemaType>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<SchemaType>({
         resolver: zodResolver(Schema)
     });
 
@@ -31,154 +34,194 @@ export default function Login(){
         await handleLogin(data, popup);
         reset();
     };
-    
-    const st = (s: number | number[])=>staticPosition(s, 1890)
-    const sstW = (w: number | number[])=>SetStaticPositionW(w, 1890)
-    const sstH = (h: number | number[])=>SetStaticPositionH(h, 1890)
-    const bordR = (s: number)=>BorderRadiusStatic(s, 1890)
-    const shSt = (x: number, y: number)=>shadowStatic(x, y, 0, "rgba(0,0,0,0.2)", 1890)
 
-    return( 
-        <DefaultPage position={"relative"} minH={"100vh"} bg={"#C0F5B4"} zIndex={0} hiddenFooter hiddenHeader>
-            <Box 
+
+    // Helper functions com nomenclatura mais clara
+    const responsive = (s: number | number[]) => staticPosition(s, BREAKPOINT);
+    const responsiveW = (w: number | number[]) => SetStaticPositionW(w, BREAKPOINT);
+    const responsiveH = (h: number | number[]) => SetStaticPositionH(h, BREAKPOINT);
+    const shadow = (x: number, y: number) => shadowStatic(x, y, 0, "rgba(0,0,0,0.2)", BREAKPOINT);
+
+    return (
+        <DefaultPage
+            position="relative"
+            {...AlignFull()}
+            {...JustifyFull()}
+            minW="100vw"
+            minH="100vh"
+            bg="#C0F5B4"
+            zIndex={0}
+            hiddenFooter
+            hiddenHeader
+        >
+            {/* Fundo decorativo inferior */}
+            <Card
                 {...SetStaticPositionW("full")}
                 {...SetStaticPositionH(25, 100)}
-                position={"absolute"} 
-                bg={"#4DCD58"}  
+                position="absolute"
+                bg="#4DCD58"
                 zIndex={-1}
                 bottom={0}
                 left={0}
             />
 
-
-            <Flex
-                {...sstW(680)}
-                minH={st(800)}
+            {/* Card principal */}
+            <Card
+                {...responsiveW(680)}
+                minH={responsive(800)}
                 dir="column"
-                justifySelf="center" 
-                alignContent="center" 
-                alignItems={"center"}
-                zIndex={10}
-                my={st(50)}
-                p={st(10)}
-                bg={"white"}
-                {...shSt(30, 30)}
-                {...bordR(20)} // Adiciona borda arredondada
-                
-            > 
-                {/* logo */}
+                {...AlignFull()}
+                {...JustifyFull()}
+                p={responsive(40)}
+            >
+                {/* Header com Logo */}
                 <Flex
                     dir="row"
                     {...JustifyFull("center", true)}
                     {...AlignFull("center", true)}
-                    gap={st(10)} m={st(60)}
+                    gap={responsive(10)}
+                    mb={responsive(40)}
                 >
-                    <Logo {...sstW(96)} {...sstH(96)} {...bordR(5)} />
+                    <Logo {...responsiveW(96)} {...responsiveH(96)} />
                     <Heading
                         fontSize={64}
-                        MaxSizeDisplay={1890}
+                        MaxSizeDisplay={BREAKPOINT}
                         fontWeight="bold"
-                        color="ter"
+                        color="#000"
                     >
                         Login
                     </Heading>
                 </Flex>
 
+                {/* Formulário */}
                 <Flex
-                    as="form" 
-                    onSubmit={handleSubmit(onSubmit)} 
-                    dir={"column"}
-                    alignItems={"center"}
-                    gap={st(25)}
-                    my={st(50)}
-                    px={st(50)}
+                    as="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                    dir="column"
+                    alignItems="stretch"
+                    gap={responsive(30)}
+                    flex={1}
                 >
+                    {FORM_FIELDS.map((field) => (
+                        <Flex key={field} dir="column" gap={responsive(10)}>
+                            <Heading
+                                as="label"
+                                fontSize={32}
+                                MaxSizeDisplay={BREAKPOINT}
+                                fontWeight="semibold"
+                            >
+                                {FIELD_LABELS[field]}
+                            </Heading>
 
-                {(["email", "password"] as (keyof SchemaType)[]).map((field) => ( //percorrer os campos do formulário
-                     <div key={field}>                                             
-                    <Heading fontSize={24} MaxSizeDisplay={1890}> 
-                    {capitalizarPrimeiraLetra(field)}
-                    </Heading>
+                            <Input
+                                {...register(field)}
+                                type={field === "password" ? "password" : "email"}
+                                placeholder={`Digite seu ${FIELD_LABELS[field].toLowerCase()}`}
+                                borderColor={errors[field] ? "red.500" : "ter"}
+                                p={responsive(10)}
+                                fontSize={responsive(24)}
+                                {...responsiveH(67)}
+                                minW={"full"}
+                                borderWidth={staticPosition(1)}
+                                borderRadius={responsive(20)}
+                                borderStyle="solid"
+                                _focus={{
+                                    borderColor: errors[field] ? "red.500" : "#4DCD58",
+                                    boxShadow: "0 0 0 1px #4DCD58"
+                                }}
+                            />
 
-                    <Input
-                    {...register(field)}
-                    type={field === "password" ? "password" : "email"}
-                    borderColor={"ter"}
-                    p={st(10)}
-                    fontSize={st(24)}
-                    {...BorderStatic(1, "solid", "#000")}
-                    {...sstW(400)}
-                    {...sstH(67)}
-                    {...bordR(20)}
-                    />
-                    <br/>
+                            {errors[field] && (
+                                <Heading
+                                    fontSize={20}
+                                    MaxSizeDisplay={BREAKPOINT}
+                                    color="red.500"
+                                    mt={responsive(5)}
+                                >
+                                    {errors[field]?.message}
+                                </Heading>
+                            )}
+                        </Flex>
+                    ))}
 
-                    {errors[field] && ( // Exibe a mensagem de erro se existir
-                    <span
-                        style={{
-                        fontSize: st(15) as string,
-                        color: "red",
-                        }}
-                             >
-                         {errors[field]?.message} 
-                        </span>
-                        )}
-                    </div>
-                ))}
-                    <Heading gapX={2}>
-                        Esqueceu a senha?
-                        <Link 
-                            href={Redefinir} 
-                            color={"sec"}
-                            fontWeight={"900"}
-                            textDecor={"underline"}
+                    {/* Link esqueceu senha */}
+                    <Flex
+                        {...JustifyFull("center", true)}
+                        gap={responsive(5)}
+                        mt={responsive(10)}
+                    >
+                        <Heading
+                            fontSize={24}
+                            MaxSizeDisplay={BREAKPOINT}
+                            fontWeight="normal"
                         >
-                            clique aqui
+                            Esqueceu a senha?
+                        </Heading>
+                        <Link
+                            href={Redefinir}
+                            color="sec"
+                            fontWeight="900"
+                            textDecor="underline"
+                        >
+                            <Heading
+                                fontSize={24}
+                                MaxSizeDisplay={BREAKPOINT}
+                            >
+                                clique aqui
+                            </Heading>
                         </Link>
-                    </Heading>
+                    </Flex>
 
-                    <Button 
-                        type="submit" 
-                        {...sstW(400)}
-                        {...sstH(67)}
-                        fontSize={st(24)}
+                    {/* Botão submit */}
+                    <Button
+                        type="submit"
+                        {...responsiveH(67)}
+                        mt={responsive(20)}
+                        fontSize={responsive(24)}
+                        bg="#4DCD58"
+                        color="white"
+                        fontWeight="bold"
+                        _hover={{ bg: "#3DB547" }}
+                        _active={{ bg: "#2DA537" }}
                     >
                         Entrar
                     </Button>
                 </Flex>
+
+                {/* Footer - criar conta */}
                 <Flex
                     bg="qui"
-                    {...sstW(400)} 
-                    {...sstH(50)}
-                    {...JustifyFull("center", true)} 
-                    {...AlignFull()}
-                    {...bordR(15)}
-                    m={st(-50)} //eu mexi aqui aqui davi   // Adiciona margem superior
-                    zIndex={2} // Garante que fique acima do fundo
+                    {...responsiveW(400)}
+                    {...responsiveH(50)}
+                    {...JustifyFull("center", true)}
+                    {...AlignFull("center", true)}
+                    mt={responsive(30)}
+                    gap={responsive(5)}
+                    borderRadius={responsive(8)}
                 >
                     <Heading
                         fontSize={20}
-                        MaxSizeDisplay={1890}
+                        MaxSizeDisplay={BREAKPOINT}
+                        fontWeight="normal"
                     >
                         Não tem conta?
                     </Heading>
 
-                    <Link 
-                        href={Cadastro} 
-                        pl={st(2)} 
+                    <Link
+                        href={Cadastro}
                         textDecor="underline"
-                    > 
+                    >
                         <Heading
                             fontSize={20}
-                            MaxSizeDisplay={1890}
-                            color="sec" 
+                            MaxSizeDisplay={BREAKPOINT}
+                            color="sec"
+                            fontWeight="bold"
                         >
                             clique aqui
                         </Heading>
                     </Link>
-
                 </Flex>
-            </Flex>
+            </Card>
         </DefaultPage>
-    )
+    );
 }

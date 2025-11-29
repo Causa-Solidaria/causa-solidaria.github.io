@@ -37,6 +37,7 @@ export default async function handleLogin(
     if (popupfunction) popupfunction('Login realizado com sucesso!');
     window.location.href = '/campanhas';
   } catch (error: any) {
-    if (popupfunction) popupfunction(`Erro no login: ${error.message}`);
+
+    if (popupfunction) popupfunction(`Erro no login: ${error.message}`)
   }
 }

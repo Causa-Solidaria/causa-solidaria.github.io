@@ -36,6 +36,7 @@ export default function ProviderPopup(
         setTimeout(() => {
             setPilha( prev => prev.filter(p => p.id !== Novo_popup.id))
         }, time);
+        console.log(mensagem)
     }
 
     
