@@ -1,6 +1,6 @@
 import { apiUrl } from "csa/lib/apiBase";
 import type { SchemaType } from "./schema";
-import { Apis } from "csa/Rotas.json";
+import { Apis, Campanhas } from "csa/Rotas.json";
 
 export default async function handleLogin(
   data: SchemaType,
@@ -35,7 +35,7 @@ export default async function handleLogin(
     localStorage.setItem('token', token);
 
     if (popupfunction) popupfunction('Login realizado com sucesso!');
-    window.location.href = '/campanhas';
+    window.location.href = Campanhas.Home;
   } catch (error: any) {
 
     if (popupfunction) popupfunction(`Erro no login: ${error.message}`)

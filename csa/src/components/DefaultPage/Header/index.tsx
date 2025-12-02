@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import TextBorder from "csa/utils/textBorder";
 import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import {Cadastro, Login} from "csa/Rotas.json"
+import {Cadastro, Login, Home} from "csa/Rotas.json"
 import Box from "csa/components/ui/Box";
 
 
@@ -43,7 +43,7 @@ const Header = () => {
         boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(255,255,255,0.15) `}
       >
         <Flex
-          onClick={()=>{ window.location.href="/" }}
+          onClick={()=>{ window.location.href=Home }}
           dir={"row"}
           {...AlignFull()}
           {...JustifyFull()}

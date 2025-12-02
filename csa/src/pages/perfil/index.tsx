@@ -4,6 +4,7 @@ import Box from "csa/components/ui/Box";
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import { getToken, isTokenExpired } from "csa/utils/isloged";
+import { Apis } from "csa/Rotas.json";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
 import { use, useEffect, useState } from "react";
@@ -18,7 +19,7 @@ export default function Perfil(){
     useEffect(() => {
         const fetchPerfilData = async () => {
             try {
-                const response = await fetch('/api/perfil', {
+                const response = await fetch(Apis.perfil, {
                     headers: {
                         'Authorization': `Bearer ${TokenUser}`
                     }                

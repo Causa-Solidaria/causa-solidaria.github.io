@@ -50,14 +50,15 @@ export default function ProviderPopup(
                 <Box 
                     position={"fixed"} 
                     display={"flex"}
+                    flexDirection={"column"}
                     zIndex={9999} 
                     p={5} 
-                    top = {0}
+                    top={0}
+                    left={0}
+                    right={0}
                     pointerEvents={"none"} /* Não captura cliques; filhos específicos podem reativar */
-                    {...SetStaticPositionH("full")}
-                    {...SetStaticPositionW("full")}
                     {...JustifyFull("center")}
-                    {...AlignFull("center")}
+                    alignItems={"center"}
                 >
                     <AnimatePresence>
                     {
@@ -65,24 +66,31 @@ export default function ProviderPopup(
                             popup=>(
                                 <motion.div
                                     key={popup.id}
-                                    initial={{ opacity: 0, y: -20 }}
+                                    initial={{ opacity: 0, y: -50 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -40 }}
-                                    transition={{ duration: 0.6 }}
-                                    style={{pointerEvents: "auto"}} /* Este elemento pode receber eventos se necessário */
-                                    {...JustifyFull("center")}
-                                    {...AlignFull("center")}
+                                    exit={{ opacity: 0, y: -50 }}
+                                    transition={{ duration: 0.4 }}
+                                    style={{pointerEvents: "auto", marginBottom: "10px"}} /* Este elemento pode receber eventos se necessário */
                                 >
                                     <Box 
                                         bg={"qui"} 
-                                        mb={5} 
                                         pointerEvents={"auto"}
-                                        {...SetStaticPositionW(350)}
-                                        {...SetStaticPositionH(150)}
+                                        minW={"300px"}
+                                        maxW={"500px"}
                                         borderRadius={"15px"}
-                                        p={staticPosition(15)}         
+                                        p={4}
+                                        boxShadow={"0 4px 20px rgba(0,0,0,0.15)"}
+                                        display={"flex"}
+                                        alignItems={"center"}
+                                        justifyContent={"center"}
                                     >
-                                        <Heading fontFamily="quicksand" fontWeight={900} color={"ter"}>
+                                        <Heading 
+                                            fontFamily="quicksand" 
+                                            fontWeight={900} 
+                                            color={"ter"}
+                                            fontSize={"md"}
+                                            textAlign={"center"}
+                                        >
                                             {popup.mensagem}
                                         </Heading>
                                     </Box>

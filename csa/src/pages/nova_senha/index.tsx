@@ -4,6 +4,7 @@ import { Box,Button, Heading,Input,Text,VStack,} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import usePopup from "csa/hooks/usePopup";
+import { Login, Apis } from "csa/Rotas.json";
 
 export default function NovaSenhaPage() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function NovaSenhaPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/nova_senha", {
+      const response = await fetch(Apis.nova_senha, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -41,7 +42,7 @@ export default function NovaSenhaPage() {
       popup(data.message);
 
       if (response.ok) {
-        router.push("/login");
+        router.push(Login);
       }
 
     } catch (error) {

@@ -12,7 +12,7 @@ import Input from "csa/components/ui/input";
 import DefaultPage from "csa/components/DefaultPage";
 import { staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/utils/staticPositions";
 import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { ONGs, Campanhas } from "csa/Rotas.json";
+import { ONGs, Campanhas, Apis } from "csa/Rotas.json";
 import usePopup from "csa/hooks/usePopup";
 
 // Constantes
@@ -47,7 +47,7 @@ export default function ONGsPage() {
   useEffect(() => {
     async function fetchOngs() {
       try {
-        const res = await fetch('/api/ong_get');
+        const res = await fetch(Apis.ongs_get);
         if (!res.ok) throw popup('Erro ao buscar ONGs');
         
         const data: Ong[] = await res.json();
@@ -297,7 +297,7 @@ export default function ONGsPage() {
                     gap={responsive(20)}
                     flexWrap="wrap"
                   >
-                    <Link href={`/#ong/${ong.id}`}>
+                    <Link href={`${ONGs.Home}/${ong.id}`}>
                       <Button
                         variant="outline"
                         borderRadius={responsive(25)}

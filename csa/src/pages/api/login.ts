@@ -23,13 +23,13 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Usuário ou senha inválidos' });
+      return res.status(404).json({ error: 'Usuário não encontrado' });
     }
 
     // Verifica a senha
     const isPasswordValid = await bcrypt.compare(password, user.senha);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Usuário ou senha inválidos' });
+      return res.status(401).json({ error: 'Senha incorreta' });
     }
 
     // Cria o token JWT

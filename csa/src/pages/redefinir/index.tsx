@@ -3,6 +3,7 @@
 import { Box, Button, Heading, Input, Text, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 import usePopup from "csa/hooks/usePopup"
+import { Home, Apis } from "csa/Rotas.json"
 
 export default function RedefinirSenha() {
   const [email, setEmail] = useState("")
@@ -16,7 +17,7 @@ export default function RedefinirSenha() {
     }
     setIsLoading(true);
     try {
-      const response = await fetch("/api/redefinir",{
+      const response = await fetch(Apis.redefinir,{
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -86,7 +87,7 @@ export default function RedefinirSenha() {
             variant="outline" 
             colorScheme="green" 
             width="100" 
-            onClick={() => window.location.href = "/"}
+            onClick={() => window.location.href = Home}
             textTransform="uppercase"
             borderRadius="md"
             

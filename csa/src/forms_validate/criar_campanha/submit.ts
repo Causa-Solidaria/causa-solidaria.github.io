@@ -1,6 +1,6 @@
 import { ensureLogged, getToken, logoutAndRedirect } from "csa/utils/isloged";
 import { apiUrl } from "csa/lib/apiBase";
-import { Apis } from "csa/Rotas.json";
+import { Apis, Campanhas } from "csa/Rotas.json";
 
 interface FormData {
   title?: string;
@@ -24,7 +24,7 @@ export default async function handleCriarCampanha(
     if (!ensureLogged(popup)) return;
     const token = getToken();
 
-    const res = await fetch(apiUrl(apiUrl(Apis.campanhas.add)), {
+    const res = await fetch(apiUrl(Apis.campanhas.add), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

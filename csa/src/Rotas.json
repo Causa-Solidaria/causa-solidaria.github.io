@@ -2,7 +2,11 @@
     "Apis": {
         "Cadastro": "/api/cadastro",
         "ongs": "/api/ong",
+        "ongs_get": "/api/ong_get",
         "login": "/api/login",
+        "perfil": "/api/perfil",
+        "redefinir": "/api/redefinir",
+        "nova_senha": "/api/nova_senha",
         "campanhas" : {
             "add": "/api/campanhas/add",
             "get": "/api/campanhas/get"

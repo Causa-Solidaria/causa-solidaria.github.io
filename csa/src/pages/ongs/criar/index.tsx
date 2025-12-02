@@ -17,7 +17,7 @@ import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
 import { getToken } from "csa/utils/isloged";
 import { LuUpload } from "react-icons/lu";
 import BackRouteBT from "csa/components/BackRouteButton";
-
+import { Apis, ONGs } from "csa/Rotas.json";
 
 export default function CriarNovaOng() {
     const router = useRouter();
@@ -93,7 +93,7 @@ export default function CriarNovaOng() {
         try {
             // Recupera o token JWT do localStorage
             const token = getToken();
-            const response = await fetch("/api/ong", {
+            const response = await fetch(Apis.ongs, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export default function CriarNovaOng() {
 
             alert("ONG cadastrada com sucesso!");
             reset();
-            router.push("/ongs");
+            router.push(ONGs.Home);
         } catch (error) {
             console.error(error);
             setBackendErrors([{ message: "Erro ao cadastrar ONG" }]);
