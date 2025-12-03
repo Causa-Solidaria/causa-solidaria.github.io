@@ -16,7 +16,7 @@ import {
   mergeRefs,
   useControllableState,
 } from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
 import * as React from "react"
 import { LuEye, LuEyeOff } from "react-icons/lu"
 

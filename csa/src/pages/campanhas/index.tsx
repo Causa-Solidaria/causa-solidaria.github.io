@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { BoxProps, Center, Grid, Text } from "@chakra-ui/react";
 import CampanhasCard from "./camapanhasCard";
 import DefaultPage from "csa/components/DefaultPage";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { LuPlus } from "react-icons/lu";
-import Flex from "csa/components/ui/Flex";
+import JustifyFull, { SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
+import { LuPlus, LuMegaphone } from "react-icons/lu";
+import { Flex, Loading, EmptyState } from "csa/components/ui";
 import { motion } from "framer-motion";
 import { Campanhas as Ca } from "csa/Rotas.json"
 import {Apis} from "csa/Rotas.json"
@@ -106,25 +105,29 @@ export default function Campanhas() {
       <Buttonparacriar />
       <Center>
         {loading ? (
-          <Heading color={"#fff"}>Carregando campanhas...</Heading>
+          <Loading size="lg" text="Carregando campanhas..." />
         ) : campanhas.length === 0 ? (
-		       <Heading color={"#fff"}>Não foi possível encontrar campanhas.</Heading>
-	      ) : (
-        	<Grid
-            		templateColumns={`repeat(auto-fit, 350px)`}
-            		gap={staticPosition(4, 1735)} m={staticPosition(10, 1735)}
-            		{...JustifyFull()}
-          	>
-
-            		{campanhas.map((campanha, idx) => (
-              			<CampanhasCard key={idx} idx={idx} campanha={campanha} />
-            		))}
-          
-          	</Grid>
+          <EmptyState
+            icon={<LuMegaphone size={64} />}
+            title="Nenhuma campanha encontrada"
+            description="Seja o primeiro a criar uma campanha e fazer a diferença!"
+            action={{
+              label: "Criar Campanha",
+              onClick: () => window.location.href = Ca.Criar
+            }}
+          />
+        ) : (
+          <Grid
+            templateColumns={`repeat(auto-fit, 350px)`}
+            gap={staticPosition(4, 1735)} m={staticPosition(10, 1735)}
+            {...JustifyFull()}
+          >
+            {campanhas.map((campanha, idx) => (
+              <CampanhasCard key={idx} idx={idx} campanha={campanha} />
+            ))}
+          </Grid>
         )}
       </Center>
-
     </DefaultPage>
-    
   );
 }

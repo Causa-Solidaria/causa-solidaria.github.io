@@ -1,8 +1,8 @@
 import { BoxProps } from "@chakra-ui/react";
 import React, { forwardRef } from "react";
-import { SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import { SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Flex from "csa/components/ui/Flex";
-import JustifyFull from "csa/utils/JustifyFullCenter";
+import JustifyFull from "csa/lib/utils";
 
 function CardCadastroInner({ children, ...props}: BoxProps, ref: React.Ref<HTMLDivElement>) {
   

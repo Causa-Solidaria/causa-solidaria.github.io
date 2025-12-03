@@ -1,9 +1,11 @@
-import { BoxProps, FlexProps } from "@chakra-ui/react";
+import { BoxProps } from "@chakra-ui/react";
 import Box from "./Box";
 
+type FlexCustomProps = Omit<BoxProps, 'dir'> & {
+    dir?: string | string[];
+    ref?: React.Ref<HTMLDivElement>;
+};
 
-
-
-export default function Flex({children, dir, ref, ...props}: BoxProps & {ref?: React.Ref<HTMLDivElement>}){
-    return <Box display={"flex"} flexDir={dir} dir={dir} {...props} ref={ref} >{children}</Box>
+export default function Flex({children, dir, ref, ...props}: FlexCustomProps){
+    return <Box display={"flex"} flexDir={dir as any} {...props} ref={ref} >{children}</Box>
 }

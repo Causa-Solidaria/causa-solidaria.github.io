@@ -4,21 +4,21 @@ import { Button, Link } from "@chakra-ui/react";
 import { Redefinir, Cadastro } from "csa/Rotas.json";
 import Logo from "csa/components/logo";
 import usePopup from "csa/hooks/usePopup";
-import Schema, { SchemaType } from "csa/forms_validate/login/schema";
+import { loginSchema, type LoginData } from "csa/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleLogin from "csa/forms_validate/login/submit";
+import { handleLogin } from "csa/lib/handlers";
 import DefaultPage from "csa/components/DefaultPage";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
-import { Card, Flex, Heading, Input } from "csa/components/ui";
+import JustifyFull, { SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition, AlignFull } from "csa/lib/utils";
+import { Card, Flex, Heading, Input, Alert } from "csa/components/ui";
+import { useState } from "react";
 
 // Constantes para melhor manutenção
-const FORM_FIELDS: (keyof SchemaType)[] = ["email", "password"];
+const FORM_FIELDS: (keyof LoginData)[] = ["email", "password"];
 const BREAKPOINT = 1890;
 
 // Labels traduzidos para melhor UX
-const FIELD_LABELS: Record<keyof SchemaType, string> = {
+const FIELD_LABELS: Record<keyof LoginData, string> = {
     email: "E-mail",
     password: "Senha"
 };
@@ -26,11 +26,11 @@ const FIELD_LABELS: Record<keyof SchemaType, string> = {
 export default function Login() {
     const popup = usePopup();
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<SchemaType>({
-        resolver: zodResolver(Schema)
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginData>({
+        resolver: zodResolver(loginSchema)
     });
 
-    const onSubmit = async (data: SchemaType) => {
+    const onSubmit = async (data: LoginData) => {
         await handleLogin(data, popup);
         reset();
     };

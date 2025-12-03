@@ -1,19 +1,14 @@
 import { Button, Center, Image } from "@chakra-ui/react"
 import BackRouteBT from "csa/components/BackRouteButton"
 import DefaultPage from "csa/components/DefaultPage"
-import Box from "csa/components/ui/Box"
-import Flex from "csa/components/ui/Flex"
-import Heading from "csa/components/ui/heading"
-import Input from "csa/components/ui/input"
-import { getToken } from "csa/utils/isloged"
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter"
-import { BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
+import { Box, Flex, Heading, Input, Badge, Avatar, EmptyState } from "csa/components/ui"
+import JustifyFull, { getToken, BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
 import { useForm } from "react-hook-form"
 import {Fóruns, Perfil} from "csa/Rotas.json"
 import { useState } from "react"
 import { AiOutlineLike } from "react-icons/ai";
 import { MdOutlineMessage } from "react-icons/md";
-import { RxAvatar } from "react-icons/rx";
+import { LuMessageSquare } from "react-icons/lu";
 
 interface FórunProps{
     UUID: string,
@@ -172,18 +167,7 @@ export default function Foruns(){
                                         >
                                             {F.Titulo}
                                         </Heading>
-                                        {F.EmAlta ? <Box 
-                                            bg={"#FFB29E"} 
-                                            borderRadius={st(25)}
-                                            {...SetStaticPositionH(60, 2835)}
-                                            {...SetStaticPositionW(350 , 2835)}
-                                            {...AlignFull()}
-                                            {...JustifyFull()}
-                                        >
-                                            <Heading color={"#CF2900"}>
-                                                🔥EM ALTA
-                                            </Heading>
-                                        </Box> : null}
+                                        {F.EmAlta ? <Badge variant="error" size="lg" rounded>🔥 EM ALTA</Badge> : null}
                                     </Flex>
                                     <Flex>
                                         <Flex
@@ -191,23 +175,15 @@ export default function Foruns(){
                                             dir="column"
                                             pt={st(20)}
                                         >
-                                            {F.Tags?.map((tag, idx)=><Box 
-                                                key={idx} 
-                                                {...JustifyFull("center")}
-                                                {...AlignFull("center")}
-                                                bg={tag.color || "#d9d9d9"}
-                                                borderRadius={st(25)}
-                                                p={st(5)}
-                                                minW={st(250)}
-                                            >
-                                                <Heading 
-                                                    color={"#000"}
-                                                    MaxSizeDisplay={2835}
-                                                    fontSize={40}
+                                            {F.Tags?.map((tag, idx) => (
+                                                <Badge 
+                                                    key={idx} 
+                                                    variant="default" 
+                                                    size="lg"
                                                 >
                                                     {tag.label}
-                                                </Heading>
-                                            </Box>)}
+                                                </Badge>
+                                            ))}
                                         </Flex>
                                         <Heading 
                                             color={"#666"}
@@ -244,12 +220,13 @@ export default function Foruns(){
                                 >   
                                     {b.label==="likes" ? <AiOutlineLike size={st(40)}/> : null}
                                     {b.label==="respostas" ? <MdOutlineMessage size={st(40)}/> : null}
-                                    {b.label===F.Criador.nome ?  (
-                                        typeof F.Criador.foto === "string" && F.Criador.foto !== "" ?
-                                        <Image src={F.Criador.foto} alt={"foto do perfil de " + F.Criador.nome}/> :
-                                        <RxAvatar size={st(40)} />
-                                    ): null 
-                                    }
+                                    {b.label===F.Criador.nome ? (
+                                        <Avatar 
+                                            src={F.Criador.foto} 
+                                            name={F.Criador.nome} 
+                                            size="sm" 
+                                        />
+                                    ) : null}
                                     <Heading color={"#000"} fontSize={40}>{
                                         b.label==="likes" ? F.Joinhas as number || 0 : (
                                             b.label==="respostas"? F.NumeroDeComentarios as number || 0 : 

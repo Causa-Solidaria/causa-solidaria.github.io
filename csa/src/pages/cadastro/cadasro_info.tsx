@@ -5,7 +5,7 @@ import { Text, BoxProps, Center } from "@chakra-ui/react";
 import Box from "csa/components/ui/Box";
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Logo from "csa/components/logo";
 
 function InfoCadastroInner(

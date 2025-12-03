@@ -1,12 +1,12 @@
-import { ensureLogged, getToken, logoutAndRedirect } from "csa/utils/isloged";
+import { ensureLogged, getToken, logoutAndRedirect } from "csa/lib/utils";
 import { apiUrl } from "csa/lib/apiBase";
 import { Apis } from "csa/Rotas.json";
+import type { CriarOngData } from "csa/lib/validations";
 
-interface FormData {
-}
+// ===== CRIAR ONG =====
 
-export default async function handleCriarONG(
-  form: FormData,
+export async function handleCriarOng(
+  form: CriarOngData,
   popup: (message: string) => void
 ) {
   try {
@@ -19,13 +19,13 @@ export default async function handleCriarONG(
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify(form),
     });
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({} as any));
-      if (res.status === 401 && typeof (errorData as any)?.error === 'string') {
-        const msg = (errorData as any).error.toLowerCase();
+      if (res.status === 401 && typeof errorData?.error === 'string') {
+        const msg = errorData.error.toLowerCase();
         if (msg.includes('expirado')) {
           logoutAndRedirect('Sua sessão expirou. Faça login novamente.', popup);
           return;
@@ -36,14 +36,14 @@ export default async function handleCriarONG(
         }
       }
       console.error(errorData);
-      return popup('Erro ao criar campanha: ' + ((errorData as any)?.error ?? res.statusText));
+      return popup('Erro ao criar ONG: ' + (errorData?.error ?? res.statusText));
     }
 
     const result = await res.json();
-    console.log('Campanha criada:', result);
-    popup('Campanha criada com sucesso!');
+    console.log('ONG criada:', result);
+    popup('ONG criada com sucesso!');
   } catch (err) {
     console.error('Erro geral:', err);
-    popup('Erro inesperado ao criar campanha');
+    popup('Erro inesperado ao criar ONG');
   }
 }

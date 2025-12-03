@@ -1,23 +1,18 @@
-import { ensureLogged, getToken, logoutAndRedirect } from "csa/utils/isloged";
+import { ensureLogged, getToken, logoutAndRedirect } from "csa/lib/utils";
 import { apiUrl } from "csa/lib/apiBase";
-import { Apis, Campanhas } from "csa/Rotas.json";
+import { Apis } from "csa/Rotas.json";
+import type { CriarCampanhaData } from "csa/lib/validations";
 
-interface FormData {
-  title?: string;
-  description?: string;
-  nivelAjuda?: string;
-  cep?: string;
-  cidade?: string;
-  estado?: string;
-  bairro?: string;
-  rua?: string;
-  numero?: string;
-  endDate?: string;
+// ===== INTERFACE PARA SUBMIT (com campo thumbnailString extra) =====
+
+interface CriarCampanhaFormData extends Omit<CriarCampanhaData, 'thumbnail'> {
   thumbnailString?: string;
 }
 
-export default async function handleCriarCampanha(
-  form: FormData,
+// ===== CRIAR CAMPANHA =====
+
+export async function handleCriarCampanha(
+  form: CriarCampanhaFormData,
   popup: (message: string) => void
 ) {
   try {
@@ -47,8 +42,8 @@ export default async function handleCriarCampanha(
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({} as any));
-      if (res.status === 401 && typeof (errorData as any)?.error === 'string') {
-        const msg = (errorData as any).error.toLowerCase();
+      if (res.status === 401 && typeof errorData?.error === 'string') {
+        const msg = errorData.error.toLowerCase();
         if (msg.includes('expirado')) {
           logoutAndRedirect('Sua sessão expirou. Faça login novamente.', popup);
           return;
@@ -59,7 +54,7 @@ export default async function handleCriarCampanha(
         }
       }
       console.error(errorData);
-      return popup('Erro ao criar campanha: ' + ((errorData as any)?.error ?? res.statusText));
+      return popup('Erro ao criar campanha: ' + (errorData?.error ?? res.statusText));
     }
 
     const result = await res.json();

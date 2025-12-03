@@ -4,8 +4,7 @@ import { useState } from "react";
 import { PopupContext, popupType } from "csa/components/ProviderPopup/utils";
 import { Box, Heading } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion"
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 
 
 export default function ProviderPopup(

@@ -1,6 +1,33 @@
 
 import { Heading as He, HeadingProps } from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
+
+type ResponsiveSize = number | string | (number | string)[] | Record<string, number | string>;
+
+function isResponsiveObject(size: ResponsiveSize): size is Record<string, number | string> {
+    return typeof size === 'object' && !Array.isArray(size);
+}
+
+function processSize(size: ResponsiveSize, maxSize: number | string): any {
+    if (isResponsiveObject(size)) {
+        return size;
+    }
+    return staticPosition(size as number | string | (number | string)[], maxSize);
+}
+
+function processStaticW(size: ResponsiveSize, maxSize: number | string): any {
+    if (isResponsiveObject(size)) {
+        return { maxW: size, minW: size, maxWidth: size, minWidth: size };
+    }
+    return SetStaticPositionW(size as any, maxSize);
+}
+
+function processStaticH(size: ResponsiveSize, maxSize: number | string): any {
+    if (isResponsiveObject(size)) {
+        return { maxH: size, minH: size, maxHeight: size, minHeight: size };
+    }
+    return SetStaticPositionH(size as any, maxSize);
+}
 
 export default function Heading(
     {
@@ -12,22 +39,22 @@ export default function Heading(
         color = "#000",
         ...props
     }: 
-    HeadingProps & {
+    Omit<HeadingProps, 'fontSize' | 'w' | 'h'> & {
         MaxSizeDisplay?: number | string,
-        fontSize?: number | string | (number | string)[],
-        w?: number | string | (number | string)[],
-        h?: number | string | (number | string)[],
+        fontSize?: ResponsiveSize,
+        w?: ResponsiveSize,
+        h?: ResponsiveSize,
     }
 ){
     return (
     <He
         alignContent={"center"}
-        fontSize={staticPosition(fontSize, MaxSizeDisplay)}
+        fontSize={processSize(fontSize, MaxSizeDisplay)}
         lineHeight={1}
         color={color || "qui"}
 
-        {...SetStaticPositionW(w, MaxSizeDisplay)}
-        {...SetStaticPositionH(h, MaxSizeDisplay)}
+        {...processStaticW(w, MaxSizeDisplay)}
+        {...processStaticH(h, MaxSizeDisplay)}
         {...props}
     >
         {children}

@@ -3,7 +3,7 @@
 
 import React from 'react'
 import Box from './Box'
-import { shadowStatic, staticPosition } from 'csa/utils/staticPositions'
+import { shadowStatic, staticPosition } from 'csa/lib/utils'
 import { BoxProps } from '@chakra-ui/react'
 
 interface CardProps extends BoxProps{

@@ -2,7 +2,7 @@ import { InputProps, Textarea, TextareaProps } from "@chakra-ui/react";
 import { PasswordInput, PasswordInputProps } from "./password-input";
 import { Input as In} from "@chakra-ui/react";
 import React from "react";
-import { isTokenExpired } from "csa/utils/isloged";
+import { isTokenExpired } from "csa/lib/utils";
 
 export type SelectOption = { label: string; value: string };
 type NativeSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>;

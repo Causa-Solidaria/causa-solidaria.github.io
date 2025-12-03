@@ -1,10 +1,12 @@
 import { apiUrl } from "csa/lib/apiBase";
-import type { SchemaType } from "./schema";
 import { Apis, Campanhas } from "csa/Rotas.json";
+import type { LoginData, CadastroData } from "csa/lib/validations";
 
-export default async function handleLogin(
-  data: SchemaType,
-  popupfunction?: (message: string) => void
+// ===== LOGIN =====
+
+export async function handleLogin(
+  data: LoginData,
+  popup?: (message: string) => void
 ) {
   try {
     const res = await fetch(apiUrl(Apis.login), {
@@ -34,10 +36,34 @@ export default async function handleLogin(
 
     localStorage.setItem('token', token);
 
-    if (popupfunction) popupfunction('Login realizado com sucesso!');
+    if (popup) popup('Login realizado com sucesso!');
     window.location.href = Campanhas.Home;
   } catch (error: any) {
+    if (popup) popup(`Erro no login: ${error.message}`);
+  }
+}
 
-    if (popupfunction) popupfunction(`Erro no login: ${error.message}`)
+// ===== CADASTRO =====
+
+export async function handleCadastro(
+  data: CadastroData,
+  popup?: (message: string) => void
+) {
+  try {
+    const res = await fetch(apiUrl(Apis.Cadastro), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(json.error || 'Erro desconhecido');
+    }
+
+    if (popup) popup('Cadastro realizado com sucesso!');
+  } catch (error: any) {
+    if (popup) popup(`Erro no cadastro: ${error.message}`);
   }
 }

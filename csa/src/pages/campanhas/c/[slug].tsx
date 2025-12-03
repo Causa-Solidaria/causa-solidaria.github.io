@@ -6,8 +6,7 @@ import Head from "next/head"
 import { useState } from "react"
 import Heading from "csa/components/ui/heading";
 import Box from "csa/components/ui/Box";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json"
 
 type campanhaProps = {

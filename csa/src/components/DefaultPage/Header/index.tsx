@@ -1,14 +1,12 @@
 "use client"
 
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions"
+import { SetStaticPositionH, SetStaticPositionW, staticPosition, getToken, TextBorder, AlignFull } from "csa/lib/utils"
 import Logo from "csa/components/logo"
-import { getToken } from "csa/utils/isloged";
 import Heading from "csa/components/ui/heading";
 import Nav from "./nav";
 import { useEffect, useState } from "react";
-import TextBorder from "csa/utils/textBorder";
 import Flex from "csa/components/ui/Flex";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
+import JustifyFull from "csa/lib/utils";
 import {Cadastro, Login, Home} from "csa/Rotas.json"
 import Box from "csa/components/ui/Box";
 

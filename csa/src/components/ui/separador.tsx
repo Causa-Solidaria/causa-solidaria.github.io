@@ -1,5 +1,5 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import { SetStaticPositionH, SetStaticPositionW } from "csa/utils/staticPositions";
+import { SetStaticPositionH, SetStaticPositionW } from "csa/lib/utils";
 
 
 export default function Separador(

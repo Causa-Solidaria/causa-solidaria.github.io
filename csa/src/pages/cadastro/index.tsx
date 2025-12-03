@@ -4,14 +4,13 @@ import { Button, Center, Checkbox, Link, Text } from "@chakra-ui/react";
 import CardCadastro from "./card_cadastro";
 import InfoCadastro from "./cadasro_info";
 import usePopup from "csa/hooks/usePopup";
-import formSchema from "csa/forms_validate/cadastro/schema";
+import { cadastroSchema } from "csa/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleCadastro  from "csa/forms_validate/cadastro/submit";
+import { handleCadastro } from "csa/lib/handlers";
 import { motion } from "framer-motion"; 
 import Flex from "csa/components/ui/Flex";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Box from "csa/components/ui/Box";
 import Input from "csa/components/ui/input";
 
@@ -21,7 +20,7 @@ const InfoCadastroMotion = motion.create(InfoCadastro)
 export default function Cadastro() {
   const popup = usePopup();
   const {register, handleSubmit, formState: { errors }} = useForm({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(cadastroSchema)
   });
   
   const onSubmit = async (data: any) => {

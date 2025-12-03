@@ -1,6 +1,6 @@
 import { Box, Image } from "@chakra-ui/react";
 import Heading from "csa/components/ui/heading";
-import { SetStaticPositionW, staticPosition } from "csa/utils/staticPositions";
+import { SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import {Campanhas} from "csa/Rotas.json"
 
 

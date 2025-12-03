@@ -1,14 +1,16 @@
-import { Box, Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
+import { Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { z } from "zod";
-import handleCriarCampanha  from "csa/forms_validate/criar_campanha/submit";
+import { handleCriarCampanha } from "csa/lib/handlers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import formSchema from "csa/forms_validate/criar_campanha/schema";
-import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
+import { criarCampanhaSchema } from "csa/lib/validations";
+import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
+import { Box, Breadcrumb, Alert } from "csa/components/ui";
+import { Campanhas } from "csa/Rotas.json";
 
 export default function QueroDoar() {
   const popup = usePopup();
@@ -60,11 +62,11 @@ export default function QueroDoar() {
 
   
   // Configuração dos campos do formulário
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof criarCampanhaSchema>>({
+    resolver: zodResolver(criarCampanhaSchema)
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  function onSubmit(data: z.infer<typeof criarCampanhaSchema>) {
     handleCriarCampanha({ ...data, thumbnailString: thumbnailString ?? undefined }, popup);
   }
 
@@ -101,6 +103,13 @@ export default function QueroDoar() {
         flexDirection="column"
         gapY={st(3)}
       >
+        <Breadcrumb 
+          items={[
+            { label: "Campanhas", href: Campanhas.Home },
+            { label: "Criar Campanha" }
+          ]}
+        />
+        
         <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={st(10)}>
           crie sua campanha
         </Text>

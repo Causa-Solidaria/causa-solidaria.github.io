@@ -1,8 +1,7 @@
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import Separador from "csa/components/ui/separador";
-import JustifyFull, { AlignFull } from "csa/utils/JustifyFullCenter";
-import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/utils/staticPositions";
+import JustifyFull, { AlignFull, BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
 
 import {
     Home , 
