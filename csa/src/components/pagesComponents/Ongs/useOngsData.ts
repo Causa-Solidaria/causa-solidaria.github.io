@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { LuLeaf } from "react-icons/lu"
 import { Apis } from "csa/Rotas.json"
+import { apiUrl } from "csa/lib/apiBase"
 import type { Ong } from "./types"
 
 export function useOngsData() {
@@ -11,8 +12,11 @@ export function useOngsData() {
   useEffect(() => {
     async function fetchOngs() {
       try {
-        const res = await fetch(Apis.ongs_get)
-        if (!res.ok) throw new Error("Erro ao buscar ONGs")
+        const res = await fetch(apiUrl(Apis.ongs_get))
+        if (!res.ok) {
+          const errorText = await res.text()
+          throw new Error(`Erro ao buscar ONGs: ${res.status} - ${errorText || res.statusText}`)
+        }
         
         const data: Ong[] = await res.json()
         const mappedOngs = data.map(ong => ({
