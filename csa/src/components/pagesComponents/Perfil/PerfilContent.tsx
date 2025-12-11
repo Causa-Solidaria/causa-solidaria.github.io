@@ -1,4 +1,4 @@
-import { Box } from "csa/components/ui"
+import { Box, Card } from "csa/components/ui"
 import { SetStaticPositionW } from "csa/lib/utils"
 import { st, MAX_SIZE } from "./utils"
 import PerfilHeader from "./PerfilHeader"
@@ -37,14 +37,7 @@ export default function PerfilContent({ data }: PerfilContentProps) {
   } = data
 
   return (
-    <Box 
-      m={st(25)}
-      p={st(50)}
-      borderRadius={st(25)}
-      {...SetStaticPositionW(1430, MAX_SIZE)}
-      minH={st(1600)}
-      border={`${st(3)} solid #000`}
-    >
+    <Card>
       <PerfilHeader 
         name={name}
         foto={foto}
@@ -57,6 +50,6 @@ export default function PerfilContent({ data }: PerfilContentProps) {
       <PerfilInteresses areasDeInteresse={areasDeInteresse} />
       <PerfilOngs ongs={ong} />
       <PerfilCampanhas campanhas={campanhas} />
-    </Box>
+    </Card>
   )
 }
