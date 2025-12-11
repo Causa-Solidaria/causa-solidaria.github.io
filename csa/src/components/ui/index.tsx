@@ -23,6 +23,7 @@ import Tabs from "./Tabs"
 import Pagination from "./Pagination"
 import Breadcrumb from "./Breadcrumb"
 import ConfirmDialog from "./ConfirmDialog"
+import Carousel, { CarouselItem } from "./Carousel"
 
 export {
   // Existing
@@ -54,5 +55,7 @@ export {
   Tabs,
   Pagination,
   Breadcrumb,
-  ConfirmDialog
+  ConfirmDialog,
+  Carousel,
+  CarouselItem
 }
