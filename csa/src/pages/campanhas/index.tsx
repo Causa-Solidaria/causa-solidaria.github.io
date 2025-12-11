@@ -6,7 +6,7 @@ import CampanhasCard from "./camapanhasCard";
 import DefaultPage from "csa/components/DefaultPage";
 import JustifyFull, { SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
 import { LuPlus, LuMegaphone } from "react-icons/lu";
-import { Flex, Loading, EmptyState } from "csa/components/ui";
+import { Flex, Loading, EmptyState, Card } from "csa/components/ui";
 import { motion } from "framer-motion";
 import { Campanhas as Ca } from "csa/Rotas.json"
 import {Apis} from "csa/Rotas.json"
@@ -103,30 +103,32 @@ export default function Campanhas() {
   return (
     <DefaultPage p={staticPosition(100, 2000)}>  
       <Buttonparacriar />
-      <Center>
-        {loading ? (
-          <Loading size="lg" text="Carregando campanhas..." />
-        ) : campanhas.length === 0 ? (
-          <EmptyState
-            icon={<LuMegaphone size={64} />}
-            title="Nenhuma campanha encontrada"
-            description="Seja o primeiro a criar uma campanha e fazer a diferença!"
-            action={{
-              label: "Criar Campanha",
-              onClick: () => window.location.href = Ca.Criar
-            }}
-          />
-        ) : (
-          <Grid
-            templateColumns={`repeat(auto-fit, 350px)`}
-            gap={staticPosition(4, 1735)} m={staticPosition(10, 1735)}
-            {...JustifyFull()}
-          >
-            {campanhas.map((campanha, idx) => (
-              <CampanhasCard key={idx} idx={idx} campanha={campanha} />
-            ))}
-          </Grid>
-        )}
+      <Center w="100%" minH="60vh">
+        <Card p={staticPosition(40, 1735)} minW="300px" maxW="90%" w="fit-content">
+          {loading ? (
+            <Loading size="lg" text="Carregando campanhas..." />
+          ) : campanhas.length === 0 ? (
+            <EmptyState
+              icon={<LuMegaphone size={64} />}
+              title="Nenhuma campanha encontrada"
+              description="Seja o primeiro a criar uma campanha e fazer a diferença!"
+              action={{
+                label: "Criar Campanha",
+                onClick: () => window.location.href = Ca.Criar
+              }}
+            />
+          ) : (
+            <Grid
+              templateColumns={`repeat(auto-fit, 350px)`}
+              gap={staticPosition(4, 1735)} m={staticPosition(10, 1735)}
+              {...JustifyFull()}
+            >
+              {campanhas.map((campanha, idx) => (
+                <CampanhasCard key={idx} idx={idx} campanha={campanha} />
+              ))}
+            </Grid>
+          )}
+        </Card>
       </Center>
     </DefaultPage>
   );

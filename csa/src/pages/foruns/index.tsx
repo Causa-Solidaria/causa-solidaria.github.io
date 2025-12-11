@@ -1,7 +1,7 @@
 import { Button, Center, Image } from "@chakra-ui/react"
 import BackRouteBT from "csa/components/BackRouteButton"
 import DefaultPage from "csa/components/DefaultPage"
-import { Box, Flex, Heading, Input, Badge, Avatar, EmptyState } from "csa/components/ui"
+import { Box, Flex, Heading, Input, Badge, Avatar, EmptyState, Breadcrumb } from "csa/components/ui"
 import JustifyFull, { getToken, BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
 import { useForm } from "react-hook-form"
 import {Fóruns, Perfil} from "csa/Rotas.json"
@@ -65,7 +65,12 @@ export default function Foruns(){
 
     return <DefaultPage
         py={st(35)}
-    >
+    >   
+        <Breadcrumb 
+            items={[
+                {label: "fóruns"}
+            ]}
+        />
         <Center 
                 borderRadius={staticPosition(25,  2835)}
                 m={staticPosition(100,  2835)}

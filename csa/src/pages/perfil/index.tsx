@@ -1,5 +1,5 @@
 import DefaultPage from "csa/components/DefaultPage"
-import { Heading, Loading, Alert, EmptyState } from "csa/components/ui"
+import { Heading, Loading, Alert, EmptyState, Card, Box } from "csa/components/ui"
 import { PerfilContent, usePerfilData, st } from "csa/components/pagesComponents/Perfil"
 import JustifyFull, { getToken, isTokenExpired, SetStaticPositionW, AlignFull } from "csa/lib/utils"
 import { Login } from "csa/Rotas.json"
@@ -49,17 +49,27 @@ export default function Perfil() {
       {...AlignFull()} 
       {...JustifyFull()}
     >
-      <Heading 
-        color="#000"
-        margin={st(25)}
-        fontSize={63}
-        fontWeight={900}
-        MaxSizeDisplay={1871}
-      > 
-        Perfil 
-      </Heading>
-      
-      <PerfilContent data={data} />
+      <Box
+        w="95%"
+        maxW="900px"
+        mx="auto"
+        display="flex"
+        flexDirection="column"
+        gap={st(20)}
+      >
+        <Heading 
+          color="#000"
+          fontSize={63}
+          fontWeight={900}
+          MaxSizeDisplay={1871}
+          textAlign="center"
+        > 
+          Perfil 
+        </Heading>
+        
+          <PerfilContent data={data} />
+        
+      </Box>
     </DefaultPage>
   )
 }

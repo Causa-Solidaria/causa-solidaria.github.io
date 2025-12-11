@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { criarCampanhaSchema } from "csa/lib/validations";
 import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
-import { Box, Breadcrumb, Alert } from "csa/components/ui";
+import { Box, Breadcrumb, Card } from "csa/components/ui";
 import { Campanhas } from "csa/Rotas.json";
 
 export default function QueroDoar() {
@@ -87,18 +87,12 @@ export default function QueroDoar() {
       alignContent={"center"}
     >
       <Box
-        mx={st(10)}
+        mx="auto"
         mt={st(5)}
         mb={st(2)}
-        px={st(10)}
-        pt={st(2)}
-        pb={st(2)}
-        w={st("95%")}
+        w="95%"
         minW={st(320)}
-        maxW={st(1000)}
-        as="form"
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ width: '100%' }}
+        maxW="800px"
         display="flex"
         flexDirection="column"
         gapY={st(3)}
@@ -106,108 +100,118 @@ export default function QueroDoar() {
         <Breadcrumb 
           items={[
             { label: "Campanhas", href: Campanhas.Home },
-            { label: "Criar Campanha" }
+            { label: "Criar" }
           ]}
         />
         
-        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={st(10)}>
+        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={st(4)}>
           crie sua campanha
         </Text>
 
-        <HStack align="start" gap={st(6)} flexWrap="wrap">
-          <VStack align="start" gap={st(2)} flex={1} minW="320px">
-            <Box {...sstW("full")}>
-              <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
-                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
-                <FileUpload.Trigger asChild>
-                  <Button variant="outline" {...sstW("full")}>
-                    <LuUpload /> Upload imagem
-                  </Button>
-                </FileUpload.Trigger>
-              </FileUpload.Root>
-              {uploadError && (
-                <Text color="red.500" fontSize="xs" mt={st(1)}>{uploadError}</Text>
+        <Card
+          as="form"
+          onSubmit={handleSubmit(onSubmit)}
+          p={{ base: st(30), md: st(50) }}
+          display="flex"
+          flexDirection="column"
+          gap={st(6)}
+        >
+          <Box 
+            display="flex" 
+            flexDirection={{ base: "column", md: "row" }} 
+            gap={st(10)} 
+            width="100%"
+            alignItems="flex-start"
+          >
+            <VStack align="start" gap={st(4)} width={{ base: "100%", md: "35%" }} flexShrink={0}>
+              <Box width="100%">
+                <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
+                  <FileUpload.HiddenInput accept="image/jpeg,image/png" />
+                  <FileUpload.Trigger asChild>
+                    <Button variant="outline" width="100%">
+                      <LuUpload /> Upload imagem
+                    </Button>
+                  </FileUpload.Trigger>
+                </FileUpload.Root>
+                {uploadError && (
+                  <Text color="red.500" fontSize="xs" mt={st(1)}>{uploadError}</Text>
+                )}
+              </Box>
+              {preview ? (
+                <Image
+                  src={preview}
+                  alt="Pré-visualização"
+                  width="100%"
+                  aspectRatio={3/4}
+                  maxH={st(280)}
+                  objectFit="cover"
+                  borderRadius="md"
+                />
+              ) : (
+                <Box width="100%" height={st(220)} bg="gray.100" borderRadius="md" border="1px solid" borderColor="green.400"/>
               )}
-            </Box>
-            {preview ? (
-              <Image
-                src={preview}
-                alt="Pré-visualização"
-                {...sstW("full")}
-                aspectRatio={3/4}
-                maxH={st(260)}
-                objectFit="cover"
-                borderRadius="md"
-              />
-            ) : (
-              <Box {...sstW("full")} {...sstH(260)} bg="gray.100" borderRadius="md" border="1px" borderColor="green.400"/>
-            )}
-            <Text fontSize="sm" color="gray.600">
-              Tipos: jpg ou png
-              <br />
-              Tamanho mínimo: 300 × 300 px
-              <br />
-              Dimensão mínima: 300 × 300
-            </Text>
+              <Text fontSize="sm" color="gray.600">
+                Tipos: jpg ou png
+                <br />
+                Tamanho mínimo: 300 × 300 px
+                <br />
+                Dimensão mínima: 300 × 300
+              </Text>
+            </VStack>
 
-            
-          </VStack>
+            <VStack align="stretch" gap={st(12)} width={{ base: "100%", md: "65%" }}>
+              <Input {...register("title")} placeholder="Nome" borderColor="ter" py={st(10)} />
+              {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
 
-          <VStack align="stretch" gap={st(3)} flex={1} minW={st(320)}>
-            <Input {...register("title")} placeholder="Nome" borderColor="ter" />
-            {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
+              <NativeSelect.Root>
+                <NativeSelect.Field {...register("nivelAjuda")} borderColor="ter" py={st(10)}>
+                  <option value="">escolha a sua categoria</option>
+                  <option value="Alimentos">Alimentos</option>
+                  <option value="Roupas">Roupas</option>
+                  <option value="Higiene">Higiene</option>
+                  <option value="Brinquedos">Brinquedos</option>
+                  <option value="Outros">Outros</option>
+                </NativeSelect.Field>
+                <NativeSelect.Indicator />
+              </NativeSelect.Root>
+              {errors.nivelAjuda && <Text color="red.500" fontSize="xs">{errors.nivelAjuda.message}</Text>}
 
-            <NativeSelect.Root>
-              <NativeSelect.Field {...register("nivelAjuda")} borderColor="ter">
-                <option value="">escolha a sua categoria</option>
-                <option value="Alimentos">Alimentos</option>
-                <option value="Roupas">Roupas</option>
-                <option value="Higiene">Higiene</option>
-                <option value="Brinquedos">Brinquedos</option>
-                <option value="Outros">Outros</option>
-              </NativeSelect.Field>
-              <NativeSelect.Indicator />
-            </NativeSelect.Root>
-            {errors.nivelAjuda && <Text color="red.500" fontSize="xs">{errors.nivelAjuda.message}</Text>}
+              <Input {...register("cep")} placeholder="Cep" borderColor="ter" py={st(10)} onChange={(e)=>{
+                const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
+                e.target.value = v;
+              }}/>
+              {errors.cep && <Text color="red.500" fontSize="xs">{errors.cep.message}</Text>}
 
-            <Input {...register("cep")} placeholder="Cep" borderColor="ter" onChange={(e)=>{
-              const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
-              e.target.value = v;
-            }}/>
-            {errors.cep && <Text color="red.500" fontSize="xs">{errors.cep.message}</Text>}
+              <Input {...register("cidade")} placeholder="Cidade" borderColor="ter" py={st(10)} />
+              {errors.cidade && <Text color="red.500" fontSize="xs">{errors.cidade.message}</Text>}
 
-            <Input {...register("cidade")} placeholder="Cidade" borderColor="ter" />
-            {errors.cidade && <Text color="red.500" fontSize="xs">{errors.cidade.message}</Text>}
+              <Input {...register("rua")} placeholder="nome da rua" borderColor="ter" py={st(10)} />
+              {errors.rua && <Text color="red.500" fontSize="xs">{errors.rua.message}</Text>}
 
-            <Input {...register("rua")} placeholder="nome da rua" borderColor="ter" />
-            {errors.rua && <Text color="red.500" fontSize="xs">{errors.rua.message}</Text>}
+              <Input {...register("numero")} placeholder="Número da casa" borderColor="ter" py={st(10)} />
+              {errors.numero && <Text color="red.500" fontSize="xs">{errors.numero.message}</Text>}
+            </VStack>
+          </Box>
 
-            <Input {...register("numero")} placeholder="Número da casa" borderColor="ter" />
-            {errors.numero && <Text color="red.500" fontSize="xs">{errors.numero.message}</Text>}
-          </VStack>
-        </HStack>
-
-        <Box mt={st(3)}>
           <Textarea
             {...register("description")}
             placeholder="descrição (mínimo 200 caracteres)"
             borderColor="ter"
             borderWidth="1px"
             borderRadius="5px"
-            {...sstW("full")}
-            {...sstH(120)}
+            width="100%"
+            minH={st(140)}
+            py={st(10)}
           />
           {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
-        </Box>
 
-        <Box mt={st(3)}>
-          <Input {...register("endDate")} type="date" borderColor="ter" />
+          <Input {...register("endDate")} type="date" borderColor="ter" width="100%" py={st(10)} />
           {errors.endDate && <Text color="red.500" fontSize="xs">{errors.endDate.message}</Text>}
-        </Box>
 
-        <HStack justify="center" mt={st(6)} bottom={0}>
-          <Button type="submit" minW={st(100)} maxW={st(300)} w={"25%"} colorScheme="green">Criar</Button>
-         </HStack>
+          <HStack justify="center" mt={st(6)}>
+            <Button type="submit" minW={st(180)} py={st(12)} colorScheme="green">Criar</Button>
+          </HStack>
+        </Card>
       </Box>
     </DefaultPage>
   );
