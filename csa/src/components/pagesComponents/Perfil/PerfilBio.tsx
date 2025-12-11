@@ -19,8 +19,9 @@ export default function PerfilBio({ bio }: PerfilBioProps) {
       </Heading>
       <Heading
         color="#000" 
-        fontSize={40} 
+        fontSize={36} 
         fontStyle="italic" 
+        fontWeight={500}
         MaxSizeDisplay={MAX_SIZE}
       >
         {bio || 'Biografia não informada'}
