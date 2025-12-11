@@ -1,15 +1,18 @@
 
 import {Perfil, Home, Fóruns, ONGs, Campanhas} from "csa/Rotas.json"
-import { getToken, isTokenExpired } from "csa/lib/utils"
 
 type ButtonItem = { title: string; link: string };
 
-const b: ButtonItem[] = []
+// Botões base (sempre mostrados)
+export const baseButtons: ButtonItem[] = [
+    { title: "Inicio", link: Home },
+    { title: "Forúns", link: Fóruns.Home },
+    { title: "ONGs", link: ONGs.Home },
+    { title: "Campanhas", link: Campanhas.Home },
+]
 
-if (!isTokenExpired(getToken() as string)) b.push({ title: "Perfil", link: Perfil.Home });
-b.push({ title: "Inicio", link: Home });
-b.push({ title: "Forúns", link: Fóruns.Home });
-b.push({ title: "ONGs", link: ONGs.Home });
-b.push({ title: "Campanhas", link: Campanhas.Home });
+// Botão de perfil (só para usuários logados)
+export const perfilButton: ButtonItem = { title: "Perfil", link: Perfil.Home }
 
-export default b
+// Para manter compatibilidade, exportar os botões base como default
+export default baseButtons
