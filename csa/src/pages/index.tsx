@@ -1,6 +1,7 @@
 "use client"
 
 import DefaultPage from "csa/components/DefaultPage"
+import CarrosselOngs from "csa/components/pagesComponents/CarrosselOngs"
 import { HeroSection, AboutSection } from "csa/components/pagesComponents/Home"
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
     >
       <HeroSection />
       <AboutSection />
+      <CarrosselOngs />
     </DefaultPage>
   )
 }
