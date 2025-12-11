@@ -38,23 +38,23 @@ export default function Breadcrumb({
   }
 
   const Separator = () => (
-    <Box color="#A0AEC0" mx={2}>
+    <Box color="#fff" fontWeight={"900"} mx={2}>
       {separator || <LuChevronRight size={16} />}
     </Box>
   )
 
   return (
-    <Flex dir="row" alignItems="center" flexWrap="wrap">
+    <Flex dir="row" alignItems="center" flexWrap="wrap" mb={"2vmax"}>
       {showHomeIcon && (
         <>
           <Box
             as="button"
             display="flex"
             alignItems="center"
-            color="#718096"
+            color="#fff" fontWeight={"900"}
             cursor="pointer"
             transition="color 0.2s"
-            _hover={{ color: "#4C1D95" }}
+            _hover={{ color: "#008000" }}
             onClick={() => handleClick("/")}
           >
             <HomeIcon />
@@ -67,18 +67,22 @@ export default function Breadcrumb({
         const isLast = index === items.length - 1
         
         return (
-          <Flex key={index} dir="row" alignItems="center">
+          <Flex 
+            key={index} 
+            dir="row" 
+            alignItems="center"
+          >
             <Box
               as={item.href && !isLast ? "button" : "span"}
               display="flex"
               alignItems="center"
               gap={1}
               fontSize="sm"
-              color={isLast ? "#2D3748" : "#718096"}
-              fontWeight={isLast ? 600 : 400}
+              color={isLast ? "#000" : "#fff"} 
+              fontWeight={"900"}
               cursor={item.href && !isLast ? "pointer" : "default"}
               transition="color 0.2s"
-              _hover={item.href && !isLast ? { color: "#4C1D95" } : {}}
+              _hover={item.href && !isLast ? { color: "#008000" } : {}}
               onClick={() => !isLast && handleClick(item.href)}
             >
               {item.icon}
