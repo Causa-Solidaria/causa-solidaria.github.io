@@ -1,6 +1,4 @@
-import { Box, Card } from "csa/components/ui"
-import { SetStaticPositionW } from "csa/lib/utils"
-import { st, MAX_SIZE } from "./utils"
+import { Card } from "csa/components/ui"
 import PerfilHeader from "./PerfilHeader"
 import PerfilBio from "./PerfilBio"
 import PerfilInteresses from "./PerfilInteresses"
