@@ -3,8 +3,7 @@
 import { Box } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { LuInbox } from "react-icons/lu"
-import Flex from "./Flex"
-import Button from "./Button"
+import {Flex, Button, Card} from "./index"
 
 interface EmptyStateProps {
   icon?: ReactNode
