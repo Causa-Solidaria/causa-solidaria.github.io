@@ -18,16 +18,28 @@ type InputUnionProps =
 
 
 export default function Input({children, type, ...props}: InputUnionProps){
+    const localProps: InputUnionProps = {
+        borderColor: "#006E1F",
+        color: "#006e1f",
+        border: "0.15vmax solid",
+        borderRadius: "1vmax",
+        lineHeight: "1em",
+        fontSize: "1em",
+
+        p: "5%",
+        m: "0.5vmax"
+    }
+
     if (type === 'password') {
         const rest = props as PasswordInputProps;
-        return <PasswordInput {...rest}>{children}</PasswordInput>
+        return <PasswordInput {...rest} {...localProps}>{children}</PasswordInput>
     }
     if (type === 'textarea') {
         const rest = props as TextareaProps;
-        return <Textarea {...rest as any}>{children as any}</Textarea>
+        return <Textarea {...rest as any}{...localProps}>{children as any}</Textarea>
     }
     if (type === 'select') {
-        const { options, ...rest } = props as NativeSelectProps & { options: SelectOption[] };
+        const { options, ...rest } = {...props, ...localProps} as NativeSelectProps & { options: SelectOption[] };
         return (
             <select {...rest}>
                 {options.map((opt: SelectOption) => (
@@ -38,5 +50,5 @@ export default function Input({children, type, ...props}: InputUnionProps){
     }
     const rest = props as InputProps;
 
-    return <In type={type} {...rest}>{children}</In>
+    return <In type={type} {...rest} {...localProps}>{children}</In>
 }

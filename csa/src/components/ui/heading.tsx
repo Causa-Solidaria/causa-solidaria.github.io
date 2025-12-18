@@ -1,63 +1,47 @@
 
 import { Heading as He, HeadingProps } from "@chakra-ui/react"
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
+import { motion } from "framer-motion"
 
-type ResponsiveSize = number | string | (number | string)[] | Record<string, number | string>;
-
-function isResponsiveObject(size: ResponsiveSize): size is Record<string, number | string> {
-    return typeof size === 'object' && !Array.isArray(size);
+interface HeProps extends HeadingProps {
+    level?: (1 | 2 | 3) & number
 }
 
-function processSize(size: ResponsiveSize, maxSize: number | string): any {
-    if (isResponsiveObject(size)) {
-        return size;
-    }
-    return staticPosition(size as number | string | (number | string)[], maxSize);
-}
+const levels: HeadingProps[] = []
+levels[1] = {color: "#000", fontSize: "1vmax"}
+levels[2] = {color: "#fff"}
+levels[3] = {color: "#006e1f"}
 
-function processStaticW(size: ResponsiveSize, maxSize: number | string): any {
-    if (isResponsiveObject(size)) {
-        return { maxW: size, minW: size, maxWidth: size, minWidth: size };
-    }
-    return SetStaticPositionW(size as any, maxSize);
-}
-
-function processStaticH(size: ResponsiveSize, maxSize: number | string): any {
-    if (isResponsiveObject(size)) {
-        return { maxH: size, minH: size, maxHeight: size, minHeight: size };
-    }
-    return SetStaticPositionH(size as any, maxSize);
-}
+let delay_obj = 0
 
 export default function Heading(
     {
         children, 
-        MaxSizeDisplay = 3197, 
-        fontSize = 36, 
-        w = "min-content",
-        h = "min-content",
-        color = "#000",
+        level = 1,
         ...props
-    }: 
-    Omit<HeadingProps, 'fontSize' | 'w' | 'h'> & {
-        MaxSizeDisplay?: number | string,
-        fontSize?: ResponsiveSize,
-        w?: ResponsiveSize,
-        h?: ResponsiveSize,
-    }
+    }: HeProps
 ){
+    const Hlevel = levels[level as number] || {}
+    delay_obj++
     return (
-    <He
-        alignContent={"center"}
-        fontSize={processSize(fontSize, MaxSizeDisplay)}
-        lineHeight={1}
-        color={color || "qui"}
-
-        {...processStaticW(w, MaxSizeDisplay)}
-        {...processStaticH(h, MaxSizeDisplay)}
+    <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0}}
+        transition={{
+            delay: delay_obj/20,
+            ease: "easeInOut",
+            duration: 0.6
+        }}
+    ><He
+        fontWeight={900}
+        {...(props.fontSize && {lineHeight: props.fontSize})}
+        fontFamily={"quicksand"}
+        {...Hlevel}
         {...props}
+        /// mesmo carregando o padrão do level, pode ser modificado
     >
         {children}
-    </He>
+    </He></motion.div>
     )
 }
