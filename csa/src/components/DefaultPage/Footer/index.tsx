@@ -60,20 +60,20 @@ export default function Footer() {
             <Flex
                 dir={"column"}
                 bg={"#1F5E43"}
-                padding={st(MaxSize/7)}
-                gapY={st(25)}
+                padding={"20vmax"}
+                gap={"1vmax"}
                 {...sstH(740)}
                 {...sstW("full")}
                 {...JustifyFull()}
                 {...AlignFull()}
             >
-                <Heading fontSize={75} p={st(10)} color="#fff"> Causa Solidaria</Heading>
-                <Heading fontSize={48} color="#fff">Conectando pessoas e ONGs em ações que transformam vidas</Heading>
+                <Heading fontSize={"4vmax"} p={"1vmax"} level={2}> Causa Solidaria</Heading>
+                <Heading fontSize={"2vmax"} level={2}>Conectando pessoas e ONGs em ações que transformam vidas</Heading>
                 <Flex 
                     dir="row" 
-                    m={st(20)} 
-                    p={st(20)} 
-                    gapX={st(5)}
+                    m={"1vmax"} 
+                    p={"1vmax"} 
+                    gap={"4vmax"}
                 >
                     {FooterContent.map(
                         (Topico, id)=>(
@@ -81,16 +81,16 @@ export default function Footer() {
                                 key={id} 
                                 dir="column" 
 
-                                gapY={st(10)}
-                                minW={st(615)}
+                                gap={"0.5vmax"}
+                                minW={"1vmax"}
                             >
-                                <Heading fontSize={75} textAlign={"left"} color="#fff"> {Topico.title} </Heading>
+                                <Heading fontSize={"3vmax"} textAlign={"left"} level={2} my={"3vmax"}> {Topico.title} </Heading>
                                 {
                                     Topico.links.map((link: any, id: number)=>(<>
                                             {link.title 
                                                 ? <a href={link.link} key={id}>
                                                 <Heading
-                                                    fontSize={32}
+                                                    fontSize={"1.5vmax"}
                                                     textAlign={"left"}
                                                     color="#fff"
                                                     transition={"0.6s all easy"}

@@ -24,16 +24,14 @@ export interface CarouselProps {
 
 export interface CarouselItemProps {
   children: ReactNode
-  className?: string
 }
 
 // ===== CAROUSEL ITEM =====
 
-export function CarouselItem({ children, className }: CarouselItemProps) {
+export function CarouselItem({ children}: CarouselItemProps) {
   return (
     <Box
       flex="0 0 auto"
-      className={className}
     >
       {children}
     </Box>
@@ -121,7 +119,7 @@ export function Carousel({
       >
         <Flex
           ref={trackRef}
-          gap={`${gap}px`}
+          gap={`2vmax`}
           transition="transform 0.3s ease-in-out"
           style={{ transform: `translateX(${getTranslateX()}px)` }}
         >

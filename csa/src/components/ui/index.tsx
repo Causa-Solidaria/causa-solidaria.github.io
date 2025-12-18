@@ -1,6 +1,6 @@
 import Box from "./Box"
 import Button from "./Button"
-import { Card } from "./Card"
+import Card  from "./Card"
 import Flex from "./Flex"
 import FormField from "./FormField"
 import Heading from "./heading"
@@ -10,8 +10,6 @@ import { Provider } from "./provider"
 import Separador from "./separador"
 import { Toaster } from "./toaster"
 import { Tooltip } from "./tooltip"
-
-// New components
 import Modal from "./Modal"
 import Loading, { Spinner } from "./Loading"
 import Skeleton, { SkeletonText, SkeletonCircle, SkeletonCard } from "./Skeleton"
@@ -24,9 +22,9 @@ import Pagination from "./Pagination"
 import Breadcrumb from "./Breadcrumb"
 import ConfirmDialog from "./ConfirmDialog"
 import Carousel, { CarouselItem } from "./Carousel"
+import Text from "./Text"
 
 export {
-  // Existing
   Box,
   Button,
   Card,
@@ -39,7 +37,6 @@ export {
   Separador,
   Toaster,
   Tooltip,
-  // New
   Modal,
   Spinner,
   Loading,
@@ -57,5 +54,6 @@ export {
   Breadcrumb,
   ConfirmDialog,
   Carousel,
-  CarouselItem
+  CarouselItem,
+  Text
 }

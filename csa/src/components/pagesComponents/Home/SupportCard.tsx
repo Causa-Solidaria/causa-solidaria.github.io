@@ -6,7 +6,6 @@ import Flex from "csa/components/ui/Flex"
 import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
 
 const MaxSize = 2200
-const st = (s: number | number[]) => (staticPosition as any)(s, MaxSize)
 const sstW = (w: number | string | (number | string)[] = MaxSize) => (SetStaticPositionW as any)(w, MaxSize)
 const sstH = (h: number | string | (number | string)[] = MaxSize) => (SetStaticPositionH as any)(h, MaxSize)
 
@@ -19,10 +18,10 @@ export default function SupportCard({ title, image }: SupportCardProps) {
   return (
     <Flex
       dir="row"
-      p={st(30)}
+      p={"1vmax"}
       transition="all 0.6s ease-in-out"
       alignItems="center"
-      m={st(30)}
+      m={"1vmax"}
     >
       <Image
         src={image}
@@ -33,8 +32,7 @@ export default function SupportCard({ title, image }: SupportCardProps) {
         transition="all 0.3s ease"
       />
       <Heading
-        fontSize={40}
-        MaxSizeDisplay={MaxSize}
+        fontSize={"1.5vmax"}
         fontWeight="bold"
         color="gray.800"
         lineHeight="shorter"

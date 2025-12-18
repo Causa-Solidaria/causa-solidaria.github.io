@@ -1,9 +1,6 @@
 "use client"
 
-import { Image } from "@chakra-ui/react"
-import Heading from "csa/components/ui/heading"
-import Button from "csa/components/ui/Button"
-import Flex from "csa/components/ui/Flex"
+import {Heading, Button, Flex} from "csa/components/ui"
 import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
 import JustifyFull from "csa/lib/utils"
 import Rotas from "csa/Rotas.json"
@@ -21,8 +18,8 @@ export default function HeroSection() {
       bgImg={"url('./solidariedade-694x459 1.png')"}
       bgSize={"cover"}
       bgPos={"center"}
-      backdropBlur={`${st(500)}`}
-      p={st(100)}
+      backdropFilter={"blur(25px)"}
+      p={"5vmax"}
       {...sstW("full")}
       {...JustifyFull(["center", "center", "left"])}
     >
@@ -30,10 +27,9 @@ export default function HeroSection() {
         textAlign={"left"}
         transition={"font-size 0.6s ease-in-out, width 0.6s ease-in-out"}
         color={"#fff"}
-        fontSize={[80]}
-        mb={st(30)}
+        fontSize={"4vmax"}
+        mb={"2vmax"}
         {...sstW(866)}
-        MaxSizeDisplay={MaxSize}
       >
         transforme pequenos gestos em grandes mudanças
       </Heading>
@@ -41,31 +37,29 @@ export default function HeroSection() {
         textAlign={"left"}
         transition={"padding 0.6s ease-in-out, margin 0.6s ease-in-out, font-size 0.6s ease-in-out"}
         color={"#fff"}
-        fontSize={40}
-        mb={st(30)}
+        fontSize={"3vmax"}
+        mb={"2vmax"}
         {...sstW(856)}
-        MaxSizeDisplay={MaxSize}
       >
         doe amor e compartilhe esperança
       </Heading>
       <Button
-        {...bordR(25)}
         transition={"all 0.6s ease-in-out"}
         onClick={() => { window.location.href = Rotas.Campanhas.Home }}
         bg={"#097D03"}
         _hover={{
           bg: "#39aD33",
           scale: 1.01,
-          boxShadow: `${st(20)} ${st(20)} ${st(20)} rgba(0,0,0,0.2)`
+          boxShadow: `1vmax 1vmax 1vmax rgba(0,0,0,0.2)`
         }}
+        m={"2vmax"}
+        p="2vmax"
         {...sstW(500)}
-        {...sstH(125)}
       >
         <Heading
           transition={"all 0.6s ease-in-out"}
           color={"#fff"}
-          fontSize={48}
-          MaxSizeDisplay={MaxSize}
+          fontSize={"2vmax"}
         >
           Quero Ajudar
         </Heading>

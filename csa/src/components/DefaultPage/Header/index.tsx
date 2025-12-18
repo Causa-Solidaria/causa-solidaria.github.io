@@ -31,36 +31,27 @@ const Header = () => {
         dir={"row"} 
         {...AlignFull("center")}
         justifyContent={"space-between"}
-        top={0} 
 
         bg="#00B944"  
-        {...SetStaticPositionW(1,1)}
-        {...SetStaticPositionH(244, 3197)}
+        w={"full"}
+        p={"1vmax"}
         zIndex={100} 
-        pr={staticPosition(67, 3197)}
-        boxShadow={` 0 ${staticPosition(30, 3197)} ${staticPosition(30, 3197)}  rgba(255,255,255,0.15) `}
+        boxShadow={` 0 1vmax 1vmax  rgba(255,255,255,0.15) `}
       >
         <Flex
           onClick={()=>{ window.location.href=Home }}
           dir={"row"}
           {...AlignFull()}
           {...JustifyFull()}
-          pl={staticPosition(67, 3197)}
-          {...SetStaticPositionW(617, 3197)}
-          {...SetStaticPositionH(173, 3197)}
         >
           <Logo 
             {...SetStaticPositionW(173, 3197)}
-            borderRadius={staticPosition(1, 250)}  
+            borderRadius={"1vmax"}  
           />
           <Heading
-            
-            fontSize={48}
-            w={386}
-            h={67}
-            fontWeight={900}
-
-            color="qui"
+            m={"1vmax"}
+            fontSize={"2.5vmax"}
+            level={2}
           >
             Causa Solídaria
           </Heading>
@@ -69,35 +60,35 @@ const Header = () => {
         <Flex
           dir={"row"}
           alignItems={"center"}
-          gap={staticPosition(40, 3197)}
+          gap={"1vmax"}
         >
           {isLogged === false && <Flex
             dir={"row"}
-            gap={staticPosition(40, 3197)}
+            gapX={"1vmax"}
           >
             {[
-              {label: "entrar", link: Login },
-              {label: "cadastrar", link: Cadastro}
+              {label: "Entrar", link: Login },
+              {label: "Cadastrar", link: Cadastro}
             ].map(({label, link}, index) => (
               <Box
                 key={index}
                 onClick={()=>{window.location.href = link}}
                 bg = {"#006E1F"}
-                px={staticPosition(30, 3197)}
-                {...SetStaticPositionW(278, 3197)}
+                p={"1vmax"}
                 textAlign={"center"}
-                borderRadius={staticPosition(12, 3197)}
+                textJustify={"center"}
+                borderRadius={"1vmax"}
                 transition={"scale 0.3s ease, translate 0.3s ease"}
                 _hover={
                   {
                     scale: 1.025,
-                    translate: `0 ${staticPosition(-2, 3197)}`
+                    translate: `0 0.2vmax`
                   }
                 }
               >
                 <Heading
-                  h = {70}
-                  color={"qui"}
+                  fontSize={"1vmax"}
+                  level={2}
                 >
                   {label}
                 </Heading>
@@ -108,6 +99,8 @@ const Header = () => {
           <Box 
             {...SetStaticPositionW(137, 3197)}
             {...SetStaticPositionH(137, 3197)}
+            m={"1vmax"}
+            p={"1vmax"}
             bgImg={"url(/nav.png)"}
             bgPos={"center"}
             bgSize={"100%"}
@@ -115,7 +108,7 @@ const Header = () => {
               "scale 0.3s ease-in-out"
             }
             aspectRatio={1}
-            border={`${staticPosition(4, 3197)} solid black`}
+            border={`0.1vmax solid black`}
             _hover={
               {scale: 1.05}
             }

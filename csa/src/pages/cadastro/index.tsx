@@ -1,23 +1,23 @@
 'use client';
 
-import { Button, Center, Checkbox, Link, Text } from "@chakra-ui/react";
-import CardCadastro from "./card_cadastro";
+import { Button, Center, Checkbox, Link } from "@chakra-ui/react";
 import InfoCadastro from "./cadasro_info";
 import usePopup from "csa/hooks/usePopup";
 import { cadastroSchema } from "csa/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleCadastro } from "csa/lib/handlers";
-import { motion } from "framer-motion"; 
-import Flex from "csa/components/ui/Flex";
 import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
-import Box from "csa/components/ui/Box";
-import Input from "csa/components/ui/input";
+import { Box, Flex, Input, Text, Card, Heading } from "csa/components/ui";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-const CardCadastroMotion = motion.create(CardCadastro)
 const InfoCadastroMotion = motion.create(InfoCadastro)
 
+
+
 export default function Cadastro() {
+  const [w, sw] = useState<number>(100);
   const popup = usePopup();
   const {register, handleSubmit, formState: { errors }} = useForm({
     resolver: zodResolver(cadastroSchema)
@@ -43,48 +43,49 @@ export default function Cadastro() {
     return typeof message === "string" ? message : String(message);
   };
 
+  useEffect(()=>{
+    const _w =setInterval(()=> sw(screen.width), 10)
+    return ()=>clearInterval(_w)
+  }, [sw])
   return (
     <Flex
       dir={"row"}
-      gap={staticPosition([0, 2, 3], 1735)}
-      {...SetStaticPositionW(1,1)}
-      {...JustifyFull()}
+      w="full"
+      justifyContent={"space-between"}
+      
     >
       
 
-      <Box 
+      <Center
+        flexDir={"column"}
         width={"full"}
+       {...JustifyFull("center", true)}
       >
-        <Center 
-          my={staticPosition(25, 1735)} 
-          bg={"#fff"}
-          px={staticPosition(40, 1735)} 
-          py={staticPosition(2, 1735)} 
-          borderRadius={staticPosition(20, 1735)}
+        <Card
+          temSombra={false}
+          temBorda={true}
           borderColor={"#006E1F"}
-          border={`${staticPosition(2, 1735)} solid`}
-          boxShadow={`0 ${staticPosition(5, 1735)} ${staticPosition(5, 1735)} #006E1F`}
           {...JustifyFull()}
         >
-          <Text fontSize={staticPosition(48, 1735)} fontWeight="900" color={"#006E1F"} textAlign="center">
-            junte-se à Nós!
-          </Text>
-        </Center>
-        <CardCadastroMotion
-          initial={{ y: 69, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.0, type: "spring" }}
-          my={staticPosition(40, 1735)}
+          <Heading fontSize={"3vmax"} level={3}> junte-se à Nós!</Heading>
+        </Card>
+
+        <Card
+          temSombra={false}
+          temBorda
+          m={"1vmax"}
+          p={"2vmax"}
+          {...SetStaticPositionW([0, 877, 877, 585])}
         >
 
           <Flex
             as="form"
             onSubmit={handleSubmit(onSubmit)}
             dir="column"
-            gapY={staticPosition(2, 1735)}
+            gapY={"1vmax"}
           >
 
-            <Box {...SetStaticPositionW(585*0.8, 1735)}>
+            <Box >
               {textFieldConfigs.map(({ name, label, ...props }) => {
                 const errorMessage = getFieldError(name);
                 return (
@@ -93,23 +94,19 @@ export default function Cadastro() {
                     style={{
                       justifyContent:'center',
                       alignItems: "center",
-                      fontSize: staticPosition(24, 1735) as string,
-                      margin: staticPosition(10, 1735) as string
+                      padding: "0.5vmax"
                     }}
                   >
-                    <Text color={"006E1F"}>{label}</Text>
+                    <Text level={1}>{label}</Text>
                     <Input
                       {...register(name)}
-                      borderColor={"#006E1F"}
-                      border={`${staticPosition(2, 1735)} solid`}
-                      borderRadius={staticPosition(20,1735)}
-                      px={staticPosition(12, 1735)}
-                      fontSize={staticPosition(15, 1735)}
-                      {...SetStaticPositionH(65, 1735)}
                       {...props}
                     /><br/>
                     {errorMessage && (
-                      <p style={{ fontSize: staticPosition(12, 1735) as string, color: "red"}}>
+                      <p style={
+                        { fontSize: "1vmax",
+                          color: "red", 
+                        }}>
                         {errorMessage}
                       </p>
                     )}
@@ -119,19 +116,15 @@ export default function Cadastro() {
             </Box>
 
             <div style={{marginBottom: staticPosition(25, 1735)as string}}>
-              <Checkbox.Root px={staticPosition(25, 1735)} mt={staticPosition(25, 1735)}>
+              <Checkbox.Root >
                 <Checkbox.HiddenInput {...register("terms")}/>
                 <Checkbox.Control 
                   borderColor={"#006E1F"} 
-                  m="0"
-                  p="0"
-                  {...SetStaticPositionW(20,1735)}
-                  {...SetStaticPositionH(20,1735)}
                 >
                   <Checkbox.Indicator/>  
                 </Checkbox.Control>
                 <Checkbox.Label
-                  fontSize={staticPosition(24, 1735)}
+                  fontSize={"1vmax"}
                   m="0"
                   p={0}
                 >
@@ -140,7 +133,7 @@ export default function Cadastro() {
               </Checkbox.Root><br />
               {errors.terms && <p style={
                 {
-                  fontSize: staticPosition(12, 1745) as string, 
+                  fontSize: "1vmax" as string, 
                   color: "red", 
                 }
                 }>{String((errors as any)?.terms?.message || "")}</p>}
@@ -157,14 +150,14 @@ export default function Cadastro() {
               bg={"#15B100"}
             >Cadastrar</Button>
           </Flex>
-        </CardCadastroMotion>
-      </Box>
+        </Card>
+      </Center>
 
-      <InfoCadastroMotion
+      {w>900? <InfoCadastroMotion
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeInOut" }}
-      />
+      />: null}
     </Flex>
   );
 }

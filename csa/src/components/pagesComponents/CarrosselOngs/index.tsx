@@ -1,5 +1,5 @@
 import { Box, Text, VStack, HStack, Icon } from "@chakra-ui/react"
-import { Carousel } from "csa/components/ui"
+import { Carousel, Heading } from "csa/components/ui"
 import { useOngsData } from "csa/components/pagesComponents/Ongs/useOngsData"
 import { LuBuilding2, LuMapPin } from "react-icons/lu"
 import type { Ong } from "csa/components/pagesComponents/Ongs/types"
@@ -102,7 +102,7 @@ export interface CarrosselOngsProps {
 }
 
 export default function CarrosselOngs({
-  itemsPerView = 3,
+  itemsPerView = 5,
   title = "ONGs Parceiras",
   autoPlay = 0,
   showNavigation = true,
@@ -113,27 +113,27 @@ export default function CarrosselOngs({
 
   // Componente do título
   const TitleComponent = title ? (
-    <Text fontSize="2xl" fontWeight="bold" mb={6}>
+    <Heading fontSize="2vmax" m={"2vmax"}>
       {title}
-    </Text>
+    </Heading>
   ) : null
 
   if (loading) {
     return (
-      <Box p={8}>
+      <Box m="1vmax" p={"1vmax"}>
         {TitleComponent}
-        <Text textAlign="center" color="gray.500">
+        <Heading textAlign="center" fontSize="1.5vmax" color="gray.500">
           Carregando ONGs...
-        </Text>
+        </Heading>
       </Box>
     )
   }
 
   if (error || ongs.length === 0) {
     return (
-      <Box p={8}>
+      <Box m="1vmax" p={"1vmax"}>
         {TitleComponent}
-        <Text textAlign="center" color="gray.500">
+        <Text textAlign="center" color="gray.500" fontSize="1.5vmax">
           {error || "Nenhuma ONG encontrada"}
         </Text>
       </Box>
@@ -141,7 +141,7 @@ export default function CarrosselOngs({
   }
 
   return (
-    <Box py={6}>
+    <Box m="3vmax" p={"1.5vmax"}>
       {TitleComponent}
       
       <Carousel

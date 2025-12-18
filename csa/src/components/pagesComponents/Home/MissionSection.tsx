@@ -20,20 +20,20 @@ export default function MissionSection() {
       {...JustifyFull(["center", "center", "center", "left"])}
       {...AlignFull(["center", "center", "center", "left"])}
       transition={"all 0.6s ease-in-out"}
+      m={"3vmax"}
+      gap={"1vmax"}
     >
       <Heading
         {...sstW(1030)}
-        fontSize={64}
-        mb={st(60)}
-        MaxSizeDisplay={MaxSize}
+        fontSize={"2vmax"}
+        m={"2vmax"}
         transition={"all 0.6s ease-in-out"}
       >
         Nossa missão é espalhar cuidado, dignidade e esperança
       </Heading>
       <Heading
-        fontSize={40}
+        fontSize={"1.5vmax"}
         {...sstW(1030)}
-        MaxSizeDisplay={MaxSize}
         transition={"all 0.6s ease-in-out"}
         color="#444"
       >
@@ -45,21 +45,19 @@ export default function MissionSection() {
           _hover={{
             bg: "#39aD33",
             scale: 1.01,
-            boxShadow: `${st(20)} ${st(20)} ${st(20)} rgba(0,0,0,0.2)`
+            boxShadow: `1vmax 1vmax 1vmax rgba(0,0,0,0.2)`
           }}
           transition={"all 0.6s ease-in-out"}
-          mt={st(60)}
-          p={st(40)}
+          m={"2vmax"}
+          p={"2vmax"}
           as="button"
           aria-label="Conheça Nossas Ações"
-          minW={st(620)}
           onClick={() => { window.location.href = Rotas.Campanhas.Home }}
         >
           <Heading
             color={"#fff"}
             transition="all 0.6s ease-in-out"
-            fontSize={40}
-            MaxSizeDisplay={MaxSize}
+            fontSize={"1.5vmax"}
           >
             Conheça Nossas Campanhas
           </Heading>
