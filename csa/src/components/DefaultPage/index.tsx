@@ -32,7 +32,7 @@ export default function DefaultPage(
         >
             {(!hiddenHeader) ? <Header /> : null}
             
-            <Timeline bg={bg || "rgba(0,0,0,0)"} {...props} >
+            <Timeline bg={bg || "none"} {...props} >
                     {children}
             </Timeline>
             
