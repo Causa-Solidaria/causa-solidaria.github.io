@@ -1,17 +1,10 @@
-
-
-
-body {
-    width: 100vmax;
-    overflow-x: hidden;
+[vw-access-button] {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 2147483647 !important;
 }
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'quicksand', sans-serif;
-    font-weight: 600;
-}
-
-* {
-    margin: 0;
-    padding: 0;
+[vwd] {
+  display: block !important;
+  visibility: visible !important;
 }

@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { system } from "csa/theme";
 import ProviderPopup from "csa/components/ProviderPopup";
 import { AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 
 import "./global.css";
 

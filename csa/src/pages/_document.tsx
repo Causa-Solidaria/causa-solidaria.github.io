@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en" suppressHydrationWarning>
+    <Html lang="pt-BR" suppressHydrationWarning>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -10,10 +10,31 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
           rel="stylesheet"
         />
+        {/* VLibras */}
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
       </Head>
       <body className="antialiased">
+        <div dangerouslySetInnerHTML={{
+          __html: `
+            <div vw class="enabled">
+              <div vw-access-button class="active"></div>
+              <div vw-plugin-wrapper>
+                <div class="vw-plugin-top-wrapper"></div>
+              </div>
+            </div>
+          `
+        }} />
         <Main />
         <NextScript />
+
+        {/* Inicialização do VLibras */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              new window.VLibras.Widget('https://vlibras.gov.br/app');
+            `,
+          }}
+        />
 
         {/* Script do Tawk.to */}
         <script
