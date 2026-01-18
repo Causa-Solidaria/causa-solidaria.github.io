@@ -1,5 +1,5 @@
 import { apiUrl } from "csa/lib/apiBase";
-import { Apis, Campanhas } from "csa/Rotas.json";
+import { Apis, Home} from "csa/Rotas.json";
 import type { LoginData, CadastroData } from "csa/lib/validations";
 
 // ===== LOGIN =====
@@ -37,7 +37,7 @@ export async function handleLogin(
     localStorage.setItem('token', token);
 
     if (popup) popup('Login realizado com sucesso!');
-    window.location.href = Campanhas.Home;
+    window.location.href = Home;
   } catch (error: any) {
     if (popup) popup(`Erro no login: ${error.message}`);
   }
@@ -63,7 +63,9 @@ export async function handleCadastro(
     }
 
     if (popup) popup('Cadastro realizado com sucesso!');
+    window.location.href = Home
   } catch (error: any) {
     if (popup) popup(`Erro no cadastro: ${error.message}`);
   }
+  
 }
