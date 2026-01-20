@@ -24,13 +24,11 @@ export default function PerfilHeader({
       <Avatar 
         src={foto} 
         name={name} 
-        size="2xl"
       />
       <Flex dir="column" ml={st(30)} gapY={st(20)} {...AlignFull("left")}>
         <Heading 
           color="#000" 
           fontSize={48} 
-          MaxSizeDisplay={MAX_SIZE}
           fontStyle="italic" 
           fontWeight={900}
         >
@@ -40,7 +38,6 @@ export default function PerfilHeader({
         <Heading 
           color="#000" 
           fontSize={40} 
-          MaxSizeDisplay={MAX_SIZE} 
           fontStyle="italic" 
         >
           {genero ? `Voluntári${genero === "masculino" ? "o" : "a"}` : 'Gênero não informado'}
@@ -50,7 +47,6 @@ export default function PerfilHeader({
           color="#000" 
           fontSize={40} 
           fontWeight={900}
-          MaxSizeDisplay={MAX_SIZE} 
         >
           <span style={{ fontWeight: 'normal' }}>Email: </span>
           {email || 'Não informado'}
@@ -60,7 +56,6 @@ export default function PerfilHeader({
           color="#000" 
           fontSize={40} 
           fontWeight={900}
-          MaxSizeDisplay={MAX_SIZE} 
         >
           <span style={{ fontWeight: 'normal' }}>Telefone: </span>
           {numero || 'Não informado'}
@@ -69,7 +64,6 @@ export default function PerfilHeader({
         <Heading
           color="#000" 
           fontSize={40} 
-          MaxSizeDisplay={MAX_SIZE} 
           fontWeight={900}
         >
           <span style={{ fontWeight: 'normal' }}>Localização: </span>

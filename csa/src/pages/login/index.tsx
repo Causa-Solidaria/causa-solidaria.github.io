@@ -57,8 +57,8 @@ export default function Login() {
             {/* Fundo decorativo inferior */}
             <Card
                 {...SetStaticPositionW("full")}
-                {...SetStaticPositionH(25, 100)}
                 position="absolute"
+                minW="50vmax"
                 bg="#4DCD58"
                 zIndex={-1}
                 bottom={0}
@@ -68,25 +68,22 @@ export default function Login() {
             {/* Card principal */}
             <Card
                 {...responsiveW(680)}
-                minH={responsive(800)}
                 dir="column"
                 {...AlignFull()}
                 {...JustifyFull()}
-                p={responsive(40)}
+                p={"2vmax"}
             >
                 {/* Header com Logo */}
                 <Flex
                     dir="row"
                     {...JustifyFull("center", true)}
                     {...AlignFull("center", true)}
-                    gap={responsive(10)}
-                    mb={responsive(40)}
+                    gap={"1vmax"}
+                    mb={"1vmax"}
                 >
                     <Logo {...responsiveW(96)} {...responsiveH(96)} />
                     <Heading
-                        fontSize={64}
-                        MaxSizeDisplay={BREAKPOINT}
-                        fontWeight="bold"
+                        fontSize={"3vmax"} 
                         color="#000"
                     >
                         Login
@@ -99,16 +96,14 @@ export default function Login() {
                     onSubmit={handleSubmit(onSubmit)}
                     dir="column"
                     alignItems="stretch"
-                    gap={responsive(30)}
+                    gap={"1vmax"}
                     flex={1}
                 >
                     {FORM_FIELDS.map((field) => (
-                        <Flex key={field} dir="column" gap={responsive(10)}>
+                        <Flex key={field} dir="column" gap={"1vmax"}>
                             <Heading
                                 as="label"
-                                fontSize={32}
-                                MaxSizeDisplay={BREAKPOINT}
-                                fontWeight="semibold"
+                                fontSize={"2vmax"}
                             >
                                 {FIELD_LABELS[field]}
                             </Heading>
@@ -118,25 +113,23 @@ export default function Login() {
                                 type={field === "password" ? "password" : "email"}
                                 placeholder={`Digite seu ${FIELD_LABELS[field].toLowerCase()}`}
                                 borderColor={errors[field] ? "red.500" : "ter"}
-                                p={responsive(10)}
-                                fontSize={responsive(24)}
-                                {...responsiveH(67)}
+                                p={"1vmax"}
+                                fontSize={"1.5vmax"}
                                 minW={"full"}
-                                borderWidth={staticPosition(1)}
-                                borderRadius={responsive(20)}
+                                borderWidth={"0.2vmax"}
+                                borderRadius={"1vmax"}
                                 borderStyle="solid"
                                 _focus={{
                                     borderColor: errors[field] ? "red.500" : "#4DCD58",
-                                    boxShadow: "0 0 0 1px #4DCD58"
+                                    boxShadow: "0 0 0 0.1vmax #4DCD58"
                                 }}
                             />
 
                             {errors[field] && (
                                 <Heading
-                                    fontSize={20}
-                                    MaxSizeDisplay={BREAKPOINT}
+                                    fontSize={"1vmax"}
                                     color="red.500"
-                                    mt={responsive(5)}
+                                    m={"1vmax"}
                                 >
                                     {errors[field]?.message}
                                 </Heading>
@@ -147,13 +140,11 @@ export default function Login() {
                     {/* Link esqueceu senha */}
                     <Flex
                         {...JustifyFull("center", true)}
-                        gap={responsive(5)}
-                        mt={responsive(10)}
+                        gap={"1vmax"}
+                        mt={"1vmax"}
                     >
                         <Heading
-                            fontSize={24}
-                            MaxSizeDisplay={BREAKPOINT}
-                            fontWeight="normal"
+                            fontSize={"1vmax"}
                         >
                             Esqueceu a senha?
                         </Heading>
@@ -164,8 +155,7 @@ export default function Login() {
                             textDecor="underline"
                         >
                             <Heading
-                                fontSize={24}
-                                MaxSizeDisplay={BREAKPOINT}
+                                fontSize={"1vmax"}
                             >
                                 clique aqui
                             </Heading>
@@ -175,9 +165,8 @@ export default function Login() {
                     {/* Botão submit */}
                     <Button
                         type="submit"
-                        {...responsiveH(67)}
-                        mt={responsive(20)}
-                        fontSize={responsive(24)}
+                        m={"1vmax"}
+                        fontSize={"1vmax"}
                         bg="#4DCD58"
                         color="white"
                         fontWeight="bold"
@@ -192,17 +181,14 @@ export default function Login() {
                 <Flex
                     bg="qui"
                     {...responsiveW(400)}
-                    {...responsiveH(50)}
                     {...JustifyFull("center", true)}
                     {...AlignFull("center", true)}
-                    mt={responsive(30)}
-                    gap={responsive(5)}
-                    borderRadius={responsive(8)}
+                    mt={'1vmax'}
+                    gap={"1vmax"}
+                    borderRadius={"1vmax"}
                 >
                     <Heading
-                        fontSize={20}
-                        MaxSizeDisplay={BREAKPOINT}
-                        fontWeight="normal"
+                        fontSize={"1vmax"}
                     >
                         Não tem conta?
                     </Heading>
@@ -212,10 +198,8 @@ export default function Login() {
                         textDecor="underline"
                     >
                         <Heading
-                            fontSize={20}
-                            MaxSizeDisplay={BREAKPOINT}
-                            color="sec"
-                            fontWeight="bold"
+                            fontSize={"1vmax"}
+                            level={1}
                         >
                             clique aqui
                         </Heading>
