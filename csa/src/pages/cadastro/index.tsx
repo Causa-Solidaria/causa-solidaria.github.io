@@ -24,7 +24,7 @@ export default function Cadastro() {
   });
   
   const onSubmit = async (data: any) => {
-    await handleCadastro(data, popup);
+     await handleCadastro(data, popup);
   };
 
   const textFieldConfigs = [
