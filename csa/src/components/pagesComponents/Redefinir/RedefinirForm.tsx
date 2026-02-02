@@ -3,7 +3,7 @@
 import { Button, Input, VStack } from "@chakra-ui/react"
 import { useState } from "react"
 import usePopup from "csa/hooks/usePopup"
-import { Home, Apis } from "csa/Rotas.json"
+import { Login, Apis } from "csa/Rotas.json"
 
 export default function RedefinirForm() {
   const [email, setEmail] = useState("")
@@ -62,7 +62,7 @@ export default function RedefinirForm() {
         variant="outline"
         colorScheme="green"
         width="100"
-        onClick={() => window.location.href = Home}
+        onClick={() => window.location.href = Login}
         textTransform="uppercase"
         borderRadius="md"
       >
