@@ -97,6 +97,7 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+
 }
 
 .aboutSectionImage {
@@ -145,6 +146,7 @@
 
 .missionSectionTitle {
   font-size: clamp(1.5rem, 4vw, 3.5rem);
+  color: var(--dark-green);
   margin: 2vmax;
   transition: all 0.6s ease-in-out;
   line-height: 1.2;
