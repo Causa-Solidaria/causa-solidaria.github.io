@@ -2,6 +2,8 @@
 
 import { Box, Image } from "@chakra-ui/react"
 import { useState } from "react"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 
@@ -10,15 +12,6 @@ interface AvatarProps {
   name?: string
   size?: AvatarSize
   borderRadius?: "full" | "md" | "lg"
-}
-
-const sizeStyles = {
-  xs: { size: "24px", fontSize: "10px" },
-  sm: { size: "32px", fontSize: "12px" },
-  md: { size: "40px", fontSize: "14px" },
-  lg: { size: "48px", fontSize: "16px" },
-  xl: { size: "64px", fontSize: "20px" },
-  "2xl": { size: "96px", fontSize: "32px" }
 }
 
 function getInitials(name: string): string {
@@ -54,7 +47,15 @@ export default function Avatar({
   borderRadius = "full"
 }: AvatarProps) {
   const [imageError, setImageError] = useState(false)
-  const styles = sizeStyles[size]
+  const sizeClass =
+    size === "xs" ? styles.avatarXs :
+    size === "sm" ? styles.avatarSm :
+    size === "md" ? styles.avatarMd :
+    size === "lg" ? styles.avatarLg :
+    size === "xl" ? styles.avatarXl : styles.avatar2xl
+  const radiusClass = 
+    borderRadius === "full" ? styles.avatarRoundedFull :
+    borderRadius === "md" ? styles.avatarRoundedMd : styles.avatarRoundedLg
   
   const showFallback = !src || imageError
   const initials = name ? getInitials(name) : "?"
@@ -63,17 +64,8 @@ export default function Avatar({
   if (showFallback) {
     return (
       <Box
-        width={styles.size}
-        height={styles.size}
-        borderRadius={borderRadius}
-        bg={bgColor}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        color="white"
-        fontSize={styles.fontSize}
-        fontWeight={600}
-        flexShrink={0}
+        className={MergeClassnames(styles.avatar, styles.avatarFallback, sizeClass, radiusClass)}
+        style={{ backgroundColor: bgColor }}
       >
         {initials}
       </Box>
@@ -82,18 +74,12 @@ export default function Avatar({
 
   return (
     <Box
-      width={styles.size}
-      height={styles.size}
-      borderRadius={borderRadius}
-      overflow="hidden"
-      flexShrink={0}
+      className={MergeClassnames(styles.avatar, sizeClass, radiusClass)}
     >
       <Image
+        className={styles.avatarImage}
         src={src}
         alt={name || "Avatar"}
-        width="100%"
-        height="100%"
-        objectFit="cover"
         onError={() => setImageError(true)}
       />
     </Box>
@@ -107,37 +93,29 @@ interface AvatarGroupProps {
 }
 
 export function AvatarGroup({ children, max, size = "md" }: AvatarGroupProps) {
-  const styles = sizeStyles[size]
+  const sizeClass =
+    size === "xs" ? styles.avatarXs :
+    size === "sm" ? styles.avatarSm :
+    size === "md" ? styles.avatarMd :
+    size === "lg" ? styles.avatarLg :
+    size === "xl" ? styles.avatarXl : styles.avatar2xl
   const childArray = Array.isArray(children) ? children : [children]
   const visibleCount = max ? Math.min(max, childArray.length) : childArray.length
   const extraCount = childArray.length - visibleCount
 
   return (
-    <Box display="flex" alignItems="center">
+    <Box className={styles.avatarGroup}>
       {childArray.slice(0, visibleCount).map((child, index) => (
         <Box
           key={index}
-          marginLeft={index > 0 ? "-8px" : 0}
-          border="2px solid white"
-          borderRadius="full"
+          className={styles.avatarGroupItem}
         >
           {child}
         </Box>
       ))}
       {extraCount > 0 && (
         <Box
-          marginLeft="-8px"
-          width={styles.size}
-          height={styles.size}
-          borderRadius="full"
-          bg="#E2E8F0"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          fontSize={styles.fontSize}
-          fontWeight={600}
-          color="#4A5568"
-          border="2px solid white"
+          className={MergeClassnames(styles.avatar, styles.avatarFallback, sizeClass, styles.avatarRoundedFull, styles.avatarGroupExtra)}
         >
           +{extraCount}
         </Box>

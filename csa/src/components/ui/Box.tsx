@@ -1,5 +1,7 @@
 import { Box as B, BoxProps} from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 interface Bprops extends BoxProps {
     ref?: React.Ref<HTMLDivElement>
 }
@@ -11,12 +13,14 @@ export default function Box(
         children, 
         overflow, 
         ref, 
+        className,
         ...props
     }: Bprops) /// os argumentos 
 
 { /// corpo do componente
     
     delay_obj++
+    const mergedClassName = MergeClassnames(styles.box, className)
 
     return <motion.div
         initial={{
@@ -37,6 +41,7 @@ export default function Box(
             ease: "easeInOut"
         }}
     ><B  
+        className = {mergedClassName}
         {...props}
 
         ref={ref}

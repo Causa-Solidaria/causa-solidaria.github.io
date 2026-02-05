@@ -2,7 +2,8 @@ import { InputProps, Textarea, TextareaProps } from "@chakra-ui/react";
 import { PasswordInput, PasswordInputProps } from "./password-input";
 import { Input as In} from "@chakra-ui/react";
 import React from "react";
-import { isTokenExpired } from "csa/lib/utils";
+import styles from "./ui.module.css";
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 
 export type SelectOption = { label: string; value: string };
 type NativeSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>;
@@ -18,16 +19,9 @@ type InputUnionProps =
 
 
 export default function Input({children, type, ...props}: InputUnionProps){
+    const baseClassName = MergeClassnames(styles.input, (props as any).className)
     const localProps: InputUnionProps = {
-        borderColor: "#006E1F",
-        color: "#006e1f",
-        border: "0.15vmax solid",
-        borderRadius: "1vmax",
-        lineHeight: "1em",
-        fontSize: "1em",
-
-        p: "5%",
-        m: "0.5vmax"
+        className: baseClassName as string
     }
 
     if (type === 'password') {

@@ -3,6 +3,8 @@
 import { Box } from "@chakra-ui/react"
 import { ReactNode, useState } from "react"
 import Flex from "./Flex"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface Tab {
   id: string
@@ -31,52 +33,17 @@ export default function Tabs({
     onChange?.(tabId)
   }
 
-  const getTabStyles = (isActive: boolean, isDisabled: boolean) => {
-    const baseStyles = {
-      cursor: isDisabled ? "not-allowed" : "pointer",
-      opacity: isDisabled ? 0.5 : 1,
-      transition: "all 0.2s"
-    }
+  const getTabClassnames = (isActive: boolean, isDisabled: boolean) => {
+    const base = styles.tab
+    const disabledClass = isDisabled ? styles.tabDisabled : undefined
 
-    switch (variant) {
-      case "line":
-        return {
-          ...baseStyles,
-          px: 4,
-          py: 3,
-          borderBottom: isActive ? "2px solid #4C1D95" : "2px solid transparent",
-          color: isActive ? "#4C1D95" : "#718096",
-          fontWeight: isActive ? 600 : 400,
-          _hover: !isDisabled ? { color: "#4C1D95" } : {}
-        }
-      case "enclosed":
-        return {
-          ...baseStyles,
-          px: 4,
-          py: 2,
-          borderRadius: "8px 8px 0 0",
-          border: "1px solid",
-          borderColor: isActive ? "#E2E8F0" : "transparent",
-          borderBottom: isActive ? "1px solid white" : "1px solid #E2E8F0",
-          bg: isActive ? "white" : "transparent",
-          color: isActive ? "#4C1D95" : "#718096",
-          fontWeight: isActive ? 600 : 400,
-          mb: "-1px"
-        }
-      case "soft":
-        return {
-          ...baseStyles,
-          px: 4,
-          py: 2,
-          borderRadius: "8px",
-          bg: isActive ? "#4C1D95" : "transparent",
-          color: isActive ? "white" : "#718096",
-          fontWeight: isActive ? 600 : 400,
-          _hover: !isDisabled && !isActive ? { bg: "#F7FAFC" } : {}
-        }
-      default:
-        return baseStyles
+    if (variant === "line") {
+      return MergeClassnames(base, isActive ? styles.tabLineActive : styles.tabLineInactive, disabledClass)
     }
+    if (variant === "enclosed") {
+      return MergeClassnames(base, isActive ? styles.tabEnclosedActive : styles.tabEnclosedInactive, disabledClass)
+    }
+    return MergeClassnames(base, isActive ? styles.tabSoftActive : styles.tabSoftInactive, disabledClass)
   }
 
   const activeContent = tabs.find(tab => tab.id === activeTab)?.content
@@ -85,25 +52,26 @@ export default function Tabs({
     <Box>
       <Flex 
         dir="row" 
-        borderBottom={variant === "line" ? "1px solid #E2E8F0" : variant === "enclosed" ? "1px solid #E2E8F0" : undefined}
-        bg={variant === "soft" ? "#F7FAFC" : undefined}
-        p={variant === "soft" ? 1 : 0}
-        borderRadius={variant === "soft" ? "12px" : undefined}
-        gap={variant === "soft" ? 1 : 0}
+        className={MergeClassnames(
+          styles.tabList,
+          variant === "line" ? styles.tabListLine : undefined,
+          variant === "enclosed" ? styles.tabListEnclosed : undefined,
+          variant === "soft" ? styles.tabListSoft : undefined
+        )}
       >
         {tabs.map(tab => (
-          <Box
+          <button
             key={tab.id}
             onClick={() => !tab.disabled && handleTabClick(tab.id)}
-            {...getTabStyles(activeTab === tab.id, !!tab.disabled)}
-            fontSize="sm"
+            className={getTabClassnames(activeTab === tab.id, !!tab.disabled)}
+            disabled={tab.disabled}
           >
             {tab.label}
-          </Box>
+          </button>
         ))}
       </Flex>
       
-      <Box pt={4}>
+      <Box className={styles.tabContent}>
         {activeContent}
       </Box>
     </Box>

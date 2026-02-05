@@ -1,5 +1,5 @@
 import { Button, Heading } from "@chakra-ui/react";
-import DefaultPage from "csa/components/DefaultPage";
+import DefaultPage from "csa/components/DefaultPage/_index";
 import Head from "next/head";
 import Box from "csa/components/ui/Box";
 import JustifyFull, { AlignFull, BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";

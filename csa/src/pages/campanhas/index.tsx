@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { BoxProps, Center, Grid, Text } from "@chakra-ui/react";
 import CampanhasCard from "./camapanhasCard";
-import DefaultPage from "csa/components/DefaultPage";
+import DefaultPage from "csa/components/DefaultPage/_index";
 import JustifyFull, { SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
 import { LuPlus, LuMegaphone } from "react-icons/lu";
 import { Flex, Loading, EmptyState, Card } from "csa/components/ui";

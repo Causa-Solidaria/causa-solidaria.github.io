@@ -1,16 +1,80 @@
-import DefaultPage from "csa/components/DefaultPage"
-import { Heading, Loading, Alert, EmptyState, Card, Box } from "csa/components/ui"
-import { PerfilContent, usePerfilData, st } from "csa/components/pagesComponents/Perfil"
-import JustifyFull, { getToken, isTokenExpired, SetStaticPositionW, AlignFull } from "csa/lib/utils"
-import { Login } from "csa/Rotas.json"
-import { LuUser } from "react-icons/lu"
+"use client"
 
+import { useEffect, useState } from "react"
+import { Center, Image } from "@chakra-ui/react"
+import DefaultPage from "csa/components/DefaultPage/index"
+import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge } from "csa/components/ui"
+import { getToken, isTokenExpired } from "csa/lib/utils"
+import { Login, Apis } from "csa/Rotas.json"
+import { LuUser, LuContact, LuMegaphone } from "react-icons/lu"
+import styles from "./perfil.module.css"
+
+/* ==================== Types ==================== */
+type Ong = {
+  foto?: string
+  title: string
+}
+
+type Campanha = {
+  id: string
+  titulo: string
+  foto?: string
+  cidade?: string
+  estado?: string
+  endDate: string
+}
+
+type PerfilData = {
+  name?: string
+  bio?: string
+  foto?: string
+  numero?: string
+  email?: string
+  localizacao?: string
+  areasDeInteresse?: string[]
+  genero?: string
+  ong?: Ong[]
+  campanhas?: Campanha[]
+}
+
+/* ==================== Hook ==================== */
+function usePerfilData() {
+  const token = getToken()
+  const [data, setData] = useState<PerfilData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchPerfilData = async () => {
+      try {
+        const response = await fetch(Apis.perfil, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const result = await response.json()
+        setData(result)
+      } catch (err) {
+        console.error('Erro ao buscar dados do perfil:', err)
+        setError('Erro ao carregar perfil')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchPerfilData()
+  }, [token])
+
+  return { data, loading, error }
+}
+
+/* ==================== Main Component ==================== */
 export default function Perfil() {
   const { data, loading } = usePerfilData()
 
   if (loading) {
     return (
-      <DefaultPage {...JustifyFull()} {...AlignFull()}>
+      <DefaultPage className={styles.pageCenter}>
         <Loading size="xl" text="Carregando perfil..." />
       </DefaultPage>
     )
@@ -18,7 +82,7 @@ export default function Perfil() {
 
   if (!data) {
     return (
-      <DefaultPage {...JustifyFull()} {...AlignFull()}>
+      <DefaultPage className={styles.pageCenter}>
         <Alert variant="error" title="Erro">
           Não foi possível carregar os dados do perfil.
         </Alert>
@@ -28,7 +92,7 @@ export default function Perfil() {
 
   if (isTokenExpired(getToken() as string)) {
     return (
-      <DefaultPage {...JustifyFull()} {...AlignFull()}>
+      <DefaultPage className={styles.pageCenter}>
         <EmptyState
           icon={<LuUser size={64} />}
           title="Sessão expirada"
@@ -42,33 +106,146 @@ export default function Perfil() {
     )
   }
 
+  const {
+    name,
+    bio,
+    foto,
+    numero,
+    email,
+    localizacao,
+    areasDeInteresse = [],
+    genero,
+    ong = [],
+    campanhas = []
+  } = data
+
   return (
-    <DefaultPage 
-      p={st(50)} 
-      {...SetStaticPositionW(1, 1)} 
-      {...AlignFull()} 
-      {...JustifyFull()}
-    >
-      <Box
-        w="95%"
-        maxW="900px"
-        mx="auto"
-        display="flex"
-        flexDirection="column"
-        gap={st(20)}
-      >
-        <Heading 
-          color="#000"
-          fontSize={63}
-          fontWeight={900}
-          MaxSizeDisplay={1871}
-          textAlign="center"
-        > 
+    <DefaultPage className={styles.page}>
+      <Box className={styles.container}>
+        <Heading className={styles.pageTitle}> 
           Perfil 
         </Heading>
         
-          <PerfilContent data={data} />
-        
+        <Card className={styles.card}>
+          {/* ==================== Header ==================== */}
+          <Flex className={styles.header}>
+            <Avatar src={foto} name={name} />
+            <Flex className={styles.headerInfo}>
+              <Heading className={styles.userName}>
+                {name || 'Nome não informado'}
+              </Heading>
+              
+              <Heading className={styles.userRole}>
+                {genero ? `Voluntári${genero === "masculino" ? "o" : "a"}` : 'Gênero não informado'}
+              </Heading>
+              
+              <Heading className={styles.userDetail}>
+                <span className={styles.detailLabel}>Email: </span>
+                {email || 'Não informado'}
+              </Heading>
+              
+              <Heading className={styles.userDetail}>
+                <span className={styles.detailLabel}>Telefone: </span>
+                {numero || 'Não informado'}
+              </Heading>
+
+              <Heading className={styles.userDetail}>
+                <span className={styles.detailLabel}>Localização: </span>
+                {localizacao || 'Não informada'}
+              </Heading>
+            </Flex>
+          </Flex>
+
+          {/* ==================== Bio ==================== */}
+          <Flex className={styles.section}>
+            <Heading className={styles.sectionTitle}>
+              Biografia
+            </Heading>
+            <Heading className={styles.bioText}>
+              {bio || 'Biografia não informada'}
+            </Heading>
+          </Flex>
+
+          {/* ==================== Interesses ==================== */}
+          {areasDeInteresse.length > 0 && (
+            <Flex className={styles.section}>
+              <Heading className={styles.sectionTitle}>
+                Área{areasDeInteresse.length > 1 ? "s" : ""} de Interesse
+              </Heading>
+              <Flex className={styles.badgesContainer}>
+                {areasDeInteresse.map((interesse: string) => (
+                  <Badge key={interesse} variant="info" size="lg">
+                    {interesse}
+                  </Badge>
+                ))}
+              </Flex>
+            </Flex>
+          )}
+
+          {/* ==================== ONGs ==================== */}
+          <Flex className={styles.section}>
+            <Heading className={styles.sectionTitle}>
+              ONG{ong.length > 1 ? "s" : ""} que apoio
+            </Heading>
+            <Flex className={styles.cardsContainer}>
+              {ong.map((o, id) => (
+                <Flex key={id} className={styles.ongCard}>
+                  {o.foto ? (
+                    <Image className={styles.ongImage} src={o.foto} alt={o.title} />
+                  ) : (
+                    <LuContact className={styles.ongIcon} />
+                  )}
+                  <Flex className={styles.ongInfo}>
+                    <Heading className={styles.ongTitle}>
+                      {o.title}
+                    </Heading>
+                  </Flex>
+                </Flex>
+              ))}
+            </Flex>
+          </Flex>
+
+          {/* ==================== Campanhas ==================== */}
+          <Flex className={styles.section}>
+            <Heading className={styles.sectionTitle}>
+              Campanha{campanhas.length > 1 ? "s" : ""} que Fiz
+            </Heading>
+            <Flex className={styles.cardsContainer}>
+              {campanhas.length === 0 ? (
+                <EmptyState
+                  icon={<LuMegaphone size={48} />}
+                  title="Nenhuma campanha"
+                  description="Você ainda não criou nenhuma campanha"
+                />
+              ) : (
+                campanhas.map((campanha) => (
+                  <Flex key={campanha.id} className={styles.campanhaCard}>
+                    <Center>
+                      {campanha.foto ? (
+                        <Image className={styles.campanhaImage} src={campanha.foto} alt={campanha.titulo} />
+                      ) : (
+                        <LuContact className={styles.campanhaIcon} />
+                      )}
+                    </Center>
+                    <Flex className={styles.campanhaInfo}>
+                      <Heading className={styles.campanhaTitle}>
+                        {campanha.titulo}
+                      </Heading>
+                      {campanha.cidade && campanha.estado && (
+                        <Heading className={styles.campanhaLocation}>
+                          {campanha.cidade}, {campanha.estado}
+                        </Heading>
+                      )}
+                      <Heading className={styles.campanhaDate}>
+                        {new Date(campanha.endDate).toLocaleDateString('pt-BR')}
+                      </Heading>
+                    </Flex>
+                  </Flex>
+                ))
+              )}
+            </Flex>
+          </Flex>
+        </Card>
       </Box>
     </DefaultPage>
   )

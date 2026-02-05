@@ -4,8 +4,6 @@ import { useState } from "react";
 import { PopupContext, popupType } from "csa/components/ProviderPopup/utils";
 import { Box, Heading } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion"
-import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
-
 
 export default function ProviderPopup(
     {
@@ -56,7 +54,6 @@ export default function ProviderPopup(
                     left={0}
                     right={0}
                     pointerEvents={"none"} /* Não captura cliques; filhos específicos podem reativar */
-                    {...JustifyFull("center")}
                     alignItems={"center"}
                 >
                     <AnimatePresence>

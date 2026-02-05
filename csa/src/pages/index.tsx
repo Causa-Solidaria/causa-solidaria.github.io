@@ -1,22 +1,20 @@
-"use client"
+import { useEffect, useState } from "react"
+import Routes from "../Rotas.json"
 
-import DefaultPage from "csa/components/DefaultPage"
-import CarrosselOngs from "csa/components/pagesComponents/CarrosselOngs"
-import { HeroSection, AboutSection } from "csa/components/pagesComponents/Home"
 
-export default function Home() {
-  return (
-    <DefaultPage
-      position={"relative"}
-      p={0}
-      bg={"qui"}
-      transition="all 0.6s ease"
-    >
-      <HeroSection />
-      <AboutSection />
-      <CarrosselOngs />
-    </DefaultPage>
-  )
+
+
+
+export default function Root__(){
+    const [load, _ ] = useState<boolean>(true)
+
+
+    /// leva para a home automatico
+    useEffect(()=>{
+        if (load) window.location.href = Routes.Home
+
+    }, [load])
+
+    return <>
+    </>
 }
-
-

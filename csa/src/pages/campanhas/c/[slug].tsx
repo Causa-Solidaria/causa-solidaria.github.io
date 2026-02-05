@@ -1,5 +1,5 @@
 import {  Button, Image, Progress} from "@chakra-ui/react"
-import DefaultPage from "csa/components/DefaultPage"
+import DefaultPage from "csa/components/DefaultPage/_index"
 import { GetServerSideProps } from "next"
 import { prisma } from "csa/lib/prisma";
 import Head from "next/head"

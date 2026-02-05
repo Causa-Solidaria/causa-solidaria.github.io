@@ -1,6 +1,6 @@
 import { Button, Center, Image } from "@chakra-ui/react"
 import BackRouteBT from "csa/components/BackRouteButton"
-import DefaultPage from "csa/components/DefaultPage"
+import DefaultPage from "csa/components/DefaultPage/_index"
 import { Box, Flex, Heading, Input, Badge, Avatar, EmptyState, Breadcrumb } from "csa/components/ui"
 import JustifyFull, { getToken, BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
 import { useForm } from "react-hook-form"

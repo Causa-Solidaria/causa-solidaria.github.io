@@ -1,21 +1,20 @@
 import {Text as T, TextProps} from "@chakra-ui/react"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface Tprops extends TextProps {
     level?: (1 | 2 | 3) & number
 }
 
-const levels: TextProps[] = []
-levels[1] = {color: "#006E1F"}
-levels[2] = {color: "#fff"}
-levels[3] = {color: "#000"}
-
-export default function Text({children, level, ...props}: Tprops){
-    const Tlevel = levels[(level as number) | 1]
-    return (<T
-        fontFamily={"quicksand"}
-        fontWeight={"900"}
-        {...Tlevel}
-    >
-        {children}
-    </T>)
+export default function Text({children, level, className, ...props}: Tprops){
+        const levelClass = level === 2 ? styles.textLevel2 : level === 3 ? styles.textLevel3 : styles.textLevel1
+        const mergedClassName = MergeClassnames(styles.text, levelClass, className)
+        return (
+            <T
+                className={mergedClassName}
+                {...props}
+            >
+                {children}
+            </T>
+        )
 }

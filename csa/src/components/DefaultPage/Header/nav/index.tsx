@@ -1,18 +1,33 @@
 "use client"
-import { staticPosition, getToken, isTokenExpired, SetStaticPositionW } from "csa/lib/utils";
-import { useState, useEffect, useMemo } from "react";
+import {getToken, isTokenExpired} from "csa/lib/utils";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 import { baseButtons, perfilButton } from "./buttons"
 import Heading from "csa/components/ui/heading";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
+import navStyles from "./../../Defaultpage.module.css"
 
 
 // Número fixo de botões para o layout inicial (evita hydration mismatch)
 const INITIAL_BUTTON_COUNT = baseButtons.length
 
-export default function Nav({open, anim}:{open: boolean, anim: boolean}){
+export default function Nav(
+    {
+        open, 
+        anim,
+        classname,
+        onClose
+    }:{
+        open: boolean, 
+        anim: boolean,
+        classname: string,
+        onClose?: () => void
+    })
+{
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [mounted, setMounted] = useState(false)
+    const containerRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         setMounted(true)
@@ -26,74 +41,71 @@ export default function Nav({open, anim}:{open: boolean, anim: boolean}){
         return isLoggedIn ? [perfilButton, ...baseButtons] : baseButtons
     }, [mounted, isLoggedIn])
 
-    // Calcular offset baseado no número de botões
-    const buttonCount = mounted ? buttons.length : INITIAL_BUTTON_COUNT
-    const closedOffset = -(200 * buttonCount)
-    const closedTransform = `translateY(calc(100vmax * ${closedOffset} / 3197))`
+    // Fechar com Escape quando aberto
+    useEffect(() => {
+        if (!open) return
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose?.()
+        }
+        document.addEventListener('keydown', onKey)
+        return () => document.removeEventListener('keydown', onKey)
+    }, [open, onClose])
+
+    // Focar primeiro item quando o menu abrir
+    useEffect(() => {
+        if (!open) return
+        const t = setTimeout(() => {
+            const first = containerRef.current?.querySelector('a') as HTMLElement | null
+            first?.focus()
+        }, 220)
+        return () => clearTimeout(t)
+    }, [open])
+
+    const constianerclassname = MergeClassnames(classname, navStyles.navContainer)
+
+    const variants = {
+        hidden: { opacity: 0, y: -10, pointerEvents: 'none' },
+        visible: { opacity: 1, y: 0, pointerEvents: 'auto' },
+        exit: { opacity: 0, y: -6, pointerEvents: 'none' }
+    }
 
     return (
-        <motion.div
-            layout
-            style={{
-                maxWidth: "20vw",
-                minWidth: "20vw",
-                background: "#fff",
-                position: "absolute",
-                zIndex: 99,
-                display: "flex",
-                right: 0,
-                flexDirection: "column",
-                boxShadow: `1vmax 1vmax 1vmax  rgba(255,255,255,0.15) `,
-                borderRadius: "1vmax",
-                y: open? 0 : 200*buttons.length,
-                opacity: open? 1: 0
-            }}
-            
-            transition={{
-                ease: "easeInOut",
-                duration: 0.6,
-                type: "spring",
-                bounce: 0.2,
-            }}
-        >
-                {buttons.map(({title, link}, index) => (
-                    <motion.a
-                        initial={{
-                            opacity: 0,
-                            y: -200*(index + 1)
-                        }}
-                        animate={{
-                            opacity: 1,
-                            y: 0,
-                        }}
-                        exit={{
-                            opacity: 1,
-                            y: -200*(index + 1),
-                        }}
-                        transition={{
-                            delay: 0.1+index/25,
-                            ease: "easeInOut",
-                            duration: 0.6
-                        }}
-                        whileHover={{
-                            translateY: "-0.1vmax",
-                            translateX: "0.1vmax",
-                            scale: 1.005,
-                            textDecoration: "underline"
-                        }}
-                        key={index} 
-                        href={link}
-                        style={{padding: "1vmax"}}
-                    >
-                        <Heading  
-                            color={"ter"}
-                            fontSize={"2vmax"}
-                            h={"3vmax"}
+        <AnimatePresence>
+            {open && (
+                <motion.div
+                    id="header-nav"
+                    ref={containerRef}
+                    className={constianerclassname}
+                    role="menu"
+                    aria-hidden={!open}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={variants}
+                    transition={{ duration: 0.26, ease: "easeInOut" }}
+                >
+                    {buttons.map(({title, link}, index) => (
+                        <motion.a
+                            key={index}
+                            href={link}
+                            role="menuitem"
+                            tabIndex={0}
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ delay: 0.06 + index * 0.03, duration: 0.22 }}
+                            whileHover={{ translateY: '-0.1vmax', translateX: '0.1vmax', scale: 1.005, textDecoration: 'underline' }}
+                            onClick={() => onClose?.()}
+                            style={{ padding: '1vmax', display: 'block' }}
                         >
-                            {title}
-                        </Heading>
-                    </motion.a>
-                ))}
-        </motion.div>
+                            <h1
+                            >
+                                {title}
+                            </h1>
+                        </motion.a>
+                    ))}
+                </motion.div>
+            )}
+        </AnimatePresence>
     )
 }

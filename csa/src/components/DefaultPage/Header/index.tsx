@@ -1,19 +1,24 @@
 "use client"
 
-import { SetStaticPositionH, SetStaticPositionW, staticPosition, getToken, TextBorder, AlignFull } from "csa/lib/utils"
-import Logo from "csa/components/logo"
+import {getToken} from "csa/lib/utils"
+import Logo from "csa/components/ui/logo"
 import Heading from "csa/components/ui/heading";
 import Nav from "./nav";
 import { useEffect, useState } from "react";
 import Flex from "csa/components/ui/Flex";
-import JustifyFull from "csa/lib/utils";
-import {Cadastro, Login, Home} from "csa/Rotas.json"
+import ApiRoutes from "csa/Rotas.json"
 import Box from "csa/components/ui/Box";
+import dpStyles from "./../Defaultpage.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
+import { TextBorder } from "csa/lib/UtilsFrontEnd/TextBorder";
 
 
 // O componente Main do Header
 
-const Header = () => {
+
+const Header = (
+  {classname}:{classname?: any}
+) => {
   const [isLogged, setIsLogged] = useState<boolean | null>(null);
   const [openNav, setOpenNav] = useState<boolean>(false)
   const [openAni, setOpenAni] = useState<boolean>(false)
@@ -22,103 +27,53 @@ const Header = () => {
     setIsLogged(!!getToken());
   }, []);
 
+  const classnameHeader = MergeClassnames(dpStyles.Header, classname)
+  const classnameContainerLogo = MergeClassnames(dpStyles.logoContainer, classname)
+  const classnameLoginButtonsContainer = MergeClassnames(dpStyles.loginButtonsContainer, classname)
+  const classnameLoginButtons = MergeClassnames(dpStyles.loginButtom, classname)
+  const classnameNavButtom = MergeClassnames(dpStyles.navbutton, classname)
+
+
+
   return (
     <Box
-      borderBottom={`${staticPosition(1)} solid rgba(255,255,255,0.6)`}
+      className={classnameHeader}
     >
-      <Flex
-        position={"sticky"} 
-        dir={"row"} 
-        {...AlignFull("center")}
-        justifyContent={"space-between"}
-
-        bg="#00B944"  
-        w={"full"}
-        p={"1vmax"}
-        zIndex={100} 
-        boxShadow={` 0 1vmax 1vmax  rgba(255,255,255,0.15) `}
-      >
-        <Flex
-          onClick={()=>{ window.location.href=Home }}
-          dir={"row"}
-          {...AlignFull()}
-          {...JustifyFull()}
-        >
-          <Logo 
-            {...SetStaticPositionW(173, 3197)}
-            borderRadius={"1vmax"}  
-          />
-          <Heading
-            m={"1vmax"}
-            fontSize={"2.5vmax"}
-            level={2}
-          >
-            Causa Solídaria
-          </Heading>
+        <Flex onClick={()=>{ window.location.href=ApiRoutes.Home }} className={classnameContainerLogo}>
+          <Logo/>
+          <h1 > Causa Solídaria </h1>
         </Flex>
         
-        <Flex
-          dir={"row"}
-          alignItems={"center"}
-          gap={"1vmax"}
-        >
-          {isLogged === false && <Flex
-            dir={"row"}
-            gapX={"1vmax"}
-          >
-            {[
-              {label: "Entrar", link: Login },
-              {label: "Cadastrar", link: Cadastro}
+        <Flex className={classnameLoginButtonsContainer}>
+          {isLogged === false &&  [
+              {label: "Entrar", link: ApiRoutes.Login },
+              {label: "Cadastrar", link: ApiRoutes.Cadastro}
             ].map(({label, link}, index) => (
               <Box
+                className={classnameLoginButtons}
                 key={index}
                 onClick={()=>{window.location.href = link}}
-                bg = {"#006E1F"}
-                p={"1vmax"}
-                textAlign={"center"}
-                textJustify={"center"}
-                borderRadius={"1vmax"}
-                transition={"scale 0.3s ease, translate 0.3s ease"}
-                _hover={
-                  {
-                    scale: 1.025,
-                    translate: `0 0.2vmax`
-                  }
-                }
               >
-                <Heading
-                  fontSize={"1vmax"}
-                  level={2}
-                >
-                  {label}
-                </Heading>
+                <h2>{label}</h2>
               </Box>
             ))}
-          </Flex>}
-
-          <Box 
-            {...SetStaticPositionW(137, 3197)}
-            {...SetStaticPositionH(137, 3197)}
-            m={"1vmax"}
-            p={"1vmax"}
-            bgImg={"url(/nav.png)"}
-            bgPos={"center"}
-            bgSize={"100%"}
-            transition={
-              "scale 0.3s ease-in-out"
-            }
-            aspectRatio={1}
-            border={`0.1vmax solid black`}
-            _hover={
-              {scale: 1.05}
-            }
-            onClick={()=>{setOpenNav(!openNav); setOpenAni(true)}}
-          >
-          </Box>
+            <Box
+              id="header-nav-toggle"
+              className={classnameNavButtom}
+              role="button"
+              aria-haspopup="menu"
+              aria-controls="header-nav"
+              aria-expanded={openNav}
+              tabIndex={0}
+              onClick={()=>{setOpenNav(!openNav); setOpenAni(true)}}
+              onKeyDown={(e)=>{
+                if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenNav(!openNav); setOpenAni(true) }
+                if(e.key === 'Escape') { setOpenNav(false) }
+              }}
+            />
         </Flex>
 
-      </Flex>
-      <Nav open={openNav} anim={openAni}/>
+      <Nav open={openNav} anim={openAni} onClose={()=> setOpenNav(false)} classname={""} />
     </Box>
   )
 }

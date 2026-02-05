@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/react"
 import { LuChevronRight } from "react-icons/lu"
 import { useRouter } from "next/router"
 import Flex from "./Flex"
+import styles from "./ui.module.css"
 
 const HomeIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -38,23 +39,18 @@ export default function Breadcrumb({
   }
 
   const Separator = () => (
-    <Box color="#fff" fontWeight={"900"} mx={2}>
+    <Box className={styles.breadcrumbSeparator}>
       {separator || <LuChevronRight size={16} />}
     </Box>
   )
 
   return (
-    <Flex dir="row" alignItems="center" flexWrap="wrap" mb={"2vmax"}>
+    <Flex dir="row" className={styles.breadcrumb}>
       {showHomeIcon && (
         <>
           <Box
             as="button"
-            display="flex"
-            alignItems="center"
-            color="#fff" fontWeight={"900"}
-            cursor="pointer"
-            transition="color 0.2s"
-            _hover={{ color: "#008000" }}
+            className={styles.breadcrumbItem}
             onClick={() => handleClick("/")}
           >
             <HomeIcon />
@@ -67,22 +63,10 @@ export default function Breadcrumb({
         const isLast = index === items.length - 1
         
         return (
-          <Flex 
-            key={index} 
-            dir="row" 
-            alignItems="center"
-          >
+          <Flex key={index} dir="row" className={styles.breadcrumbItemWrapper}>
             <Box
               as={item.href && !isLast ? "button" : "span"}
-              display="flex"
-              alignItems="center"
-              gap={1}
-              fontSize="sm"
-              color={isLast ? "#000" : "#fff"} 
-              fontWeight={"900"}
-              cursor={item.href && !isLast ? "pointer" : "default"}
-              transition="color 0.2s"
-              _hover={item.href && !isLast ? { color: "#008000" } : {}}
+              className={isLast ? styles.breadcrumbItemActive : styles.breadcrumbItem}
               onClick={() => !isLast && handleClick(item.href)}
             >
               {item.icon}

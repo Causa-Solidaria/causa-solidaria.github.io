@@ -1,5 +1,5 @@
 import { Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
-import DefaultPage from "csa/components/DefaultPage";
+import DefaultPage from "csa/components/DefaultPage/_index";
 import usePopup from "csa/hooks/usePopup";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";

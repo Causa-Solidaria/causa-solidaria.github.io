@@ -1,0 +1,180 @@
+.page {
+  display: flex;
+  background-color: var(--clean-green);
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1vmax solid var(--dark-green);
+  border-radius: 1vmax;
+  padding: 1vmax;
+}
+
+.headerTitle {
+  font-size: 3vmax;
+}
+
+.formCard {
+  margin: 1vmax;
+  padding: 2vmax;
+  width: clamp(300px, 50vw, 585px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1vmax;
+}
+
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.5vmax;
+}
+
+.fieldLabel {
+  font-size: 1.2vmax;
+  margin-bottom: 0.3vmax;
+}
+
+.errorMessage {
+  font-size: 1vmax;
+  color: red;
+  margin-top: 0.3vmax;
+}
+
+.checkboxContainer {
+  margin-bottom: 1.5vmax;
+}
+
+.checkboxControl {
+  border-color: #006E1F;
+}
+
+.checkboxLabel {
+  font-size: 1vmax;
+  margin: 0;
+  padding: 0;
+}
+
+.submitButton {
+  width: clamp(100px, 30%, 180px);
+  height: clamp(40px, 3.5vmax, 56px);
+  font-size: clamp(14px, 1.5vmax, 24px);
+  border-radius: clamp(8px, 0.8vmax, 12px);
+  background-color: #15B100;
+  align-self: center;
+}
+
+.submitButton:hover {
+  background-color: #12a000;
+}
+
+/* Info Section (Right Panel) */
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  min-height: 75vmax;
+  background-color: #4DCD58;
+  overflow: hidden;
+  width: clamp(300px, 38vw, 660px);
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 1vmax;
+  padding: 1vmax;
+}
+
+.infoLogo {
+  border-radius: 1vmax;
+  margin: 1vmax;
+  width: clamp(80px, 10vw, 150px);
+}
+
+.infoBrandCard {
+  background-color: #fff;
+  margin: 1vmax;
+  padding: 1vmax;
+  border-radius: 1vmax;
+  border: 0.1vmax solid #006E1F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoBrandTitle {
+  color: #006E1F;
+  margin: 1vmax;
+  font-size: 2vmax;
+}
+
+.infoContentCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1vmax;
+  margin: 1vmax;
+  border-radius: 1vmax;
+  border: 0.1vmax solid #006E1F;
+  background-color: #fff;
+  color: #006E1F;
+}
+
+.infoHeading {
+  font-size: 2vmax;
+  color: #006E1F;
+  line-height: 120%;
+  font-weight: 900;
+  text-align: center;
+}
+
+.infoText {
+  font-size: 1.5vmax;
+  margin: 1vmax;
+  text-align: justify;
+}
+
+.infoFooterCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1vmax;
+  margin: 1vmax;
+  border-radius: 1vmax;
+  border: 0.1vmax solid #006E1F;
+  background-color: #fff;
+  color: #006E1F;
+}
+
+.infoFooterText {
+  font-size: 1.5vmax;
+  margin: 1vmax;
+  text-align: center;
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .infoSection {
+    display: none;
+  }
+  
+  .formCard {
+    width: 90%;
+    max-width: 500px;
+  }
+}

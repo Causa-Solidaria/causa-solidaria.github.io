@@ -1,28 +1,18 @@
 import { Button as B, ButtonProps } from "@chakra-ui/react"
-import { staticPosition } from "csa/lib/utils"
 import React from 'react'
 
-interface Bprops extends ButtonProps {
-    level?: (1 | 2 | 3 | 4) & number 
-}
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
+
+interface Bprops extends ButtonProps {}
 
 
-const levels: ButtonProps[] = []
-levels[1] = {bg: "#097D03", color: "#fff"}
-levels[2] = {bg: "#D9D9D9", color: "#000", border: "0.1vmax solid #000"}
-levels[3] = {bg: "#C2FFBF", color: "#097D03",  border: "0.1vmax solid #097d03"}
-levels[4] = {bg: "#000", color: "#fff"}
-
-export default function Button({level, ...props}: Bprops){
-    const Blevel  = levels[(level as number) || 1]
+export default function Button({className, ...props}: Bprops){
+    const mergedSty = MergeClassnames(className, styles.button)
 
     return (
     <B
-        m={"1vmax"}
-        p={"1vmax"}
-        borderRadius={staticPosition(10, 1280)}
-        justifyContent={"center"}
-        {...(Blevel || {})}
+        className={mergedSty}
         {...props}
     >{props.children}</B>)
 }

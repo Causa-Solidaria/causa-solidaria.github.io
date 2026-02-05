@@ -1,0 +1,251 @@
+/* ONGs Page Styles */
+
+/* ==================== Page ==================== */
+.page {
+  background-color: #02E351;
+  min-height: 100vh;
+}
+
+/* ==================== Container ==================== */
+.container {
+  border-radius: 1.25vmax;
+  margin: clamp(1rem, 5vw, 5rem);
+  width: 90%;
+  max-width: 90vw;
+  min-height: 40vh;
+  padding: clamp(1rem, 2vw, 2rem);
+  background-color: #fff;
+}
+
+/* ==================== Header ==================== */
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.backButton {
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background-color: #f3f3f3;
+}
+
+.backButtonIcon {
+  width: clamp(1.5rem, 2vw, 2rem);
+  height: clamp(1.5rem, 2vw, 2rem);
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 900;
+  color: #000;
+}
+
+.createButton {
+  background-color: var(--dark-green);
+  color: #fff;
+  border-radius: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.createButton:hover {
+  opacity: 0.9;
+}
+
+/* ==================== Search ==================== */
+.searchContainer {
+  position: relative;
+  margin-bottom: 3rem;
+  border: 2px solid var(--dark-green);
+  border-radius: 1.5rem;
+}
+
+.searchIcon {
+  color: var(--dark-green);
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(1.5rem, 2vw, 2.5rem);
+  height: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+.searchInput {
+  padding-left: 4rem;
+  border-radius: 1.5rem;
+  background-color: #fff;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  height: 3.5rem;
+  border: none;
+  width: 100%;
+}
+
+/* ==================== Content ==================== */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 15rem;
+}
+
+/* ==================== ONGs List ==================== */
+.ongsList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* ==================== ONG Card ==================== */
+.ongCard {
+  background-color: #fff;
+  padding: clamp(1rem, 2vw, 2rem);
+  border-radius: 1.5rem;
+  border: 2px solid #000;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 30rem;
+  min-width: 20rem;
+  transition: all 0.2s ease;
+}
+
+.ongCard:hover {
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.ongCardHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ongCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.ongName {
+  font-weight: bold;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ongDescription {
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  color: #333;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ongLocation {
+  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.ongEmail {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  color: #777;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==================== Action Buttons ==================== */
+.ongActions {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.detailsButton {
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 1.25rem;
+  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
+  padding: 0.5rem 1rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.detailsButton:hover {
+  background-color: #f3f3f3;
+}
+
+.supportButton {
+  background-color: #02E351;
+  color: #fff;
+  border: none;
+  border-radius: 1.25rem;
+  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
+  padding: 0.5rem 1rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.supportButton:hover {
+  opacity: 0.9;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ongCard {
+    min-width: 100%;
+  }
+
+  .ongActions {
+    justify-content: center;
+  }
+}

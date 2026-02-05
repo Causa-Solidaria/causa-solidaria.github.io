@@ -1,0 +1,257 @@
+/* Home Page Styles - Compiled */
+
+/* ==================== Hero Section ==================== */
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/solidariedade-694x459 1.png');
+  backdrop-filter: blur(0.25vmax);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5vmax 3vmax;
+  width: 100%;
+  gap: 2rem;
+  min-height: 60vh;
+}
+
+.heroSectionTitle {
+  text-align: left;
+  transition: all 0.6s ease-in-out;
+  color: #fff;
+  font-size: clamp(2rem, 6vw, 6rem);
+  margin-bottom: 0;
+  max-width: 90%;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.heroSectionSubtitle {
+  text-align: left;
+  transition: all 0.6s ease-in-out;
+  color: #fff;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: 0;
+  max-width: 90%;
+  line-height: 1.2;
+}
+
+.heroSectionButton {
+  transition: all 0.6s ease-in-out;
+  background-color: #097D03;
+  color: #fff;
+  padding: clamp(0.75rem, 2vw, 2rem) clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1rem, 2vw, 2rem);
+  line-height: 1.4;
+  font-family: "Quicksand";
+  font-style: normal;
+  border-radius: 2vmax;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.heroSectionButton:hover {
+  background-color: #39aD33;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 3vmax 2vmax;
+    min-height: 50vh;
+  }
+
+  .heroSectionTitle {
+    max-width: 100%;
+  }
+
+  .heroSectionSubtitle {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    padding: 2vmax 1.5vmax;
+    min-height: 45vh;
+  }
+}
+
+/* ==================== About Section ==================== */
+.aboutSection {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vmax;
+  gap: 1vmax;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.aboutSectionImage {
+  transition: all 0.6s ease-in-out;
+  max-width: 379px;
+  width: 25%;
+  min-width: 200px;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+@media (max-width: 1200px) {
+  .aboutSection {
+    flex-direction: column;
+  }
+
+  .aboutSectionImage {
+    width: 60%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .aboutSection {
+    flex-direction: column;
+  }
+
+  .aboutSectionImage {
+    width: 80%;
+    max-width: 250px;
+  }
+}
+
+/* ==================== Mission Section ==================== */
+.missionSection {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s ease-in-out;
+  margin: 3vmax;
+  gap: 1vmax;
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.missionSectionTitle {
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  margin: 2vmax;
+  transition: all 0.6s ease-in-out;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.missionSectionDescription {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  line-height: 1.4;
+  transition: all 0.6s ease-in-out;
+  color: #444;
+  word-wrap: break-word;
+}
+
+.missionSectionButton {
+  background-color: #097D03;
+  color: #fff;
+  transition: all 0.6s ease-in-out;
+  margin: 2vmax;
+  padding: 2vmax;
+  border-radius: 2vmax;
+  font-size: 1.2vmax;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5vmax;
+}
+
+.missionSectionButton:hover {
+  background-color: #39aD33;
+  transform: scale(1.01);
+  box-shadow: 1vmax 1vmax 1vmax rgba(0, 0, 0, 0.2);
+}
+
+.missionSectionButtonText {
+  color: #fff;
+  transition: all 0.6s ease-in-out;
+  font-size: 1.5vmax;
+}
+
+.missionSectionButtonIcon {
+  transition: all 0.6s ease-in-out;
+}
+
+/* ==================== Support Section ==================== */
+.supportSection {
+  display: flex;
+}
+
+@media (max-width: 992px) {
+  .supportSection {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 993px) {
+  .supportSection {
+    flex-direction: column;
+  }
+}
+
+/* ==================== Support Card ==================== */
+.supportCard {
+  display: flex;
+  flex-direction: row;
+  padding: 1vmax;
+  transition: all 0.6s ease-in-out;
+  align-items: center;
+  margin: 1vmax;
+}
+
+.supportCardImage {
+  max-width: 158px;
+  max-height: 158px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.supportCardTitle {
+  font-size: 1.5vmax;
+  font-weight: bold;
+  color: #444;
+  line-height: 1.2;
+}
+
+/* ==================== Suport Section (Como você pode ajudar) ==================== */
+.suportSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  gap: 2rem;
+}
+
+.suportSectionTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.suportSectionCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+}

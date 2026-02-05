@@ -3,8 +3,9 @@
 
 import React from 'react'
 import Box from './Box'
-import {  shadowStatic, staticPosition } from 'csa/lib/utils'
 import { BoxProps } from '@chakra-ui/react'
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 
 interface CardProps extends BoxProps{
     onClick?: React.MouseEventHandler
@@ -24,18 +25,18 @@ function Card(
         ...props
     }: CardProps 
 ) {
-    const st = (s:number)=>staticPosition(s, 1871)
+    const st = (s:number)=>s
+
+    const mergedClassName = MergeClassnames(
+        styles.card,
+        temBorda ? styles.cardWithBorder : undefined,
+        temSombra ? styles.cardWithShadow : undefined,
+        props.className
+    )
 
     return (
             <Box 
-                p={"1vmax"} 
-                m={"1vmax"}
-                justifyContent={"center"}
-                bg={bg || "#fff"} 
-                borderRadius={st(10)}
-                border={temBorda? "0.1vmax solid": "none"}
-                transition={"all 0.6s ease-in-out"}
-                {...(temSombra ? shadowStatic(10, 15, 30, "rgba(0,0,0,0.2)", 1890) : {})}
+                className={mergedClassName}
                 {...props}
             >
                 {children}

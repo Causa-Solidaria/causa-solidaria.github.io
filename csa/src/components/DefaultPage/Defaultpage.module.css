@@ -1,0 +1,373 @@
+._Body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--green);
+    min-height: 100vh;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Header */
+
+.Header {
+    background-color: var(--semi-dark-green);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(15px, 3vw, 30px);
+    padding: 12px clamp(20px, 4vw, 40px);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 70px;
+    transition: all 0.3s ease;
+}
+
+/* Logo area */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 15px);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.logoContainer:hover {
+    opacity: 0.85;
+}
+
+.logoContainer h1 {
+    font-size: clamp(20px, 3.5vw, 36px);
+    color: var(--white);
+    margin: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+
+    --size: clamp(0.25px, 0.4vw, 0.4px);
+    text-shadow: 
+        var(--size) var(--size) 0 #000, 
+        var(--size) 0 0 #000, 
+        var(--size) calc(var(--size) * -1) 0 #000,
+        calc(var(--size) * -1) var(--size) 0 #000,
+        calc(var(--size) * -1) 0 0 #000, 
+        calc(var(--size) * -1) calc(var(--size) * -1) 0 #000,
+        0 var(--size) 0 #000;
+}
+
+/* Container dos botões de login + nav */
+.loginButtonsContainer {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+/* Botão de login */
+.loginButtom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 85px;
+    max-width: 130px;
+    padding: 10px 22px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: var(--dark-green);
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 1;
+}
+
+.loginButtom h2 {
+    color: var(--white);
+    font-size: clamp(14px, 2vw, 16px);
+    margin: 0;
+    line-height: 1;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    --size: 0.2px;
+    text-shadow: 
+        var(--size) var(--size) 0 #000, 
+        var(--size) 0 0 #000,
+        calc(var(--size) * -1) 0 0 #000,
+        0 calc(var(--size) * -1) 0 #000;
+}
+
+.loginButtom:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.loginButtom:active {
+    transform: translateY(0);
+}
+
+/* Botão de navegação (menu) */
+.navbutton {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    transition: all 0.25s ease;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    background-image: url(/nav.png);
+    background-position: center;
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-color: var(--dark-green);
+    cursor: pointer;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.navbutton:hover {
+    transform: scale(1.06);
+    background-color: rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.navbutton:active {
+    transform: scale(0.96);
+}
+
+/* --- Responsividade Header --- */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .Header {
+        padding: 10px clamp(16px, 3vw, 28px);
+        gap: clamp(12px, 2.5vw, 20px);
+        min-height: 64px;
+    }
+
+    .logoContainer {
+        gap: 10px;
+    }
+
+    .logoContainer h1 {
+        font-size: clamp(18px, 4.5vw, 30px);
+    }
+
+    .loginButtonsContainer {
+        gap: 10px;
+    }
+
+    .loginButtom {
+        min-width: 75px;
+        max-width: 110px;
+        padding: 9px 18px;
+    }
+
+    .loginButtom h2 {
+        font-size: clamp(13px, 2.2vw, 15px);
+    }
+
+    .navbutton {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .Header {
+        padding: 10px 15px;
+        gap: 10px;
+        min-height: 58px;
+    }
+
+    .logoContainer {
+        flex: 1 1 auto;
+        gap: 8px;
+    }
+
+    .logoContainer h1 {
+        font-size: clamp(16px, 5vw, 22px);
+    }
+
+    .loginButtonsContainer {
+        gap: 8px;
+        flex: 0 0 auto;
+    }
+
+    .loginButtom {
+        min-width: 65px;
+        max-width: 90px;
+        padding: 8px 14px;
+    }
+
+    .loginButtom h2 {
+        font-size: 13px;
+    }
+
+    .navbutton {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        min-height: 42px;
+        padding: 9px;
+        margin-left: 2px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .Header {
+        padding: 8px 12px;
+        min-height: 54px;
+    }
+
+    .logoContainer h1 {
+        font-size: 15px;
+    }
+
+    .loginButtom {
+        min-width: 58px;
+        max-width: 80px;
+        padding: 7px 12px;
+    }
+
+    .loginButtom h2 {
+        font-size: 12px;
+    }
+
+    .navbutton {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        padding: 8px;
+        margin-left: 0;
+    }
+}
+
+/* --- Header Nav (Menu dropdown) --- */
+
+.navContainer {
+    overflow-x: hidden;
+    width: clamp(280px, 35vw, 450px);
+    max-width: calc(100vw - 40px);
+    background-color: var(--white);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    right: clamp(15px, 3vw, 30px);
+    top: calc(100% + 10px);
+    z-index: 999;
+    max-height: 70vh; /* limita altura e permite scroll */
+    overflow: auto;
+    padding: clamp(8px, 1.2vw, 14px) 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    will-change: transform, opacity;
+    -webkit-overflow-scrolling: touch;
+}
+
+.navContainer:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.06);
+}
+
+.navContainer a {
+    padding: clamp(12px, 1.5vw, 18px) clamp(16px, 2.5vw, 28px);
+    text-decoration: none;
+    display: block;
+    transition: all 0.25s ease;
+    border-left: 3px solid transparent;
+    color: inherit;
+}
+
+.navContainer a:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-left-color: var(--dark-green);
+    padding-left: clamp(20px, 3vw, 32px);
+}
+
+.navContainer a:active {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Separador opcional entre itens */
+.navContainer a:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* --- Responsividade Nav --- */
+
+@media (max-width: 768px) {
+    .navContainer {
+        width: clamp(260px, 45vw, 380px);
+        right: clamp(12px, 2.5vw, 24px);
+        top: calc(100% + 8px);
+        padding: 10px 0;
+        border-radius: 10px;
+    }
+
+    .navContainer a {
+        padding: clamp(10px, 1.8vw, 16px) clamp(14px, 2.2vw, 24px);
+    }
+}
+
+@media (max-width: 480px) {
+    .navContainer {
+        width: calc(100vw - 30px);
+        max-width: 320px;
+        right: 15px;
+        top: calc(100% + 6px);
+        padding: 8px 0;
+        border-radius: 8px;
+    }
+
+    .navContainer a {
+        padding: 12px 18px;
+        font-size: 15px;
+    }
+
+    .navContainer a:hover {
+        padding-left: 22px;
+    }
+}
+
+@media (max-width: 360px) {
+    .navContainer {
+        width: calc(100vw - 24px);
+        right: 12px;
+    }
+
+    .navContainer a {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .navContainer a:hover {
+        padding-left: 20px;
+    }
+}

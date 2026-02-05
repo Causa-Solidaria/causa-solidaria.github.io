@@ -8,3 +8,24 @@
   display: block !important;
   visibility: visible !important;
 }
+
+
+:root {
+  --clean-green: #C0F5B4;
+  --green: #02E351;
+  --white: #fff;
+  --black: #000;
+  --dark-green: #097D03;
+  --semi-dark-green: #05b02a;
+
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand";
+  font-weight: 900;
+  border: 5px;
+}

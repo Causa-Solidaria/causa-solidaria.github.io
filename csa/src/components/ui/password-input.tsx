@@ -16,9 +16,10 @@ import {
   mergeRefs,
   useControllableState,
 } from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
 import * as React from "react"
 import { LuEye, LuEyeOff } from "react-icons/lu"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 export interface PasswordVisibilityProps {
   defaultVisible?: boolean
@@ -55,6 +56,7 @@ export const PasswordInput = React.forwardRef<
   const inputRef = React.useRef<HTMLInputElement>(null)
   return (
     <InputGroup
+      className={styles.passwordInput}
       endElement={
         <VisibilityTrigger
           disabled={rest.disabled}
@@ -71,6 +73,7 @@ export const PasswordInput = React.forwardRef<
       {...rootProps}
     >
       <Input
+        className={styles.input}
         {...rest}
         ref={mergeRefs(ref, inputRef)}
         type={visible ? "text" : "password"}
@@ -83,11 +86,10 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function VisibilityTrigger(props, ref) {
     return (
       <IconButton
+        className={MergeClassnames(styles.passwordToggle, props.className)}
         ref={ref}
         aspectRatio="square"
         variant={"ghost"}
-        {...SetStaticPositionW(40, 1735)}
-        {...SetStaticPositionH(40, 1735)}
         {...props}
       />
     )

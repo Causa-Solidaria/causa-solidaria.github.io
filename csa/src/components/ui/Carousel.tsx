@@ -1,6 +1,8 @@
-import { Box, IconButton, Flex } from "@chakra-ui/react"
+import { Box, Flex } from "@chakra-ui/react"
 import { useState, useRef, useEffect, ReactNode, useCallback } from "react"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 // ===== TIPOS =====
 
@@ -30,9 +32,7 @@ export interface CarouselItemProps {
 
 export function CarouselItem({ children}: CarouselItemProps) {
   return (
-    <Box
-      flex="0 0 auto"
-    >
+    <Box className={styles.carouselItem}>
       {children}
     </Box>
   )
@@ -105,29 +105,22 @@ export function Carousel({
 
   return (
     <Box
-      position="relative"
-      width="100%"
-      className={className}
+      className={MergeClassnames(styles.carousel, className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Container principal */}
-      <Box
-        ref={containerRef}
-        overflow="hidden"
-        width="100%"
-      >
+      <Box ref={containerRef} className={styles.carouselContainer}>
         <Flex
           ref={trackRef}
-          gap={`2vmax`}
-          transition="transform 0.3s ease-in-out"
+          className={styles.carouselTrack}
           style={{ transform: `translateX(${getTranslateX()}px)` }}
         >
           {items.map((item, index) => (
             <Box
               key={index}
-              flex="0 0 auto"
-              width={`calc((100% - ${gap * (itemsPerView - 1)}px) / ${itemsPerView})`}
+              className={styles.carouselItem}
+              style={{ width: `calc((100% - ${gap * (itemsPerView - 1)}px) / ${itemsPerView})` }}
             >
               {item}
             </Box>
@@ -138,64 +131,38 @@ export function Carousel({
       {/* Navegação */}
       {showNavigation && totalItems > itemsPerView && (
         <>
-          <IconButton
+          <button
             aria-label="Anterior"
-            position="absolute"
-            left="-12px"
-            top="50%"
-            transform="translateY(-50%)"
-            rounded="full"
-            size="sm"
-            bg="white"
-            shadow="md"
-            _hover={{ bg: "gray.100" }}
+            className={MergeClassnames(styles.carouselNav, styles.carouselNavPrev)}
             onClick={goPrev}
             disabled={!loop && currentIndex === 0}
-            opacity={!loop && currentIndex === 0 ? 0.5 : 1}
-            zIndex={10}
           >
             <LuChevronLeft />
-          </IconButton>
+          </button>
 
-          <IconButton
+          <button
             aria-label="Próximo"
-            position="absolute"
-            right="-12px"
-            top="50%"
-            transform="translateY(-50%)"
-            rounded="full"
-            size="sm"
-            bg="white"
-            shadow="md"
-            _hover={{ bg: "gray.100" }}
+            className={MergeClassnames(styles.carouselNav, styles.carouselNavNext)}
             onClick={goNext}
             disabled={!loop && currentIndex >= maxIndex}
-            opacity={!loop && currentIndex >= maxIndex ? 0.5 : 1}
-            zIndex={10}
           >
             <LuChevronRight />
-          </IconButton>
+          </button>
         </>
       )}
 
       {/* Dots / Indicadores */}
       {showDots && totalPages > 1 && (
-        <Flex
-          justify="center"
-          gap={2}
-          mt={4}
-        >
+        <Flex className={styles.carouselDots}>
           {Array.from({ length: totalPages }).map((_, index) => (
-            <Box
+            <button
               key={index}
-              as="button"
-              w={currentPage === index ? "24px" : "8px"}
-              h="8px"
-              rounded="full"
-              bg={currentPage === index ? "green.500" : "gray.300"}
-              transition="all 0.2s"
+              className={MergeClassnames(
+                styles.carouselDot,
+                currentPage === index ? styles.carouselDotActive : undefined
+              )}
               onClick={() => goTo(index * itemsPerView)}
-              _hover={{ bg: currentPage === index ? "green.600" : "gray.400" }}
+              aria-label={`Ir para página ${index + 1}`}
             />
           ))}
         </Flex>
