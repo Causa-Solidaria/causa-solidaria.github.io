@@ -1,5 +1,10 @@
 import '@testing-library/jest-dom'
 
+// Polyfill para structuredClone (necessário para Chakra UI v3)
+if (typeof global.structuredClone === 'undefined') {
+  global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj))
+}
+
 // Mock do next/router
 jest.mock('next/router', () => ({
   useRouter() {
