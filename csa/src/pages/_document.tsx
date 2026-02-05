@@ -11,7 +11,7 @@ export default function Document() {
           rel="stylesheet"
         />
         {/* VLibras */}
-        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script async src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
       </Head>
       <body className="antialiased">
         <div dangerouslySetInnerHTML={{
