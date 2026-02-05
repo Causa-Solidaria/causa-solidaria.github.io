@@ -11,14 +11,16 @@ import Box from "csa/components/ui/Box";
 import dpStyles from "./../Defaultpage.module.css"
 import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 import { TextBorder } from "csa/lib/UtilsFrontEnd/TextBorder";
+import useNavigate from "csa/hooks/useNavigate";
 
 
 // O componente Main do Header
 
 
 const Header = (
-  {classname}:{classname?: any}
+  {classname}:{classname?: string}
 ) => {
+  const { navigate } = useNavigate();
   const [isLogged, setIsLogged] = useState<boolean | null>(null);
   const [openNav, setOpenNav] = useState<boolean>(false)
   const [openAni, setOpenAni] = useState<boolean>(false)
@@ -39,7 +41,7 @@ const Header = (
     <Box
       className={classnameHeader}
     >
-        <Flex onClick={()=>{ window.location.href=ApiRoutes.Home }} className={classnameContainerLogo}>
+        <Flex onClick={() => navigate(ApiRoutes.Home)} className={classnameContainerLogo}>
           <Logo/>
           <h1 > Causa Solídaria </h1>
         </Flex>
@@ -52,7 +54,7 @@ const Header = (
               <Box
                 className={classnameLoginButtons}
                 key={index}
-                onClick={()=>{window.location.href = link}}
+                onClick={() => navigate(link)}
               >
                 <h2>{label}</h2>
               </Box>

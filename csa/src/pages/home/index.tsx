@@ -6,6 +6,7 @@ import { LuArrowRight } from "react-icons/lu"
 import Rotas from "csa/Rotas.json"
 import styles from "./index.module.css"
 import DefaultPage from "csa/components/DefaultPage"
+import useNavigate from "csa/hooks/useNavigate"
 
 const supportItems = [
   {
@@ -21,6 +22,8 @@ const supportItems = [
 ]
 
 export default function HomeComponents() {
+  const { navigate } = useNavigate();
+
   return (
     <DefaultPage>
       {/* ==================== Hero Section ==================== */}
@@ -34,7 +37,7 @@ export default function HomeComponents() {
 
         <Button
           className={styles.heroSectionButton}
-          onClick={() => { window.location.href = Rotas.Campanhas.Home }}
+          onClick={() => navigate(Rotas.Campanhas.Home)}
         >
           Quero Ajudar
         </Button>
@@ -62,7 +65,7 @@ export default function HomeComponents() {
             <Button
               className={styles.missionSectionButton}
               aria-label="Conheça Nossas Ações"
-              onClick={() => { window.location.href = Rotas.Campanhas.Home }}
+              onClick={() => navigate(Rotas.Campanhas.Home)}
             >
               <Heading className={styles.missionSectionButtonText}>
                 Conheça Nossas Campanhas

@@ -9,6 +9,7 @@ import { useState } from "react"
 import { AiOutlineLike } from "react-icons/ai";
 import { MdOutlineMessage } from "react-icons/md";
 import { LuMessageSquare } from "react-icons/lu";
+import useNavigate from "csa/hooks/useNavigate";
 
 interface FórunProps{
     UUID: string,
@@ -25,6 +26,7 @@ interface FórunProps{
 }
 
 export default function Foruns(){
+    const { navigate } = useNavigate();
     const [Foruns, setForuns] = useState<FórunProps[]>([
         {
             _id: 0,
@@ -127,7 +129,7 @@ export default function Foruns(){
                             scale: 1.01
                         }}
                         borderRadius={st(25)}
-                        onClick={()=>window.location.href = Fóruns.criar}
+                        onClick={() => navigate(Fóruns.criar)}
                     >
                         <Heading color={"#fff"}>Criar Novo Tópico</Heading>
                     </Button>
@@ -145,7 +147,7 @@ export default function Foruns(){
                                 translate: `0 ${st(-5)}`,
                             }}
 
-                            onClick={()=>window.location.href = Fóruns.search + F.UUID}
+                            onClick={() => navigate(Fóruns.search + F.UUID)}
 
                             {...SetStaticPositionW(2460, 2835)}
                             {...SetStaticPositionH(415, 2835)}
@@ -206,7 +208,7 @@ export default function Foruns(){
                                 {[
                                     {
                                         label: F.Criador.nome, 
-                                        action: ()=> window.location.href = Perfil.search + F.Criador.nome
+                                        action: () => navigate(Perfil.search + F.Criador.nome)
                                     },
                                     {
                                         label: "likes",

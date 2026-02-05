@@ -1,7 +1,11 @@
-import { Box, ChakraProviderProps } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 import dpStyles from "./Defaultpage.module.css";
 
-export default function Timeline({children, ...props}: any & ChakraProviderProps) {
+interface TimelineProps extends BoxProps {
+    children?: React.ReactNode;
+}
+
+export default function Timeline({ children, ...props }: TimelineProps) {
 
     return (
         <Box 

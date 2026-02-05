@@ -2,7 +2,7 @@
 
 import { Button, Checkbox, Link, Text as ChakraText } from "@chakra-ui/react";
 import usePopup from "csa/hooks/usePopup";
-import { cadastroSchema } from "csa/lib/validations";
+import { cadastroSchema, type CadastroData } from "csa/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleCadastro } from "csa/lib/handlers";
@@ -11,6 +11,7 @@ import Logo from "csa/components/ui/logo";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styles from "./cadastro.module.css";
+import useNavigate from "csa/hooks/useNavigate";
 
 function InfoCadastro() {
   return (
@@ -44,15 +45,39 @@ function InfoCadastro() {
 
 const InfoCadastroMotion = motion.create(InfoCadastro);
 
+/**
+ * Hook para detectar se a tela é maior que um breakpoint
+ * Usa ResizeObserver ao invés de polling
+ */
+function useMediaQuery(minWidth: number): boolean {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    // Verificar inicialmente
+    const checkMatch = () => setMatches(window.innerWidth > minWidth);
+    checkMatch();
+
+    // Usar matchMedia para detectar mudanças
+    const mediaQuery = window.matchMedia(`(min-width: ${minWidth}px)`);
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
+    
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, [minWidth]);
+
+  return matches;
+}
+
 export default function Cadastro() {
-  const [w, sw] = useState<number>(100);
+  const { router } = useNavigate();
+  const isWideScreen = useMediaQuery(900);
   const popup = usePopup();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm<CadastroData>({
     resolver: zodResolver(cadastroSchema)
   });
 
-  const onSubmit = async (data: any) => {
-    await handleCadastro(data, popup);
+  const onSubmit = async (data: CadastroData) => {
+    await handleCadastro(data, popup, router);
   };
 
   const textFieldConfigs = [
@@ -70,11 +95,6 @@ export default function Cadastro() {
     if (message == null) return undefined;
     return typeof message === "string" ? message : String(message);
   };
-
-  useEffect(() => {
-    const _w = setInterval(() => sw(screen.width), 10);
-    return () => clearInterval(_w);
-  }, [sw]);
 
   return (
     <div className={styles.page}>
@@ -124,7 +144,7 @@ export default function Cadastro() {
         </Card>
       </div>
 
-      {w > 900 && (
+      {isWideScreen && (
         <InfoCadastroMotion
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}

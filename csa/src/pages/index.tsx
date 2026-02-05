@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react"
-import Routes from "../Rotas.json"
+import { GetServerSideProps } from "next";
+import Routes from "../Rotas.json";
 
+/**
+ * Redirect server-side para /home
+ * Evita flickering e melhora performance/SEO
+ */
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: Routes.Home,
+      permanent: false,
+    },
+  };
+};
 
-
-
-
-export default function Root__(){
-    const [load, _ ] = useState<boolean>(true)
-
-
-    /// leva para a home automatico
-    useEffect(()=>{
-        if (load) window.location.href = Routes.Home
-
-    }, [load])
-
-    return <>
-    </>
+export default function Root() {
+  // Esta página nunca será renderizada devido ao redirect
+  return null;
 }

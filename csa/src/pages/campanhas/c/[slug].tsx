@@ -8,6 +8,7 @@ import Heading from "csa/components/ui/heading";
 import Box from "csa/components/ui/Box";
 import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json"
+import useNavigate from "csa/hooks/useNavigate";
 
 type campanhaProps = {
     id: string | number, 
@@ -25,6 +26,7 @@ type campanhaProps = {
 
 
 export default function Campanha(c: campanhaProps){
+    const { navigate } = useNavigate();
     const [size, setSize] = useState({ w: "100%", h: "150px" });
     const [isOpen, seIsOpen] = useState(false)
 
@@ -62,7 +64,7 @@ export default function Campanha(c: campanhaProps){
             >
                 <Heading color={"#000"}>não existe essa campanha</Heading>
                 <Button 
-                    onClick={()=>window.location.href = Rotas.Campanhas.Home }
+                    onClick={() => navigate(Rotas.Campanhas.Home)}
                     bg={"#097D03"}
                     mt={staticPosition(25,750)}
                     p={staticPosition(25)}

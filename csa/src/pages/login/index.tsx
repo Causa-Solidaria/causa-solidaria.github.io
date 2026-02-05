@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react"
 import { Button, Link, Box } from "@chakra-ui/react"
 import { Redefinir, Cadastro } from "csa/Rotas.json"
 import Logo from "csa/components/ui/logo"
@@ -11,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { handleLogin } from "csa/lib/handlers"
 import { Card, Flex, Heading, Input } from "csa/components/ui"
 import styles from "./login.module.css"
+import useNavigate from "csa/hooks/useNavigate"
 
 /* ==================== Constants ==================== */
 const FORM_FIELDS: (keyof LoginData)[] = ["email", "password"]
@@ -22,6 +22,7 @@ const FIELD_LABELS: Record<keyof LoginData, string> = {
 
 /* ==================== Main Component ==================== */
 export default function Login() {
+    const { router } = useNavigate();
     const popup = usePopup()
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginData>({
@@ -29,7 +30,7 @@ export default function Login() {
     })
 
     const onSubmit = async (data: LoginData) => {
-        await handleLogin(data, popup)
+        await handleLogin(data, popup, router)
         reset()
     }
 

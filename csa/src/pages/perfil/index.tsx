@@ -8,6 +8,7 @@ import { getToken, isTokenExpired } from "csa/lib/utils"
 import { Login, Apis } from "csa/Rotas.json"
 import { LuUser, LuContact, LuMegaphone } from "react-icons/lu"
 import styles from "./perfil.module.css"
+import useNavigate from "csa/hooks/useNavigate"
 
 /* ==================== Types ==================== */
 type Ong = {
@@ -70,6 +71,7 @@ function usePerfilData() {
 
 /* ==================== Main Component ==================== */
 export default function Perfil() {
+  const { navigate } = useNavigate();
   const { data, loading } = usePerfilData()
 
   if (loading) {
@@ -99,7 +101,7 @@ export default function Perfil() {
           description="Por favor, faça login para acessar seu perfil."
           action={{
             label: "Fazer Login",
-            onClick: () => window.location.href = Login
+            onClick: () => navigate(Login)
           }}
         />
       </DefaultPage>

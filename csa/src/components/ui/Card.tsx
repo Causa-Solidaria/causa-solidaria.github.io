@@ -19,14 +19,11 @@ interface CardProps extends BoxProps{
 function Card(
     { 
         children, 
-        bg, 
         temSombra = true,
         temBorda = false,
         ...props
     }: CardProps 
 ) {
-    const st = (s:number)=>s
-
     const mergedClassName = MergeClassnames(
         styles.card,
         temBorda ? styles.cardWithBorder : undefined,

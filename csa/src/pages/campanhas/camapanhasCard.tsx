@@ -1,12 +1,27 @@
 import { Box, Image } from "@chakra-ui/react";
 import Heading from "csa/components/ui/heading";
 import { SetStaticPositionW, staticPosition } from "csa/lib/utils";
-import {Campanhas} from "csa/Rotas.json"
+import { Campanhas } from "csa/Rotas.json";
+import useNavigate from "csa/hooks/useNavigate";
 
+/** Tipo para os dados de uma campanha */
+interface CampanhaData {
+  id: string;
+  titulo: string;
+  descricao?: string | null;
+  foto?: string | null;
+}
 
-export default function CampanhasCard({ idx, campanha }: { idx: number | string; campanha: any }) {
-  const RedirecionaParaACampanha = () => {
-    window.location.href = Campanhas.slug + campanha.id;
+interface CampanhasCardProps {
+  idx: number | string;
+  campanha: CampanhaData;
+}
+
+export default function CampanhasCard({ idx, campanha }: CampanhasCardProps) {
+  const { navigate } = useNavigate();
+
+  const handleClick = () => {
+    navigate(Campanhas.slug + campanha.id);
   };
 
   // Se salvou no campo "foto" do banco
@@ -21,7 +36,7 @@ export default function CampanhasCard({ idx, campanha }: { idx: number | string;
       overflow="hidden"
       p={4}
       _hover={{ scale: 1.025 }}
-      onClick={RedirecionaParaACampanha}
+      onClick={handleClick}
       {...SetStaticPositionW(400, 1970)}
     >
       <Image src={fotoSrc} aspectRatio={4/3} borderRadius={staticPosition(15, 100)} alt={"thumbnail " + idx} />

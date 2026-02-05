@@ -1,15 +1,24 @@
+/* ============================================
+   GLOBAL STYLES - Causa Solidária
+   ============================================ */
+
+/* Nota: A fonte Quicksand é carregada via <link> no _document.tsx
+   para melhor performance (preconnect + stylesheet) */
+
+/* VLibras Accessibility */
 [vw-access-button] {
   position: fixed !important;
   bottom: 20px !important;
   right: 20px !important;
   z-index: 2147483647 !important;
 }
+
 [vwd] {
   display: block !important;
   visibility: visible !important;
 }
 
-
+/* CSS Variables */
 :root {
   --clean-green: #C0F5B4;
   --green: #02E351;
@@ -17,15 +26,27 @@
   --black: #000;
   --dark-green: #097D03;
   --semi-dark-green: #05b02a;
-
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 }
 
-* {
+/* Reset CSS - corrigido */
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Quicksand";
-  font-weight: 900;
-  border: 5px;
+}
+
+/* Base typography */
+body {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings get bolder weight */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
 }

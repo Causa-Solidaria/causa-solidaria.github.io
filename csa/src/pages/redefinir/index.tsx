@@ -5,8 +5,10 @@ import { Box, Heading, Text, Button, Input, VStack } from "@chakra-ui/react"
 import usePopup from "csa/hooks/usePopup"
 import { Login, Apis } from "csa/Rotas.json"
 import styles from "./redefinir.module.css"
+import useNavigate from "csa/hooks/useNavigate"
 
 export default function RedefinirSenha() {
+  const { navigate } = useNavigate();
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const popup = usePopup()
@@ -63,7 +65,7 @@ export default function RedefinirSenha() {
           </Button>
           <Button
             className={styles.backButton}
-            onClick={() => window.location.href = Login}
+            onClick={() => navigate(Login)}
           >
             Voltar
           </Button>

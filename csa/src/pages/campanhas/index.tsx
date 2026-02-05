@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { Campanhas as Ca } from "csa/Rotas.json"
 import {Apis} from "csa/Rotas.json"
 import Heading from "csa/components/ui/heading";
+import useNavigate from "csa/hooks/useNavigate";
 
 function Buttonparacriar({...props}:BoxProps){
   const [hover, setHover] = useState<boolean>(false)
@@ -64,6 +65,8 @@ function Buttonparacriar({...props}:BoxProps){
 }
 
 export default function Campanhas() {
+  const { navigate } = useNavigate();
+
   // Tipagem mínima do que é usado no Card
   type Campanha = {
     id: string;
@@ -114,7 +117,7 @@ export default function Campanhas() {
               description="Seja o primeiro a criar uma campanha e fazer a diferença!"
               action={{
                 label: "Criar Campanha",
-                onClick: () => window.location.href = Ca.Criar
+                onClick: () => navigate(Ca.Criar)
               }}
             />
           ) : (

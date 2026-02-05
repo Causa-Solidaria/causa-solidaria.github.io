@@ -4,6 +4,7 @@ import Head from "next/head";
 import Box from "csa/components/ui/Box";
 import JustifyFull, { AlignFull, BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json";
+import useNavigate from "csa/hooks/useNavigate";
 
 type ForumProps = {
   id: string | number;
@@ -13,6 +14,7 @@ type ForumProps = {
 };
 
 export default function Forum(f: ForumProps) {
+    const { navigate } = useNavigate();
     const MaxSize = 2200
     const st = (s: number | number[])=>(staticPosition as any)(s, MaxSize)
     const sstW = (w: number | string | (number | string)[] = MaxSize)=>SetStaticPositionW(w, MaxSize)
@@ -33,7 +35,7 @@ export default function Forum(f: ForumProps) {
         >
             <Heading color={"#000"}>Não existe este fórum</Heading>
             <Button
-                onClick={() => (window.location.href = Rotas.Fóruns.Home)}
+                onClick={() => navigate(Rotas.Fóruns.Home)}
                 bg={"#097D03"}
                 mt={staticPosition(25, 750)}
                 p={staticPosition(25)}
