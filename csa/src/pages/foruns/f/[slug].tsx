@@ -1,8 +1,7 @@
 import { Button, Heading } from "@chakra-ui/react";
-import DefaultPage from "csa/components/DefaultPage/_index";
+import DefaultPage from "csa/components/DefaultPage";
 import Head from "next/head";
 import Box from "csa/components/ui/Box";
-import JustifyFull, { AlignFull, BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json";
 import useNavigate from "csa/hooks/useNavigate";
 
@@ -16,30 +15,25 @@ type ForumProps = {
 export default function Forum(f: ForumProps) {
     const { navigate } = useNavigate();
     const MaxSize = 2200
-    const st = (s: number | number[])=>(staticPosition as any)(s, MaxSize)
-    const sstW = (w: number | string | (number | string)[] = MaxSize)=>SetStaticPositionW(w, MaxSize)
-    const sstH = (h: number | string | (number | string)[] = MaxSize)=>SetStaticPositionH(h, MaxSize)
-    const bordR = (s: number|string)=>BorderRadiusStatic(s, MaxSize)
-    const shSt = (x: number, y: number)=>shadowStatic(x, y, 10, "rgba(0,0,0,0.3)", MaxSize)
 
     return f.notFound ? (
     <DefaultPage>
         <Box
-            {...JustifyFull()}
-            {...AlignFull()}
-            {...sstW(200)}
-            {...sstH(200)}
-            m={st(30)}
+            justifyContent="center"
+            alignItems="center"
+            w={200}
+            h={200}
+            m={30}
             bg={"#fff"}
-            {...bordR(25)}
+            borderRadius={25}
         >
             <Heading color={"#000"}>Não existe este fórum</Heading>
             <Button
                 onClick={() => navigate(Rotas.Fóruns.Home)}
                 bg={"#097D03"}
-                mt={staticPosition(25, 750)}
-                p={staticPosition(25)}
-                borderRadius={staticPosition(15)}
+                mt={25}
+                p={25}
+                borderRadius={15}
             >
                 <Heading>Procurar outros</Heading>
             </Button>
@@ -47,19 +41,19 @@ export default function Forum(f: ForumProps) {
     </DefaultPage>
     ) : (
     <DefaultPage
-        p={st(100)}
+        p={100}
     >
         <Head>
             <title>{f.titulo}</title>
         </Head>
         <Box 
-            {...JustifyFull()}
-            {...AlignFull()}
-            {...sstW(500)}
-            {...sstH(500)}
-            m={st(30)}
+            justifyContent="center"
+            alignItems="center"
+            w={500}
+            h={500}
+            m={30}
             bg={"#fff"}
-            {...bordR(25)}
+            borderRadius={25}
         >
             <Heading>{f.titulo}</Heading>
             <Heading>{f.descricao}</Heading>

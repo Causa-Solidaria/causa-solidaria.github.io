@@ -8,17 +8,13 @@ import { criarOngSchema } from "csa/lib/validations"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useRouter } from "next/router"
-import JustifyFull, { getToken, staticPosition, SetStaticPositionW, SetStaticPositionH } from "csa/lib/utils"
+import { getToken } from "csa/lib/utils"
 import { Apis, ONGs } from "csa/Rotas.json"
 import { LuUpload } from "react-icons/lu"
-import DefaultPage from "csa/components/DefaultPage/_index"
+import DefaultPage from "csa/components/DefaultPage"
 import styles from "./ongCriar.module.css"
 
 /* ==================== Utils ==================== */
-const DISPLAY_CRIAR = 2438
-const stCriar = (s: number | number[]) => staticPosition(s, DISPLAY_CRIAR)
-const stWCriar = (w: number | number[]) => SetStaticPositionW(w, DISPLAY_CRIAR)
-const stHCriar = (h: number | number[]) => SetStaticPositionH(h, DISPLAY_CRIAR)
 
 /* ==================== Form Config ==================== */
 const itensAtuacao = createListCollection({
@@ -156,7 +152,7 @@ export default function CriarNovaOng() {
               ]}
             />
           </Box>
-          <Flex {...JustifyFull()} className={styles.titleContainer}>
+          <Flex justifyContent="center" className={styles.titleContainer}>
             <Heading className={styles.pageTitle}>
               Cadastrar Nova ONG
             </Heading>

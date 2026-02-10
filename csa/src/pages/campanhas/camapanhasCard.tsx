@@ -1,6 +1,5 @@
 import { Box, Image } from "@chakra-ui/react";
 import Heading from "csa/components/ui/heading";
-import { SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import { Campanhas } from "csa/Rotas.json";
 import useNavigate from "csa/hooks/useNavigate";
 
@@ -37,9 +36,9 @@ export default function CampanhasCard({ idx, campanha }: CampanhasCardProps) {
       p={4}
       _hover={{ scale: 1.025 }}
       onClick={handleClick}
-      {...SetStaticPositionW(400, 1970)}
+      w={400}
     >
-      <Image src={fotoSrc} aspectRatio={4/3} borderRadius={staticPosition(15, 100)} alt={"thumbnail " + idx} />
+      <Image src={fotoSrc} aspectRatio={4/3} borderRadius={15} alt={"thumbnail " + idx} />
       <Heading fontSize={64}>{campanha?.titulo}</Heading>
       <Heading fontSize={32}>{campanha?.descricao}</Heading>
     </Box>

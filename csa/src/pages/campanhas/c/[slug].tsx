@@ -1,12 +1,11 @@
 import {  Button, Image, Progress} from "@chakra-ui/react"
-import DefaultPage from "csa/components/DefaultPage/_index"
+import DefaultPage from "csa/components/DefaultPage"
 import { GetServerSideProps } from "next"
 import { prisma } from "csa/lib/prisma";
 import Head from "next/head"
 import { useState } from "react"
 import Heading from "csa/components/ui/heading";
 import Box from "csa/components/ui/Box";
-import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate";
 
@@ -54,21 +53,21 @@ export default function Campanha(c: campanhaProps){
         c.notFound ?
         <DefaultPage>
             <Box 
-                {...JustifyFull("center")} 
-                {...AlignFull("center")} 
-                {...SetStaticPositionH(200, 750)}
-                {...SetStaticPositionW(200, 750)}
-                m={staticPosition(30, 750)}
+                justifyContent="center" 
+                alignItems="center" 
+                h={200}
+                w={200}
+                m={30}
                 bg={"#fff"}
-                borderRadius={staticPosition(15)}
+                borderRadius={15}
             >
                 <Heading color={"#000"}>não existe essa campanha</Heading>
                 <Button 
                     onClick={() => navigate(Rotas.Campanhas.Home)}
                     bg={"#097D03"}
-                    mt={staticPosition(25,750)}
-                    p={staticPosition(25)}
-                    borderRadius={staticPosition(15)}
+                    mt={25}
+                    p={25}
+                    borderRadius={15}
                 >
                     <Heading> procurar por outras </Heading>
                 </Button>
@@ -83,10 +82,10 @@ export default function Campanha(c: campanhaProps){
                 justifySelf="center" alignSelf="center" 
             >
                 <Image 
-                    {...SetStaticPositionW(size.w)}
-                    {...SetStaticPositionW(size.h)}
-                    {...JustifyFull("center")}
-                    {...AlignFull("center")}
+                    w={size.w}
+                    h={size.h}
+                    justifyContent="center"
+                    alignItems="center"
                     src={fotoSrc} 
                     alt={c.titulo} 
                     borderRadius={"xl"}

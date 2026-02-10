@@ -1,8 +1,8 @@
 import { Button, Center, Image } from "@chakra-ui/react"
 import BackRouteBT from "csa/components/BackRouteButton"
-import DefaultPage from "csa/components/DefaultPage/_index"
+import DefaultPage from "csa/components/DefaultPage"
 import { Box, Flex, Heading, Input, Badge, Avatar, EmptyState, Breadcrumb } from "csa/components/ui"
-import JustifyFull, { getToken, BorderStatic, SetStaticPositionH, SetStaticPositionW, staticPosition, AlignFull } from "csa/lib/utils";
+import { getToken } from "csa/lib/utils";
 import { useForm } from "react-hook-form"
 import {Fóruns, Perfil} from "csa/Rotas.json"
 import { useState } from "react"
@@ -63,7 +63,7 @@ export default function Foruns(){
     const Search  = (Event: any)=>{} /// subistituir por uma funçaão que recebe a "pesquisa" e retorna um array com os foruns parecidos
 
     /// funções do Front
-    const st =(s: number)=>staticPosition(s, 2835) as string
+    const st =(s: number) => `${s}px`
 
     return <DefaultPage
         py={st(35)}
@@ -74,17 +74,17 @@ export default function Foruns(){
             ]}
         />
         <Center 
-                borderRadius={staticPosition(25,  2835)}
-                m={staticPosition(100,  2835)}
-                minW={staticPosition( 2835*0.9,  2835)}
-                minH={staticPosition( 2835*0.4,  2835)}
-                p={staticPosition(40,  2835)}
+                borderRadius={25}
+                m={100}
+                minW={2835*0.9}
+                minH={2835*0.4}
+                p={40}
                 bg={"white"}
         >
             <Box>
                 <BackRouteBT 
                     scale={st(56) as string}
-                    {...SetStaticPositionH(67, 2835)}
+                    h={67}
                 /> 
                 <Center>
                     <Heading
@@ -99,7 +99,7 @@ export default function Foruns(){
 
                 <Flex
                     py={st(40)}
-                    {...SetStaticPositionW(2460, 2835)}
+                    w={2460}
                     justifyContent={"space-between"}
                         transition={"scale 0.6s ease, translate 0.6s ease"}
                     justifySelf={"center"}
@@ -108,20 +108,20 @@ export default function Foruns(){
                         <Input 
                             {...register("Search")}
                             placeholder="Buscar Tópicos ou Palavra-Chave"
-                            {...BorderStatic(3, "solid", "#000", 2835)}
+                            border="3px solid #000"
                             borderRadius={st(25)}
                             fontSize={st(32)}
                             p={st(20)}
                             onChange={Search}
-                            {...SetStaticPositionH(85, 2835)}
-                            {...SetStaticPositionW(1626, 2835)}
+                            h={85}
+                            w={1626}
                             transition={"scale 0.6s ease, translate 0.6s ease"}
                         />
                     </form>
                     <Button
-                        {...SetStaticPositionH(85, 2835)}
-                        {...SetStaticPositionW(345, 2835)}
-                        {...BorderStatic(3, "solid", "#000", 2835)}
+                        h={85}
+                        w={345}
+                        border="3px solid #000"
                         bg={"#097D03"}
                         transition={"scale 0.7s ease, translate 0.7s ease"}
                         _hover={{
@@ -149,15 +149,15 @@ export default function Foruns(){
 
                             onClick={() => navigate(Fóruns.search + F.UUID)}
 
-                            {...SetStaticPositionW(2460, 2835)}
-                            {...SetStaticPositionH(415, 2835)}
+                            w={2460}
+                            h={415}
                             p={st(50)}
 
                             borderRadius={st(25)}
-                            {...BorderStatic(3, "solid", "#000", 2835)}
+                            border="3px solid #000"
                         >
                             <Flex
-                                {...SetStaticPositionH(250, 2835)}
+                                h={250}
                             >
                                 {F.Foto ?? <Image alt="foto do forum"/>}
                                 <Flex dir="column" w="full">
@@ -178,7 +178,7 @@ export default function Foruns(){
                                     </Flex>
                                     <Flex>
                                         <Flex
-                                            {...SetStaticPositionW(257, 2835)}
+                                            w={257}
                                             dir="column"
                                             pt={st(20)}
                                         >
@@ -220,9 +220,9 @@ export default function Foruns(){
                                     }
                                 ].map((b, idx)=><Flex 
                                     key={idx}
-                                    {...SetStaticPositionW(200, 2835)}
-                                    {...AlignFull()}
-                                    {...JustifyFull()}
+                                    w={200}
+                                    alignItems="center"
+                                    justifyContent="center"
                                     onClick={b.action}
                                 >   
                                     {b.label==="likes" ? <AiOutlineLike size={st(40)}/> : null}

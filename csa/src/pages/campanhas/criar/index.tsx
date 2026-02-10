@@ -1,5 +1,5 @@
 import { Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
-import DefaultPage from "csa/components/DefaultPage/_index";
+import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
 import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
@@ -8,7 +8,6 @@ import { handleCriarCampanha } from "csa/lib/handlers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { criarCampanhaSchema } from "csa/lib/validations";
-import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
 import { Box, Breadcrumb, Card } from "csa/components/ui";
 import { Campanhas } from "csa/Rotas.json";
 
@@ -73,11 +72,7 @@ export default function QueroDoar() {
 
       ///esses são os helpers
       const MaxSize = 2440
-      const st = (s: number | string | (number | string)[])=>(staticPosition as any)(s, MaxSize)
-      const sstW = (w: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionW as any)(w, MaxSize)
-      const sstH = (h: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionH as any)(h, MaxSize)
-      const bordR = (s: number|string)=>BorderRadiusStatic(s, MaxSize)
-      const shSt = (x: number, y: number)=>shadowStatic(x, y, 10, "rgba(0,0,0,0.3)", MaxSize)
+      const st = (s: number | string | (number | string)[]) => s
 
   return (
     <DefaultPage

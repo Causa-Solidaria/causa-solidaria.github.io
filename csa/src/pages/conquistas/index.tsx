@@ -1,6 +1,6 @@
 import {Heading, SimpleGrid} from "@chakra-ui/react";
 import Conquista from "csa/components/conquista";
-import DefaultPage from "csa/components/DefaultPage/_index";
+import DefaultPage from "csa/components/DefaultPage";
 
 type ConquistaItem = {
     titulo: string;
