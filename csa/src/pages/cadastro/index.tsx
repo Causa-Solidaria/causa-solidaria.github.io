@@ -9,7 +9,6 @@ import { handleCadastro } from "csa/lib/handlers";
 import { Box, Flex, Input, Text, Card, Heading } from "csa/components/ui";
 import Logo from "csa/components/ui/logo";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import styles from "./cadastro.module.css";
 import useNavigate from "csa/hooks/useNavigate";
 
@@ -45,32 +44,8 @@ function InfoCadastro() {
 
 const InfoCadastroMotion = motion.create(InfoCadastro);
 
-/**
- * Hook para detectar se a tela é maior que um breakpoint
- * Usa ResizeObserver ao invés de polling
- */
-function useMediaQuery(minWidth: number): boolean {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    // Verificar inicialmente
-    const checkMatch = () => setMatches(window.innerWidth > minWidth);
-    checkMatch();
-
-    // Usar matchMedia para detectar mudanças
-    const mediaQuery = window.matchMedia(`(min-width: ${minWidth}px)`);
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, [minWidth]);
-
-  return matches;
-}
-
 export default function Cadastro() {
   const { router } = useNavigate();
-  const isWideScreen = useMediaQuery(900);
   const popup = usePopup();
   const { register, handleSubmit, formState: { errors } } = useForm<CadastroData>({
     resolver: zodResolver(cadastroSchema)
@@ -100,17 +75,17 @@ export default function Cadastro() {
     <div className={styles.page}>
       <div className={styles.formSection}>
         <Card temSombra={false} temBorda={true} className={styles.headerCard}>
-          <Heading level={3} className={styles.headerTitle}>Junte-se à Nós!</Heading>
+          <Heading className={styles.headerTitle}>Junte-se à Nós!</Heading>
         </Card>
 
         <Card temSombra={false} temBorda className={styles.formCard}>
           <Flex as="form" onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <Box>
+            <Box w="100%">
               {textFieldConfigs.map(({ name, label, ...props }) => {
                 const errorMessage = getFieldError(name);
                 return (
                   <div key={name} className={styles.fieldContainer}>
-                    <Text level={1} className={styles.fieldLabel}>{label}</Text>
+                    <Text className={styles.fieldLabel}>{label}</Text>
                     <Input {...register(name)} {...props} />
                     {errorMessage && (
                       <p className={styles.errorMessage}>{errorMessage}</p>
@@ -144,13 +119,11 @@ export default function Cadastro() {
         </Card>
       </div>
 
-      {isWideScreen && (
-        <InfoCadastroMotion
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-        />
-      )}
+      <InfoCadastroMotion
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />
     </div>
   );
 }

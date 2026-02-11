@@ -11,6 +11,7 @@ import { handleLogin } from "csa/lib/handlers"
 import { Card, Flex, Heading, Input } from "csa/components/ui"
 import styles from "./login.module.css"
 import useNavigate from "csa/hooks/useNavigate"
+import DefaultPage from "csa/components/DefaultPage"
 
 /* ==================== Constants ==================== */
 const FORM_FIELDS: (keyof LoginData)[] = ["email", "password"]
@@ -35,7 +36,7 @@ export default function Login() {
     }
 
     return (
-        <Box className={styles.page}>
+        <DefaultPage className={styles.page} hiddenFooter hiddenHeader>
             {/* ==================== Background Decoration ==================== */}
             <Box className={styles.backgroundDecoration} />
 
@@ -95,17 +96,17 @@ export default function Login() {
                 </Flex>
 
                 {/* ==================== Footer - Create Account ==================== */}
-                <Flex className={styles.footer}>
-                    <Heading className={styles.footerText}>
-                        Não tem conta?
-                    </Heading>
-                    <Link href={Cadastro} className={styles.footerLink}>
-                        <Heading className={styles.footerLinkText}>
-                            clique aqui
-                        </Heading>
-                    </Link>
-                </Flex>
             </Card>
-        </Box>
+            <Flex className={styles.footer}>
+                <Heading className={styles.footerText}>
+                    Não tem conta?
+                </Heading>
+                <Link href={Cadastro} className={styles.footerLink}>
+                    <Heading className={styles.footerLinkText}>
+                        clique aqui
+                    </Heading>
+                </Link>
+            </Flex>
+        </DefaultPage>
     )
 }

@@ -68,16 +68,18 @@
 
 /* Input */
 .input {
+  width: 100%;
   border: 0.15vmax solid var(--dark-green);
   border-radius: 1vmax;
   color: var(--dark-green);
   line-height: 1em;
   font-size: 1em;
-  padding: 5%;
-  margin: 0.5vmax;
+  padding: 12px 14px;
+  margin: 0.5vmax 0;
   font-family: "Quicksand", sans-serif;
   font-weight: 600;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-sizing: border-box;
 }
 
 .input:focus {

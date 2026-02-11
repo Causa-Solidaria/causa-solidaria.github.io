@@ -3,7 +3,7 @@
 /* ==================== Page ==================== */
 .page {
   background-color: #02E351;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* ==================== Container ==================== */

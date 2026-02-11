@@ -26,6 +26,7 @@
   --black: #000;
   --dark-green: #097D03;
   --semi-dark-green: #05b02a;
+  --erro-warning: #e53e3e;
 }
 
 /* Reset CSS - corrigido */
@@ -35,6 +36,13 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+  height: 100%;
 }
 
 /* Base typography */
@@ -44,6 +52,9 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  min-height: 100%;
 }
 
 /* Headings get bolder weight */
