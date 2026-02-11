@@ -1,10 +1,10 @@
-import { BoxProps, FlexDirection } from "@chakra-ui/react";
+import { BoxProps } from "@chakra-ui/react";
 import Box from "./Box";
 import styles from "./ui.module.css"
 import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 
 type FlexCustomProps = Omit<BoxProps, 'dir'> & {
-    dir?: FlexDirection;
+    dir?: string;
     ref?: React.Ref<HTMLDivElement>;
 };
 
