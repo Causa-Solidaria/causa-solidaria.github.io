@@ -5,6 +5,17 @@
 /* Box */
 .box {
   display: block;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.boxHidden {
+  opacity: 0;
+  transform: translateY(-1vmax);
+}
+
+.boxVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Heading */

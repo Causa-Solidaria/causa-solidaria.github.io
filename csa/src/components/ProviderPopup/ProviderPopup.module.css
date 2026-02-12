@@ -1,0 +1,43 @@
+/* ============================================
+   ProviderPopup - Popup de notificação
+   ============================================ */
+
+.overlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    padding: clamp(12px, 2vw, 20px);
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    align-items: center;
+}
+
+.popupWrapper {
+    pointer-events: auto;
+    margin-bottom: clamp(8px, 1.5vw, 12px);
+}
+
+.popupBox {
+    background-color: var(--clean-green);
+    border: clamp(1px, 0.5vmax, 3px) solid var(--dark-green);
+    pointer-events: auto;
+    min-width: clamp(250px, 40vw, 300px);
+    max-width: clamp(300px, 50vw, 500px);
+    border-radius: clamp(10px, 2vw, 15px);
+    padding: clamp(12px, 2vw, 16px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popupText {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 900;
+    color: var(--dark-green);
+    font-size: clamp(14px, 1.5vw, 16px);
+    text-align: center;
+}

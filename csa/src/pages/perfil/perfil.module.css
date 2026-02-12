@@ -1,225 +1,323 @@
-/* Perfil Page Styles */
+/* ============================================
+   PERFIL PAGE — Causa Solidária
+   ============================================ */
 
-/* ==================== Page ==================== */
-.page {
-  padding: 2.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* ==================== Page States ==================== */
 .pageCenter {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
+  min-height: 50dvh;
 }
 
 /* ==================== Container ==================== */
 .container {
-  width: 95%;
-  max-width: 900px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 48px);
+  gap: clamp(16px, 2.5vw, 28px);
 }
 
 .pageTitle {
-  color: #000;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--black);
+  font-size: clamp(28px, 5vw, 48px);
   font-weight: 900;
   text-align: center;
+  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 8px;
 }
 
 .card {
-  padding: 2rem;
+  padding: clamp(24px, 4vw, 40px);
+  background-color: var(--white);
+  border-radius: clamp(12px, 1.5vw, 20px);
 }
 
-/* ==================== Header ==================== */
+/* ==================== Header do Perfil ==================== */
 .header {
   display: flex;
   flex-direction: row;
-  padding-bottom: 4rem;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 48px);
+  margin-bottom: clamp(24px, 4vw, 36px);
 }
 
-.headerInfo {
+.headerLeft {
   display: flex;
   flex-direction: column;
-  margin-left: 1.5rem;
-  gap: 1rem;
-  align-items: flex-start;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 16px);
+}
+
+.headerName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 
 .userName {
-  color: #000;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-style: italic;
+  color: var(--black);
+  font-size: clamp(18px, 2.5vw, 26px);
   font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  word-break: break-word;
 }
 
 .userRole {
-  color: #000;
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
-  font-style: italic;
+  color: var(--black);
+  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 500;
+  text-align: center;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: clamp(4px, 0.8vw, 10px);
+  text-align: right;
 }
 
 .userDetail {
-  color: #000;
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
-  font-weight: 900;
+  color: var(--black);
+  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 500;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-.detailLabel {
-  font-weight: normal;
-}
-
-/* ==================== Sections ==================== */
+/* ==================== Seções ==================== */
 .section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 4rem;
+  width: 100%;
+  margin-bottom: clamp(20px, 3vw, 36px);
 }
 
 .sectionTitle {
-  color: #000;
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
-  margin-bottom: 1.5rem;
+  color: var(--black);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 800;
+  margin-bottom: clamp(10px, 1.5vw, 16px);
 }
 
 .bioText {
-  color: #000;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-style: italic;
+  color: var(--black);
+  font-size: clamp(15px, 2vw, 20px);
   font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+  word-break: break-word;
 }
 
 /* ==================== Badges ==================== */
 .badgesContainer {
   display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
   flex-wrap: wrap;
+  gap: clamp(8px, 1.2vw, 14px);
 }
 
 /* ==================== Cards Container ==================== */
 .cardsContainer {
   display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
   flex-wrap: wrap;
+  gap: clamp(14px, 2vw, 20px);
+  width: 100%;
 }
 
 /* ==================== ONG Card ==================== */
 .ongCard {
   display: flex;
   flex-direction: row;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  border: 1px solid #000;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  width: 100%;
-  max-width: 20rem;
-  min-height: 5rem;
   align-items: center;
+  gap: clamp(10px, 1.5vw, 16px);
+  width: calc(50% - 10px);
+  padding: clamp(12px, 1.5vw, 18px);
+  border: 1px solid var(--black);
+  border-radius: clamp(10px, 1.2vw, 14px);
+  transition: box-shadow 0.25s ease;
 }
 
 .ongImage {
-  width: 4rem;
-  height: 4rem;
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+  border-radius: 50%;
   object-fit: cover;
-  border-radius: 0.5rem;
+  flex-shrink: 0;
 }
 
 .ongIcon {
-  width: 4rem;
-  height: 4rem;
-}
-
-.ongInfo {
-  display: flex;
-  padding: 0 0.5rem;
-  align-items: center;
-  justify-content: center;
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+  flex-shrink: 0;
+  color: var(--dark-green);
 }
 
 .ongTitle {
-  color: #000;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: var(--black);
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 600;
+  word-break: break-word;
 }
 
 /* ==================== Campanha Card ==================== */
 .campanhaCard {
   display: flex;
-  flex-direction: column;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  border: 1px solid #000;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  width: 100%;
-  max-width: 25rem;
-  min-height: 15rem;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 16px);
+  width: calc(50% - 10px);
+  padding: clamp(12px, 1.5vw, 18px);
+  border: 1px solid var(--black);
+  border-radius: clamp(10px, 1.2vw, 14px);
+  transition: box-shadow 0.25s ease;
 }
 
 .campanhaImage {
-  width: 8rem;
-  height: 8rem;
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+  border-radius: 50%;
   object-fit: cover;
-  border-radius: 0.5rem;
+  flex-shrink: 0;
 }
 
 .campanhaIcon {
-  width: 8rem;
-  height: 8rem;
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+  flex-shrink: 0;
+  color: var(--dark-green);
 }
 
 .campanhaInfo {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 2px;
+  min-width: 0;
 }
 
 .campanhaTitle {
-  color: #000;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: var(--black);
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 600;
+  word-break: break-word;
 }
 
 .campanhaLocation {
-  color: #666;
-  font-size: clamp(0.875rem, 1.5vw, 1.25rem);
+  color: #718096;
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 500;
 }
 
 .campanhaDate {
-  color: #666;
-  font-size: clamp(0.75rem, 1.25vw, 1rem);
+  color: #718096;
+  font-size: clamp(12px, 1.4vw, 15px);
+  font-weight: 500;
 }
 
-/* ==================== Responsive ==================== */
-@media (max-width: 768px) {
-  .page {
-    padding: 1rem;
-  }
+/* ==================== Logout ==================== */
+.logoutContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(12px, 2vw, 24px);
+}
 
+.logoutButton {
+  padding: clamp(10px, 1.2vw, 14px) clamp(24px, 3vw, 36px) !important;
+  font-size: clamp(14px, 1.8vw, 18px) !important;
+  border: 1px solid var(--black) !important;
+  border-radius: clamp(8px, 1vw, 12px) !important;
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+  font-weight: 600 !important;
+  transition: background-color 0.25s ease, color 0.25s ease !important;
+}
+
+.logoutButton:hover {
+  background-color: var(--black) !important;
+  color: var(--white) !important;
+}
+
+/* ==================== Responsivo — Tablet ==================== */
+@media (max-width: 768px) {
   .header {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .headerInfo {
-    margin-left: 0;
+  .headerRight {
     align-items: center;
+    text-align: center;
   }
 
   .ongCard,
   .campanhaCard {
-    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* ==================== Responsivo — Mobile ==================== */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .header {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .section {
+    margin-bottom: 14px;
+  }
+
+  .cardsContainer {
+    flex-direction: column;
+  }
+
+  .ongCard,
+  .campanhaCard {
+    width: 100%;
+  }
+}
+
+/* ==================== Responsivo — Dispositivos Pequenos ==================== */
+@media (max-width: 360px) {
+  .container {
+    padding: 6px;
+  }
+
+  .card {
+    padding: 8px;
+  }
+
+  .userName {
+    font-size: 13px;
+  }
+
+  .userDetail {
+    font-size: 11px;
+  }
+}
+
+/* ==================== Responsivo — Extra Pequeno ==================== */
+@media (max-width: 320px) {
+  .pageTitle {
+    font-size: 18px;
+  }
+
+  .sectionTitle {
+    font-size: 12px;
   }
 }

@@ -1,46 +1,54 @@
-import { Box, Image } from "@chakra-ui/react";
-import Heading from "csa/components/ui/heading";
-import { Campanhas } from "csa/Rotas.json";
-import useNavigate from "csa/hooks/useNavigate";
+import Image from "next/image"
+import { Campanhas } from "csa/Rotas.json"
+import useNavigate from "csa/hooks/useNavigate"
+import styles from "./campanhas.module.css"
 
-/** Tipo para os dados de uma campanha */
 interface CampanhaData {
-  id: string;
-  titulo: string;
-  descricao?: string | null;
-  foto?: string | null;
+  id: string | number
+  titulo: string
+  descricao?: string | null
+  foto?: string | null
 }
 
 interface CampanhasCardProps {
-  idx: number | string;
-  campanha: CampanhaData;
+  idx: number | string
+  campanha: CampanhaData
 }
 
 export default function CampanhasCard({ idx, campanha }: CampanhasCardProps) {
-  const { navigate } = useNavigate();
+  const { navigate } = useNavigate()
 
   const handleClick = () => {
-    navigate(Campanhas.slug + campanha.id);
-  };
+    navigate(Campanhas.slug + campanha.id)
+  }
 
-  // Se salvou no campo "foto" do banco
-  let fotoSrc = "/logo.png"; // fallback
+  let fotoSrc = "/logo.png"
   if (campanha?.foto) {
-    fotoSrc = `data:image/png;base64,${campanha.foto}`;
+    fotoSrc = `data:image/png;base64,${campanha.foto}`
   }
 
   return (
-    <Box
-      aspectRatio={5/7}
-      overflow="hidden"
-      p={4}
-      _hover={{ scale: 1.025 }}
+    <div
+      className={styles.card}
       onClick={handleClick}
-      w={400}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter") handleClick() }}
     >
-      <Image src={fotoSrc} aspectRatio={4/3} borderRadius={15} alt={"thumbnail " + idx} />
-      <Heading fontSize={64}>{campanha?.titulo}</Heading>
-      <Heading fontSize={32}>{campanha?.descricao}</Heading>
-    </Box>
-  );
+      <Image
+        className={styles.cardImage}
+        src={fotoSrc}
+        alt={`Campanha ${campanha.titulo}`}
+        width={340}
+        height={255}
+        unoptimized
+      />
+      <div className={styles.cardContent}>
+        <h3 className={styles.cardTitle}>{campanha.titulo}</h3>
+        {campanha.descricao && (
+          <p className={styles.cardDescription}>{campanha.descricao}</p>
+        )}
+      </div>
+    </div>
+  )
 }

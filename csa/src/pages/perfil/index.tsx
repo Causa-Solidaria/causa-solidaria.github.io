@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Center, Image } from "@chakra-ui/react"
+import { Image } from "@chakra-ui/react"
 import DefaultPage from "csa/components/DefaultPage/index"
-import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge } from "csa/components/ui"
-import { getToken, isTokenExpired } from "csa/lib/utils"
+import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge, Button } from "csa/components/ui"
+import { getToken, isTokenExpired, logoutAndRedirect } from "csa/lib/utils"
 import { Login, Apis } from "csa/Rotas.json"
 import { LuUser, LuContact, LuMegaphone } from "react-icons/lu"
 import styles from "./perfil.module.css"
@@ -115,14 +115,22 @@ export default function Perfil() {
     numero,
     email,
     localizacao,
-    areasDeInteresse = [],
+    areasDeInteresse: rawInteresses,
     genero,
-    ong = [],
-    campanhas = []
+    ong: rawOng,
+    campanhas: rawCampanhas
   } = data
 
+  const areasDeInteresse = rawInteresses ?? []
+  const ong = rawOng ?? []
+  const campanhas = rawCampanhas ?? []
+
+  const handleLogout = () => {
+    logoutAndRedirect()
+  }
+
   return (
-    <DefaultPage className={styles.page}>
+    <DefaultPage>
       <Box className={styles.container}>
         <Heading className={styles.pageTitle}> 
           Perfil 
@@ -131,29 +139,27 @@ export default function Perfil() {
         <Card className={styles.card}>
           {/* ==================== Header ==================== */}
           <Flex className={styles.header}>
-            <Avatar src={foto} name={name} />
-            <Flex className={styles.headerInfo}>
-              <Heading className={styles.userName}>
-                {name || 'Nome não informado'}
-              </Heading>
-              
-              <Heading className={styles.userRole}>
-                {genero ? `Voluntári${genero === "masculino" ? "o" : "a"}` : 'Gênero não informado'}
-              </Heading>
-              
-              <Heading className={styles.userDetail}>
-                <span className={styles.detailLabel}>Email: </span>
-                {email || 'Não informado'}
-              </Heading>
-              
-              <Heading className={styles.userDetail}>
-                <span className={styles.detailLabel}>Telefone: </span>
-                {numero || 'Não informado'}
-              </Heading>
+            <Flex className={styles.headerLeft}>
+              <Avatar src={foto} name={name} size="2xl" />
+              <Flex className={styles.headerName}>
+                <Heading className={styles.userName}>
+                  {name || 'Nome não informado'}
+                </Heading>
+                <Heading className={styles.userRole}>
+                  {genero ? `voluntári${genero === "masculino" ? "o" : "a"}` : 'voluntário(a)'}
+                </Heading>
+              </Flex>
+            </Flex>
 
+            <Flex className={styles.headerRight}>
               <Heading className={styles.userDetail}>
-                <span className={styles.detailLabel}>Localização: </span>
-                {localizacao || 'Não informada'}
+                {email || 'Email não informado'}
+              </Heading>
+              <Heading className={styles.userDetail}>
+                {numero || 'Telefone não informado'}
+              </Heading>
+              <Heading className={styles.userDetail}>
+                {localizacao || 'Localização não informada'}
               </Heading>
             </Flex>
           </Flex>
@@ -176,7 +182,7 @@ export default function Perfil() {
               </Heading>
               <Flex className={styles.badgesContainer}>
                 {areasDeInteresse.map((interesse: string) => (
-                  <Badge key={interesse} variant="info" size="lg">
+                  <Badge key={interesse} variant="default" size="lg">
                     {interesse}
                   </Badge>
                 ))}
@@ -185,50 +191,42 @@ export default function Perfil() {
           )}
 
           {/* ==================== ONGs ==================== */}
-          <Flex className={styles.section}>
-            <Heading className={styles.sectionTitle}>
-              ONG{ong.length > 1 ? "s" : ""} que apoio
-            </Heading>
-            <Flex className={styles.cardsContainer}>
-              {ong.map((o, id) => (
-                <Flex key={id} className={styles.ongCard}>
-                  {o.foto ? (
-                    <Image className={styles.ongImage} src={o.foto} alt={o.title} />
-                  ) : (
-                    <LuContact className={styles.ongIcon} />
-                  )}
-                  <Flex className={styles.ongInfo}>
+          {ong.length > 0 && (
+            <Flex className={styles.section}>
+              <Heading className={styles.sectionTitle}>
+                ONG{ong.length > 1 ? "s" : ""} que Apoio
+              </Heading>
+              <Flex className={styles.cardsContainer}>
+                {ong.map((o, id) => (
+                  <Flex key={id} className={styles.ongCard}>
+                    {o.foto ? (
+                      <Image className={styles.ongImage} src={o.foto} alt={o.title} />
+                    ) : (
+                      <LuContact className={styles.ongIcon} />
+                    )}
                     <Heading className={styles.ongTitle}>
                       {o.title}
                     </Heading>
                   </Flex>
-                </Flex>
-              ))}
+                ))}
+              </Flex>
             </Flex>
-          </Flex>
+          )}
 
           {/* ==================== Campanhas ==================== */}
-          <Flex className={styles.section}>
-            <Heading className={styles.sectionTitle}>
-              Campanha{campanhas.length > 1 ? "s" : ""} que Fiz
-            </Heading>
-            <Flex className={styles.cardsContainer}>
-              {campanhas.length === 0 ? (
-                <EmptyState
-                  icon={<LuMegaphone size={48} />}
-                  title="Nenhuma campanha"
-                  description="Você ainda não criou nenhuma campanha"
-                />
-              ) : (
-                campanhas.map((campanha) => (
+          {campanhas.length > 0 && (
+            <Flex className={styles.section}>
+              <Heading className={styles.sectionTitle}>
+                Campanha{campanhas.length > 1 ? "s" : ""} que Fiz
+              </Heading>
+              <Flex className={styles.cardsContainer}>
+                {campanhas.map((campanha) => (
                   <Flex key={campanha.id} className={styles.campanhaCard}>
-                    <Center>
-                      {campanha.foto ? (
-                        <Image className={styles.campanhaImage} src={campanha.foto} alt={campanha.titulo} />
-                      ) : (
-                        <LuContact className={styles.campanhaIcon} />
-                      )}
-                    </Center>
+                    {campanha.foto ? (
+                      <Image className={styles.campanhaImage} src={campanha.foto} alt={campanha.titulo} />
+                    ) : (
+                      <LuContact className={styles.campanhaIcon} />
+                    )}
                     <Flex className={styles.campanhaInfo}>
                       <Heading className={styles.campanhaTitle}>
                         {campanha.titulo}
@@ -243,9 +241,16 @@ export default function Perfil() {
                       </Heading>
                     </Flex>
                   </Flex>
-                ))
-              )}
+                ))}
+              </Flex>
             </Flex>
+          )}
+
+          {/* ==================== Logout ==================== */}
+          <Flex className={styles.logoutContainer}>
+            <Button className={styles.logoutButton} onClick={handleLogout}>
+              Sair da Conta
+            </Button>
           </Flex>
         </Card>
       </Box>
