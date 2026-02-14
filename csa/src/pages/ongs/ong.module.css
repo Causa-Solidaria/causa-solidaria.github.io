@@ -1,251 +1,147 @@
-/* ONGs Page Styles */
-
-/* ==================== Page ==================== */
+/* ── ONGs Page ── */
 .page {
-  background-color: #02E351;
-  min-height: 100dvh;
-}
-
-/* ==================== Container ==================== */
-.container {
-  border-radius: 1.25vmax;
-  margin: clamp(1rem, 5vw, 5rem);
-  width: 90%;
-  max-width: 90vw;
-  min-height: 40vh;
-  padding: clamp(1rem, 2vw, 2rem);
-  background-color: #fff;
-}
-
-/* ==================== Header ==================== */
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.backButton {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.backButton:hover {
-  background-color: #f3f3f3;
-}
-
-.backButtonIcon {
-  width: clamp(1.5rem, 2vw, 2rem);
-  height: clamp(1.5rem, 2vw, 2rem);
-}
-
-.title {
-  font-size: clamp(2rem, 4vw, 4rem);
-  font-weight: 900;
-  color: #000;
-}
-
-.createButton {
-  background-color: var(--dark-green);
-  color: #fff;
-  border-radius: 1.5rem;
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  padding: 0.75rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.createButton:hover {
-  opacity: 0.9;
-}
-
-/* ==================== Search ==================== */
-.searchContainer {
-  position: relative;
-  margin-bottom: 3rem;
-  border: 2px solid var(--dark-green);
-  border-radius: 1.5rem;
-}
-
-.searchIcon {
-  color: var(--dark-green);
-  position: absolute;
-  left: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(1.5rem, 2vw, 2.5rem);
-  height: clamp(1.5rem, 2vw, 2.5rem);
-}
-
-.searchInput {
-  padding-left: 4rem;
-  border-radius: 1.5rem;
-  background-color: #fff;
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  height: 3.5rem;
-  border: none;
-  width: 100%;
-}
-
-/* ==================== Content ==================== */
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.loadingContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 15rem;
-}
-
-/* ==================== ONGs List ==================== */
-.ongsList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-/* ==================== ONG Card ==================== */
-.ongCard {
-  background-color: #fff;
-  padding: clamp(1rem, 2vw, 2rem);
-  border-radius: 1.5rem;
-  border: 2px solid #000;
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 30rem;
-  min-width: 20rem;
-  transition: all 0.2s ease;
-}
-
-.ongCard:hover {
-  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
-
-.ongCardHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.ongCardInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-start;
-  flex: 1;
-}
-
-.ongName {
-  font-weight: bold;
-  font-size: clamp(1.25rem, 2vw, 2rem);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.ongDescription {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  color: #333;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.ongLocation {
-  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-
-.ongEmail {
-  font-size: clamp(0.8rem, 1vw, 1rem);
-  color: #777;
-  margin-bottom: 1.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ==================== Action Buttons ==================== */
-.ongActions {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.detailsButton {
-  background-color: #fff;
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 1.25rem;
-  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
-  padding: 0.5rem 1rem;
-  height: 3rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.detailsButton:hover {
-  background-color: #f3f3f3;
-}
-
-.supportButton {
-  background-color: #02E351;
-  color: #fff;
-  border: none;
-  border-radius: 1.25rem;
-  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
-  padding: 0.5rem 1rem;
-  height: 3rem;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.supportButton:hover {
-  opacity: 0.9;
-}
-
-/* ==================== Responsive ==================== */
-@media (max-width: 768px) {
-  .container {
-    margin: 1rem;
-    width: 95%;
-    padding: 1rem;
-  }
-
-  .header {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: clamp(16px, 3vw, 32px);
+    gap: clamp(16px, 2.5vw, 28px);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    background: var(--white);
+    border-radius: clamp(12px, 2vw, 20px);
+    padding: clamp(20px, 3vw, 40px);
+    gap: clamp(16px, 2.5vw, 28px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    gap: clamp(12px, 2vw, 20px);
+}
+.pageTitle {
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 900;
+    color: var(--black);
     text-align: center;
-  }
-
-  .ongCard {
-    min-width: 100%;
-  }
-
-  .ongActions {
+}
+.searchRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: clamp(10px, 1.5vw, 16px);
+}
+.searchInput {
+    flex: 1;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 16px) clamp(14px, 2vw, 20px);
+    font-size: clamp(14px, 2vw, 18px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.searchInput::placeholder { color: #999; font-weight: 500; }
+.searchInput:focus { border-color: var(--green); }
+.createButton {
+    display: flex;
+    align-items: center;
     justify-content: center;
-  }
+    gap: 6px;
+    background: var(--dark-green);
+    color: var(--white);
+    border: none;
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 28px);
+    font-size: clamp(13px, 1.8vw, 17px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.3s, transform 0.2s;
+}
+.createButton:hover { background: var(--semi-dark-green); transform: translateY(-3px); }
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 960px;
+    gap: clamp(12px, 2vw, 18px);
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--white);
+    border-radius: clamp(10px, 1.5vw, 16px);
+    border: 2px solid #e0e0e0;
+    padding: clamp(14px, 2.5vw, 24px);
+    gap: clamp(10px, 1.5vw, 16px);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--dark-green);
+}
+.cardTop { display: flex; align-items: flex-start; gap: clamp(10px, 1.5vw, 16px); }
+.cardBody { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: clamp(4px, 0.6vw, 8px); }
+.cardTitleRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cardTitle { font-size: clamp(16px, 2.5vw, 24px); font-weight: 800; color: var(--black); word-break: break-word; }
+.cardTags { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.6vw, 8px); }
+.cardDescription {
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 500;
+    color: #666;
+    line-height: 1.5;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.cardFooter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(12px, 2vw, 24px);
+    padding-top: clamp(8px, 1vw, 12px);
+    border-top: 1px solid #eee;
+}
+.footerItem {
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 0.6vw, 8px);
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.footerItem:hover { color: var(--dark-green); }
+.footerIcon { font-size: clamp(16px, 2.2vw, 22px); color: var(--dark-green); flex-shrink: 0; }
+.centerBox { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 40vh; }
+@media (max-width: 768px) {
+    .searchRow { flex-direction: column; }
+    .createButton { width: 100%; }
+    .cardFooter { gap: clamp(8px, 2vw, 14px); }
+}
+@media (max-width: 480px) {
+    .page { padding: clamp(10px, 3vw, 16px); }
+    .cardTop { flex-direction: column; }
+    .cardTitleRow { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 360px) {
+    .cardTitle { font-size: clamp(14px, 4.5vw, 18px); }
+    .cardDescription { font-size: clamp(12px, 3.5vw, 14px); }
 }

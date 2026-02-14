@@ -5,17 +5,6 @@
 /* Box */
 .box {
   display: block;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.boxHidden {
-  opacity: 0;
-  transform: translateY(-1vmax);
-}
-
-.boxVisible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* Heading */
@@ -49,10 +38,12 @@
 
 /* Logo */
 .logo {
-  width: clamp(1vmax, 100%, 96px);
-  border-radius: 1vmax;
-  margin: 1vmax;
+  width: clamp(36px, 5vw, 56px);
+  height: clamp(36px, 5vw, 56px);
+  border-radius: clamp(6px, 1vw, 10px);
   border: 2px solid rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 /* Card */

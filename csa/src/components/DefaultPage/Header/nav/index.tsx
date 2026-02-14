@@ -3,28 +3,24 @@ import {getToken, isTokenExpired} from "csa/lib/utils";
 import { useState, useEffect, useMemo, useRef } from "react";
 
 import { baseButtons, perfilButton } from "./buttons"
-import Heading from "csa/components/ui/heading";
 import { motion, AnimatePresence } from "framer-motion";
 import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
 import navStyles from "./../../Defaultpage.module.css"
+import useNavigate from "csa/hooks/useNavigate";
 
-
-// Número fixo de botões para o layout inicial (evita hydration mismatch)
-const INITIAL_BUTTON_COUNT = baseButtons.length
 
 export default function Nav(
     {
         open, 
-        anim,
         classname,
         onClose
     }:{
         open: boolean, 
-        anim: boolean,
         classname: string,
         onClose?: () => void
     })
 {
+    const { navigate } = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [mounted, setMounted] = useState(false)
     const containerRef = useRef<HTMLDivElement | null>(null)
@@ -55,7 +51,7 @@ export default function Nav(
     useEffect(() => {
         if (!open) return
         const t = setTimeout(() => {
-            const first = containerRef.current?.querySelector('a') as HTMLElement | null
+            const first = containerRef.current?.querySelector('[role="menuitem"]') as HTMLElement | null
             first?.focus()
         }, 220)
         return () => clearTimeout(t)
@@ -85,9 +81,8 @@ export default function Nav(
                     transition={{ duration: 0.26, ease: "easeInOut" }}
                 >
                     {buttons.map(({title, link}, index) => (
-                        <motion.a
+                        <motion.div
                             key={index}
-                            href={link}
                             role="menuitem"
                             tabIndex={0}
                             initial={{ opacity: 0, y: -6 }}
@@ -95,14 +90,16 @@ export default function Nav(
                             exit={{ opacity: 0, y: -6 }}
                             transition={{ delay: 0.06 + index * 0.03, duration: 0.22 }}
                             whileHover={{ translateY: '-0.1vmax', translateX: '0.1vmax', scale: 1.005, textDecoration: 'underline' }}
-                            onClick={() => onClose?.()}
-                            style={{ padding: '1vmax', display: 'block' }}
+                            onClick={() => { navigate(link); onClose?.() }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(link); onClose?.() }
+                            }}
+                            style={{ padding: '1vmax', display: 'block', cursor: 'pointer' }}
                         >
-                            <h1
-                            >
+                            <h1>
                                 {title}
                             </h1>
-                        </motion.a>
+                        </motion.div>
                     ))}
                 </motion.div>
             )}
