@@ -1,22 +1,20 @@
-"use client"
+import { GetServerSideProps } from "next";
+import Routes from "../Rotas.json";
 
-import DefaultPage from "csa/components/DefaultPage"
-import CarrosselOngs from "csa/components/pagesComponents/CarrosselOngs"
-import { HeroSection, AboutSection } from "csa/components/pagesComponents/Home"
+/**
+ * Redirect server-side para /home
+ * Evita flickering e melhora performance/SEO
+ */
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: Routes.Home,
+      permanent: false,
+    },
+  };
+};
 
-export default function Home() {
-  return (
-    <DefaultPage
-      position={"relative"}
-      p={0}
-      bg={"qui"}
-      transition="all 0.6s ease"
-    >
-      <HeroSection />
-      <AboutSection />
-      <CarrosselOngs />
-    </DefaultPage>
-  )
+export default function Root() {
+  // Esta página nunca será renderizada devido ao redirect
+  return null;
 }
-
-

@@ -1,8 +1,0 @@
-export { default as PerfilContent } from "./PerfilContent"
-export { default as PerfilHeader } from "./PerfilHeader"
-export { default as PerfilBio } from "./PerfilBio"
-export { default as PerfilInteresses } from "./PerfilInteresses"
-export { default as PerfilOngs } from "./PerfilOngs"
-export { default as PerfilCampanhas } from "./PerfilCampanhas"
-export { usePerfilData } from "./usePerfilData"
-export { MAX_SIZE, st, stW, stH } from "./utils"

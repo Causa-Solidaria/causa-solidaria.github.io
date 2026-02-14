@@ -1,0 +1,253 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: clamp(16px, 3vw, 32px);
+    gap: clamp(16px, 2.5vw, 28px);
+}
+
+/* ── Not Found ── */
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(14px, 2vw, 24px);
+    padding: clamp(24px, 4vw, 48px);
+    background: var(--white);
+    border-radius: clamp(10px, 1.5vw, 16px);
+    text-align: center;
+    max-width: 480px;
+    margin: clamp(20px, 4vw, 40px) auto;
+}
+
+.notFoundTitle {
+    color: var(--black);
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 700;
+}
+
+.notFoundButton {
+    background: var(--dark-green);
+    color: var(--white);
+    border: none;
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 18px) clamp(18px, 3vw, 32px);
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 700;
+    font-family: "Quicksand", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.notFoundButton:hover {
+    background: var(--semi-dark-green);
+    transform: scale(1.03);
+}
+
+/* ── Campaign Detail Card ── */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 960px;
+    background: var(--white);
+    border-radius: clamp(10px, 1.5vw, 16px);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Image ── */
+
+.imageWrapper {
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: clamp(200px, 30vw, 400px);
+    object-fit: cover;
+    border-radius: clamp(10px, 1.5vw, 16px) clamp(10px, 1.5vw, 16px) 0 0;
+    transition: height 0.5s ease-in-out;
+}
+
+.imageExpanded {
+    height: 80vh;
+    object-fit: contain;
+    background: var(--black);
+}
+
+/* ── Content ── */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(16px, 3vw, 32px);
+    gap: clamp(14px, 2vw, 24px);
+}
+
+.title {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 900;
+    color: var(--dark-green);
+    word-break: break-word;
+}
+
+.description {
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 500;
+    color: var(--black);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* ── Info Section ── */
+
+.infoSection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.5vw, 16px);
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 0.8vw, 10px);
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 600;
+    color: var(--black);
+    background: var(--clean-green);
+    padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
+    border-radius: clamp(6px, 1vw, 10px);
+}
+
+.infoIcon {
+    color: var(--dark-green);
+    font-size: clamp(14px, 2vw, 20px);
+    flex-shrink: 0;
+}
+
+.infoLabel {
+    font-weight: 700;
+    color: var(--dark-green);
+    margin-right: 4px;
+}
+
+/* ── Help Level ── */
+
+.helpLevel {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 1vw, 10px);
+}
+
+.helpLevelLabel {
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+.progressTrack {
+    width: 100%;
+    height: clamp(10px, 1.5vw, 16px);
+    background: #e0e0e0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 999px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* ── Dates ── */
+
+.dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(10px, 2vw, 20px);
+    font-size: clamp(12px, 1.6vw, 15px);
+    color: #555;
+    font-weight: 500;
+}
+
+.dateItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dateLabel {
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+/* ── Back Button ── */
+
+.backButton {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 2px solid var(--dark-green);
+    color: var(--dark-green);
+    border-radius: clamp(6px, 1vw, 10px);
+    padding: clamp(6px, 1vw, 10px) clamp(12px, 2vw, 20px);
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 700;
+    font-family: "Quicksand", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.backButton:hover {
+    background: var(--dark-green);
+    color: var(--white);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 768px) {
+    .infoSection {
+        flex-direction: column;
+    }
+
+    .dates {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: clamp(10px, 3vw, 16px);
+    }
+
+    .content {
+        padding: clamp(12px, 3vw, 20px);
+    }
+
+    .title {
+        font-size: clamp(18px, 5vw, 24px);
+    }
+
+    .image {
+        height: clamp(160px, 40vw, 240px);
+    }
+}
+
+@media (max-width: 360px) {
+    .infoItem {
+        font-size: clamp(11px, 3.5vw, 14px);
+        padding: clamp(5px, 1.5vw, 8px) clamp(8px, 2vw, 12px);
+    }
+}

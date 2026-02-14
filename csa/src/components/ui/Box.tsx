@@ -1,46 +1,43 @@
-import { Box as B, BoxProps} from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { Box as B, BoxProps } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
+import { useStagger } from "./StaggerContext";
+
 interface Bprops extends BoxProps {
     ref?: React.Ref<HTMLDivElement>
 }
 
-let delay_obj: number=0
+export default function Box({
+    children,
+    overflow,
+    ref,
+    className,
+    style,
+    ...props
+}: Bprops) {
+    const { getDelay } = useStagger()
+    const [visible, setVisible] = useState(false)
+    const [delay] = useState(() => getDelay())
 
-export default function Box(
-    {
-        children, 
-        overflow, 
-        ref, 
-        ...props
-    }: Bprops) /// os argumentos 
+    useEffect(() => {
+        const timer = setTimeout(() => setVisible(true), delay * 2500)
+        return () => clearTimeout(timer)
+    }, [delay])
 
-{ /// corpo do componente
-    
-    delay_obj++
+    const mergedClassName = MergeClassnames(
+        styles.box,
+        visible ? styles.boxVisible : styles.boxHidden,
+        className
+    )
 
-    return <motion.div
-        initial={{
-            opacity: 0,
-            y: "-1vmax"
-        }}
-        animate={{
-            opacity: 1,
-            y: 0
-        }}
-        exit={{
-            opacity: 0,
-            y: "-1vmax"
-        }}
-        transition={{
-            delay: delay_obj/20,
-            duration: 0.3,
-            ease: "easeInOut"
-        }}
-    ><B  
-        {...props}
-
-        ref={ref}
-    >
-        {children}
-    </B></motion.div>
+    return (
+        <B
+            className={mergedClassName}
+            {...props}
+            ref={ref}
+        >
+            {children}
+        </B>
+    )
 }

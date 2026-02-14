@@ -1,0 +1,254 @@
+/* ============= Page Layout ============= */
+.page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100dvh;
+  background-color: var(--clean-green);
+  justify-content: space-between;
+}
+
+/* ============= Form Section (Left) ============= */
+.formSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 20px;
+}
+
+.headerCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--dark-green);
+  border-radius: 12px;
+  background-color: var(--white);
+  padding: 14px 28px;
+  margin-bottom: 12px;
+}
+
+.headerTitle {
+  color: var(--dark-green);
+  font-size: clamp(22px, 4vw, 36px);
+}
+
+.formCard {
+  margin: 12px;
+  padding: 28px 24px;
+  background-color: var(--white);
+  width: 94%;
+  max-width: 585px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.fieldLabel {
+  font-size: clamp(14px, 2.5vw, 16px);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.errorMessage {
+  font-size: clamp(12px, 2vw, 14px);
+  color: red;
+  margin-top: 4px;
+}
+
+.checkboxContainer {
+  margin-bottom: 20px;
+}
+
+.checkboxControl {
+  border-color: #006E1F;
+}
+
+.checkboxLabel {
+  font-size: clamp(13px, 2vw, 14px);
+  margin: 0;
+  padding: 0;
+}
+
+.submitButton {
+  width: clamp(140px, 50%, 200px);
+  height: clamp(44px, 6vh, 56px);
+  font-size: clamp(15px, 2.5vw, 20px);
+  border-radius: 10px;
+  background-color: #15B100;
+  align-self: center;
+}
+
+.submitButton:hover {
+  background-color: #12a000;
+}
+
+/* ============= Info Section (Right Panel) ============= */
+.infoSection {
+  display: none;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: #4DCD58;
+  overflow: hidden;
+  width: clamp(300px, 38vw, 660px);
+  align-items: center;
+  flex-shrink: 0;
+  gap: 16px;
+  padding: 16px;
+}
+
+.infoLogo {
+  border-radius: 12px;
+  margin: 16px;
+  width: clamp(80px, 10vw, 150px);
+}
+
+.infoBrandCard {
+  background-color: #fff;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #006E1F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoBrandTitle {
+  color: #006E1F;
+  margin: 16px;
+  font-size: clamp(18px, 2vw, 28px);
+}
+
+.infoContentCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 12px;
+  border: 1px solid #006E1F;
+  background-color: #fff;
+  color: #006E1F;
+}
+
+.infoHeading {
+  font-size: clamp(16px, 2vw, 24px);
+  color: #006E1F;
+  line-height: 120%;
+  font-weight: 900;
+  text-align: center;
+}
+
+.infoText {
+  font-size: clamp(13px, 1.5vw, 18px);
+  margin: 16px;
+  text-align: justify;
+}
+
+.infoFooterCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 12px;
+  border: 1px solid #006E1F;
+  background-color: #fff;
+  color: #006E1F;
+}
+
+.infoFooterText {
+  font-size: clamp(13px, 1.5vw, 18px);
+  margin: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ============= Responsive ============= */
+
+/* Mobile small (< 480px) */
+@media (max-width: 480px) {
+  .formSection {
+    padding: 16px 0;
+  }
+
+  .headerCard {
+    padding: 10px 20px;
+    margin-bottom: 8px;
+    width: 92%;
+  }
+
+  .formCard {
+    width: clamp(300px, 85vw, 585px);
+    max-width: 100%;
+    padding: 24px 20px;
+    margin: 8px 0;
+    border-radius: 0;
+  }
+
+  .form {
+    gap: 10px;
+  }
+
+  .fieldContainer {
+    padding: 6px 0;
+  }
+
+  .submitButton {
+    width: 65%;
+  }
+}
+
+/* Mobile medium (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .formCard {
+    width: clamp(300px, 75vw, 585px);
+    padding: 28px 24px;
+  }
+
+  .headerCard {
+    width: 85%;
+  }
+}
+
+/* Tablet (>= 768px) */
+@media (min-width: 768px) {
+  .formCard {
+    width: clamp(300px, 50vw, 585px);
+    padding: 36px;
+  }
+
+  .form {
+    gap: 18px;
+  }
+
+  .fieldContainer {
+    padding: 10px 0;
+  }
+}
+
+/* Desktop (>= 1024px) - show info panel */
+@media (min-width: 1024px) {
+  .infoSection {
+    display: flex;
+  }
+
+  .formCard {
+    width: clamp(300px, 50vw, 585px);
+  }
+}

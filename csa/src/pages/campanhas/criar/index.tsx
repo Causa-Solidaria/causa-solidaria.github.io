@@ -1,4 +1,4 @@
-import { Button, FileUpload, Image, Input, Text, HStack, VStack, NativeSelect, Textarea } from "@chakra-ui/react";
+import { FileUpload, Image } from "@chakra-ui/react";
 import DefaultPage from "csa/components/DefaultPage";
 import usePopup from "csa/hooks/usePopup";
 import { useState } from "react";
@@ -8,9 +8,9 @@ import { handleCriarCampanha } from "csa/lib/handlers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { criarCampanhaSchema } from "csa/lib/validations";
-import { BorderRadiusStatic, SetStaticPositionH, SetStaticPositionW, shadowStatic, staticPosition } from "csa/lib/utils";
-import { Box, Breadcrumb, Card } from "csa/components/ui";
+import { Box, Breadcrumb, Card, Heading, Button, Flex } from "csa/components/ui";
 import { Campanhas } from "csa/Rotas.json";
+import styles from "./criar.module.css";
 
 export default function QueroDoar() {
   const popup = usePopup();
@@ -52,17 +52,15 @@ export default function QueroDoar() {
       const base64 = reader.result?.toString().split(",")[1];
       if (!base64) return;
 
-      const compressed = base64;
-      setThumbnailString(compressed);
+      setThumbnailString(base64);
       setPreview(URL.createObjectURL(file));
       setUploadError(null);
     };
     reader.readAsDataURL(file);
   };
 
-  
   // Configuração dos campos do formulário
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof criarCampanhaSchema>>({
+  const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof criarCampanhaSchema>>({
     resolver: zodResolver(criarCampanhaSchema)
   });
 
@@ -70,147 +68,135 @@ export default function QueroDoar() {
     handleCriarCampanha({ ...data, thumbnailString: thumbnailString ?? undefined }, popup);
   }
 
-
-      ///esses são os helpers
-      const MaxSize = 2440
-      const st = (s: number | string | (number | string)[])=>(staticPosition as any)(s, MaxSize)
-      const sstW = (w: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionW as any)(w, MaxSize)
-      const sstH = (h: number | string | (number | string)[] = MaxSize)=>(SetStaticPositionH as any)(h, MaxSize)
-      const bordR = (s: number|string)=>BorderRadiusStatic(s, MaxSize)
-      const shSt = (x: number, y: number)=>shadowStatic(x, y, 10, "rgba(0,0,0,0.3)", MaxSize)
-
   return (
-    <DefaultPage
-      justifyContent="center"
-      justifyItems={"center"}
-      alignItems={"center"}
-      alignContent={"center"}
-    >
-      <Box
-        mx="auto"
-        mt={st(5)}
-        mb={st(2)}
-        w="95%"
-        minW={st(320)}
-        maxW="800px"
-        display="flex"
-        flexDirection="column"
-        gapY={st(3)}
-      >
+    <DefaultPage>
+      <Box className={styles.container}>
         <Breadcrumb 
           items={[
             { label: "Campanhas", href: Campanhas.Home },
             { label: "Criar" }
           ]}
         />
-        
-        <Text as="h2" fontSize="xl" fontWeight="bold" textAlign="center" mb={st(4)}>
-          crie sua campanha
-        </Text>
 
-        <Card
-          as="form"
-          onSubmit={handleSubmit(onSubmit)}
-          p={{ base: st(30), md: st(50) }}
-          display="flex"
-          flexDirection="column"
-          gap={st(6)}
-        >
-          <Box 
-            display="flex" 
-            flexDirection={{ base: "column", md: "row" }} 
-            gap={st(10)} 
-            width="100%"
-            alignItems="flex-start"
-          >
-            <VStack align="start" gap={st(4)} width={{ base: "100%", md: "35%" }} flexShrink={0}>
-              <Box width="100%">
+        <Heading className={styles.pageTitle}>
+          crie sua campanha
+        </Heading>
+
+        <Card className={styles.card}>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            {/* ==================== Duas Colunas ==================== */}
+            <div className={styles.columns}>
+              {/* ===== Upload ===== */}
+              <div className={styles.uploadColumn}>
                 <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
                   <FileUpload.HiddenInput accept="image/jpeg,image/png" />
                   <FileUpload.Trigger asChild>
-                    <Button variant="outline" width="100%">
+                    <Button className={styles.uploadButton}>
                       <LuUpload /> Upload imagem
                     </Button>
                   </FileUpload.Trigger>
                 </FileUpload.Root>
+
                 {uploadError && (
-                  <Text color="red.500" fontSize="xs" mt={st(1)}>{uploadError}</Text>
+                  <span className={styles.uploadError}>{uploadError}</span>
                 )}
-              </Box>
-              {preview ? (
-                <Image
-                  src={preview}
-                  alt="Pré-visualização"
-                  width="100%"
-                  aspectRatio={3/4}
-                  maxH={st(280)}
-                  objectFit="cover"
-                  borderRadius="md"
+
+                {preview ? (
+                  <Image
+                    className={styles.previewImage}
+                    src={preview}
+                    alt="Pré-visualização"
+                  />
+                ) : (
+                  <div className={styles.previewPlaceholder} />
+                )}
+
+                <span className={styles.uploadHint}>
+                  Tipos: jpg ou png<br />
+                  Tamanho mínimo: 300 × 300 px
+                </span>
+              </div>
+
+              {/* ===== Campos ===== */}
+              <div className={styles.fieldsColumn}>
+                <input
+                  {...register("title")}
+                  className={styles.input}
+                  placeholder="Nome da campanha"
                 />
-              ) : (
-                <Box width="100%" height={st(220)} bg="gray.100" borderRadius="md" border="1px solid" borderColor="green.400"/>
-              )}
-              <Text fontSize="sm" color="gray.600">
-                Tipos: jpg ou png
-                <br />
-                Tamanho mínimo: 300 × 300 px
-                <br />
-                Dimensão mínima: 300 × 300
-              </Text>
-            </VStack>
+                {errors.title && <span className={styles.errorMessage}>{errors.title.message}</span>}
 
-            <VStack align="stretch" gap={st(12)} width={{ base: "100%", md: "65%" }}>
-              <Input {...register("title")} placeholder="Nome" borderColor="ter" py={st(10)} />
-              {errors.title && <Text color="red.500" fontSize="xs">{errors.title.message}</Text>}
-
-              <NativeSelect.Root>
-                <NativeSelect.Field {...register("nivelAjuda")} borderColor="ter" py={st(10)}>
-                  <option value="">escolha a sua categoria</option>
+                <select
+                  {...register("nivelAjuda")}
+                  className={styles.select}
+                  defaultValue=""
+                >
+                  <option value="" disabled>Escolha a categoria</option>
                   <option value="Alimentos">Alimentos</option>
                   <option value="Roupas">Roupas</option>
                   <option value="Higiene">Higiene</option>
                   <option value="Brinquedos">Brinquedos</option>
                   <option value="Outros">Outros</option>
-                </NativeSelect.Field>
-                <NativeSelect.Indicator />
-              </NativeSelect.Root>
-              {errors.nivelAjuda && <Text color="red.500" fontSize="xs">{errors.nivelAjuda.message}</Text>}
+                </select>
+                {errors.nivelAjuda && <span className={styles.errorMessage}>{errors.nivelAjuda.message}</span>}
 
-              <Input {...register("cep")} placeholder="Cep" borderColor="ter" py={st(10)} onChange={(e)=>{
-                const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
-                e.target.value = v;
-              }}/>
-              {errors.cep && <Text color="red.500" fontSize="xs">{errors.cep.message}</Text>}
+                <input
+                  {...register("cep")}
+                  className={styles.input}
+                  placeholder="CEP"
+                  onChange={(e) => {
+                    const v = e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d{0,3}).*/, "$1-$2");
+                    e.target.value = v;
+                  }}
+                />
+                {errors.cep && <span className={styles.errorMessage}>{errors.cep.message}</span>}
 
-              <Input {...register("cidade")} placeholder="Cidade" borderColor="ter" py={st(10)} />
-              {errors.cidade && <Text color="red.500" fontSize="xs">{errors.cidade.message}</Text>}
+                <input
+                  {...register("cidade")}
+                  className={styles.input}
+                  placeholder="Cidade"
+                />
+                {errors.cidade && <span className={styles.errorMessage}>{errors.cidade.message}</span>}
 
-              <Input {...register("rua")} placeholder="nome da rua" borderColor="ter" py={st(10)} />
-              {errors.rua && <Text color="red.500" fontSize="xs">{errors.rua.message}</Text>}
+                <input
+                  {...register("rua")}
+                  className={styles.input}
+                  placeholder="Nome da rua"
+                />
+                {errors.rua && <span className={styles.errorMessage}>{errors.rua.message}</span>}
 
-              <Input {...register("numero")} placeholder="Número da casa" borderColor="ter" py={st(10)} />
-              {errors.numero && <Text color="red.500" fontSize="xs">{errors.numero.message}</Text>}
-            </VStack>
-          </Box>
+                <input
+                  {...register("numero")}
+                  className={styles.input}
+                  placeholder="Número da casa"
+                />
+                {errors.numero && <span className={styles.errorMessage}>{errors.numero.message}</span>}
+              </div>
+            </div>
 
-          <Textarea
-            {...register("description")}
-            placeholder="descrição (mínimo 200 caracteres)"
-            borderColor="ter"
-            borderWidth="1px"
-            borderRadius="5px"
-            width="100%"
-            minH={st(140)}
-            py={st(10)}
-          />
-          {errors.description && <Text color="red.500" fontSize="xs">{errors.description.message}</Text>}
+            {/* ==================== Descrição ==================== */}
+            <textarea
+              {...register("description")}
+              className={styles.textarea}
+              placeholder="Descrição (mínimo 200 caracteres)"
+            />
+            {errors.description && <span className={styles.errorMessage}>{errors.description.message}</span>}
 
-          <Input {...register("endDate")} type="date" borderColor="ter" width="100%" py={st(10)} />
-          {errors.endDate && <Text color="red.500" fontSize="xs">{errors.endDate.message}</Text>}
+            {/* ==================== Data ==================== */}
+            <input
+              {...register("endDate")}
+              type="date"
+              className={styles.dateInput}
+            />
+            {errors.endDate && <span className={styles.errorMessage}>{errors.endDate.message}</span>}
 
-          <HStack justify="center" mt={st(6)}>
-            <Button type="submit" minW={st(180)} py={st(12)} colorScheme="green">Criar</Button>
-          </HStack>
+            {/* ==================== Submit ==================== */}
+            <Flex className={styles.submitContainer}>
+              <Button type="submit" className={styles.submitButton}>
+                Criar
+              </Button>
+            </Flex>
+          </form>
         </Card>
       </Box>
     </DefaultPage>

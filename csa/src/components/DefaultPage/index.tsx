@@ -2,41 +2,39 @@ import Box from "../ui/Box";
 import Footer from "./Footer";
 import Header from "./Header";
 import Timeline from "./timeline";
-import { BoxProps } from "@chakra-ui/react";
+import { StaggerProvider } from "../ui/StaggerContext";
 
-// para chamar a página padrão, basta importar o componente DefaultPage e usá-lo como um wrapper
-// Exemplo:
-// <DefaultPage>
-//   <SeuComponente />
-// </DefaultPage>
+import styles from "./Defaultpage.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames";
+
 
 export default function DefaultPage(
     {
-        children, 
-        bg, 
+        children,
         hiddenFooter = false,
         hiddenHeader = false,
+        className,
         ...props
     }: 
     {
         children?: React.ReactNode,
         hiddenFooter?: boolean,
         hiddenHeader?: boolean
-    } & BoxProps
+        className?: string
+    }
 ) {
     
+    const mergedClassName = MergeClassnames(styles._Body, className)
+
     return (
-        <Box
-            overflowX={"hidden"} 
-            bg={"#02E351"}
-        >
-            {(!hiddenHeader) ? <Header /> : null}
-            
-            <Timeline bg={bg || "none"} {...props} >
-                    {children}
-            </Timeline>
-            
-            {(!hiddenFooter) ? <Footer /> : null}
-        </Box>
+        <StaggerProvider>
+            <Box className={mergedClassName} >
+                {(!hiddenHeader) ? <Header /> : null}
+                
+                <Timeline {...props} > {children} </Timeline>
+                
+                {(!hiddenFooter) ? <Footer /> : null}
+            </Box>
+        </StaggerProvider>
     );
 }

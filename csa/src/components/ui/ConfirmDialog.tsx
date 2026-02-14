@@ -5,6 +5,8 @@ import Modal from "./Modal"
 import Flex from "./Flex"
 import Button from "./Button"
 import { Box } from "@chakra-ui/react"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 const WarningIcon = ({ color }: { color: string }) => (
   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
@@ -26,25 +28,10 @@ interface ConfirmDialogProps {
   isLoading?: boolean
 }
 
-const variantStyles = {
-  danger: {
-    iconColor: "#E53E3E",
-    iconBg: "#FFF5F5",
-    confirmBg: "#E53E3E",
-    confirmHover: "#C53030"
-  },
-  warning: {
-    iconColor: "#DD6B20",
-    iconBg: "#FFFAF0",
-    confirmBg: "#DD6B20",
-    confirmHover: "#C05621"
-  },
-  info: {
-    iconColor: "#4C1D95",
-    iconBg: "#F5F3FF",
-    confirmBg: "#4C1D95",
-    confirmHover: "#3B1572"
-  }
+const variantIconColors = {
+  danger: "#E53E3E",
+  warning: "#DD6B20",
+  info: "#4C1D95"
 }
 
 export default function ConfirmDialog({
@@ -58,64 +45,36 @@ export default function ConfirmDialog({
   variant = "danger",
   isLoading = false
 }: ConfirmDialogProps) {
-  const styles = variantStyles[variant]
+  const iconColor = variantIconColors[variant]
+  const confirmButtonClass = 
+    variant === "danger" ? styles.confirmButtonDanger :
+    variant === "warning" ? styles.confirmButtonWarning : styles.confirmButtonInfo
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm">
-      <Flex dir="column" alignItems="center" textAlign="center">
-        <Box
-          width="64px"
-          height="64px"
-          borderRadius="full"
-          bg={styles.iconBg}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          mb={4}
-        >
-          <WarningIcon color={styles.iconColor} />
+      <Flex dir="column" className={styles.confirmDialog}>
+        <Box className={styles.confirmDialogIcon}>
+          <WarningIcon color={iconColor} />
         </Box>
 
-        <Box
-          fontSize="lg"
-          fontWeight={600}
-          color="#2D3748"
-          mb={2}
-        >
+        <Box className={styles.confirmDialogTitle}>
           {title}
         </Box>
 
-        <Box
-          fontSize="sm"
-          color="#718096"
-          mb={6}
-        >
+        <Box className={styles.confirmDialogDescription}>
           {message}
         </Box>
 
-        <Flex dir="row" gap={3} width="100%">
+        <Flex dir="row" className={styles.confirmDialogActions}>
           <Button
             variant="outline"
             onClick={onClose}
             disabled={isLoading}
-            style={{ flex: 1 }}
           >
             {cancelLabel}
           </Button>
           <button
-            style={{
-              flex: 1,
-              padding: "12px 16px",
-              borderRadius: "8px",
-              background: styles.confirmBg,
-              color: "white",
-              fontWeight: 600,
-              fontSize: "14px",
-              border: "none",
-              cursor: isLoading ? "not-allowed" : "pointer",
-              opacity: isLoading ? 0.7 : 1,
-              transition: "all 0.2s"
-            }}
+            className={MergeClassnames(styles.button, styles.confirmButton, confirmButtonClass)}
             onClick={onConfirm}
             disabled={isLoading}
           >

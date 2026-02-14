@@ -1,12 +1,17 @@
 import { apiUrl } from "csa/lib/apiBase";
-import { Apis, Home} from "csa/Rotas.json";
+import { Apis, Home } from "csa/Rotas.json";
 import type { LoginData, CadastroData } from "csa/lib/validations";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { NextRouter } from "next/router";
+
+type RouterType = NextRouter | AppRouterInstance;
 
 // ===== LOGIN =====
 
 export async function handleLogin(
   data: LoginData,
-  popup?: (message: string) => void
+  popup?: (message: string) => void,
+  router?: RouterType
 ) {
   try {
     const res = await fetch(apiUrl(Apis.login), {
@@ -16,20 +21,20 @@ export async function handleLogin(
     });
 
     let raw = '';
-    let payload: any = null;
+    let payload: Record<string, unknown> | null = null;
     try {
       raw = await res.text();
       payload = raw ? JSON.parse(raw) : null;
-    } catch (_) {
+    } catch {
       // corpo não-JSON ou vazio: manter payload como null
     }
 
     if (!res.ok) {
-      const errMsg = payload?.error || raw || res.statusText || 'Erro desconhecido';
+      const errMsg = (payload?.error as string) || raw || res.statusText || 'Erro desconhecido';
       throw new Error(errMsg);
     }
 
-    const token = payload?.token;
+    const token = payload?.token as string | undefined;
     if (!token) {
       throw new Error('Resposta inválida do servidor (token ausente).');
     }
@@ -37,9 +42,15 @@ export async function handleLogin(
     localStorage.setItem('token', token);
 
     if (popup) popup('Login realizado com sucesso!');
-    window.location.href = Home;
-  } catch (error: any) {
-    if (popup) popup(`Erro no login: ${error.message}`);
+    
+    if (router) {
+      router.push(Home);
+    } else {
+      window.location.href = Home;
+    }
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+    if (popup) popup(`Erro no login: ${errorMessage}`);
   }
 }
 
@@ -47,7 +58,8 @@ export async function handleLogin(
 
 export async function handleCadastro(
   data: CadastroData,
-  popup?: (message: string) => void
+  popup?: (message: string) => void,
+  router?: RouterType
 ) {
   try {
     const res = await fetch(apiUrl(Apis.Cadastro), {
@@ -63,9 +75,14 @@ export async function handleCadastro(
     }
 
     if (popup) popup('Cadastro realizado com sucesso!');
-    window.location.href = Home
-  } catch (error: any) {
-    if (popup) popup(`Erro no cadastro: ${error.message}`);
+    
+    if (router) {
+      router.push(Home);
+    } else {
+      window.location.href = Home;
+    }
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+    if (popup) popup(`Erro no cadastro: ${errorMessage}`);
   }
-  
 }

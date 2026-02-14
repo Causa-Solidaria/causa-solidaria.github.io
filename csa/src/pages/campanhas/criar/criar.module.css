@@ -1,0 +1,294 @@
+/* ============================================
+   CRIAR CAMPANHA PAGE — Causa Solidária
+   ============================================ */
+
+/* ==================== Container ==================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 48px);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.pageTitle {
+  color: var(--black);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+/* ==================== Card / Form ==================== */
+.card {
+  padding: clamp(24px, 4vw, 48px);
+  background-color: var(--white);
+  border-radius: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 32px);
+  width: 100%;
+}
+
+/* ==================== Duas Colunas: Upload + Campos ==================== */
+.columns {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(24px, 4vw, 48px);
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* ==================== Coluna Esquerda (Upload) ==================== */
+.uploadColumn {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vw, 16px);
+  width: 35%;
+  flex-shrink: 0;
+}
+
+.uploadButton {
+  width: 100%;
+  padding: clamp(10px, 1.5vw, 14px) !important;
+  font-size: clamp(14px, 1.6vw, 16px) !important;
+  border: 2px solid var(--dark-green) !important;
+  border-radius: clamp(8px, 1vw, 12px) !important;
+  background-color: var(--white) !important;
+  color: var(--dark-green) !important;
+  font-weight: 600 !important;
+  transition: background-color 0.25s ease, color 0.25s ease !important;
+}
+
+.uploadButton:hover {
+  background-color: var(--dark-green) !important;
+  color: var(--white) !important;
+}
+
+.previewImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: clamp(8px, 1vw, 12px);
+}
+
+.previewPlaceholder {
+  width: 100%;
+  height: clamp(180px, 25vw, 260px);
+  background-color: #f0f0f0;
+  border: 2px dashed var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+}
+
+.uploadHint {
+  color: #718096;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 1.5;
+}
+
+/* ==================== Coluna Direita (Campos) ==================== */
+.fieldsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 20px);
+  width: 65%;
+}
+
+/* ==================== Campos ==================== */
+.input {
+  padding: clamp(10px, 1.4vw, 14px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+}
+
+.input:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+.select {
+  padding: clamp(10px, 1.4vw, 14px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  background-color: var(--white);
+}
+
+.select:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+/* ==================== Textarea (Descrição) ==================== */
+.textarea {
+  padding: clamp(12px, 1.5vw, 16px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  min-height: clamp(120px, 15vw, 180px);
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  resize: vertical;
+}
+
+.textarea:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+/* ==================== Erros ==================== */
+.errorMessage {
+  color: var(--erro-warning);
+  font-size: clamp(12px, 1.2vw, 14px);
+  margin-top: 2px;
+}
+
+.uploadError {
+  color: var(--erro-warning);
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
+/* ==================== Data ==================== */
+.dateInput {
+  padding: clamp(10px, 1.4vw, 14px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+}
+
+.dateInput:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+/* ==================== Submit ==================== */
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(8px, 1.5vw, 16px);
+}
+
+.submitButton {
+  padding: clamp(12px, 1.5vw, 16px) clamp(40px, 6vw, 72px) !important;
+  font-size: clamp(16px, 2vw, 20px) !important;
+  background-color: var(--semi-dark-green) !important;
+  color: var(--white) !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: clamp(8px, 1vw, 12px) !important;
+  transition: background-color 0.25s ease !important;
+}
+
+.submitButton:hover {
+  background-color: var(--dark-green) !important;
+}
+
+/* ==================== Responsivo — Tablet ==================== */
+@media (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+  }
+
+  .uploadColumn {
+    width: 100%;
+    max-width: 320px;
+    align-self: center;
+  }
+
+  .fieldsColumn {
+    width: 100%;
+  }
+
+  .previewPlaceholder {
+    height: 200px;
+  }
+}
+
+/* ==================== Responsivo — Mobile ==================== */
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .form {
+    gap: 16px;
+  }
+
+  .columns {
+    gap: 16px;
+  }
+
+  .uploadColumn {
+    max-width: 100%;
+  }
+
+  .previewPlaceholder {
+    height: 160px;
+  }
+
+  .submitButton {
+    width: 100% !important;
+  }
+}
+
+/* ==================== Responsivo — Dispositivos Pequenos ==================== */
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .input,
+  .select,
+  .textarea,
+  .dateInput {
+    font-size: 13px;
+    padding: 8px;
+  }
+}

@@ -1,156 +1,208 @@
-import {  Button, Image, Progress} from "@chakra-ui/react"
 import DefaultPage from "csa/components/DefaultPage"
 import { GetServerSideProps } from "next"
-import { prisma } from "csa/lib/prisma";
+import { prisma } from "csa/lib/prisma"
 import Head from "next/head"
+import Image from "next/image"
 import { useState } from "react"
-import Heading from "csa/components/ui/heading";
-import Box from "csa/components/ui/Box";
-import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import Rotas from "csa/Rotas.json"
+import useNavigate from "csa/hooks/useNavigate"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
+import { FiMapPin, FiCalendar, FiArrowLeft } from "react-icons/fi"
+import styles from "./slug.module.css"
 
-type campanhaProps = {
-    id: string | number, 
-    titulo: string,
-    descricao?: string,
-    Nivel_de_ajuda: number,
-    CEP: string | number,
-    Estado: string,
-    Bairro: string,
-    Rua: string,
-    Numero_da_casa: string | number,
-    foto: any, 
+type CampanhaProps = {
+    id: string
+    titulo: string
+    descricao?: string
+    nivelAjuda: number
+    cep: string
+    estado: string
+    bairro: string
+    rua: string
+    numero: string
+    foto: string
+    createdAt: string
+    endDate: string
     notFound: boolean
 }
 
+function formatDate(iso: string): string {
+    return new Date(iso).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+    })
+}
 
-export default function Campanha(c: campanhaProps){
-    const [size, setSize] = useState({ w: "100%", h: "150px" });
-    const [isOpen, seIsOpen] = useState(false)
+function getImageSrc(foto?: string): string {
+    if (!foto || foto.length === 0) return "/logo.png"
+    if (foto.startsWith("data:") || foto.startsWith("http") || foto.startsWith("/")) {
+        return foto
+    }
+    return `data:image/*;base64,${foto}`
+}
 
-    // Determina a melhor forma de exibir a imagem da campanha.
-    // Se vier um data URL/URL absoluta/caminho local, usa direto; caso contrário, assume base64. 
-    let fotoSrc = "/logo.png"; // fallback
-    if (typeof c?.foto === "string" && c.foto.length > 0) {
-        if (c.foto.startsWith("data:") || c.foto.startsWith("http") || c.foto.startsWith("/")) {
-            fotoSrc = c.foto;
-        } else {
-            fotoSrc = `data:image/*;base64,${c.foto}`;
-        }
+export default function Campanha(c: CampanhaProps) {
+    const { navigate } = useNavigate()
+    const [expanded, setExpanded] = useState(false)
+
+    const fotoSrc = getImageSrc(c.foto)
+
+    if (c.notFound) {
+        return (
+            <DefaultPage>
+                <div className={styles.container}>
+                    <div className={styles.notFound}>
+                        <h2 className={styles.notFoundTitle}>Não existe essa campanha</h2>
+                        <button
+                            className={styles.notFoundButton}
+                            onClick={() => navigate(Rotas.Campanhas.Home)}
+                        >
+                            Procurar por outras
+                        </button>
+                    </div>
+                </div>
+            </DefaultPage>
+        )
     }
 
-    const HandlerSize = ()=>{
-        // Alterna entre miniatura e tela cheia de forma previsível
-        seIsOpen((prev)=>{
-            const next = !prev;
-            setSize(next ? { w: "80vw", h: "80vh" } : { w: "100%", h: "150px" });
-            return next;
-        })
-    } 
+    const endereco = [c.rua, c.numero, c.bairro, c.estado, c.cep]
+        .filter(Boolean)
+        .join(", ")
 
     return (
-        c.notFound ?
-        <DefaultPage>
-            <Box 
-                {...JustifyFull("center")} 
-                {...AlignFull("center")} 
-                {...SetStaticPositionH(200, 750)}
-                {...SetStaticPositionW(200, 750)}
-                m={staticPosition(30, 750)}
-                bg={"#fff"}
-                borderRadius={staticPosition(15)}
-            >
-                <Heading color={"#000"}>não existe essa campanha</Heading>
-                <Button 
-                    onClick={()=>window.location.href = Rotas.Campanhas.Home }
-                    bg={"#097D03"}
-                    mt={staticPosition(25,750)}
-                    p={staticPosition(25)}
-                    borderRadius={staticPosition(15)}
-                >
-                    <Heading> procurar por outras </Heading>
-                </Button>
-            </Box>
-        </DefaultPage>
-        :
         <DefaultPage>
             <Head>
                 <title>{c.titulo}</title>
             </Head>
-            <Box
-                justifySelf="center" alignSelf="center" 
-            >
-                <Image 
-                    {...SetStaticPositionW(size.w)}
-                    {...SetStaticPositionW(size.h)}
-                    {...JustifyFull("center")}
-                    {...AlignFull("center")}
-                    src={fotoSrc} 
-                    alt={c.titulo} 
-                    borderRadius={"xl"}
-                    onClick={HandlerSize}
-                    transition="0.8s all"
-                />
-                <Heading> {c.titulo}</Heading>
-                
-                <Heading >{c.descricao}</Heading>
 
-                <Progress.Root maxW="100%"  variant="outline"  shape="rounded" value={0.5} >
-                    <Progress.Label> 
-                        <Heading>Progresso</Heading>  
-                    </Progress.Label>
-                    <Progress.Track >
-                        <Progress.Range bg={"sec"} />
-                    </Progress.Track>
-                </Progress.Root>
-            </Box>
+            <div className={styles.container}>
+                <button
+                    className={styles.backButton}
+                    onClick={() => navigate(Rotas.Campanhas.Home)}
+                >
+                    <FiArrowLeft />
+                    Voltar
+                </button>
+
+                <div className={styles.card}>
+                    <div
+                        className={styles.imageWrapper}
+                        onClick={() => setExpanded((prev) => !prev)}
+                    >
+                        <Image
+                            className={MergeClassnames(
+                                styles.image,
+                                expanded ? styles.imageExpanded : ""
+                            )}
+                            src={fotoSrc}
+                            alt={c.titulo}
+                            width={960}
+                            height={400}
+                            unoptimized
+                        />
+                    </div>
+
+                    <div className={styles.content}>
+                        <h1 className={styles.title}>{c.titulo}</h1>
+
+                        {c.descricao && (
+                            <p className={styles.description}>{c.descricao}</p>
+                        )}
+
+                        <div className={styles.helpLevel}>
+                            <span className={styles.helpLevelLabel}>
+                                Nível de ajuda: {c.nivelAjuda}/5
+                            </span>
+                            <div className={styles.progressTrack}>
+                                <div
+                                    className={styles.progressFill}
+                                    style={{ width: `${(c.nivelAjuda / 5) * 100}%` }}
+                                />
+                            </div>
+                        </div>
+
+                        {endereco && (
+                            <div className={styles.infoSection}>
+                                <div className={styles.infoItem}>
+                                    <FiMapPin className={styles.infoIcon} />
+                                    <span>
+                                        <span className={styles.infoLabel}>Endereço:</span>
+                                        {endereco}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className={styles.dates}>
+                            <span className={styles.dateItem}>
+                                <FiCalendar />
+                                <span className={styles.dateLabel}>Criado em:</span>
+                                {formatDate(c.createdAt)}
+                            </span>
+                            <span className={styles.dateItem}>
+                                <FiCalendar />
+                                <span className={styles.dateLabel}>Encerra em:</span>
+                                {formatDate(c.endDate)}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </DefaultPage>
-            
     )
 }
 
+const USE_TEST_DATA = true
+
+const testCampanha = {
+    id: "test-001",
+    titulo: "Campanha de Teste",
+    descricao: "Esta é uma campanha de teste para visualização do layout.",
+    nivelAjuda: 3,
+    cep: "01001-000",
+    estado: "SP",
+    bairro: "Centro",
+    rua: "Rua Exemplo",
+    numero: "123",
+    foto: "",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    notFound: false,
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const slug = context.params?.slug as string;
+    const slug = context.params?.slug as string
 
-    // Permite acessar tanto por ID (UUID) quanto por um "slug" textual (ex.: título).
-    // Se não tiver slug no banco, tentamos pelo título como fallback simples.
-    const isUuid = /^[0-9a-fA-F-]{36}$/.test(slug);
-    const campanha = isUuid
-        ? await prisma.campanha.findUnique({ where: { id: slug } })
-        : (await prisma.campanha.findMany({ where: { titulo: decodeURIComponent(slug) } }))[0];
+    const campanha = USE_TEST_DATA
+        ? testCampanha
+        : await (async () => {
+            const isUuid = /^[0-9a-fA-F-]{36}$/.test(slug)
+            return isUuid
+                ? await prisma.campanha.findUnique({ where: { id: slug } })
+                : (await prisma.campanha.findMany({ where: { titulo: decodeURIComponent(slug) } }))[0]
+        })()
 
-  if (!campanha) {
-    return { props: {notFound: true} as campanhaProps };
-  }
-
-  // Transforma os campos Date em string
-  return {
-     props: {
-      id: campanha.id,
-      titulo: campanha.titulo,
-      descricao: campanha.descricao,
-      Nivel_de_ajuda: campanha.nivelAjuda,
-      CEP: campanha.cep,
-      Estado: campanha.estado,
-      Bairro: campanha.bairro,
-      Rua: campanha.rua,
-      Numero_da_casa: campanha.numero,
-      foto: campanha.foto ? campanha.foto : "", // Converte Buffer para base64
-      createdAt: campanha.createdAt.toISOString(),
-      updatedAt: campanha.updatedAt.toISOString(),
-      endDate: campanha.endDate.toISOString(),
-      notFound: false
-    },
-  };
-};
-
-    /* --- Dados mockados
-    const campanha = TestMokado.find((c) => c.id === slug);
     if (!campanha) {
-        return { notFound: true };
+        return { props: { notFound: true } as CampanhaProps }
     }
 
     return {
-        props: campanha,
-    };*/
+        props: {
+            id: campanha.id,
+            titulo: campanha.titulo,
+            descricao: campanha.descricao ?? "",
+            nivelAjuda: campanha.nivelAjuda,
+            cep: campanha.cep,
+            estado: campanha.estado ?? "",
+            bairro: campanha.bairro ?? "",
+            rua: campanha.rua,
+            numero: campanha.numero,
+            foto: campanha.foto ? campanha.foto : "",
+            createdAt: typeof campanha.createdAt === "string" ? campanha.createdAt : campanha.createdAt.toISOString(),
+            endDate: typeof campanha.endDate === "string" ? campanha.endDate : campanha.endDate.toISOString(),
+            notFound: false,
+        },
+    }
+}

@@ -1,37 +1,65 @@
 'use client';
 
-import { Button, Center, Checkbox, Link } from "@chakra-ui/react";
-import InfoCadastro from "./cadasro_info";
+import { Button, Checkbox, Link, Text as ChakraText } from "@chakra-ui/react";
 import usePopup from "csa/hooks/usePopup";
-import { cadastroSchema } from "csa/lib/validations";
+import { cadastroSchema, type CadastroData } from "csa/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleCadastro } from "csa/lib/handlers";
-import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
 import { Box, Flex, Input, Text, Card, Heading } from "csa/components/ui";
+import Logo from "csa/components/ui/logo";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import styles from "./cadastro.module.css";
+import useNavigate from "csa/hooks/useNavigate";
 
-const InfoCadastroMotion = motion.create(InfoCadastro)
+function InfoCadastro() {
+  return (
+    <div className={styles.infoSection}>
+      <Logo className={styles.infoLogo} />
+      
+      <div className={styles.infoBrandCard}>
+        <Heading className={styles.infoBrandTitle}>CausaSolidaria</Heading>
+      </div>
 
+      <div className={styles.infoContentCard}>
+        <Heading className={styles.infoHeading}>
+          transforme pequenos gestos em grandes mudanças
+        </Heading>
+        <ChakraText className={styles.infoText}>
+          A Causa Solidária é uma plataforma que conecta pessoas dispostas a ajudar causas criadas por outras pessoas.
+        </ChakraText>
+        <ChakraText className={styles.infoText}>
+          Aqui você pode criar sua própria causa, divulgar e receber doações de pessoas que se importam com o seu projeto.
+        </ChakraText>
+      </div>
 
+      <div className={styles.infoFooterCard}>
+        <ChakraText className={styles.infoFooterText}>
+          Junte-se a nós e faça a diferença na vida de quem mais precisa!
+        </ChakraText>
+      </div>
+    </div>
+  );
+}
+
+const InfoCadastroMotion = motion.create(InfoCadastro);
 
 export default function Cadastro() {
-  const [w, sw] = useState<number>(100);
+  const { router } = useNavigate();
   const popup = usePopup();
-  const {register, handleSubmit, formState: { errors }} = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm<CadastroData>({
     resolver: zodResolver(cadastroSchema)
   });
-  
-  const onSubmit = async (data: any) => {
-     await handleCadastro(data, popup);
+
+  const onSubmit = async (data: CadastroData) => {
+    await handleCadastro(data, popup, router);
   };
 
   const textFieldConfigs = [
-    {name: "name", label: "name"},
-    { name: "username", label: "username"},
-    { name: "BornDate", label: "Data de Nascimento", type: "date"},
-    { name: "email", label: "Email", },
+    { name: "name", label: "Nome" },
+    { name: "username", label: "Usuário" },
+    { name: "BornDate", label: "Data de Nascimento", type: "date" },
+    { name: "email", label: "Email" },
     { name: "password", type: "password", label: "Senha" },
     { name: "confirmPassword", type: "password", label: "Confirmar Senha" },
   ] as const;
@@ -43,121 +71,59 @@ export default function Cadastro() {
     return typeof message === "string" ? message : String(message);
   };
 
-  useEffect(()=>{
-    const _w =setInterval(()=> sw(screen.width), 10)
-    return ()=>clearInterval(_w)
-  }, [sw])
   return (
-    <Flex
-      dir={"row"}
-      w="full"
-      justifyContent={"space-between"}
-      
-    >
-      
-
-      <Center
-        flexDir={"column"}
-        width={"full"}
-       {...JustifyFull("center", true)}
-      >
-        <Card
-          temSombra={false}
-          temBorda={true}
-          borderColor={"#006E1F"}
-          {...JustifyFull()}
-        >
-          <Heading fontSize={"3vmax"} level={3}> junte-se à Nós!</Heading>
+    <div className={styles.page}>
+      <div className={styles.formSection}>
+        <Card temSombra={false} temBorda={true} className={styles.headerCard}>
+          <Heading className={styles.headerTitle}>Junte-se à Nós!</Heading>
         </Card>
 
-        <Card
-          temSombra={false}
-          temBorda
-          m={"1vmax"}
-          p={"2vmax"}
-          {...SetStaticPositionW([0, 877, 877, 585])}
-        >
-
-          <Flex
-            as="form"
-            onSubmit={handleSubmit(onSubmit)}
-            dir="column"
-            gapY={"1vmax"}
-          >
-
-            <Box >
+        <Card temSombra={false} temBorda className={styles.formCard}>
+          <Flex as="form" onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            <Box w="100%">
               {textFieldConfigs.map(({ name, label, ...props }) => {
                 const errorMessage = getFieldError(name);
                 return (
-                  <div 
-                    key={name}
-                    style={{
-                      justifyContent:'center',
-                      alignItems: "center",
-                      padding: "0.5vmax"
-                    }}
-                  >
-                    <Text level={1}>{label}</Text>
-                    <Input
-                      {...register(name)}
-                      {...props}
-                    /><br/>
+                  <div key={name} className={styles.fieldContainer}>
+                    <Text className={styles.fieldLabel}>{label}</Text>
+                    <Input {...register(name)} {...props} />
                     {errorMessage && (
-                      <p style={
-                        { fontSize: "1vmax",
-                          color: "red", 
-                        }}>
-                        {errorMessage}
-                      </p>
+                      <p className={styles.errorMessage}>{errorMessage}</p>
                     )}
                   </div>
                 );
               })}
             </Box>
 
-            <div style={{marginBottom: staticPosition(25, 1735)as string}}>
-              <Checkbox.Root >
-                <Checkbox.HiddenInput {...register("terms")}/>
-                <Checkbox.Control 
-                  borderColor={"#006E1F"} 
-                >
-                  <Checkbox.Indicator/>  
+            <div className={styles.checkboxContainer}>
+              <Checkbox.Root>
+                <Checkbox.HiddenInput {...register("terms")} />
+                <Checkbox.Control className={styles.checkboxControl}>
+                  <Checkbox.Indicator />
                 </Checkbox.Control>
-                <Checkbox.Label
-                  fontSize={"1vmax"}
-                  m="0"
-                  p={0}
-                >
+                <Checkbox.Label className={styles.checkboxLabel}>
                   Aceitar <Link textDecor="underline" href="#">termos e condições</Link>
                 </Checkbox.Label>
-              </Checkbox.Root><br />
-              {errors.terms && <p style={
-                {
-                  fontSize: "1vmax" as string, 
-                  color: "red", 
-                }
-                }>{String((errors as any)?.terms?.message || "")}</p>}
+              </Checkbox.Root>
+              {errors.terms && (
+                <p className={styles.errorMessage}>
+                  {String((errors as any)?.terms?.message || "")}
+                </p>
+              )}
             </div>
 
-            <Button 
-              type="submit"
-              {...JustifyFull()}
-              {...AlignFull()}
-              {...SetStaticPositionW(585*0.3, 1735)}
-              {...SetStaticPositionH(56, 1735)}
-              fontSize={staticPosition(24, 1735)}
-              borderRadius={staticPosition(12, 1735)}
-              bg={"#15B100"}
-            >Cadastrar</Button>
+            <Button type="submit" className={styles.submitButton}>
+              Cadastrar
+            </Button>
           </Flex>
         </Card>
-      </Center>
+      </div>
 
-      {w>900? <InfoCadastroMotion
+      <InfoCadastroMotion
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeInOut" }}
-      />: null}
-    </Flex>
+      />
+    </div>
   );
 }

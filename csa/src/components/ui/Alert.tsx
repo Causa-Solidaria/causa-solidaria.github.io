@@ -3,6 +3,8 @@
 import { Box } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import Flex from "./Flex"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 type AlertVariant = "info" | "success" | "warning" | "error"
 
@@ -78,35 +80,32 @@ export default function Alert({
   children, 
   showIcon = true 
 }: AlertProps) {
-  const styles = variantStyles[variant]
-  const { Icon } = styles
+  const variantConfig = variantStyles[variant]
+  const { Icon } = variantConfig
+  const variantClass =
+    variant === "info"
+      ? styles.alertInfo
+      : variant === "success"
+      ? styles.alertSuccess
+      : variant === "warning"
+      ? styles.alertWarning
+      : styles.alertError
 
   return (
-    <Box
-      bg={styles.bg}
-      borderLeft="4px solid"
-      borderColor={styles.border}
-      borderRadius="8px"
-      p={4}
-    >
+    <Box className={MergeClassnames(styles.alert, variantClass)}>
       <Flex dir="row" gap={3} alignItems="flex-start">
         {showIcon && (
-          <Box color={styles.color} mt="2px">
+          <Box className={styles.alertIcon}>
             <Icon />
           </Box>
         )}
         <Box flex={1}>
           {title && (
-            <Box 
-              fontWeight={600} 
-              color={styles.color} 
-              mb={1}
-              fontSize="md"
-            >
+            <Box className={styles.alertTitle}>
               {title}
             </Box>
           )}
-          <Box color={styles.color} fontSize="sm">
+          <Box className={styles.alertDescription}>
             {children}
           </Box>
         </Box>

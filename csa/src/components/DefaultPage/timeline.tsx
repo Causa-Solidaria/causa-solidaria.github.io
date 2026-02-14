@@ -1,13 +1,15 @@
-import { Box, ChakraProviderProps } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
+import dpStyles from "./Defaultpage.module.css";
 
+interface TimelineProps extends BoxProps {
+    children?: React.ReactNode;
+}
 
-export default function Timeline({children, ...props}: any & ChakraProviderProps) {
+export default function Timeline({ children, ...props }: TimelineProps) {
 
     return (
         <Box 
-            minH={"25vmax"}
-            p={4}
-            overflowX={"hidden"}
+            className={dpStyles.timeline}
             {...props}
         >
             {children}

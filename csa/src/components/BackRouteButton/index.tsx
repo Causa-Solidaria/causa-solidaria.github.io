@@ -1,5 +1,4 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { staticPosition } from "csa/lib/utils";
 import { useRouter } from "next/router";
 
 
@@ -12,7 +11,7 @@ export default function BackRouteBT({...props}: ButtonProps){
     return <Button
         bg={"transparent"}
         color={"black"}
-        fontSize={staticPosition(76,2438)}
+        fontSize={76}
         type="button"
         onClick={() => router.back()}
         {...props}

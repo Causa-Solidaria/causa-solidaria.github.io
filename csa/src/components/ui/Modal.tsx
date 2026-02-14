@@ -7,6 +7,8 @@ import { LuX } from "react-icons/lu"
 import Flex from "./Flex"
 import Heading from "./heading"
 import Button from "./Button"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface ModalProps {
   isOpen: boolean
@@ -17,14 +19,6 @@ interface ModalProps {
   showCloseButton?: boolean
 }
 
-const sizeMap = {
-  sm: "400px",
-  md: "500px",
-  lg: "700px",
-  xl: "900px",
-  full: "95vw"
-}
-
 export default function Modal({
   isOpen,
   onClose,
@@ -33,6 +27,12 @@ export default function Modal({
   size = "md",
   showCloseButton = true
 }: ModalProps) {
+  const sizeClass = 
+    size === "sm" ? styles.modalSm :
+    size === "md" ? styles.modalMd :
+    size === "lg" ? styles.modalLg :
+    size === "xl" ? styles.modalXl : styles.modalFull
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -43,18 +43,7 @@ export default function Modal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 9998,
-            }}
+            className={styles.modalOverlay}
             onClick={onClose}
           >
             {/* Modal Content */}
@@ -64,30 +53,17 @@ export default function Modal({
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              style={{
-                width: sizeMap[size],
-                maxWidth: "95vw",
-                maxHeight: "90vh",
-              }}
+              className={MergeClassnames(styles.modalContent, sizeClass)}
             >
-              <Box
-                bg="white"
-                borderRadius="20px"
-                boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-                overflow="hidden"
-              >
+              <Box className={styles.modalInner}>
                 {/* Header */}
                 {(title || showCloseButton) && (
                   <Flex
                     dir="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    p={4}
-                    borderBottom="1px solid"
-                    borderColor="gray.200"
+                    className={styles.modalHeader}
                   >
                     {title && (
-                      <Heading fontSize={24} fontWeight={700} color="#000">
+                      <Heading className={styles.modalTitle}>
                         {title}
                       </Heading>
                     )}
@@ -95,9 +71,7 @@ export default function Modal({
                       <Button
                         onClick={onClose}
                         variant="ghost"
-                        p={2}
-                        borderRadius="full"
-                        _hover={{ bg: "gray.100" }}
+                        className={styles.modalCloseButton}
                       >
                         <LuX size={24} />
                       </Button>
@@ -106,7 +80,7 @@ export default function Modal({
                 )}
 
                 {/* Body */}
-                <Box p={6} maxH="70vh" overflowY="auto">
+                <Box className={styles.modalBody}>
                   {children}
                 </Box>
               </Box>

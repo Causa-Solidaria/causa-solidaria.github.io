@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { PopupContext, popupType } from "csa/components/ProviderPopup/utils";
-import { Box, Heading } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion"
-import JustifyFull, { AlignFull, SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils";
-
+import styles from "./ProviderPopup.module.css"
 
 export default function ProviderPopup(
     {
@@ -46,19 +44,7 @@ export default function ProviderPopup(
             
             {/* Renderiza o overlay somente quando há popups, evitando bloquear cliques quando vazio */}
             {pilha.length > 0 && (
-                <Box 
-                    position={"fixed"} 
-                    display={"flex"}
-                    flexDirection={"column"}
-                    zIndex={9999} 
-                    p={5} 
-                    top={0}
-                    left={0}
-                    right={0}
-                    pointerEvents={"none"} /* Não captura cliques; filhos específicos podem reativar */
-                    {...JustifyFull("center")}
-                    alignItems={"center"}
-                >
+                <div className={styles.overlay}>
                     <AnimatePresence>
                     {
                         pilha.map(
@@ -69,36 +55,19 @@ export default function ProviderPopup(
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -50 }}
                                     transition={{ duration: 0.4 }}
-                                    style={{pointerEvents: "auto", marginBottom: "10px"}} /* Este elemento pode receber eventos se necessário */
+                                    className={styles.popupWrapper}
                                 >
-                                    <Box 
-                                        bg={"qui"} 
-                                        pointerEvents={"auto"}
-                                        minW={"300px"}
-                                        maxW={"500px"}
-                                        borderRadius={"15px"}
-                                        p={4}
-                                        boxShadow={"0 4px 20px rgba(0,0,0,0.15)"}
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        justifyContent={"center"}
-                                    >
-                                        <Heading 
-                                            fontFamily="quicksand" 
-                                            fontWeight={900} 
-                                            color={"ter"}
-                                            fontSize={"md"}
-                                            textAlign={"center"}
-                                        >
+                                    <div className={styles.popupBox}>
+                                        <span className={styles.popupText}>
                                             {popup.mensagem}
-                                        </Heading>
-                                    </Box>
+                                        </span>
+                                    </div>
                                 </motion.div>
                             )
                         )
                     }
                     </AnimatePresence>
-                </Box>
+                </div>
             )}
             
             {children}

@@ -1,28 +1,23 @@
 
 import { Heading as He, HeadingProps } from "@chakra-ui/react"
-import { SetStaticPositionH, SetStaticPositionW, staticPosition } from "csa/lib/utils"
 import { motion } from "framer-motion"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
-interface HeProps extends HeadingProps {
-    level?: (1 | 2 | 3) & number
-}
-
-const levels: HeadingProps[] = []
-levels[1] = {color: "#000", fontSize: "1vmax"}
-levels[2] = {color: "#fff"}
-levels[3] = {color: "#006e1f"}
+interface HeProps extends HeadingProps {}
 
 let delay_obj = 0
 
 export default function Heading(
-    {
-        children, 
-        level = 1,
-        ...props
-    }: HeProps
-){
-    const Hlevel = levels[level as number] || {}
+  {
+    children,
+    className,
+    ...props
+  }: HeProps
+) {
     delay_obj++
+    const mergedClassName = MergeClassnames(styles.heading, className)
+
     return (
     <motion.div
         initial={{opacity: 0}}
@@ -34,12 +29,8 @@ export default function Heading(
             duration: 0.6
         }}
     ><He
-        fontWeight={900}
-        {...(props.fontSize && {lineHeight: props.fontSize})}
-        fontFamily={"quicksand"}
-        {...Hlevel}
+        className = {mergedClassName}
         {...props}
-        /// mesmo carregando o padrão do level, pode ser modificado
     >
         {children}
     </He></motion.div>

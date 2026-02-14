@@ -2,6 +2,8 @@
 
 import { Box } from "@chakra-ui/react"
 import { ReactNode } from "react"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 type BadgeVariant = "default" | "primary" | "success" | "warning" | "error" | "info"
 type BadgeSize = "sm" | "md" | "lg"
@@ -64,24 +66,20 @@ export default function Badge({
   children,
   rounded = false
 }: BadgeProps) {
-  const styles = variantStyles[variant]
-  const sizes = sizeStyles[size]
+  const variantClass =
+    variant === "primary" ? styles.badgePrimary :
+    variant === "success" ? styles.badgeSuccess :
+    variant === "warning" ? styles.badgeWarning :
+    variant === "error" ? styles.badgeError :
+    variant === "info" ? styles.badgeInfo : styles.badgeDefault
+  const sizeClass =
+    size === "sm" ? styles.badgeSm : size === "lg" ? styles.badgeLg : styles.badgeMd
+  const shapeClass = rounded ? styles.badgeRounded : styles.badgeSquare
 
   return (
     <Box
       as="span"
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      bg={styles.bg}
-      color={styles.color}
-      fontSize={sizes.fontSize}
-      px={sizes.px}
-      py={sizes.py}
-      borderRadius={rounded ? "full" : "4px"}
-      fontWeight={600}
-      textTransform="uppercase"
-      letterSpacing="0.5px"
+      className={MergeClassnames(styles.badge, variantClass, sizeClass, shapeClass)}
     >
       {children}
     </Box>

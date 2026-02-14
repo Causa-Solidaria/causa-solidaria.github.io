@@ -2,11 +2,13 @@
 
 import { Box } from "@chakra-ui/react"
 import { ReactNode } from "react"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface SkeletonProps {
   w?: string | number
   h?: string | number
-  borderRadius?: string | number
+  rounded?: "default" | "full"
   children?: ReactNode
   isLoaded?: boolean
 }
@@ -14,7 +16,7 @@ interface SkeletonProps {
 export default function Skeleton({ 
   w = "100%", 
   h = "20px", 
-  borderRadius = "8px",
+  rounded = "default",
   children,
   isLoaded = false
 }: SkeletonProps) {
@@ -22,23 +24,12 @@ export default function Skeleton({
     return <>{children}</>
   }
 
+  const roundedClass = rounded === "full" ? styles.skeletonRoundedFull : styles.skeletonRounded
+
   return (
     <Box
-      w={w}
-      h={h}
-      borderRadius={borderRadius}
-      bg="#E2E8F0"
-      backgroundImage="linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)"
-      backgroundSize="200% 100%"
-      style={{
-        animation: "shimmer 1.5s infinite"
-      }}
-      css={`
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      `}
+      className={MergeClassnames(styles.skeleton, roundedClass)}
+      style={{ width: typeof w === 'number' ? `${w}px` : w, height: typeof h === 'number' ? `${h}px` : h }}
     />
   )
 }
@@ -46,7 +37,7 @@ export default function Skeleton({
 // Skeleton para texto
 export function SkeletonText({ lines = 3, gap = 2 }: { lines?: number; gap?: number }) {
   return (
-    <Box display="flex" flexDirection="column" gap={gap}>
+    <Box className={styles.skeletonText} style={{ gap: `${gap * 0.25}rem` }}>
       {Array.from({ length: lines }).map((_, i) => (
         <Skeleton 
           key={i} 
@@ -60,22 +51,17 @@ export function SkeletonText({ lines = 3, gap = 2 }: { lines?: number; gap?: num
 
 // Skeleton para avatar circular
 export function SkeletonCircle({ size = "48px" }: { size?: string | number }) {
-  return <Skeleton w={size} h={size} borderRadius="full" />
+  return <Skeleton w={size} h={size} rounded="full" />
 }
 
 // Skeleton para card
 export function SkeletonCard() {
   return (
-    <Box
-      p={4}
-      borderRadius="16px"
-      border="1px solid"
-      borderColor="#E2E8F0"
-    >
-      <Box display="flex" gap={4} mb={4}>
+    <Box className={styles.skeletonCard}>
+      <Box className={styles.skeletonCardHeader}>
         <SkeletonCircle size="48px" />
-        <Box flex={1}>
-          <Box mb={2}><Skeleton h="20px" w="60%" /></Box>
+        <Box className={styles.skeletonCardHeaderText}>
+          <Skeleton h="20px" w="60%" />
           <Skeleton h="14px" w="40%" />
         </Box>
       </Box>

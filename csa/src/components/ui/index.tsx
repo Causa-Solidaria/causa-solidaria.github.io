@@ -23,6 +23,7 @@ import Breadcrumb from "./Breadcrumb"
 import ConfirmDialog from "./ConfirmDialog"
 import Carousel, { CarouselItem } from "./Carousel"
 import Text from "./Text"
+import UIstyles from "./ui.module.css"
 
 export {
   Box,
@@ -55,5 +56,6 @@ export {
   ConfirmDialog,
   Carousel,
   CarouselItem,
-  Text
+  Text,
+  UIstyles
 }

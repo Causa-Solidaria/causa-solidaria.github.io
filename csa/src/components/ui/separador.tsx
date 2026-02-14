@@ -1,33 +1,21 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import { SetStaticPositionH, SetStaticPositionW } from "csa/lib/utils";
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
+interface SeparadorProps extends Omit<BoxProps, 'dir'> {
+    dir?: "row" | "column"
+}
 
-export default function Separador(
-    {
-        dir="row", 
-        size,
-        maxsize,
-        length = 1,
-        color,
-        ...props
-    }: 
-    {
-        dir?: "row" | "column", 
-        size?: number,
-        maxsize?: number 
-        length?: number, 
-        color?: string
-    } & BoxProps
-){
+export default function Separador({
+    dir = "row",
+    className,
+    ...props
+}: SeparadorProps) {
+    const dirClass = dir === "column" ? styles.separadorVertical : styles.separadorHorizontal
     
-    const w = dir==="row" ? size : length
-    const h = dir==="column" ? size : length
-    
-    return(
+    return (
         <Box
-            bg={color}
-            {...SetStaticPositionH(h as number, maxsize)}
-            {...SetStaticPositionW(w as number, maxsize)}
+            className={MergeClassnames(styles.separador, dirClass, className)}
             {...props}
         />
     )

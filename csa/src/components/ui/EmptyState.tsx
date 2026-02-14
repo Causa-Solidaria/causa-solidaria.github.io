@@ -3,7 +3,8 @@
 import { Box } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { LuInbox } from "react-icons/lu"
-import {Flex, Button, Card} from "./index"
+import {Flex, Button} from "./index"
+import styles from "./ui.module.css"
 
 interface EmptyStateProps {
   icon?: ReactNode
@@ -24,42 +25,24 @@ export default function EmptyState({
   return (
     <Flex 
       dir="column" 
-      alignItems="center" 
-      justifyContent="center"
-      py={12}
-      px={4}
-      textAlign="center"
+      className={styles.emptyState}
     >
-      <Box 
-        color="#A0AEC0" 
-        mb={4}
-        fontSize="64px"
-      >
+      <Box className={styles.emptyStateIcon}>
         {icon || <LuInbox size={64} />}
       </Box>
       
-      <Box
-        fontSize="xl"
-        fontWeight={600}
-        color="#2D3748"
-        mb={2}
-      >
+      <Box className={styles.emptyStateTitle}>
         {title}
       </Box>
       
       {description && (
-        <Box
-          fontSize="md"
-          color="#718096"
-          maxW="400px"
-          mb={action ? 6 : 0}
-        >
+        <Box className={styles.emptyStateDescription}>
           {description}
         </Box>
       )}
       
       {action && (
-        <Button onClick={action.onClick}>
+        <Button className={styles.emptyStateAction} onClick={action.onClick}>
           {action.label}
         </Button>
       )}

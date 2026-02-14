@@ -1,6 +1,8 @@
 "use client"
 
 import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight } from "react-icons/lu"
+import styles from "./ui.module.css"
+import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface PaginationProps {
   currentPage: number
@@ -19,61 +21,47 @@ export default function Pagination({
 }: PaginationProps) {
   const generatePageNumbers = () => {
     const pages: (number | "...")[] = []
-    
+
     pages.push(1)
-    
+
     const leftSibling = Math.max(currentPage - siblingCount, 2)
     const rightSibling = Math.min(currentPage + siblingCount, totalPages - 1)
-    
+
     if (leftSibling > 2) {
       pages.push("...")
     }
-    
+
     for (let i = leftSibling; i <= rightSibling; i++) {
       if (i !== 1 && i !== totalPages) {
         pages.push(i)
       }
     }
-    
+
     if (rightSibling < totalPages - 1) {
       pages.push("...")
     }
-    
+
     if (totalPages > 1) {
       pages.push(totalPages)
     }
-    
+
     return pages
   }
 
-  const buttonBaseStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "8px",
-    border: "none",
-    background: "transparent",
-    transition: "all 0.2s"
-  }
+  const pages = generatePageNumbers()
 
-  const PageButton = ({ 
-    page, 
+  const PageButton = ({
+    page,
     isActive = false
-  }: { 
+  }: {
     page: number | "..."
     isActive?: boolean
   }) => (
     <button
-      style={{
-        ...buttonBaseStyle,
-        minWidth: "36px",
-        height: "36px",
-        fontSize: "14px",
-        fontWeight: isActive ? 600 : 400,
-        background: isActive ? "#4C1D95" : "transparent",
-        color: isActive ? "white" : "#4A5568",
-        cursor: page === "..." ? "default" : "pointer"
-      }}
+      className={MergeClassnames(
+        styles.paginationButton,
+        isActive ? styles.paginationButtonActive : styles.paginationButtonInactive
+      )}
       onClick={() => {
         if (page !== "...") {
           onPageChange(page)
@@ -85,24 +73,17 @@ export default function Pagination({
     </button>
   )
 
-  const NavButton = ({ 
-    icon: Icon, 
-    onClick, 
-    disabled 
-  }: { 
+  const NavButton = ({
+    icon: Icon,
+    onClick,
+    disabled
+  }: {
     icon: typeof LuChevronLeft
     onClick: () => void
-    disabled: boolean 
+    disabled: boolean
   }) => (
     <button
-      style={{
-        ...buttonBaseStyle,
-        width: "36px",
-        height: "36px",
-        color: "#4A5568",
-        cursor: disabled ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.5 : 1
-      }}
+      className={styles.paginationNav}
       onClick={onClick}
       disabled={disabled}
     >
@@ -110,10 +91,8 @@ export default function Pagination({
     </button>
   )
 
-  const pages = generatePageNumbers()
-
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+    <div className={styles.pagination}>
       {showFirstLast && (
         <NavButton
           icon={LuChevronsLeft}
@@ -121,14 +100,14 @@ export default function Pagination({
           disabled={currentPage === 1}
         />
       )}
-      
+
       <NavButton
         icon={LuChevronLeft}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       />
-      
-      <div style={{ display: "flex", gap: "4px", margin: "0 8px" }}>
+
+      <div className={styles.paginationPages}>
         {pages.map((page, index) => (
           <PageButton
             key={`${page}-${index}`}
@@ -137,13 +116,13 @@ export default function Pagination({
           />
         ))}
       </div>
-      
+
       <NavButton
         icon={LuChevronRight}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       />
-      
+
       {showFirstLast && (
         <NavButton
           icon={LuChevronsRight}
@@ -154,3 +133,4 @@ export default function Pagination({
     </div>
   )
 }
+
