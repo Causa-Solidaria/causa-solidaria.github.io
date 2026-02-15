@@ -7,6 +7,7 @@ import Rotas from "csa/Rotas.json"
 import styles from "./index.module.css"
 import DefaultPage from "csa/components/DefaultPage"
 import useNavigate from "csa/hooks/useNavigate"
+import { mockOngs } from "csa/mocks/ongs"
 
 const supportItems = [
   {
@@ -97,6 +98,27 @@ export default function HomeComponents() {
         <Heading className={styles.suportSectionTitle}>Como você pode ajudar</Heading>
         <Flex className={styles.suportSectionCards}>
 
+        </Flex>
+      </Flex>
+
+      {/* ==================== ONGs em Destaque ==================== */}
+      <Flex className={styles.ongsSection}>
+        <Heading className={styles.ongsSectionTitle}>ONGs em Destaque</Heading>
+        <Flex className={styles.ongsGrid}>
+          {mockOngs.map((ong) => (
+            <Flex
+              key={ong.id}
+              className={styles.ongItem}
+              onClick={() => navigate(Rotas.ONGs.Home)}
+            >
+              <Image
+                className={styles.ongItemImage}
+                src="/logo.png"
+                alt={ong.nome}
+              />
+              <Heading className={styles.ongItemName}>{ong.nome}</Heading>
+            </Flex>
+          ))}
         </Flex>
       </Flex>
     </DefaultPage>

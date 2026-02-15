@@ -510,13 +510,20 @@ Scripts em `scripts/` usados no processo de build:
 
 ## Variáveis de Ambiente
 
-| Variável | Descrição |
-|---|---|
-| `NEXT_PUBLIC_API_BASE_URL` | URL base da API (opcional; se vazio, usa caminhos relativos) |
-| `NEXT_PUBLIC_USE_MOCK` | Se `true`, usa dados mockados em vez de chamar a API. Útil para desenvolvimento/testes sem backend |
-| `DATABASE_URL` | String de conexão com o banco de dados |
-| Variáveis JWT | Configurações de chave secreta para tokens |
-| Variáveis Nodemailer | Credenciais SMTP para envio de e-mails |
+| Variável | Tipo | Descrição |
+|---|---|---|
+| `NEXT_TELEMETRY_DISABLED` | Server | Desativa telemetria do Next.js (`1` para desativar) |
+| `NEXT_PUBLIC_API_BASE_URL` | Public | URL base da API (opcional; se vazio, usa caminhos relativos) |
+| `NEXT_PUBLIC_USE_MOCK` | Public | Se `true`, usa dados mockados em vez de chamar a API |
+| `NEXT_PUBLIC_URL` | Public | URL pública da aplicação (usada para links em e-mails, ex: redefinição de senha) |
+| `DATABASE_URL` | Server | String de conexão com o banco de dados (`file:./dev.db` para SQLite ou URL PostgreSQL) |
+| `DATABASE_PROVIDER` | Server | Provider do banco (`sqlite` ou `postgresql`; opcional) |
+| `JWT_SECRET` | Server | Chave secreta para assinar/verificar tokens JWT |
+| `SMTP_HOST` | Server | Host do servidor SMTP para envio de e-mails |
+| `SMTP_PORT` | Server | Porta do servidor SMTP |
+| `SMTP_SECURE` | Server | Se `true`, usa conexão TLS no SMTP |
+| `SMTP_USER` | Server | Usuário/e-mail de autenticação SMTP |
+| `SMTP_PASS` | Server | Senha de autenticação SMTP |
 
 > Crie um arquivo `.env.local` com base no `.env.example` para configurar o ambiente local.
 

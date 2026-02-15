@@ -25,10 +25,23 @@ export default function Nav(
     const [mounted, setMounted] = useState(false)
     const containerRef = useRef<HTMLDivElement | null>(null)
 
+    // Verifica login no mount e periodicamente (a cada 30s) para detectar expiração
     useEffect(() => {
         setMounted(true)
-        const token = getToken()
-        setIsLoggedIn(!!token && !isTokenExpired(token))
+
+        const checkAuth = () => {
+            const token = getToken()
+            if (token && isTokenExpired(token)) {
+                localStorage.removeItem('token')
+                setIsLoggedIn(false)
+            } else {
+                setIsLoggedIn(!!token)
+            }
+        }
+
+        checkAuth()
+        const interval = setInterval(checkAuth, 30_000)
+        return () => clearInterval(interval)
     }, [])
 
     // Botões a serem exibidos

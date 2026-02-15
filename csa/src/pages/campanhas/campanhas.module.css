@@ -5,133 +5,139 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 60vh;
     padding: clamp(16px, 3vw, 32px);
     gap: clamp(16px, 2.5vw, 28px);
-    position: relative;
 }
 
-/* ── Create Button (FAB) ── */
-
-.createButton {
-    position: fixed;
-    bottom: clamp(20px, 3vw, 32px);
-    right: clamp(20px, 3vw, 32px);
-    z-index: 50;
+.container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: clamp(52px, 7vw, 64px);
-    height: clamp(52px, 7vw, 64px);
-    border-radius: 50%;
-    background: var(--dark-green);
-    color: var(--white);
-    border: none;
-    cursor: pointer;
-    font-size: clamp(22px, 3vw, 28px);
-    font-family: "Quicksand", sans-serif;
-    font-weight: 700;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s, background 0.3s, width 0.4s, border-radius 0.4s;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.createButton:hover {
-    background: var(--semi-dark-green);
-    transform: translateY(-4px);
-    width: clamp(120px, 16vw, 150px);
-    border-radius: clamp(12px, 1.5vw, 16px);
-}
-
-.createButtonLabel {
-    display: none;
-    font-size: clamp(14px, 2vw, 16px);
-    font-weight: 700;
-}
-
-.createButton:hover .createButtonLabel {
-    display: inline;
-}
-
-.createButtonIcon {
-    flex-shrink: 0;
-}
-
-/* ── Content Wrapper ── */
-
-.contentWrapper {
     width: 100%;
-    max-width: 1200px;
+    max-width: 960px;
+    background: var(--white);
+    border-radius: clamp(12px, 2vw, 20px);
+    padding: clamp(20px, 3vw, 40px);
+    gap: clamp(16px, 2.5vw, 28px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    gap: clamp(12px, 2vw, 20px);
 }
 
 .pageTitle {
-    font-size: clamp(22px, 3.5vw, 34px);
+    font-size: clamp(24px, 4vw, 38px);
     font-weight: 900;
-    color: var(--white);
+    color: var(--black);
     text-align: center;
-    margin-bottom: clamp(12px, 2vw, 20px);
 }
+
+/* ── Search Row ── */
+
+.searchRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: clamp(10px, 1.5vw, 16px);
+}
+
+.searchInput {
+    flex: 1;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 16px) clamp(14px, 2vw, 20px);
+    font-size: clamp(14px, 2vw, 18px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.searchInput::placeholder { color: #999; font-weight: 500; }
+.searchInput:focus { border-color: var(--green); }
+
+/* ── Create Button ── */
+
+.createButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--dark-green);
+    color: var(--white);
+    border: none;
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 28px);
+    font-size: clamp(13px, 1.8vw, 17px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.createButton:hover { background: var(--semi-dark-green); transform: translateY(-3px); }
 
 /* ── Grid ── */
 
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(14px, 2vw, 24px);
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
+    max-width: 960px;
+    gap: clamp(12px, 2vw, 18px);
 }
 
-/* ── Campaign Card ── */
+/* ── Card ── */
 
 .card {
     display: flex;
     flex-direction: column;
-    width: clamp(260px, 30vw, 340px);
-    background-color: var(--white);
+    background: var(--white);
     border-radius: clamp(10px, 1.5vw, 16px);
+    border: 2px solid #e0e0e0;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--dark-green);
 }
 
 .cardImage {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: clamp(120px, 14vw, 180px);
     object-fit: cover;
+    display: block;
 }
 
 .cardContent {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    padding: clamp(10px, 1.5vw, 16px);
     gap: clamp(6px, 0.8vw, 10px);
-    padding: clamp(12px, 2vw, 20px);
 }
 
-.cardTitle {
-    font-size: clamp(16px, 2.2vw, 22px);
-    font-weight: 800;
-    color: var(--dark-green);
-    word-break: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+.cardBody { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: clamp(4px, 0.6vw, 8px); }
+.cardTitleRow { display: flex; align-items: center; gap: 6px; }
+.cardTitle { font-size: clamp(14px, 1.8vw, 18px); font-weight: 800; color: var(--black); word-break: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cardTags { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.5vw, 6px); }
 
 .cardDescription {
-    font-size: clamp(13px, 1.6vw, 16px);
+    font-size: clamp(12px, 1.4vw, 14px);
     font-weight: 500;
-    color: #444;
-    line-height: 1.5;
+    color: #666;
+    line-height: 1.4;
     word-break: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -139,11 +145,35 @@
     overflow: hidden;
 }
 
+/* ── Card Footer ── */
+
+.cardFooter {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.5vw, 6px);
+    padding: 0 clamp(10px, 1.5vw, 16px) clamp(10px, 1.5vw, 16px);
+    border-top: 1px solid #eee;
+    padding-top: clamp(6px, 0.8vw, 10px);
+    margin-top: auto;
+}
+
+.footerItem {
+    display: flex;
+    align-items: center;
+    gap: clamp(3px, 0.4vw, 6px);
+    font-size: clamp(11px, 1.3vw, 13px);
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.footerItem:hover { color: var(--dark-green); }
+.footerIcon { font-size: clamp(13px, 1.6vw, 17px); color: var(--dark-green); flex-shrink: 0; }
+
 /* ── Loading / Empty ── */
 
 .centerBox {
-    background-color: var(--white);
-    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,37 +184,19 @@
 /* ── Responsive ── */
 
 @media (max-width: 768px) {
-    .grid {
-        gap: clamp(10px, 2.5vw, 16px);
-    }
-
-    .card {
-        width: clamp(240px, 44vw, 300px);
-    }
+    .searchRow { flex-direction: column; }
+    .searchInput { width: 100%; }
+    .createButton { width: 100%; }
+    .list { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
-    .page {
-        padding: clamp(10px, 3vw, 16px);
-    }
-
-    .card {
-        width: 100%;
-        max-width: 360px;
-    }
-
-    .createButton {
-        bottom: 16px;
-        right: 16px;
-    }
+    .page { padding: clamp(10px, 3vw, 16px); }
+    .list { grid-template-columns: 1fr; }
+    .cardImage { height: clamp(140px, 30vw, 180px); }
 }
 
 @media (max-width: 360px) {
-    .cardTitle {
-        font-size: clamp(14px, 4.5vw, 18px);
-    }
-
-    .cardDescription {
-        font-size: clamp(12px, 3.5vw, 14px);
-    }
+    .cardTitle { font-size: clamp(13px, 4vw, 16px); }
+    .cardDescription { font-size: clamp(11px, 3.5vw, 13px); }
 }

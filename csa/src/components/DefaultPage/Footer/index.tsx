@@ -1,6 +1,7 @@
 import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import styles from "../Defaultpage.module.css";
+import { FaInstagram } from "react-icons/fa";
 
 import {
     Home , 
@@ -12,23 +13,22 @@ import {
     Fóruns
 } from "csa/Rotas.json"
 
-import { Image } from "@chakra-ui/react";
 
 /** Tipo para link com texto */
 interface FooterTextLink {
     title: string;
     link: string;
-    src?: never;
+    icon?: never;
 }
 
-/** Tipo para link com imagem (redes sociais) */
-interface FooterImageLink {
-    src: string;
+/** Tipo para link com ícone (redes sociais) */
+interface FooterIconLink {
+    icon: React.ReactNode;
     link: string;
     title?: never;
 }
 
-type FooterLink = FooterTextLink | FooterImageLink;
+type FooterLink = FooterTextLink | FooterIconLink;
 
 interface FooterSection {
     title: string;
@@ -56,7 +56,7 @@ const FooterContent: FooterSection[] = [
     {
         title: "Siga-nos",
         links:[
-           {src: "pngwing.com (13) 1.svg", link: "https://www.instagram.com/causasolidaria2025/"}
+           {icon: <FaInstagram />, link: "https://www.instagram.com/causasolidaria2025/"}
         ]
     },
     
@@ -85,13 +85,9 @@ export default function Footer() {
                                         {link.title}
                                     </a>
                                 )}
-                                {link.src && (
-                                    <a href={link.link} target="_blank" rel="noopener noreferrer">
-                                        <Image
-                                            src={link.src}
-                                            alt={"social-" + linkId}
-                                            className={styles.footerSocialIcon}
-                                        />
+                                {link.icon && (
+                                    <a href={link.link} target="_blank" rel="noopener noreferrer" className={styles.footerSocialIcon}>
+                                        {link.icon}
                                     </a>
                                 )}
                             </div>

@@ -41,6 +41,34 @@ export default function Document() {
           dangerouslySetInnerHTML={{
             __html: `
               var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              Tawk_API.customStyle = {
+                visibility: {
+                  desktop: { position: 'br', xOffset: 20, yOffset: 20 },
+                  mobile:  { position: 'br', xOffset: 10, yOffset: 10 }
+                }
+              };
+              Tawk_API.onLoad = function(){
+                Tawk_API.setAttributes({ 'hash': '' }, function(error){});
+                // Força a cor verde primária no botão
+                var style = document.createElement('style');
+                style.textContent = [
+                  '.tawk-min-container .tawk-button { background-color: #097D03 !important; }',
+                  '.tawk-min-container .tawk-button:hover { background-color: #05b02a !important; }',
+                  '#tawk-bubble-container .tawk-button { background-color: #097D03 !important; }',
+                  '#tawk-bubble-container .tawk-button:hover { background-color: #05b02a !important; }'
+                ].join('\\n');
+                document.head.appendChild(style);
+                // Também tenta injetar no iframe
+                try {
+                  var frames = document.querySelectorAll('iframe');
+                  frames.forEach(function(f){
+                    try {
+                      var fd = f.contentDocument || f.contentWindow.document;
+                      if(fd) fd.head.appendChild(style.cloneNode(true));
+                    } catch(e){}
+                  });
+                } catch(e){}
+              };
               (function(){
                 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
                 s1.async=true;

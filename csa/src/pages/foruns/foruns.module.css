@@ -238,6 +238,10 @@
         flex-direction: column;
     }
 
+    .searchInput {
+        width: 100%;
+    }
+
     .createButton {
         width: 100%;
     }

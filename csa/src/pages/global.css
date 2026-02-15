@@ -8,7 +8,6 @@
 /* VLibras Accessibility */
 [vw-access-button] {
   position: fixed !important;
-  bottom: 20px !important;
   right: 20px !important;
   z-index: 2147483647 !important;
 }
@@ -16,6 +15,10 @@
 [vwd] {
   display: block !important;
   visibility: visible !important;
+}
+
+.tawk-max-container {
+  max-height: 70vh !important;
 }
 
 /* CSS Variables */
@@ -37,6 +40,7 @@
   margin: 0;
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;
+  font-family: "Quicksand", sans-serif;
 }
 
 html {

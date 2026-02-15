@@ -6,25 +6,11 @@ import Image from "next/image"
 import { useState } from "react"
 import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
-import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
-import { FiMapPin, FiCalendar, FiArrowLeft } from "react-icons/fi"
+import { FiMapPin, FiCalendar, FiArrowLeft, FiPhone, FiMail } from "react-icons/fi"
 import styles from "./slug.module.css"
+import { CampanhaDetail, mockCampanhaDetail } from "csa/mocks/campanhas"
 
-type CampanhaProps = {
-    id: string
-    titulo: string
-    descricao?: string
-    nivelAjuda: number
-    cep: string
-    estado: string
-    bairro: string
-    rua: string
-    numero: string
-    foto: string
-    createdAt: string
-    endDate: string
-    notFound: boolean
-}
+type CampanhaProps = CampanhaDetail
 
 function formatDate(iso: string): string {
     return new Date(iso).toLocaleDateString("pt-BR", {
@@ -32,6 +18,10 @@ function formatDate(iso: string): string {
         month: "2-digit",
         year: "numeric",
     })
+}
+
+function formatCurrency(value: number): string {
+    return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
 function getImageSrc(foto?: string): string {
@@ -47,6 +37,13 @@ export default function Campanha(c: CampanhaProps) {
     const [expanded, setExpanded] = useState(false)
 
     const fotoSrc = getImageSrc(c.foto)
+    const meta = c.meta ?? 5000
+    const arrecadado = c.arrecadado ?? Math.round(meta * (c.nivelAjuda / 5) * 0.65)
+    const progresso = meta > 0 ? Math.min((arrecadado / meta) * 100, 100) : 0
+    const telefone = c.telefone ?? "(84) 9 1234-5678"
+    const email = c.email ?? "contato@causasolidaria.org"
+    const galeria = c.galeria ?? []
+    const local = [c.cidade, c.estado].filter(Boolean).join(" - ")
 
     if (c.notFound) {
         return (
@@ -66,10 +63,6 @@ export default function Campanha(c: CampanhaProps) {
         )
     }
 
-    const endereco = [c.rua, c.numero, c.bairro, c.estado, c.cep]
-        .filter(Boolean)
-        .join(", ")
-
     return (
         <DefaultPage>
             <Head>
@@ -80,21 +73,19 @@ export default function Campanha(c: CampanhaProps) {
                 <button
                     className={styles.backButton}
                     onClick={() => navigate(Rotas.Campanhas.Home)}
+                    aria-label="Voltar"
                 >
                     <FiArrowLeft />
-                    Voltar
                 </button>
 
                 <div className={styles.card}>
+                    {/* Hero Image */}
                     <div
                         className={styles.imageWrapper}
                         onClick={() => setExpanded((prev) => !prev)}
                     >
                         <Image
-                            className={MergeClassnames(
-                                styles.image,
-                                expanded ? styles.imageExpanded : ""
-                            )}
+                            className={expanded ? styles.imageExpanded : styles.image}
                             src={fotoSrc}
                             alt={c.titulo}
                             width={960}
@@ -104,48 +95,74 @@ export default function Campanha(c: CampanhaProps) {
                     </div>
 
                     <div className={styles.content}>
+                        {/* Título e Descrição */}
                         <h1 className={styles.title}>{c.titulo}</h1>
-
                         {c.descricao && (
                             <p className={styles.description}>{c.descricao}</p>
                         )}
 
-                        <div className={styles.helpLevel}>
-                            <span className={styles.helpLevelLabel}>
-                                Nível de ajuda: {c.nivelAjuda}/5
-                            </span>
+                        {/* Meta e Arrecadação */}
+                        <div className={styles.metaSection}>
+                            <div className={styles.metaRow}>
+                                <span className={styles.metaLabel}>meta: <strong>{formatCurrency(meta)}</strong></span>
+                                <span className={styles.metaLabel}>arrecadados: <strong>{formatCurrency(arrecadado)}</strong></span>
+                            </div>
                             <div className={styles.progressTrack}>
                                 <div
                                     className={styles.progressFill}
-                                    style={{ width: `${(c.nivelAjuda / 5) * 100}%` }}
+                                    style={{ width: `${progresso}%` }}
                                 />
                             </div>
+                            <span className={styles.progressPercent}>{Math.round(progresso)}%</span>
                         </div>
 
-                        {endereco && (
-                            <div className={styles.infoSection}>
+                        {/* Info: Prazo e Local */}
+                        <div className={styles.infoList}>
+                            <div className={styles.infoItem}>
+                                <FiCalendar className={styles.infoIcon} />
+                                <span>Prazo final: <strong>{formatDate(c.endDate)}</strong></span>
+                            </div>
+                            {local && (
                                 <div className={styles.infoItem}>
                                     <FiMapPin className={styles.infoIcon} />
-                                    <span>
-                                        <span className={styles.infoLabel}>Endereço:</span>
-                                        {endereco}
-                                    </span>
+                                    <span>Local: <strong>{local}</strong></span>
                                 </div>
+                            )}
+                        </div>
+
+                        {/* Galeria */}
+                        {galeria.length > 0 && (
+                            <div className={styles.gallery}>
+                                {galeria.map((img, idx) => (
+                                    <Image
+                                        key={idx}
+                                        className={styles.galleryImage}
+                                        src={getImageSrc(img)}
+                                        alt={`Foto ${idx + 1}`}
+                                        width={120}
+                                        height={90}
+                                        unoptimized
+                                    />
+                                ))}
                             </div>
                         )}
 
-                        <div className={styles.dates}>
-                            <span className={styles.dateItem}>
-                                <FiCalendar />
-                                <span className={styles.dateLabel}>Criado em:</span>
-                                {formatDate(c.createdAt)}
-                            </span>
-                            <span className={styles.dateItem}>
-                                <FiCalendar />
-                                <span className={styles.dateLabel}>Encerra em:</span>
-                                {formatDate(c.endDate)}
-                            </span>
+                        {/* Contato */}
+                        <div className={styles.contactSection}>
+                            <div className={styles.contactItem}>
+                                <FiPhone className={styles.infoIcon} />
+                                <span>{telefone}</span>
+                            </div>
+                            <div className={styles.contactItem}>
+                                <FiMail className={styles.infoIcon} />
+                                <span>{email}</span>
+                            </div>
                         </div>
+
+                        {/* Botão Doar */}
+                        <button className={styles.donateButton}>
+                            DOAR AGORA
+                        </button>
                     </div>
                 </div>
             </div>
@@ -155,28 +172,11 @@ export default function Campanha(c: CampanhaProps) {
 
 const USE_TEST_DATA = true
 
-const testCampanha = {
-    id: "test-001",
-    titulo: "Campanha de Teste",
-    descricao: "Esta é uma campanha de teste para visualização do layout.",
-    nivelAjuda: 3,
-    cep: "01001-000",
-    estado: "SP",
-    bairro: "Centro",
-    rua: "Rua Exemplo",
-    numero: "123",
-    foto: "",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    notFound: false,
-}
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const slug = context.params?.slug as string
 
     const campanha = USE_TEST_DATA
-        ? testCampanha
+        ? mockCampanhaDetail
         : await (async () => {
             const isUuid = /^[0-9a-fA-F-]{36}$/.test(slug)
             return isUuid

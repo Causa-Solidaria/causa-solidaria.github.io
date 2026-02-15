@@ -10,6 +10,7 @@ export default function Box({
     children,
     ref,
     className,
+    overflow,
     style,
     ...props
 }: Bprops) {

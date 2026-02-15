@@ -2,113 +2,219 @@
 
 /* ==================== Page ==================== */
 .page {
-  min-height: 100dvh;
-  background-color: #e0f7e0;
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  transition: none;
+}
+
+/* Center content inside Timeline (direct child of .page) */
+.page > div {
   align-items: center;
   justify-content: center;
+  min-height: 100dvh;
   position: relative;
+  transition: none;
 }
 
-/* ==================== Card ==================== */
-.card {
-  background-color: #fff;
-  padding: 2.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+/* ==================== Background Decoration ==================== */
+.backgroundDecoration {
   width: 100%;
-  max-width: 400px;
-  z-index: 2;
-  position: relative;
+  height: 50%;
+  position: absolute;
+  background-color: var(--clean-green);
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: 0;
 }
 
+/* ==================== Main Card ==================== */
+.card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(300px, 50vw, 460px);
+  padding: clamp(28px, 4vw, 44px);
+  background-color: var(--white);
+  border-radius: clamp(8px, 1vw, 12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* ==================== Title & Description ==================== */
 .title {
-  margin-bottom: 1rem;
-  font-family: monospace;
-  text-align: center;
-  color: #004d00;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: clamp(22px, 3vw, 30px);
+  color: var(--black) !important;
+  font-weight: 900;
+  margin-bottom: clamp(8px, 1vw, 14px);
 }
 
 .description {
-  margin-bottom: 1.5rem;
-  color: #4a5568;
+  color: #4a5568 !important;
+  font-size: clamp(13px, 1.2vw, 15px);
   font-weight: 500;
-  text-align: center;
-  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: clamp(12px, 2vw, 24px);
 }
 
 /* ==================== Form ==================== */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 20px);
   width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.6vw, 8px);
+  width: 100%;
+}
+
+.label {
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: var(--dark-green) !important;
+  font-weight: 600;
 }
 
 .input {
-  border-color: #38a169;
-  text-align: center;
-  border-radius: 0.375rem;
-  padding: 0.75rem;
+  padding: clamp(10px, 1.2vw, 14px);
+  font-size: clamp(14px, 1.5vw, 18px);
   width: 100%;
-}
-
-.input:focus {
-  border-color: #276749;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(56, 161, 105, 0.3);
-}
-
-.submitButton {
-  background-color: #02E351;
-  color: #fff;
-  width: 100%;
-  text-transform: uppercase;
-  border-radius: 0.375rem;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.submitButton:hover {
-  background-color: #38d39f;
-}
-
-.backButton {
-  background-color: transparent;
-  color: #38a169;
-  border: 1px solid #38a169;
-  width: 100%;
-  text-transform: uppercase;
-  border-radius: 0.375rem;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  cursor: pointer;
+  border-width: 2px;
+  border-radius: clamp(6px, 0.8vw, 10px);
+  border-style: solid;
+  border-color: var(--dark-green);
   transition: all 0.2s ease;
 }
 
-.backButton:hover {
-  background-color: #f0fff4;
+.input:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 2px rgba(5, 176, 42, 0.3);
+  outline: none;
 }
 
-/* ==================== Background Decoration ==================== */
-.backgroundDecoration {
-  width: 100%;
-  height: 50vh;
-  background-color: #02E351;
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
+/* ==================== Buttons ==================== */
+.submitButton {
+  font-size: clamp(13px, 1.2vw, 16px);
+  background-color: var(--semi-dark-green);
+  color: var(--white);
+  font-weight: bold;
+  padding: clamp(10px, 1.2vw, 14px) clamp(24px, 3vw, 40px);
+  border: none;
+  border-radius: clamp(6px, 0.8vw, 10px);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.submitButton:hover {
+  background-color: var(--dark-green);
+}
+
+.submitButton:active {
+  background-color: var(--dark-green);
+  opacity: 0.85;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.backButton {
+  font-size: clamp(12px, 1vw, 14px);
+  background-color: var(--semi-dark-green);
+  color: var(--white);
+  font-weight: bold;
+  padding: clamp(8px, 1vw, 10px) clamp(20px, 2.5vw, 32px);
+  border: none;
+  border-radius: clamp(6px, 0.8vw, 10px);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: var(--dark-green);
 }
 
 /* ==================== Responsive ==================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .card {
+    width: clamp(300px, 70vw, 440px);
+    padding: clamp(24px, 4vw, 36px);
+  }
+
+  .title {
+    font-size: clamp(20px, 4vw, 26px);
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .card {
-    margin: 1rem;
-    padding: 1.5rem;
+    width: calc(100vw - 32px);
+    margin: 16px;
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .submitButton {
+    padding: 10px 24px;
+    font-size: 13px;
+  }
+
+  .backButton {
+    padding: 8px 20px;
+    font-size: 12px;
+  }
+}
+
+/* Dispositivos pequenos */
+@media (max-width: 360px) {
+  .card {
+    width: calc(100vw - 24px);
+    margin: 12px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .input {
+    padding: 8px;
+    font-size: 13px;
   }
 }

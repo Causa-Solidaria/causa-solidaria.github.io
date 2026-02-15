@@ -5,8 +5,8 @@ import { Image } from "@chakra-ui/react"
 import DefaultPage from "csa/components/DefaultPage/index"
 import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge, Button } from "csa/components/ui"
 import { getToken, isTokenExpired, logoutAndRedirect } from "csa/lib/utils"
-import { Login, Apis } from "csa/Rotas.json"
-import { LuUser, LuContact, LuMegaphone } from "react-icons/lu"
+import { Login, Redefinir, Apis } from "csa/Rotas.json"
+import { LuUser, LuContact, LuMegaphone, LuPencil, LuKeyRound } from "react-icons/lu"
 import styles from "./perfil.module.css"
 import useNavigate from "csa/hooks/useNavigate"
 
@@ -162,6 +162,18 @@ export default function Perfil() {
                 {localizacao || 'Localização não informada'}
               </Heading>
             </Flex>
+          </Flex>
+
+          {/* ==================== Actions ==================== */}
+          <Flex className={styles.actionsContainer}>
+            <Button className={styles.actionButton} onClick={() => navigate('/perfil/editar')}>
+              <LuPencil />
+              Editar Perfil
+            </Button>
+            <Button className={styles.actionButton} onClick={() => navigate(Redefinir)}>
+              <LuKeyRound />
+              Redefinir Senha
+            </Button>
           </Flex>
 
           {/* ==================== Bio ==================== */}
