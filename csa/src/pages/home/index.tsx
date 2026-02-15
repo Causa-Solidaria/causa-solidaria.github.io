@@ -2,7 +2,7 @@
 
 import { Center, Icon, Image } from "@chakra-ui/react"
 import { Heading, Button, Flex } from "csa/components/ui"
-import { LuArrowRight } from "react-icons/lu"
+import { LuArrowRight, LuHeart, LuHandshake, LuShare2 } from "react-icons/lu"
 import Rotas from "csa/Rotas.json"
 import styles from "./index.module.css"
 import DefaultPage from "csa/components/DefaultPage"
@@ -20,6 +20,33 @@ const supportItems = [
     title: "suporte em libras",
     image: "pngegg (8) 2.png"
   }
+]
+
+const helpCards = [
+  {
+    id: 1,
+    icon: LuHeart,
+    title: "doando",
+    description: "contribua com qualquer valor",
+    linkText: "doar agora",
+    href: Rotas.Campanhas.Home,
+  },
+  {
+    id: 2,
+    icon: LuHandshake,
+    title: "voluntariando-se",
+    description: "participe das ações presenciais",
+    linkText: "quero me voluntariar",
+    href: Rotas.ONGs.Home,
+  },
+  {
+    id: 3,
+    icon: LuShare2,
+    title: "compartilhando",
+    description: "compartilhe nossas campanhas",
+    linkText: "compartilhar",
+    href: Rotas.Campanhas.Home,
+  },
 ]
 
 export default function HomeComponents() {
@@ -93,17 +120,9 @@ export default function HomeComponents() {
         </Flex>
       </Flex>
 
-      {/* ==================== Suport Section (Como você pode ajudar) ==================== */}
-      <Flex className={styles.suportSection}>
-        <Heading className={styles.suportSectionTitle}>Como você pode ajudar</Heading>
-        <Flex className={styles.suportSectionCards}>
-
-        </Flex>
-      </Flex>
-
       {/* ==================== ONGs em Destaque ==================== */}
       <Flex className={styles.ongsSection}>
-        <Heading className={styles.ongsSectionTitle}>ONGs em Destaque</Heading>
+        <Heading className={styles.ongsSectionTitle}>ONGs em Destaque:</Heading>
         <Flex className={styles.ongsGrid}>
           {mockOngs.map((ong) => (
             <Flex
@@ -117,6 +136,24 @@ export default function HomeComponents() {
                 alt={ong.nome}
               />
               <Heading className={styles.ongItemName}>{ong.nome}</Heading>
+            </Flex>
+          ))}
+        </Flex>
+      </Flex>
+
+      {/* ==================== Suport Section (Como você pode ajudar) ==================== */}
+      <Flex className={styles.suportSection}>
+        <Heading className={styles.suportSectionTitle}>como você pode ajudar?</Heading>
+        <Flex className={styles.suportSectionCards}>
+          {helpCards.map((card) => (
+            <Flex key={card.id} className={styles.helpCard} onClick={() => navigate(card.href)}>
+              <Icon as={card.icon} className={styles.helpCardIcon} />
+              <Heading className={styles.helpCardTitle}>{card.title}</Heading>
+              <Heading className={styles.helpCardDescription}>{card.description}</Heading>
+              <Flex className={styles.helpCardLink}>
+                <span>{card.linkText}</span>
+                <Icon as={LuArrowRight} />
+              </Flex>
             </Flex>
           ))}
         </Flex>

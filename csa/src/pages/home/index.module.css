@@ -92,13 +92,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1vmax;
-  gap: 1vmax;
+  padding: clamp(1rem, 2vw, 2rem);
+  gap: clamp(0.5rem, 1.5vw, 1.5rem);
   flex-direction: row;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-
 }
 
 .aboutSectionImage {
@@ -138,28 +137,30 @@
   display: flex;
   flex-direction: column;
   transition: all 0.6s ease-in-out;
-  margin: 3vmax;
-  gap: 1vmax;
+  margin: clamp(1rem, 2vw, 2rem);
+  gap: clamp(0.5rem, 1vw, 1rem);
   flex: 1;
   min-width: 0;
   max-width: 100%;
 }
 
 .missionSectionTitle {
-  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  font-size: clamp(1.25rem, 3vw, 3.5rem);
   color: var(--dark-green) !important;
-  margin: 2vmax;
+  margin: clamp(0.5rem, 1.5vw, 1rem);
   transition: all 0.6s ease-in-out;
   line-height: 1.2;
   word-wrap: break-word;
+  font-weight: 800;
 }
 
 .missionSectionDescription {
-  font-size: clamp(1rem, 2.5vw, 2rem);
-  line-height: 1.4;
+  font-size: clamp(1rem, 1.8vw, 2rem);
+  line-height: 1.5;
   transition: all 0.6s ease-in-out;
   color: #444 !important;
   word-wrap: break-word;
+  font-weight: 500;
 }
 
 .missionSectionButton {
@@ -167,14 +168,14 @@
   color: #fff !important;
   transition: all 0.6s ease-in-out;
   margin: 2vmax;
-  padding: 2vmax;
-  border-radius: 2vmax;
-  font-size: 1.2vmax;
+  padding:  clamp(1.25rem, 2.5vw, 2rem);
+  border-radius: clamp(10px, 1.5vw, 20px);
+  font-size: clamp(0.875rem, 1.8vw, 1.1rem);
   cursor: pointer;
   border: none;
   display: flex;
   align-items: center;
-  gap: 0.5vmax;
+  gap: clamp(0.3rem, 0.6vw, 0.5rem);
 }
 
 .missionSectionButton:hover {
@@ -186,7 +187,7 @@
 .missionSectionButtonText {
   color: #fff !important;
   transition: all 0.6s ease-in-out;
-  font-size: 1.5vmax;
+  font-size: clamp(1rem, 1.8vw, 3rem);
 }
 
 .missionSectionButtonIcon {
@@ -196,17 +197,15 @@
 /* ==================== Support Section ==================== */
 .supportSection {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .supportSection {
     flex-direction: row;
-  }
-}
-
-@media (min-width: 993px) {
-  .supportSection {
-    flex-direction: column;
+    justify-content: center;
+    gap: clamp(1rem, 2vw, 2rem);
   }
 }
 
@@ -215,9 +214,9 @@
   display: flex;
   flex-direction: row;
   padding: 1vmax;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.3s ease;
   align-items: center;
-  margin: 1vmax;
+  gap: 0.5rem;
 }
 
 .supportCardImage {
@@ -228,7 +227,7 @@
 }
 
 .supportCardTitle {
-  font-size: 1.5vmax;
+  font-size: clamp(1rem, 1.8vw, 3rem);
   font-weight: bold;
   color: #444 !important;
   line-height: 1.2;
@@ -238,35 +237,95 @@
 .suportSection {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 4rem 2rem;
-  gap: 2rem;
+  align-items: flex-start;
+  padding: clamp(2rem, 2vw, 4rem) clamp(1rem, 2vw, 2rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  background-color: var(--white) !important;
 }
 
 .suportSectionTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  color: #333 !important;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  text-align: left;
+  color: #1F5E43 !important;
+  width: 100%;
 }
 
 .suportSectionCards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
-  max-width: 1200px;
+}
+
+.helpCard {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  background: var(--white);
+  border-radius: clamp(10px, 1.5vw, 16px);
+  border: 2px solid #e8e8e8;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.helpCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--dark-green);
+}
+
+.helpCardIcon {
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--dark-green) !important;
+}
+
+.helpCardTitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 800;
+  color: var(--black) !important;
+}
+
+.helpCardDescription {
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  font-weight: 500;
+  color: #666 !important;
+  line-height: 1.4;
+}
+
+.helpCardLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  font-weight: 700;
+  color: var(--dark-green) !important;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.helpCardLink span {
+  color: var(--dark-green) !important;
+}
+
+.helpCardLink svg {
+  color: var(--dark-green) !important;
+  font-size: 14px;
 }
 
 /* ==================== ONGs em Destaque ==================== */
 .ongsSection {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
+  align-items: flex-start;
+  padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 5vw, 2rem);
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  background-color: #f8faf8 !important;
+  background-color: var(--white) !important;
 }
 
 .ongsSectionTitle {
@@ -275,16 +334,14 @@
   text-align: left;
   color: #1F5E43 !important;
   width: 100%;
-  max-width: 1100px;
 }
 
 .ongsGrid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: clamp(2rem, 4vw, 4rem);
   width: 100%;
-  max-width: 1100px;
 }
 
 .ongItem {
@@ -301,10 +358,10 @@
 }
 
 .ongItemImage {
-  width: clamp(56px, 8vw, 80px);
-  height: clamp(56px, 8vw, 80px);
+  width: clamp(64px, 10vw, 100px);
+  height: clamp(64px, 10vw, 100px);
   border-radius: clamp(8px, 1.2vw, 12px);
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -313,6 +370,6 @@
   font-weight: 600;
   color: #333 !important;
   text-align: center;
-  max-width: 100px;
+  max-width: 120px;
   word-break: break-word;
 }

@@ -119,7 +119,6 @@ csa/
 │   │   ├── utils/
 │   │   └── validations/
 │   ├── components/            # Componentes reutilizáveis
-│   │   ├── BackRouteButton/   # Botão de voltar
 │   │   ├── DefaultPage/       # Layout padrão (Header + Footer + Timeline)
 │   │   ├── ProviderPopup/     # Provider global de popups/alertas
 │   │   ├── VLibras.tsx        # Integração VLibras (acessibilidade)
@@ -313,7 +312,6 @@ Biblioteca de componentes base reutilizáveis:
 
 ### Outros Componentes
 
-- **`BackRouteButton`** — Botão para voltar à página anterior.
 - **`ProviderPopup`** — Provider de contexto para popups/alertas globais.
 - **`VLibras`** — Integração com o plugin de acessibilidade VLibras (Libras).
 

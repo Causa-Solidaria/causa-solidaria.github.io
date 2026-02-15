@@ -728,10 +728,14 @@
 .breadcrumb {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 14px;
+  align-self: flex-start;
+  gap: 0.6rem;
+  font-size: clamp(16px, 2.2vw, 20px);
   flex-wrap: wrap;
   margin-bottom: 2vmax;
+  padding-left: clamp(16px, 3vw, 40px);
+  padding-top: clamp(16px, 3vw, 40px);
+  width: 100%;
 }
 
 .breadcrumbItemWrapper {
@@ -740,28 +744,32 @@
 }
 
 .breadcrumbItem {
-  color: #718096;
+  color: var(--white) !important;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: opacity 0.2s;
   cursor: pointer;
   background: transparent;
   border: none;
   padding: 0;
+  opacity: 0.8;
 }
 
 .breadcrumbItem:hover {
-  color: #4C1D95;
+  color: var(--white) !important;
+  opacity: 1;
 }
 
 .breadcrumbItemActive {
-  color: #2D3748;
+  color: var(--white) !important;
   font-weight: 600;
   cursor: default;
+  opacity: 1;
 }
 
 .breadcrumbSeparator {
-  color: #A0AEC0;
+  color: var(--white) !important;
   margin: 0 0.5rem;
+  opacity: 0.7;
 }
 
 /* Confirm Dialog */

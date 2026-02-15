@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Image } from "@chakra-ui/react"
 import DefaultPage from "csa/components/DefaultPage/index"
-import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge, Button } from "csa/components/ui"
+import { Heading, Loading, Alert, EmptyState, Card, Box, Flex, Avatar, Badge, Button, Breadcrumb } from "csa/components/ui"
 import { getToken, isTokenExpired, logoutAndRedirect } from "csa/lib/utils"
 import { Login, Redefinir, Apis } from "csa/Rotas.json"
 import { LuUser, LuContact, LuMegaphone, LuPencil, LuKeyRound } from "react-icons/lu"
@@ -131,6 +131,7 @@ export default function Perfil() {
 
   return (
     <DefaultPage>
+      <Breadcrumb items={[{ label: "perfil" }]} />
       <Box className={styles.container}>
         <Heading className={styles.pageTitle}> 
           Perfil 

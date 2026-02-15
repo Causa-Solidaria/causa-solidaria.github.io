@@ -8,6 +8,7 @@ import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
 import { FiMapPin, FiCalendar, FiArrowLeft, FiPhone, FiMail } from "react-icons/fi"
 import styles from "./slug.module.css"
+import { Breadcrumb } from "csa/components/ui"
 import { CampanhaDetail, mockCampanhaDetail } from "csa/mocks/campanhas"
 
 type CampanhaProps = CampanhaDetail
@@ -70,6 +71,7 @@ export default function Campanha(c: CampanhaProps) {
             </Head>
 
             <div className={styles.container}>
+                <Breadcrumb items={[{ label: "campanhas", href: Rotas.Campanhas.Home }, { label: c.titulo }]} />
                 <button
                     className={styles.backButton}
                     onClick={() => navigate(Rotas.Campanhas.Home)}

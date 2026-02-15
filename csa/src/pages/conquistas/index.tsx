@@ -1,6 +1,7 @@
 import {Heading, SimpleGrid} from "@chakra-ui/react";
 import Conquista from "csa/components/conquista";
 import DefaultPage from "csa/components/DefaultPage";
+import { Breadcrumb } from "csa/components/ui";
 
 type ConquistaItem = {
     titulo: string;
@@ -13,6 +14,7 @@ export default function Conquistas() {
 
     return (
         <DefaultPage>
+            <Breadcrumb items={[{ label: "conquistas" }]} />
             <Heading as="h1" size="xl" mb={8} textAlign="center">
                 Minhas Conquistas
             </Heading>

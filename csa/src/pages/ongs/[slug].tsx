@@ -5,7 +5,7 @@ import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
 import { FiArrowLeft, FiMapPin, FiCalendar, FiPhone, FiMail, FiGlobe, FiUsers } from "react-icons/fi"
 import { LuBuilding2, LuMegaphone } from "react-icons/lu"
-import { Badge } from "csa/components/ui"
+import { Badge, Breadcrumb } from "csa/components/ui"
 import styles from "./slug.module.css"
 import { OngDetail, mockOngsDetail, mockOngDefault } from "csa/mocks/ongs"
 
@@ -43,6 +43,7 @@ export default function OngPage(ong: OngProps) {
             </Head>
 
             <div className={styles.container}>
+                <Breadcrumb items={[{ label: "ongs", href: ONGs.Home }, { label: ong.nome }]} />
                 <button
                     className={styles.backButton}
                     onClick={() => navigate(ONGs.Home)}
