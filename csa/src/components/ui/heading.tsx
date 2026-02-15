@@ -6,8 +6,6 @@ import MergeClassnames from "csa/lib/UtilsFrontEnd/MergeClassnames"
 
 interface HeProps extends HeadingProps {}
 
-let delay_obj = 0
-
 export default function Heading(
   {
     children,
@@ -15,7 +13,6 @@ export default function Heading(
     ...props
   }: HeProps
 ) {
-    delay_obj++
     const mergedClassName = MergeClassnames(styles.heading, className)
 
     return (
@@ -24,7 +21,6 @@ export default function Heading(
         animate={{opacity: 1}}
         exit={{opacity: 0}}
         transition={{
-            delay: delay_obj/20,
             ease: "easeInOut",
             duration: 0.6
         }}
