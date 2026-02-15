@@ -36,6 +36,7 @@
 
     "ONGs": {
         "Home": "/ongs",
+        "slug": "/ongs/",
         "Criar": "/ongs/criar"
     },
 

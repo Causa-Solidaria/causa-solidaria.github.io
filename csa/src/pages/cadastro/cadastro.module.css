@@ -4,7 +4,7 @@
   flex-direction: row;
   width: 100%;
   min-height: 100dvh;
-  background-color: var(--clean-green);
+  background-color: var(--clean-green) !important;
   justify-content: space-between;
 }
 
@@ -24,20 +24,20 @@
   align-items: center;
   border: 1px solid var(--dark-green);
   border-radius: 12px;
-  background-color: var(--white);
+  background-color: var(--white) !important;
   padding: 14px 28px;
   margin-bottom: 12px;
 }
 
 .headerTitle {
-  color: var(--dark-green);
+  color: var(--dark-green) !important;
   font-size: clamp(22px, 4vw, 36px);
 }
 
 .formCard {
   margin: 12px;
   padding: 28px 24px;
-  background-color: var(--white);
+  background-color: var(--white) !important;
   width: 94%;
   max-width: 585px;
 }
@@ -66,7 +66,7 @@
 
 .errorMessage {
   font-size: clamp(12px, 2vw, 14px);
-  color: red;
+  color: red !important;
   margin-top: 4px;
 }
 
@@ -89,12 +89,12 @@
   height: clamp(44px, 6vh, 56px);
   font-size: clamp(15px, 2.5vw, 20px);
   border-radius: 10px;
-  background-color: #15B100;
+  background-color: #15B100 !important;
   align-self: center;
 }
 
 .submitButton:hover {
-  background-color: #12a000;
+  background-color: #12a000 !important;
 }
 
 /* ============= Info Section (Right Panel) ============= */
@@ -102,7 +102,7 @@
   display: none;
   flex-direction: column;
   min-height: 100dvh;
-  background-color: #4DCD58;
+  background-color: #4DCD58 !important;
   overflow: hidden;
   width: clamp(300px, 38vw, 660px);
   align-items: center;
@@ -118,7 +118,7 @@
 }
 
 .infoBrandCard {
-  background-color: #fff;
+  background-color: #fff !important;
   margin: 16px;
   padding: 16px;
   border-radius: 12px;
@@ -129,7 +129,7 @@
 }
 
 .infoBrandTitle {
-  color: #006E1F;
+  color: #006E1F !important;
   margin: 16px;
   font-size: clamp(18px, 2vw, 28px);
 }
@@ -142,13 +142,13 @@
   margin: 16px;
   border-radius: 12px;
   border: 1px solid #006E1F;
-  background-color: #fff;
-  color: #006E1F;
+  background-color: #fff !important;
+  color: #006E1F !important;
 }
 
 .infoHeading {
   font-size: clamp(16px, 2vw, 24px);
-  color: #006E1F;
+  color: #006E1F !important;
   line-height: 120%;
   font-weight: 900;
   text-align: center;
@@ -168,8 +168,8 @@
   margin: 16px;
   border-radius: 12px;
   border: 1px solid #006E1F;
-  background-color: #fff;
-  color: #006E1F;
+  background-color: #fff !important;
+  color: #006E1F !important;
 }
 
 .infoFooterText {

@@ -34,7 +34,7 @@
 .pageTitle {
     font-size: clamp(24px, 4vw, 38px);
     font-weight: 900;
-    color: var(--black);
+    color: var(--black) !important;
     text-align: center;
 }
 
@@ -70,7 +70,7 @@
     justify-content: center;
     gap: 6px;
     background: var(--dark-green);
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
     border-radius: clamp(8px, 1.2vw, 14px);
     padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 28px);
@@ -136,7 +136,7 @@
 .cardDescription {
     font-size: clamp(12px, 1.4vw, 14px);
     font-weight: 500;
-    color: #666;
+    color: #666 !important;
     line-height: 1.4;
     word-break: break-word;
     display: -webkit-box;
@@ -163,7 +163,7 @@
     gap: clamp(3px, 0.4vw, 6px);
     font-size: clamp(11px, 1.3vw, 13px);
     font-weight: 600;
-    color: #555;
+    color: #555 !important;
     cursor: pointer;
     transition: color 0.2s;
 }

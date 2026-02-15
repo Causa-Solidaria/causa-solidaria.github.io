@@ -1,3 +1,5 @@
+/* ── ONG Detail Page ── */
+
 .container {
     display: flex;
     flex-direction: column;
@@ -67,7 +69,7 @@
     transform: translateX(-4px);
 }
 
-/* ── Campaign Detail Card ── */
+/* ── ONG Detail Card ── */
 
 .card {
     display: flex;
@@ -80,29 +82,30 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* ── Hero Image ── */
+/* ── Header with Icon ── */
 
-.imageWrapper {
-    width: 100%;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(24px, 4vw, 40px);
+    background: linear-gradient(135deg, var(--dark-green), var(--green));
 }
 
-.image {
-    width: 100%;
-    height: clamp(180px, 35vw, 320px);
-    object-fit: cover;
-    display: block;
-    transition: height 0.5s ease-in-out;
+.cardIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(72px, 12vw, 100px);
+    height: clamp(72px, 12vw, 100px);
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.imageExpanded {
-    width: 100%;
-    height: 70vh;
-    object-fit: contain;
-    background: var(--black);
-    display: block;
+.cardIconInner {
+    font-size: clamp(32px, 5vw, 48px);
+    color: var(--dark-green) !important;
 }
 
 /* ── Content ── */
@@ -120,63 +123,80 @@
     color: var(--black) !important;
     word-break: break-word;
     line-height: 1.2;
+    text-align: center;
+}
+
+.areaBadge {
+    display: flex;
+    justify-content: center;
 }
 
 .description {
     font-size: clamp(14px, 2vw, 17px);
     font-weight: 500;
     color: #555 !important;
-    line-height: 1.5;
+    line-height: 1.6;
     word-break: break-word;
+    white-space: pre-line;
 }
 
-/* ── Meta / Progress ── */
+/* ── Mission Section ── */
 
-.metaSection {
+.missionSection {
     display: flex;
     flex-direction: column;
-    gap: clamp(6px, 1vw, 10px);
+    gap: clamp(6px, 0.8vw, 10px);
+    background: #f8f9fa;
+    border-radius: clamp(8px, 1.2vw, 12px);
+    padding: clamp(14px, 2vw, 20px);
+    border-left: 4px solid var(--dark-green);
 }
 
-.metaRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.metaLabel {
-    font-size: clamp(12px, 1.6vw, 15px);
-    font-weight: 500;
-    color: #444 !important;
-}
-
-.metaLabel strong {
+.missionLabel {
+    font-size: clamp(12px, 1.6vw, 14px);
     font-weight: 800;
-    color: var(--black) !important;
+    color: var(--dark-green) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.progressTrack {
-    width: 100%;
-    height: clamp(12px, 1.8vw, 18px);
-    background: #e0e0e0;
-    border-radius: 999px;
-    overflow: hidden;
+.missionText {
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 600;
+    color: #444 !important;
+    line-height: 1.5;
+    font-style: italic;
 }
 
-.progressFill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green), var(--dark-green));
-    border-radius: 999px;
-    transition: width 0.6s ease-in-out;
+/* ── Stats Section ── */
+
+.statsSection {
+    display: flex;
+    justify-content: space-around;
+    gap: clamp(8px, 1.5vw, 16px);
+    flex-wrap: wrap;
 }
 
-.progressPercent {
-    font-size: clamp(12px, 1.5vw, 14px);
-    font-weight: 700;
-    color: #666 !important;
-    text-align: right;
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+}
+
+.statValue {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 900;
+    color: var(--dark-green) !important;
+}
+
+.statLabel {
+    font-size: clamp(11px, 1.4vw, 13px);
+    font-weight: 600;
+    color: #777 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
 /* ── Info List ── */
@@ -184,7 +204,7 @@
 .infoList {
     display: flex;
     flex-direction: column;
-    gap: clamp(6px, 1vw, 10px);
+    gap: clamp(8px, 1.2vw, 12px);
 }
 
 .infoItem {
@@ -206,30 +226,7 @@
     flex-shrink: 0;
 }
 
-/* ── Gallery ── */
-
-.gallery {
-    display: flex;
-    gap: clamp(8px, 1.2vw, 12px);
-    overflow-x: auto;
-    padding-bottom: 4px;
-}
-
-.galleryImage {
-    width: clamp(80px, 14vw, 120px);
-    height: clamp(60px, 10vw, 90px);
-    object-fit: cover;
-    border-radius: clamp(8px, 1vw, 12px);
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.galleryImage:hover {
-    transform: scale(1.05);
-}
-
-/* ── Contact ── */
+/* ── Contact Section ── */
 
 .contactSection {
     display: flex;
@@ -246,11 +243,32 @@
     color: var(--black) !important;
 }
 
-/* ── Donate Button ── */
+.contactLink {
+    color: var(--dark-green) !important;
+    text-decoration: none;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
 
-.donateButton {
-    width: clamp(180px, 50%, 260px);
-    align-self: center;
+.contactLink:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+/* ── Buttons ── */
+
+.buttonRow {
+    display: flex;
+    gap: clamp(10px, 1.5vw, 16px);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.primaryButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background: var(--dark-green);
     color: var(--white) !important;
     border: none;
@@ -259,16 +277,48 @@
     font-size: clamp(14px, 2vw, 18px);
     font-weight: 800;
     font-family: "Quicksand", sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.donateButton:hover {
+.primaryButton:hover {
     background: var(--semi-dark-green);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--dark-green) !important;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 14px);
+    padding: clamp(10px, 1.5vw, 16px) clamp(18px, 2.5vw, 32px);
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: 700;
+    font-family: "Quicksand", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.secondaryButton:hover {
+    background: var(--dark-green);
+    color: var(--white) !important;
+    transform: translateY(-2px);
+}
+
+/* ── Divider ── */
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #eee;
+    border: none;
 }
 
 /* ── Responsive ── */
@@ -286,26 +336,18 @@
         font-size: clamp(18px, 5vw, 24px);
     }
 
-    .image {
-        height: clamp(160px, 40vw, 240px);
-    }
-
-    .metaRow {
+    .statsSection {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
-    .donateButton {
+    .buttonRow {
+        flex-direction: column;
         width: 100%;
     }
-}
 
-@media (max-width: 360px) {
-    .infoItem {
-        font-size: clamp(11px, 3.5vw, 14px);
-    }
-
-    .contactItem {
-        font-size: clamp(11px, 3.5vw, 14px);
+    .primaryButton,
+    .secondaryButton {
+        width: 100%;
     }
 }

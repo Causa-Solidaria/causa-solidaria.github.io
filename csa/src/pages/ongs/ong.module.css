@@ -30,7 +30,7 @@
 .pageTitle {
     font-size: clamp(24px, 4vw, 38px);
     font-weight: 900;
-    color: var(--black);
+    color: var(--black) !important;
     text-align: center;
 }
 .searchRow {
@@ -58,7 +58,7 @@
     justify-content: center;
     gap: 6px;
     background: var(--dark-green);
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
     border-radius: clamp(8px, 1.2vw, 14px);
     padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 28px);
@@ -71,8 +71,8 @@
 }
 .createButton:hover { background: var(--semi-dark-green); transform: translateY(-3px); }
 .list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
     max-width: 960px;
     gap: clamp(12px, 2vw, 18px);
@@ -102,13 +102,64 @@
 .cardDescription {
     font-size: clamp(13px, 1.8vw, 16px);
     font-weight: 500;
-    color: #666;
+    color: #666 !important;
     line-height: 1.5;
     word-break: break-word;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+.cardLocation {
+    font-size: clamp(12px, 1.6vw, 14px);
+    font-weight: 600;
+    color: #555 !important;
+}
+.cardEmail {
+    font-size: clamp(11px, 1.4vw, 13px);
+    font-weight: 500;
+    color: #777 !important;
+    word-break: break-all;
+}
+.cardButtons {
+    display: flex;
+    gap: clamp(8px, 1.2vw, 12px);
+    margin-top: auto;
+    padding-top: clamp(8px, 1vw, 12px);
+}
+.detailsButton {
+    flex: 1;
+    background: transparent;
+    color: var(--black) !important;
+    border: 2px solid var(--black);
+    border-radius: clamp(6px, 1vw, 10px);
+    padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
+    font-size: clamp(12px, 1.5vw, 14px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+.detailsButton:hover {
+    background: var(--black);
+    color: var(--white) !important;
+}
+.supportButton {
+    flex: 1;
+    background: var(--dark-green);
+    color: var(--white) !important;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(6px, 1vw, 10px);
+    padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
+    font-size: clamp(12px, 1.5vw, 14px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.supportButton:hover {
+    background: var(--semi-dark-green);
+    transform: translateY(-2px);
 }
 .cardFooter {
     display: flex;
@@ -124,7 +175,7 @@
     gap: clamp(4px, 0.6vw, 8px);
     font-size: clamp(13px, 1.8vw, 16px);
     font-weight: 600;
-    color: #555;
+    color: #555 !important;
     cursor: pointer;
     transition: color 0.2s;
 }
@@ -134,6 +185,7 @@
 @media (max-width: 768px) {
     .searchRow { flex-direction: column; }
     .createButton { width: 100%; }
+    .list { grid-template-columns: 1fr; }
     .cardFooter { gap: clamp(8px, 2vw, 14px); }
 }
 @media (max-width: 480px) {

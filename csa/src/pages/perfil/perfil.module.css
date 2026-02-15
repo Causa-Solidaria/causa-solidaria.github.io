@@ -16,24 +16,24 @@
   flex-direction: column;
   width: 100%;
   max-width: 960px;
-  margin: 0 auto;
+  margin: 0 auto !important;
   padding: clamp(20px, 4vw, 48px);
   gap: clamp(16px, 2.5vw, 28px);
 }
 
 .pageTitle {
-  color: var(--black);
+  color: var(--white) !important;
   font-size: clamp(28px, 5vw, 48px);
+  line-height: 100% !important;
   font-weight: 900;
   text-align: center;
   font-style: italic;
-  text-decoration: underline;
-  text-underline-offset: 8px;
+  text-underline-offset: 8px !important;
 }
 
 .card {
   padding: clamp(24px, 4vw, 40px);
-  background-color: var(--white);
+  background-color: var(--white) !important;
   border-radius: clamp(12px, 1.5vw, 20px);
 }
 
@@ -62,7 +62,7 @@
 }
 
 .userName {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(18px, 2.5vw, 26px);
   font-weight: 900;
   text-transform: uppercase;
@@ -71,7 +71,7 @@
 }
 
 .userRole {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(15px, 2vw, 20px);
   font-weight: 500;
   text-align: center;
@@ -86,7 +86,7 @@
 }
 
 .userDetail {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(15px, 2vw, 20px);
   font-weight: 500;
   word-break: break-word;
@@ -102,14 +102,14 @@
 }
 
 .sectionTitle {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(18px, 2.5vw, 24px);
   font-weight: 800;
   margin-bottom: clamp(10px, 1.5vw, 16px);
 }
 
 .bioText {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(15px, 2vw, 20px);
   font-weight: 500;
   font-style: italic;
@@ -157,11 +157,11 @@
   width: clamp(40px, 5vw, 56px);
   height: clamp(40px, 5vw, 56px);
   flex-shrink: 0;
-  color: var(--dark-green);
+  color: var(--dark-green) !important;
 }
 
 .ongTitle {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(14px, 1.8vw, 18px);
   font-weight: 600;
   word-break: break-word;
@@ -192,7 +192,7 @@
   width: clamp(40px, 5vw, 56px);
   height: clamp(40px, 5vw, 56px);
   flex-shrink: 0;
-  color: var(--dark-green);
+  color: var(--dark-green) !important;
 }
 
 .campanhaInfo {
@@ -203,20 +203,20 @@
 }
 
 .campanhaTitle {
-  color: var(--black);
+  color: var(--black) !important;
   font-size: clamp(14px, 1.8vw, 18px);
   font-weight: 600;
   word-break: break-word;
 }
 
 .campanhaLocation {
-  color: #718096;
+  color: #718096 !important;
   font-size: clamp(13px, 1.5vw, 16px);
   font-weight: 500;
 }
 
 .campanhaDate {
-  color: #718096;
+  color: #718096 !important;
   font-size: clamp(12px, 1.4vw, 15px);
   font-weight: 500;
 }

@@ -26,14 +26,14 @@
 }
 
 .notFoundTitle {
-    color: var(--black);
+    color: var(--black) !important;
     font-size: clamp(16px, 2.5vw, 22px);
     font-weight: 700;
 }
 
 .notFoundButton {
     background: var(--dark-green);
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
     border-radius: clamp(8px, 1.2vw, 14px);
     padding: clamp(10px, 1.5vw, 18px) clamp(18px, 3vw, 32px);
@@ -57,7 +57,7 @@
     gap: 6px;
     background: none;
     border: none;
-    color: var(--dark-green);
+    color: var(--dark-green) !important;
     font-size: clamp(14px, 2vw, 16px);
     font-weight: 700;
     font-family: "Quicksand", sans-serif;
@@ -67,7 +67,7 @@
 }
 
 .backButton:hover {
-    color: var(--semi-dark-green);
+    color: var(--semi-dark-green) !important;
 }
 
 /* ── Main Post Card ── */
@@ -100,13 +100,13 @@
 .postAuthorName {
     font-size: clamp(14px, 2vw, 17px);
     font-weight: 700;
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .postDate {
     font-size: clamp(12px, 1.4vw, 14px);
     font-weight: 500;
-    color: #999;
+    color: #999 !important;
 }
 
 /* Title */
@@ -114,7 +114,7 @@
 .title {
     font-size: clamp(20px, 3vw, 28px);
     font-weight: 900;
-    color: var(--black);
+    color: var(--black) !important;
     word-break: break-word;
     line-height: 1.3;
 }
@@ -132,7 +132,7 @@
 .description {
     font-size: clamp(14px, 2vw, 17px);
     font-weight: 500;
-    color: #444;
+    color: #444 !important;
     line-height: 1.65;
     word-break: break-word;
     white-space: pre-wrap;
@@ -167,7 +167,7 @@
     border: none;
     cursor: pointer;
     font-size: clamp(18px, 2.5vw, 24px);
-    color: #888;
+    color: #888 !important;
     padding: clamp(4px, 0.5vw, 6px);
     border-radius: 50%;
     transition: color 0.15s, background 0.15s;
@@ -178,7 +178,7 @@
 }
 
 .voteUp {
-    color: #ff4500;
+    color: #ff4500 !important;
 }
 
 .voteUp:hover {
@@ -186,7 +186,7 @@
 }
 
 .voteDown {
-    color: #7193ff;
+    color: #7193ff !important;
 }
 
 .voteDown:hover {
@@ -196,18 +196,18 @@
 .karmaScore {
     font-size: clamp(14px, 1.8vw, 17px);
     font-weight: 800;
-    color: #555;
+    color: #555 !important;
     min-width: 28px;
     text-align: center;
     user-select: none;
 }
 
 .karmaUp {
-    color: #ff4500;
+    color: #ff4500 !important;
 }
 
 .karmaDown {
-    color: #7193ff;
+    color: #7193ff !important;
 }
 
 .actionButton {
@@ -219,14 +219,14 @@
     cursor: pointer;
     font-size: clamp(14px, 1.8vw, 17px);
     font-weight: 600;
-    color: #666;
+    color: #666 !important;
     font-family: "Quicksand", sans-serif;
     transition: color 0.2s;
     padding: 0;
 }
 
 .actionButton:hover {
-    color: var(--dark-green);
+    color: var(--dark-green) !important;
 }
 
 /* ── Comments Section ── */
@@ -242,7 +242,7 @@
 .commentsTitle {
     font-size: clamp(16px, 2.2vw, 22px);
     font-weight: 800;
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .sortRow {
@@ -260,7 +260,7 @@
     font-size: clamp(12px, 1.5vw, 14px);
     font-weight: 600;
     font-family: "Quicksand", sans-serif;
-    color: #555;
+    color: #555 !important;
     cursor: pointer;
     outline: none;
     transition: border-color 0.2s;
@@ -311,7 +311,7 @@
 }
 
 .newCommentInput::placeholder {
-    color: #aaa;
+    color: #aaa !important;
 }
 
 .newCommentInput:focus {
@@ -321,7 +321,7 @@
 .sendButton {
     align-self: flex-end;
     background: var(--dark-green);
-    color: var(--white);
+    color: var(--white) !important;
     border: none;
     border-radius: clamp(6px, 1vw, 10px);
     padding: clamp(8px, 1.2vw, 12px) clamp(16px, 2.5vw, 24px);
@@ -383,7 +383,7 @@
     border: none;
     cursor: pointer;
     font-size: clamp(14px, 1.8vw, 18px);
-    color: #aaa;
+    color: #aaa !important;
     padding: clamp(2px, 0.3vw, 4px);
     border-radius: 4px;
     transition: color 0.15s, background 0.15s;
@@ -396,7 +396,7 @@
 .commentKarma {
     font-size: clamp(12px, 1.5vw, 14px);
     font-weight: 800;
-    color: #666;
+    color: #666 !important;
     min-width: 20px;
     text-align: center;
     line-height: 1.2;
@@ -430,19 +430,19 @@
 .commentAuthor {
     font-size: clamp(13px, 1.7vw, 15px);
     font-weight: 700;
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .commentDate {
     font-size: clamp(11px, 1.3vw, 13px);
     font-weight: 500;
-    color: #aaa;
+    color: #aaa !important;
 }
 
 .commentText {
     font-size: clamp(13px, 1.7vw, 16px);
     font-weight: 500;
-    color: #444;
+    color: #444 !important;
     line-height: 1.5;
     word-break: break-word;
 }

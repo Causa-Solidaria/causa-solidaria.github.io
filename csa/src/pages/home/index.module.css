@@ -4,7 +4,7 @@
 .heroSection {
   display: flex;
   flex-direction: column;
-  background-color: #2d5a27;
+  background-color: #2d5a27 !important;
   background-size: cover;
   background-position: center;
   background-image: url('/solidariedade-694x459 1.png');
@@ -20,7 +20,7 @@
 .heroSectionTitle {
   text-align: left;
   transition: all 0.6s ease-in-out;
-  color: #fff;
+  color: #fff !important;
   font-size: clamp(2rem, 6vw, 6rem);
   margin-bottom: 0;
   max-width: 90%;
@@ -31,7 +31,7 @@
 .heroSectionSubtitle {
   text-align: left;
   transition: all 0.6s ease-in-out;
-  color: #fff;
+  color: #fff !important;
   font-weight: 500;
   font-size: clamp(1.5rem, 4vw, 3rem);
   margin-bottom: 0;
@@ -41,8 +41,8 @@
 
 .heroSectionButton {
   transition: all 0.6s ease-in-out;
-  background-color: #097D03;
-  color: #fff;
+  background-color: #097D03 !important;
+  color: #fff !important;
   padding: clamp(0.75rem, 2vw, 2rem) clamp(1.5rem, 4vw, 3rem);
   font-size: clamp(1rem, 2vw, 2rem);
   line-height: 1.4;
@@ -59,7 +59,7 @@
 }
 
 .heroSectionButton:hover {
-  background-color: #39aD33;
+  background-color: #39aD33 !important;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -88,7 +88,7 @@
 
 /* ==================== About Section ==================== */
 .aboutSection {
-  background-color: #fff;
+  background-color: #fff !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,7 +147,7 @@
 
 .missionSectionTitle {
   font-size: clamp(1.5rem, 4vw, 3.5rem);
-  color: var(--dark-green);
+  color: var(--dark-green) !important;
   margin: 2vmax;
   transition: all 0.6s ease-in-out;
   line-height: 1.2;
@@ -158,13 +158,13 @@
   font-size: clamp(1rem, 2.5vw, 2rem);
   line-height: 1.4;
   transition: all 0.6s ease-in-out;
-  color: #444;
+  color: #444 !important;
   word-wrap: break-word;
 }
 
 .missionSectionButton {
-  background-color: #097D03;
-  color: #fff;
+  background-color: #097D03 !important;
+  color: #fff !important;
   transition: all 0.6s ease-in-out;
   margin: 2vmax;
   padding: 2vmax;
@@ -178,13 +178,13 @@
 }
 
 .missionSectionButton:hover {
-  background-color: #39aD33;
+  background-color: #39aD33 !important;
   transform: scale(1.01);
   box-shadow: 1vmax 1vmax 1vmax rgba(0, 0, 0, 0.2);
 }
 
 .missionSectionButtonText {
-  color: #fff;
+  color: #fff !important;
   transition: all 0.6s ease-in-out;
   font-size: 1.5vmax;
 }
@@ -230,7 +230,7 @@
 .supportCardTitle {
   font-size: 1.5vmax;
   font-weight: bold;
-  color: #444;
+  color: #444 !important;
   line-height: 1.2;
 }
 
@@ -247,7 +247,7 @@
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #333 !important;
 }
 
 .suportSectionCards {
@@ -266,14 +266,14 @@
   align-items: center;
   padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  background-color: #f8faf8;
+  background-color: #f8faf8 !important;
 }
 
 .ongsSectionTitle {
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
   font-weight: 800;
   text-align: left;
-  color: #1F5E43;
+  color: #1F5E43 !important;
   width: 100%;
   max-width: 1100px;
 }
@@ -311,7 +311,7 @@
 .ongItemName {
   font-size: clamp(0.75rem, 1.5vw, 0.95rem);
   font-weight: 600;
-  color: #333;
+  color: #333 !important;
   text-align: center;
   max-width: 100px;
   word-break: break-word;
