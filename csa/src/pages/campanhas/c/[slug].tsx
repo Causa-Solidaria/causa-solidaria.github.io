@@ -172,7 +172,7 @@ export default function Campanha(c: CampanhaProps) {
     )
 }
 
-const USE_TEST_DATA = true
+const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === 'true'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const slug = context.params?.slug as string

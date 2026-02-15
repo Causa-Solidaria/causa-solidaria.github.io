@@ -14,7 +14,7 @@ import styles from "./campanhas.module.css"
 import usePopup from "csa/hooks/usePopup"
 import { Campanha, mockCampanhas } from "csa/mocks/campanhas"
 
-const USE_TEST_DATA = true
+const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === 'true'
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("pt-BR", {
