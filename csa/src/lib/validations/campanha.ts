@@ -30,3 +30,11 @@ export const criarCampanhaSchema = z.object({
 });
 
 export type CriarCampanhaData = z.infer<typeof criarCampanhaSchema>;
+
+// ===== DOAÇÃO DE ITEM =====
+
+export const doarCampanhaSchema = z.object({
+  message: z.string().max(500, "Mensagem deve ter no máximo 500 caracteres").optional(),
+});
+
+export type DoarCampanhaData = z.infer<typeof doarCampanhaSchema>;

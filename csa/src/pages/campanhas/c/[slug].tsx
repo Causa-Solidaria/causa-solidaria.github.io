@@ -162,7 +162,10 @@ export default function Campanha(c: CampanhaProps) {
                         </div>
 
                         {/* Botão Doar */}
-                        <button className={styles.donateButton}>
+                        <button
+                            className={styles.donateButton}
+                            onClick={() => navigate(Rotas.Campanhas.Doar + c.id)}
+                        >
                             DOAR AGORA
                         </button>
                     </div>

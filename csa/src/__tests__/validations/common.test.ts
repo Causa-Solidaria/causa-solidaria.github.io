@@ -175,6 +175,23 @@ describe('Validações Comuns', () => {
     })
   })
 
+  // ==================== DOAR CAMPANHA SCHEMA ====================
+  describe('doarCampanhaSchema', () => {
+    it('deve aceitar mensagem vazia ou curta', () => {
+      const results = ['', 'Obrigada pela oportunidade!'];
+      results.forEach(msg => {
+        const result = require('csa/lib/validations').doarCampanhaSchema.safeParse({ message: msg });
+        expect(result.success).toBe(true);
+      });
+    });
+
+    it('deve rejeitar mensagem muito longa', () => {
+      const long = 'a'.repeat(501);
+      const result = require('csa/lib/validations').doarCampanhaSchema.safeParse({ message: long });
+      expect(result.success).toBe(false);
+    });
+  });
+
   // ==================== FUNÇÕES DE VALIDAÇÃO ====================
   describe('isMaiorDeIdade', () => {
     it('deve retornar true para maior de idade', () => {

@@ -65,3 +65,28 @@ export async function handleCriarCampanha(
     popup('Erro inesperado ao criar campanha');
   }
 }
+
+// ===== DOAR ITEM PARA CAMPANHA =====
+
+interface DoarCampanhaFormData {
+  message?: string;
+  photoString?: string;
+}
+
+export async function handleDoarCampanha(
+  form: DoarCampanhaFormData,
+  popup: (message: string) => void
+) {
+  try {
+    if (!ensureLogged(popup)) return;
+    const token = getToken();
+
+    // NOTE: endpoint ainda não existe no backend, por isso apenas logamos e mostramos popup.
+    // Se o backend for implementado, substitua a URL abaixo e a lógica.
+    console.log('Simulando doação:', form);
+    popup('Doação enviada! Obrigado por contribuir.');
+  } catch (err) {
+    console.error('Erro geral ao doar:', err);
+    popup('Erro inesperado ao enviar doação');
+  }
+}

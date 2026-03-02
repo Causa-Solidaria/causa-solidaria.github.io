@@ -1,0 +1,153 @@
+/* ==================== Container ==================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 48px);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+/* Back button similar to other pages */
+.backButton {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--white) !important;
+  font-size: clamp(22px, 3vw, 30px);
+  cursor: pointer;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+
+.backButton:hover {
+  transform: translateX(-4px);
+}
+
+.pageTitle {
+  color: var(--black) !important;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.category {
+  text-align: center;
+  margin-bottom: clamp(12px, 2vw, 16px);
+  color: var(--dark-green) !important;
+  font-weight: 600;
+}
+
+.card {
+  padding: clamp(24px, 4vw, 48px);
+  background-color: var(--white) !important;
+  border-radius: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 32px);
+  width: 100%;
+}
+
+.uploadColumn {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vw, 16px);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.uploadButton {
+  width: 100%;
+  padding: clamp(10px, 1.5vw, 14px) !important;
+  font-size: clamp(14px, 1.6vw, 16px) !important;
+  border: 2px solid var(--dark-green) !important;
+  border-radius: clamp(8px, 1vw, 12px) !important;
+  background-color: var(--white) !important;
+  color: var(--dark-green) !important;
+  font-weight: 600 !important;
+  transition: background-color 0.25s ease, color 0.25s ease !important;
+}
+
+.uploadButton:hover {
+  background-color: var(--dark-green) !important;
+  color: var(--white) !important;
+}
+
+.previewImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: clamp(8px, 1vw, 12px);
+}
+
+.previewPlaceholder {
+  width: 100%;
+  height: clamp(180px, 25vw, 260px);
+  background-color: #f0f0f0 !important;
+  border: 2px dashed var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+}
+
+.uploadHint {
+  color: #718096 !important;
+  font-size: clamp(12px, 1.4vw, 14px);
+  line-height: 1.5;
+}
+
+.textarea {
+  padding: clamp(12px, 1.5vw, 16px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  min-height: clamp(120px, 15vw, 180px);
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  resize: vertical;
+}
+
+.textarea:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: #a0aec0 !important;
+  font-weight: 400;
+}
+
+.errorMessage {
+  color: var(--erro-warning) !important;
+  font-size: clamp(12px, 1.2vw, 14px);
+  margin-top: 2px;
+}
+
+.uploadError {
+  color: var(--erro-warning) !important;
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton {
+  padding: clamp(10px, 1.5vw, 14px) !important;
+  font-size: clamp(14px, 1.6vw, 16px) !important;
+  background-color: var(--dark-green) !important;
+  color: var(--white) !important;
+  border-radius: clamp(8px, 1vw, 12px) !important;
+  font-weight: 600 !important;
+}

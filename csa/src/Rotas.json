@@ -21,7 +21,8 @@
     "Campanhas": {
         "Home": "/campanhas",
         "slug": "/campanhas/c/",
-        "Criar": "/campanhas/criar"
+        "Criar": "/campanhas/criar",
+        "Doar": "/campanhas/doar/"
     },
 
     "Cadastro": "/cadastro",

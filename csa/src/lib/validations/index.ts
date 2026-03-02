@@ -34,4 +34,6 @@ export {
   niveisAjuda,
   type CriarCampanhaData,
   type NivelAjuda,
+  doarCampanhaSchema,
+  type DoarCampanhaData,
 } from "./campanha";
