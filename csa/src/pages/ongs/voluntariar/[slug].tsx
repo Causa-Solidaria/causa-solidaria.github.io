@@ -2,6 +2,7 @@ import DefaultPage from "csa/components/DefaultPage";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { prisma } from "csa/lib/prisma";
 import Rotas from "csa/Rotas.json";
 import useNavigate from "csa/hooks/useNavigate";
 import { FiArrowLeft } from "react-icons/fi";
@@ -61,7 +62,7 @@ export default function VoluntariarPage(ong: VoluntariarProps) {
   );
 }
 
-// reuse server side logic from slug page
+// reutiliza lógica de servidor para ONGs (similar à página de detalhes)
 const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === "true";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -72,11 +73,38 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!ong) {
       return { props: { notFound: true } as unknown as VoluntariarProps };
     }
-
     return { props: ong };
   }
 
-  // development fallback: return mock or default without marking notFound
-  const ong = mockOngsDetail[slug] ?? mockOngDefault;
-  return { props: { ...ong, notFound: false } as VoluntariarProps };
+  const isNumber = /^\d+$/.test(slug);
+  const dbOng = isNumber
+    ? await prisma.ong.findUnique({ where: { id: parseInt(slug, 10) } })
+    : await prisma.ong.findFirst({ where: { nome: decodeURIComponent(slug) } });
+
+  if (!dbOng) {
+    return { props: { notFound: true } as unknown as VoluntariarProps };
+  }
+
+  // mapeia campos que nos importam (outros ainda não armazenados)
+  const props: VoluntariarProps = {
+    id: dbOng.id.toString(),
+    nome: dbOng.nome,
+    descricao: dbOng.descricao,
+    area: dbOng.areaAtuacao,
+    cidade: dbOng.cidade ?? "",
+    uf: dbOng.uf ?? "",
+    email: dbOng.contato,
+    telefone: "",
+    rua: dbOng.rua ?? "",
+    numero: dbOng.numero ?? "",
+    bairro: dbOng.bairro ?? "",
+    site: dbOng.siteOuRede ?? "",
+    fundacao: "",
+    missao: "",
+    voluntarios: 0,
+    campanhasAtivas: 0,
+    notFound: false,
+  };
+
+  return { props };
 };

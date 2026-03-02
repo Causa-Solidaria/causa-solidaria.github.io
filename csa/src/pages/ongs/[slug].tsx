@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { prisma } from "csa/lib/prisma"
 import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
 import { FiArrowLeft, FiMapPin, FiCalendar, FiPhone, FiMail, FiGlobe, FiUsers } from "react-icons/fi"
@@ -241,9 +242,37 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return { props: ong }
     }
 
-    // still in development: fall back to mocks rather than always signaling not found
-    // once the real database is wired, replace this block with a real query similar
-    // to campanhas/c/[slug].tsx
-    const ong = mockOngsDetail[slug] ?? mockOngDefault
-    return { props: { ...ong, notFound: false } as OngProps }
+    // ao executar contra o banco de dados real precisamos fazer uma consulta
+    // o ID armazenado no Prisma é um inteiro, então primeiro detecta se o slug
+    // parece um número; caso contrário, trata como uma busca por nome (decodificado).
+    const isNumber = /^\d+$/.test(slug)
+    const dbOng = isNumber
+        ? await prisma.ong.findUnique({ where: { id: parseInt(slug, 10) } })
+        : await prisma.ong.findFirst({ where: { nome: decodeURIComponent(slug) } })
+
+    if (!dbOng) {
+        return { props: { notFound: true } as OngProps }
+    }
+
+    return {
+        props: {
+            id: dbOng.id.toString(),
+            nome: dbOng.nome,
+            area: dbOng.areaAtuacao,
+            descricao: dbOng.descricao,
+            cidade: dbOng.cidade ?? "",
+            uf: dbOng.uf ?? "",
+            email: dbOng.contato,
+            telefone: "",
+            rua: dbOng.rua ?? "",
+            numero: dbOng.numero ?? "",
+            bairro: dbOng.bairro ?? "",
+            site: dbOng.siteOuRede ?? "",
+            fundacao: "",
+            missao: "",
+            voluntarios: 0,
+            campanhasAtivas: 0,
+            notFound: false,
+        },
+    }
 }

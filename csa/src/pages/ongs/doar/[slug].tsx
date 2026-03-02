@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { prisma } from "csa/lib/prisma";
 import Rotas from "csa/Rotas.json";
 import useNavigate from "csa/hooks/useNavigate";
 import usePopup from "csa/hooks/usePopup";
@@ -175,15 +176,41 @@ const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === "true";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug as string;
 
-  const ong = USE_TEST_DATA
-    ? mockOngsDetail[slug]
-    : await (async () => {
-        // development fallback: use mock data until backend is implemented
-        return mockOngsDetail[slug] ?? mockOngDefault;
-      })();
+  let ong: OngDetail | null = null;
+
+  if (USE_TEST_DATA) {
+    ong = mockOngsDetail[slug] ?? null;
+  } else {
+    const isNumber = /^\d+$/.test(slug);
+    const dbOng = isNumber
+      ? await prisma.ong.findUnique({ where: { id: parseInt(slug, 10) } })
+      : await prisma.ong.findFirst({ where: { nome: decodeURIComponent(slug) } });
+
+    if (dbOng) {
+      ong = {
+        id: dbOng.id.toString(),
+        nome: dbOng.nome,
+        descricao: dbOng.descricao,
+        area: dbOng.areaAtuacao,
+        cidade: dbOng.cidade ?? "",
+        uf: dbOng.uf ?? "",
+        email: dbOng.contato,
+        telefone: "",
+        rua: dbOng.rua ?? "",
+        numero: dbOng.numero ?? "",
+        bairro: dbOng.bairro ?? "",
+        site: dbOng.siteOuRede ?? "",
+        fundacao: "",
+        missao: "",
+        voluntarios: 0,
+        campanhasAtivas: 0,
+        notFound: false,
+      };
+    }
+  }
 
   if (!ong) {
-    // unexpected, but keep the guard just in case
+    // retorna 404 quando nada foi encontrado
     return { notFound: true } as any;
   }
 
