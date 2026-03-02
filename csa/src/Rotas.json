@@ -38,7 +38,9 @@
     "ONGs": {
         "Home": "/ongs",
         "slug": "/ongs/",
-        "Criar": "/ongs/criar"
+        "Criar": "/ongs/criar",
+        "voluntariar": "/ongs/voluntariar/",
+        "doar": "/ongs/doar/"
     },
 
     "Fóruns": {

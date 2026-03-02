@@ -192,6 +192,30 @@ describe('Validações Comuns', () => {
     });
   });
 
+  // ==================== DOAR ONG SCHEMA ====================
+  describe('doarOngSchema', () => {
+    it('deve aceitar categoria e mensagem opcional', () => {
+      const schema = require('csa/lib/validations').doarOngSchema;
+      const valid = schema.safeParse({ category: 'Alimentos', message: '' });
+      expect(valid.success).toBe(true);
+      const valid2 = schema.safeParse({ category: 'Roupas' });
+      expect(valid2.success).toBe(true);
+    });
+
+    it('deve rejeitar sem categoria', () => {
+      const schema = require('csa/lib/validations').doarOngSchema;
+      const invalid = schema.safeParse({ category: '' });
+      expect(invalid.success).toBe(false);
+    });
+
+    it('deve rejeitar mensagem muito longa', () => {
+      const schema = require('csa/lib/validations').doarOngSchema;
+      const long = 'a'.repeat(501);
+      const invalid = schema.safeParse({ category: 'Outros', message: long });
+      expect(invalid.success).toBe(false);
+    });
+  });
+
   // ==================== FUNÇÕES DE VALIDAÇÃO ====================
   describe('isMaiorDeIdade', () => {
     it('deve retornar true para maior de idade', () => {

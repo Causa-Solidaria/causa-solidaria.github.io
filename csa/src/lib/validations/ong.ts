@@ -15,3 +15,11 @@ export const criarOngSchema = z.object({
 });
 
 export type CriarOngData = z.infer<typeof criarOngSchema>;
+
+// ===== DOAR PARA ONG =====
+export const doarOngSchema = z.object({
+  category: z.string().min(1, "A categoria é obrigatória"),
+  message: z.string().max(500, "Mensagem muito longa").optional(),
+});
+
+export type DoarOngData = z.infer<typeof doarOngSchema>;

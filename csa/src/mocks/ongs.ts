@@ -17,6 +17,9 @@ export interface OngDetail {
     uf: string
     email: string
     telefone: string
+    rua?: string
+    numero?: string
+    bairro?: string
     site?: string
     fundacao: string
     missao: string

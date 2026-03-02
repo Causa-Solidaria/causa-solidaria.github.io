@@ -1,11 +1,14 @@
 import DefaultPage from "csa/components/DefaultPage"
 import { GetServerSideProps } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
+import { useState } from "react"
 import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
 import { FiArrowLeft, FiMapPin, FiCalendar, FiPhone, FiMail, FiGlobe, FiUsers } from "react-icons/fi"
 import { LuBuilding2, LuMegaphone } from "react-icons/lu"
-import { Badge, Breadcrumb } from "csa/components/ui"
+import { Badge, Breadcrumb, Button, Flex } from "csa/components/ui"
+import Modal from "csa/components/ui/Modal"
 import styles from "./slug.module.css"
 import { OngDetail, mockOngsDetail, mockOngDefault } from "csa/mocks/ongs"
 
@@ -15,6 +18,12 @@ type OngProps = OngDetail
 
 export default function OngPage(ong: OngProps) {
     const { navigate } = useNavigate()
+    const router = useRouter()
+    // sometimes the component is rendered in tests without a router query
+    const slug = (router.query.slug as string) || ong.id
+
+    const [isModalOpen, setModalOpen] = useState(false)
+    const [choice, setChoice] = useState<'ir' | 'doar' | ''>('')
 
     if (ong.notFound) {
         return (
@@ -35,6 +44,15 @@ export default function OngPage(ong: OngProps) {
     }
 
     const local = [ong.cidade, ong.uf].filter(Boolean).join(" - ")
+
+    const handleAdvance = () => {
+        setModalOpen(false)
+        if (choice === 'ir') {
+            navigate(ONGs.voluntariar + slug)
+        } else if (choice === 'doar') {
+            navigate(ONGs.doar + slug)
+        }
+    }
 
     return (
         <DefaultPage>
@@ -149,7 +167,10 @@ export default function OngPage(ong: OngProps) {
 
                         {/* Botões */}
                         <div className={styles.buttonRow}>
-                            <button className={styles.primaryButton}>
+                            <button
+                                className={styles.primaryButton}
+                                onClick={() => setModalOpen(true)}
+                            >
                                 <FiUsers /> VOLUNTARIAR-SE
                             </button>
                             <button
@@ -162,11 +183,40 @@ export default function OngPage(ong: OngProps) {
                     </div>
                 </div>
             </div>
+
+            {/* escolha modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Como deseja ajudar?">
+                <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                <input
+                  type="radio"
+                  name="helpChoice"
+                  value="ir"
+                  checked={choice === 'ir'}
+                  onChange={() => setChoice('ir')}
+                />{' '}
+                Posso ir até a ONG
+              </label>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                <input
+                  type="radio"
+                  name="helpChoice"
+                  value="doar"
+                  checked={choice === 'doar'}
+                  onChange={() => setChoice('doar')}
+                />{' '}
+                Quero ajudar com doação de itens
+              </label>
+            </fieldset>
+                <Flex style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
+                    <Button onClick={handleAdvance} disabled={!choice}>Avançar</Button>
+                </Flex>
+            </Modal>
         </DefaultPage>
     )
 }
 
-const USE_TEST_DATA = true
+const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === "true"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const slug = context.params?.slug as string

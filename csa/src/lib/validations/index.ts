@@ -26,6 +26,8 @@ export {
 export {
   criarOngSchema,
   type CriarOngData,
+  doarOngSchema,
+  type DoarOngData,
 } from "./ong";
 
 // ===== CAMPANHA =====

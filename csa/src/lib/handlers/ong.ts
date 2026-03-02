@@ -47,3 +47,25 @@ export async function handleCriarOng(
     popup('Erro inesperado ao criar ONG');
   }
 }
+
+// ===== DOAR PARA ONG =====
+export interface DoarOngForm {
+  category: string;
+  message?: string;
+  photoString?: string;
+}
+
+export async function handleDoarOng(
+  slug: string,
+  form: DoarOngForm,
+  popup: (message: string) => void
+) {
+  // this is a stub implementation; in a real application you would hit an API endpoint
+  try {
+    console.log(`Doação para ONG ${slug}:`, form);
+    popup('Doação enviada! Obrigado pela sua colaboração.');
+  } catch (err) {
+    console.error('Erro ao enviar doação:', err);
+    popup('Erro ao processar doação.');
+  }
+}

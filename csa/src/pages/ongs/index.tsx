@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { Avatar, Badge, EmptyState, Breadcrumb, Loading } from "csa/components/ui"
+import { Avatar, Badge, EmptyState, Breadcrumb, Loading, Modal, Button, Flex } from "csa/components/ui"
 import Heading from "csa/components/ui/heading"
 import { LuBuilding, LuLeaf } from "react-icons/lu"
 import { ONGs, Campanhas, Apis } from "csa/Rotas.json"
@@ -26,15 +26,18 @@ type Ong = {
 }
 
 /* ==================== Hooks ==================== */
-const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
+// when reading env variables that may be changed in tests, compute inside hooks
 
 function useOngsData() {
-  const [ongs, setOngs] = useState<Ong[]>(useMock ? mockOngs.map(o => ({ ...o, icon: null, color: "green.400" })) : [])
-  const [loading, setLoading] = useState(!useMock)
+  const isMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
+  const [ongs, setOngs] = useState<Ong[]>(
+    isMock ? mockOngs.map(o => ({ ...o, icon: null, color: "green.400" })) : []
+  )
+  const [loading, setLoading] = useState(!isMock)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (useMock) return
+    if (isMock) return
 
     async function fetchOngs() {
       try {
@@ -59,7 +62,7 @@ function useOngsData() {
       }
     }
     fetchOngs()
-  }, [])
+  }, [isMock])
 
   return { ongs, loading, error }
 }
@@ -84,6 +87,26 @@ export default function ONGsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const { ongs, loading } = useOngsData()
   const filteredOngs = useOngsFilter(ongs, searchQuery)
+
+  // modal for support choices
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [choice, setChoice] = useState<'ir'|'doar'|''>('')
+  const [selectedId, setSelectedId] = useState('')
+
+  const openSupportModal = (id: string) => {
+    setSelectedId(id)
+    setChoice('')
+    setModalOpen(true)
+  }
+
+  const handleAdvance = () => {
+    setModalOpen(false)
+    if (choice === 'ir') {
+      navigate(ONGs.voluntariar + selectedId)
+    } else if (choice === 'doar') {
+      navigate(ONGs.doar + selectedId)
+    }
+  }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value)
@@ -129,6 +152,7 @@ export default function ONGsPage() {
               />
             </div>
           ) : (
+            <>
             <div className={styles.list}>
               {filteredOngs.map((ong) => (
                 <div
@@ -164,7 +188,7 @@ export default function ONGsPage() {
                     </button>
                     <button
                       className={styles.supportButton}
-                      onClick={(e) => { e.stopPropagation() }}
+                      onClick={(e) => { e.stopPropagation(); openSupportModal(ong.id) }}
                     >
                       Apoiar
                     </button>
@@ -172,6 +196,34 @@ export default function ONGsPage() {
                 </div>
               ))}
             </div>
+            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Como deseja ajudar?">
+              <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                  <input
+                    type="radio"
+                    name="helpChoice"
+                    value="ir"
+                    checked={choice === 'ir'}
+                    onChange={() => setChoice('ir')}
+                  />{' '}
+                  Posso ir até a ONG
+                </label>
+                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                  <input
+                    type="radio"
+                    name="helpChoice"
+                    value="doar"
+                    checked={choice === 'doar'}
+                    onChange={() => setChoice('doar')}
+                  />{' '}
+                  Quero ajudar com doação de itens
+                </label>
+              </fieldset>
+              <Flex style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
+                <Button onClick={handleAdvance} disabled={!choice}>Avançar</Button>
+              </Flex>
+            </Modal>
+            </>
           )}
         </div>
       </div>
