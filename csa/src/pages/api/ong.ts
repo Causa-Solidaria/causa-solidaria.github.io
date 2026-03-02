@@ -9,8 +9,13 @@ const ongSchema = z.object({
   nome: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
   cnpj: z.string().min(14, "O CNPJ deve ter 14 dígitos"),
   areaAtuacao: z.string({ required_error: "Selecione a área de atuação" }),
-  descricao: z.string().min(500, "A descrição deve ter no mínimo 500 caracteres"),
+  descricao: z.string().min(100, "A descrição deve ter no mínimo 100 caracteres"),
   cep: z.string().min(8, "CEP inválido"),
+  cidade: z.string().optional(),
+  uf: z.string().optional(),
+  rua: z.string().optional(),
+  numero: z.string().optional(),
+  bairro: z.string().optional(),
   contato: z.string().min(5, "Informe um contato válido"),
   site: z.string().optional(),
   logo: z.string().optional(),
@@ -50,17 +55,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         areaAtuacao: data.areaAtuacao,
         descricao: data.descricao,
         cep: data.cep,
+        cidade: data.cidade || "",
+        uf: data.uf || "",
+        rua: data.rua || null,
+        numero: data.numero || null,
+        bairro: data.bairro || null,
         contato: data.contato,
-        /*
-          profuso antes não tinha os ' || "" ' abaixo, mas a falta desses detalhes dava 
-          erro de verificação quando vou fazer deploy. pq da erro? - vc deve ta se 
-          perguntando. É pq a variavel  sieteOuRede so recebe variaveis do tipo string, e 
-          como ela tava recebendo uma variavel opcional, essa no  qual é uma string ou um 
-          undefinied dava erro de verificação/segurança(/num sei...). ai eu adiciomei esse
-          codigo para garantir que suba para o banco apenas como string (caso o campo não
-          seja preenchido) e tbm para conseguir fazer o deploy
-        */
-        siteOuRede: (data.site) || "", 
+        siteOuRede: data.site || "",
         logoUrl: data.logo || "",
         usuarioId,
       },

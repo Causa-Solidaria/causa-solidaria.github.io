@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { props: ong };
   }
 
-  // TODO: real retrieval
-  const ong = mockOngDefault;
-  return { props: { ...ong, notFound: true } as VoluntariarProps };
+  // development fallback: return mock or default without marking notFound
+  const ong = mockOngsDetail[slug] ?? mockOngDefault;
+  return { props: { ...ong, notFound: false } as VoluntariarProps };
 };

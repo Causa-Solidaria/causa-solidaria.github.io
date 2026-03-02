@@ -20,6 +20,9 @@ type Ong = {
   descricao: string
   cidade: string
   uf: string
+  rua?: string
+  numero?: string
+  bairro?: string
   email: string
   icon: any
   color: string
@@ -177,7 +180,16 @@ export default function ONGsPage() {
                     </Badge>
                   </div>
                   <p className={styles.cardDescription}>{ong.descricao}</p>
-                  <span className={styles.cardLocation}>{ong.cidade}, {ong.uf}</span>
+                  <span className={styles.cardLocation}>
+                    {(() => {
+                      const parts: string[] = []
+                      if (ong.rua) parts.push(ong.rua + (ong.numero ? `, ${ong.numero}` : ""))
+                      if (ong.bairro) parts.push(ong.bairro)
+                      if (ong.cidade) parts.push(ong.cidade)
+                      if (ong.uf) parts.push(ong.uf)
+                      return parts.join(' - ')
+                    })()}
+                  </span>
                   <span className={styles.cardEmail}>{ong.email}</span>
                   <div className={styles.cardButtons}>
                     <button

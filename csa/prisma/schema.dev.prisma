@@ -69,6 +69,11 @@ model Ong {
   areaAtuacao String
   descricao   String
   cep         String
+  cidade      String?
+  uf          String?
+  rua         String?
+  numero      String?
+  bairro      String?
   contato     String
   siteOuRede  String
   logoUrl     String

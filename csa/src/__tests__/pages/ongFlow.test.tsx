@@ -34,6 +34,9 @@ describe('Fluxo de ajuda ONG', () => {
   it('abre modal e navega para voluntariar', () => {
     renderWithChakra(<OngPage {...mockOngsDetail['1']} />);
 
+    // on detail card we should see street part of address
+    expect(screen.getByText(/Rua das Flores/i)).toBeInTheDocument();
+
     fireEvent.click(screen.getByRole('button', { name: /voluntariar-se/i }));
 
     // modal should be visible

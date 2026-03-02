@@ -37,6 +37,11 @@ const fieldConfigs = [
   { name: "areaAtuacao", label: "Área de Atuação", type: "select", options: itensAtuacao.items.map(i => ({ label: i.label, value: i.value })) },
   { name: "descricao", label: "Descrição da ONG", type: "textarea", height: 144 },
   { name: "cep", label: "CEP", type: "text" },
+  { name: "cidade", label: "Cidade", type: "text" },
+  { name: "uf", label: "UF", type: "text" },
+  { name: "rua", label: "Rua", type: "text" },
+  { name: "numero", label: "Número", type: "text" },
+  { name: "bairro", label: "Bairro", type: "text" },
   { name: "contato", label: "Email ou Telefone para Contato", type: "text" },
   { name: "site", label: "Site ou redeSocial", type: "text" },
 ] as const
@@ -92,12 +97,22 @@ export default function CriarNovaOng() {
   const onSubmit = async (data: z.infer<typeof criarOngSchema>) => {
     setBackendErrors([])
     try {
+      // In development/mock mode, just show success
+      if (process.env.NEXT_PUBLIC_USE_MOCK === 'true' || !getToken()) {
+        console.log('ONG (mock):', data)
+        alert("ONG cadastrada com sucesso!")
+        reset()
+        router.push(ONGs.Home)
+        return
+      }
+
+      // Real API call (when backend is ready)
       const token = getToken()
       const response = await fetch(Apis.ongs, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify(data),
       })
@@ -108,7 +123,7 @@ export default function CriarNovaOng() {
           setBackendErrors(errorData.message)
           errorData.message.forEach((err: any) => {
             if (err.path && err.message) {
-              setError(err.path[0], { type: "server", message: err.message })
+              setError(err.path[0], { type: 'server', message: err.message })
             }
           })
         } else {

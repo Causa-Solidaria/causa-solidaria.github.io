@@ -178,11 +178,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const ong = USE_TEST_DATA
     ? mockOngsDetail[slug]
     : await (async () => {
-        // fetch from db if necessary
-        return null;
+        // development fallback: use mock data until backend is implemented
+        return mockOngsDetail[slug] ?? mockOngDefault;
       })();
 
   if (!ong) {
+    // unexpected, but keep the guard just in case
     return { notFound: true } as any;
   }
 

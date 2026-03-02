@@ -45,6 +45,16 @@ export default function OngPage(ong: OngProps) {
 
     const local = [ong.cidade, ong.uf].filter(Boolean).join(" - ")
 
+    // build a more complete address if street/number/bairro exist
+    const addressParts: string[] = []
+    if (ong.rua) {
+      addressParts.push(ong.rua + (ong.numero ? `, ${ong.numero}` : ""))
+    }
+    if (ong.bairro) {
+      addressParts.push(ong.bairro)
+    }
+    const fullAddress = [...addressParts, local].filter(Boolean).join(" - ")
+
     const handleAdvance = () => {
         setModalOpen(false)
         if (choice === 'ir') {
@@ -127,7 +137,7 @@ export default function OngPage(ong: OngProps) {
                             {local && (
                                 <div className={styles.infoItem}>
                                     <FiMapPin className={styles.infoIcon} />
-                                    <span><strong>{local}</strong></span>
+                                    <span><strong>{fullAddress}</strong></span>
                                 </div>
                             )}
                             {ong.fundacao && (
@@ -231,7 +241,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return { props: ong }
     }
 
-    // TODO: fetch real ONG from database
-    const ong = mockOngDefault
-    return { props: { ...ong, notFound: true } as OngProps }
+    // still in development: fall back to mocks rather than always signaling not found
+    // once the real database is wired, replace this block with a real query similar
+    // to campanhas/c/[slug].tsx
+    const ong = mockOngsDetail[slug] ?? mockOngDefault
+    return { props: { ...ong, notFound: false } as OngProps }
 }
