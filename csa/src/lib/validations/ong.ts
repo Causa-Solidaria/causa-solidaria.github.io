@@ -9,15 +9,15 @@ export const criarOngSchema = z.object({
   areaAtuacao: z.string({ required_error: "Selecione a área de atuação" }),
   descricao: z.string().min(100, "A descrição deve ter no mínimo 100 caracteres"),
   cep: cepSchema,
-  cidade: z.string().optional(),
-  uf: z.string().optional(),
-  rua: z.string().optional(),
-  numero: z.string().optional(),
-  bairro: z.string().optional(),
+  cidade: z.string().min(1, "Cidade é obrigatória"),
+  uf: z.string().min(2, "UF é obrigatório"),
+  rua: z.string().min(1, "Rua é obrigatória"),
+  numero: z.string().min(1, "Número é obrigatório"),
+  bairro: z.string().min(1, "Bairro é obrigatório"),
   contato: z.string().min(5, "Informe um contato válido"),
   site: z.string().optional(),
   logo: z.string().optional(),
-});
+}).strict();
 
 export type CriarOngData = z.infer<typeof criarOngSchema>;
 

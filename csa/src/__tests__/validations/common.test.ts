@@ -120,19 +120,7 @@ describe('Validações Comuns', () => {
   describe('criarOngSchema', () => {
     const { criarOngSchema } = require('csa/lib/validations')
 
-    it('aceita dados mínimos sem endereço', () => {
-      const result = criarOngSchema.safeParse({
-        nome: 'Teste ONG',
-        cnpj: '12345678901234',
-        areaAtuacao: 'educacao',
-        descricao: 'a'.repeat(100),
-        cep: '12345678',
-        contato: 'contato@teste.com'
-      })
-      expect(result.success).toBe(true)
-    })
-
-    it('aceita endereço completo opcional', () => {
+    it('aceita dados com endereço completo', () => {
       const result = criarOngSchema.safeParse({
         nome: 'Teste ONG',
         cnpj: '12345678901234',
@@ -147,6 +135,18 @@ describe('Validações Comuns', () => {
         contato: 'contato@teste.com'
       })
       expect(result.success).toBe(true)
+    })
+
+    it('rejeita dados sem endereço completo', () => {
+      const result = criarOngSchema.safeParse({
+        nome: 'Teste ONG',
+        cnpj: '12345678901234',
+        areaAtuacao: 'educacao',
+        descricao: 'a'.repeat(100),
+        cep: '12345678',
+        contato: 'contato@teste.com'
+      })
+      expect(result.success).toBe(false)
     })
   })
 

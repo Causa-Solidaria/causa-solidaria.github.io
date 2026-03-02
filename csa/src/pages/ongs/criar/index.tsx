@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Center, createListCollection, Button, Text, Image, FileUpload } from "@chakra-ui/react"
 import { Box, Flex, Heading, Breadcrumb, FormField, Alert } from "csa/components/ui"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -12,6 +12,7 @@ import { getToken } from "csa/lib/utils"
 import { Apis, ONGs } from "csa/Rotas.json"
 import { LuUpload } from "react-icons/lu"
 import DefaultPage from "csa/components/DefaultPage"
+import { buscarDadosPorCep } from "csa/lib/cepService"
 import styles from "./ongCriar.module.css"
 
 /* ==================== Utils ==================== */
@@ -50,13 +51,51 @@ const fieldConfigs = [
 export default function CriarNovaOng() {
   const router = useRouter()
 
-  const { register, handleSubmit, formState: { errors }, reset, setError, setValue } = useForm<z.infer<typeof criarOngSchema>>({
+  const { register, handleSubmit, formState: { errors }, reset, setError, setValue, watch } = useForm<z.infer<typeof criarOngSchema>>({
     resolver: zodResolver(criarOngSchema)
   })
 
   const [backendErrors, setBackendErrors] = useState<{ message: string }[]>([])
   const [logoPreview, setLogoPreview] = useState<string | null>(null)
   const [uploadError, setUploadError] = useState<string | null>(null)
+  const [cepLoading, setCepLoading] = useState(false)
+  const [cepError, setCepError] = useState<string | null>(null)
+
+  // Monitora o campo CEP para buscar dados automaticamente
+  const cepValue = watch("cep")
+
+  // useEffect para buscar dados do CEP quando ele mudar
+  useEffect(() => {
+    const buscarCep = async () => {
+      setCepError(null)
+      
+      if (!cepValue || cepValue.replace(/\D/g, '').length !== 8) {
+        return
+      }
+
+      setCepLoading(true)
+      try {
+        const dados = await buscarDadosPorCep(cepValue)
+        
+        if (dados) {
+          // Preenche os campos automaticamente
+          setValue("cidade", dados.cidade, { shouldValidate: true })
+          setValue("uf", dados.uf, { shouldValidate: true })
+          setValue("bairro", dados.bairro, { shouldValidate: true })
+          setValue("rua", dados.rua, { shouldValidate: true })
+        } else {
+          setCepError("CEP não encontrado - você pode preencher manualmente os campos obrigatórios")
+        }
+      } catch (error) {
+        setCepError("Erro ao buscar CEP - tente novamente ou preencha manualmente")
+        console.error("Erro ao buscar CEP:", error)
+      } finally {
+        setCepLoading(false)
+      }
+    }
+
+    buscarCep()
+  }, [cepValue, setValue])
 
   const handleLogoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -182,17 +221,21 @@ export default function CriarNovaOng() {
           {/* ==================== Form Fields ==================== */}
           <Flex className={styles.fieldsContainer}>
             {fieldConfigs.map((cfg) => (
-              <FormField
-                key={cfg.name}
-                name={cfg.name}
-                label={cfg.label}
-                register={register(cfg.name)}
-                error={getFieldError(cfg.name)}
-                height={cfg.height ?? 72}
-                fontSize={26}
-                type={cfg.type as any}
-                options={cfg.options}
-              />
+              <div key={cfg.name} className={styles.formField}>
+                <FormField
+                  name={cfg.name}
+                  label={cfg.label}
+                  register={register(cfg.name)}
+                  error={cfg.name === "cep" ? (getFieldError(cfg.name) || cepError || undefined) : getFieldError(cfg.name)}
+                  type={cfg.type as any}
+                  options={cfg.type === "select" ? cfg.options : undefined}
+                />
+                {cfg.name === "cep" && cepLoading && (
+                  <Text className={styles.cepLoading}>
+                    Buscando endereço...
+                  </Text>
+                )}
+              </div>
             ))}
           </Flex>
 

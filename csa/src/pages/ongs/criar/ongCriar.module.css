@@ -156,6 +156,19 @@
   background-color: #e0e0e0 !important;
 }
 
+/* ==================== CEP Auto-completo ==================== */
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cepLoading {
+  font-size: 0.875rem !important;
+  color: #666 !important;
+  margin-top: -0.5rem;
+}
+
 /* ==================== Responsive ==================== */
 @media (max-width: 768px) {
   .headerContainer {
