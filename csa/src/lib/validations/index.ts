@@ -39,3 +39,11 @@ export {
   doarCampanhaSchema,
   type DoarCampanhaData,
 } from "./campanha";
+
+// ===== FÓRUM =====
+export {
+  criarForumSchema,
+  tagsForumDisponiveis,
+  type CriarForumData,
+  type TagForum,
+} from "./forum";

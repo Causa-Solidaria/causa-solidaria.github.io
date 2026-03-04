@@ -10,6 +10,13 @@
         "campanhas" : {
             "add": "/api/campanhas/add",
             "get": "/api/campanhas/get"
+        },
+        "foruns": {
+            "add": "/api/foruns/add",
+            "get": "/api/foruns/get",
+            "comentar": "/api/foruns/comentar",
+            "votar": "/api/foruns/votar",
+            "votar_comentario": "/api/foruns/votar-comentario"
         }
     },
     
@@ -45,7 +52,7 @@
 
     "Fóruns": {
         "Home": "/foruns",
-        "criar": "/foruns",
+        "criar": "/foruns/criar",
         "search": "/foruns/f/"
     },
 
