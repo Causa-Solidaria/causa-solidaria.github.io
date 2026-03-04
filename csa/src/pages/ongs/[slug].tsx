@@ -8,10 +8,11 @@ import Rotas from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
 import { FiArrowLeft, FiMapPin, FiCalendar, FiPhone, FiMail, FiGlobe, FiUsers } from "react-icons/fi"
 import { LuBuilding2, LuMegaphone } from "react-icons/lu"
+import { Image } from "@chakra-ui/react"
 import { Badge, Breadcrumb, Button, Flex } from "csa/components/ui"
 import Modal from "csa/components/ui/Modal"
 import styles from "./slug.module.css"
-import { OngDetail, mockOngsDetail, mockOngDefault } from "csa/mocks/ongs"
+import { OngDetail, mockOngsDetail } from "csa/mocks/ongs"
 
 const { ONGs } = Rotas
 
@@ -82,12 +83,22 @@ export default function OngPage(ong: OngProps) {
                 </button>
 
                 <div className={styles.card}>
-                    {/* Header with icon */}
-                    <div className={styles.cardHeader}>
-                        <div className={styles.cardIcon}>
-                            <LuBuilding2 className={styles.cardIconInner} />
+                    {/* Header with logo or icon */}
+                    {ong.logoUrl ? (
+                        <div className={`${styles.cardHeader} ${styles.cardHeaderWithImage}`}>
+                            <Image
+                                src={ong.logoUrl.startsWith("data:") ? ong.logoUrl : `data:image/png;base64,${ong.logoUrl}`}
+                                alt={`Logo ${ong.nome}`}
+                                className={styles.cardHeaderImage}
+                            />
                         </div>
-                    </div>
+                    ) : (
+                        <div className={`${styles.cardHeader} ${styles.cardHeaderFallback}`}>
+                            <div className={styles.cardIcon}>
+                                <LuBuilding2 className={styles.cardIconInner} />
+                            </div>
+                        </div>
+                    )}
 
                     <div className={styles.content}>
                         {/* Nome e Área */}
@@ -227,12 +238,12 @@ export default function OngPage(ong: OngProps) {
     )
 }
 
-const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === "true"
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const slug = context.params?.slug as string
 
-    if (USE_TEST_DATA) {
+    if (USE_MOCK) {
         const ong = mockOngsDetail[slug] ?? null
 
         if (!ong) {
@@ -268,6 +279,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             numero: dbOng.numero ?? "",
             bairro: dbOng.bairro ?? "",
             site: dbOng.siteOuRede ?? "",
+            logoUrl: dbOng.logoUrl ?? "",
             fundacao: "",
             missao: "",
             voluntarios: 0,

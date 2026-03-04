@@ -82,14 +82,31 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* ── Header with Icon ── */
+/* ── Header with Image or Icon ── */
 
 .cardHeader {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+/* When there is a logo image, fill the entire header */
+.cardHeaderWithImage {
+    padding: 0;
+    height: clamp(180px, 30vw, 280px);
+}
+
+/* When there is no logo, show the gradient with an icon */
+.cardHeaderFallback {
     padding: clamp(24px, 4vw, 40px);
     background: linear-gradient(135deg, var(--dark-green), var(--green));
+}
+
+.cardHeaderImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .cardIcon {
@@ -108,6 +125,13 @@
     color: var(--dark-green) !important;
 }
 
+.cardLogoImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 /* ── Content ── */
 
 .content {
@@ -124,6 +148,15 @@
     word-break: break-word;
     line-height: 1.2;
     text-align: center;
+}
+
+/* Re-usable page title for sub-pages (voluntariar, etc.) — inside white card */
+.pageTitle {
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 900;
+    color: var(--black) !important;
+    text-align: center;
+    margin-bottom: clamp(8px, 1.2vw, 14px);
 }
 
 .areaBadge {
@@ -350,4 +383,115 @@
     .secondaryButton {
         width: 100%;
     }
+}
+
+/* ── Doar Form (sub-page) ── */
+
+.doarForm {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2.5vw, 24px);
+    width: 100%;
+}
+
+.doarUploadSection {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.2vw, 14px);
+}
+
+.doarUploadButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: clamp(10px, 1.5vw, 14px);
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 700;
+    font-family: "Quicksand", sans-serif;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    background: var(--white);
+    color: var(--dark-green) !important;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+}
+
+.doarUploadButton:hover {
+    background: var(--dark-green);
+    color: var(--white) !important;
+}
+
+.doarPreviewImage {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: clamp(8px, 1.2vw, 12px);
+}
+
+.doarPreviewPlaceholder {
+    width: 100%;
+    height: clamp(160px, 22vw, 240px);
+    background: #f0f0f0;
+    border: 2px dashed var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 12px);
+}
+
+.doarUploadHint {
+    color: #718096 !important;
+    font-size: clamp(12px, 1.4vw, 14px);
+    line-height: 1.5;
+}
+
+.doarSelect {
+    padding: clamp(12px, 1.5vw, 16px);
+    font-size: clamp(14px, 1.8vw, 17px);
+    width: 100%;
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    color: var(--black) !important;
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.doarSelect:focus {
+    border-color: var(--semi-dark-green);
+    box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+    outline: none;
+}
+
+.doarTextarea {
+    padding: clamp(12px, 1.5vw, 16px);
+    font-size: clamp(14px, 1.8vw, 17px);
+    width: 100%;
+    min-height: clamp(100px, 14vw, 160px);
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.doarTextarea:focus {
+    border-color: var(--semi-dark-green);
+    box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+    outline: none;
+}
+
+.doarTextarea::placeholder {
+    color: #a0aec0 !important;
+    font-weight: 400;
+}
+
+.doarError {
+    color: var(--erro-warning) !important;
+    font-size: clamp(12px, 1.4vw, 14px);
+    font-weight: 600;
+    margin-top: -4px;
 }

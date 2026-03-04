@@ -9,14 +9,14 @@ import useNavigate from "csa/hooks/useNavigate";
 import usePopup from "csa/hooks/usePopup";
 import { FiArrowLeft } from "react-icons/fi";
 import { FileUpload, Image } from "@chakra-ui/react";
-import { LuUpload } from "react-icons/lu";
+import { LuUpload, LuBuilding2 } from "react-icons/lu";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Box, Breadcrumb, Card, Heading, Button, Flex } from "csa/components/ui";
+import { Breadcrumb } from "csa/components/ui";
 import { DoarOngData, doarOngSchema } from "csa/lib/validations/ong";
 import { handleDoarOng } from "csa/lib/handlers/ong";
-import { OngDetail, mockOngsDetail, mockOngDefault } from "csa/mocks/ongs";
-import campaignStyles from "../../campanhas/doar/doar.module.css";
+import { OngDetail, mockOngsDetail } from "csa/mocks/ongs";
+import styles from "../slug.module.css";
 
 interface DoarProps extends OngDetail {}
 
@@ -87,7 +87,7 @@ export default function DoarOngPage(c: DoarProps) {
         <title>Doar - {c.nome}</title>
       </Head>
 
-      <Box className={campaignStyles.container}>
+      <div className={styles.container}>
         <Breadcrumb
           items={[
             { label: "ongs", href: Rotas.ONGs.Home },
@@ -97,88 +97,118 @@ export default function DoarOngPage(c: DoarProps) {
         />
 
         <button
-          className={campaignStyles.backButton}
+          className={styles.backButton}
           onClick={() => navigate(Rotas.ONGs.slug + slug)}
           aria-label="Voltar"
         >
           <FiArrowLeft />
         </button>
 
-        <Card className={campaignStyles.card}>
-          <Heading className={campaignStyles.pageTitle}>Doar para "{c.nome}"</Heading>
+        <div className={styles.card}>
+          {/* Header */}
+          {c.logoUrl ? (
+            <div className={`${styles.cardHeader} ${styles.cardHeaderWithImage}`}>
+              <Image
+                src={c.logoUrl.startsWith("data:") ? c.logoUrl : `data:image/png;base64,${c.logoUrl}`}
+                alt={`Logo ${c.nome}`}
+                className={styles.cardHeaderImage}
+              />
+            </div>
+          ) : (
+            <div className={`${styles.cardHeader} ${styles.cardHeaderFallback}`}>
+              <div className={styles.cardIcon}>
+                <LuBuilding2 className={styles.cardIconInner} />
+              </div>
+            </div>
+          )}
 
-          <form className={campaignStyles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={campaignStyles.uploadColumn}>
-              <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
-                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
-                <FileUpload.Trigger asChild>
-                  <Button className={campaignStyles.uploadButton}>
-                    <LuUpload /> Enviar foto do item
-                  </Button>
-                </FileUpload.Trigger>
-              </FileUpload.Root>
+          <div className={styles.content}>
+            <h1 className={styles.title}>Doar para &ldquo;{c.nome}&rdquo;</h1>
 
-              {uploadError && <span className={campaignStyles.uploadError}>{uploadError}</span>}
+            <form className={styles.doarForm} onSubmit={handleSubmit(onSubmit)}>
+              {/* Upload foto */}
+              <div className={styles.doarUploadSection}>
+                <FileUpload.Root maxFiles={1} onChange={handleThumbnailChange}>
+                  <FileUpload.HiddenInput accept="image/jpeg,image/png" />
+                  <FileUpload.Trigger asChild>
+                    <button type="button" className={styles.doarUploadButton}>
+                      <LuUpload /> Enviar foto do item
+                    </button>
+                  </FileUpload.Trigger>
+                </FileUpload.Root>
 
-              {preview ? (
-                <Image
-                  className={campaignStyles.previewImage}
-                  src={preview}
-                  alt="Pré-visualização"
-                />
-              ) : (
-                <div className={campaignStyles.previewPlaceholder} />
+                {uploadError && <span className={styles.doarError}>{uploadError}</span>}
+
+                {preview ? (
+                  <Image
+                    className={styles.doarPreviewImage}
+                    src={preview}
+                    alt="Pré-visualização"
+                  />
+                ) : (
+                  <div className={styles.doarPreviewPlaceholder} />
+                )}
+
+                <span className={styles.doarUploadHint}>
+                  Tipos: jpg ou png<br />
+                  Tamanho mínimo: 300 × 300 px
+                </span>
+              </div>
+
+              {/* Categoria */}
+              <select {...register("category")} className={styles.doarSelect}>
+                <option value="" disabled>
+                  Selecione a categoria
+                </option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Brinquedos">Brinquedos</option>
+                <option value="Higiene">Higiene</option>
+                <option value="Outros">Outros</option>
+              </select>
+              {errors.category && (
+                <span className={styles.doarError}>{errors.category.message}</span>
               )}
 
-              <span className={campaignStyles.uploadHint}>
-                Tipos: jpg ou png<br />
-                Tamanho mínimo: 300 × 300 px
-              </span>
-            </div>
+              {/* Mensagem */}
+              <textarea
+                {...register("message")}
+                className={styles.doarTextarea}
+                placeholder="Mensagem opcional para a ONG"
+              />
+              {errors.message && (
+                <span className={styles.doarError}>{errors.message.message}</span>
+              )}
 
-            <select {...register("category")} className={campaignStyles.textarea}>
-              <option value="" disabled>
-                Selecione a categoria
-              </option>
-              <option value="Alimentos">Alimentos</option>
-              <option value="Roupas">Roupas</option>
-              <option value="Brinquedos">Brinquedos</option>
-              <option value="Higiene">Higiene</option>
-              <option value="Outros">Outros</option>
-            </select>
-            {errors.category && (
-              <span className={campaignStyles.errorMessage}>{errors.category.message}</span>
-            )}
-
-            <textarea
-              {...register("message")}
-              className={campaignStyles.textarea}
-              placeholder="Mensagem opcional para a ONG"
-            />
-            {errors.message && (
-              <span className={campaignStyles.errorMessage}>{errors.message.message}</span>
-            )}
-
-            <Flex className={campaignStyles.submitContainer}>
-              <Button type="submit" className={campaignStyles.submitButton}>
-                Enviar doação
-              </Button>
-            </Flex>
-          </form>
-        </Card>
-      </Box>
+              {/* Submit */}
+              <div className={styles.buttonRow}>
+                <button type="submit" className={styles.primaryButton}>
+                  Enviar doação
+                </button>
+                <button
+                  type="button"
+                  className={styles.secondaryButton}
+                  onClick={() => navigate(Rotas.ONGs.slug + slug)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </DefaultPage>
   );
 }
 
-const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_TEST_DATA === "true";
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug as string;
 
   let ong: OngDetail | null = null;
 
-  if (USE_TEST_DATA) {
+  if (USE_MOCK) {
     ong = mockOngsDetail[slug] ?? null;
   } else {
     const isNumber = /^\d+$/.test(slug);
@@ -200,6 +230,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         numero: dbOng.numero ?? "",
         bairro: dbOng.bairro ?? "",
         site: dbOng.siteOuRede ?? "",
+        logoUrl: dbOng.logoUrl ?? "",
         fundacao: "",
         missao: "",
         voluntarios: 0,
@@ -222,9 +253,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       area: ong.area,
       cidade: ong.cidade,
       uf: ong.uf,
+      rua: ong.rua || "",
+      numero: ong.numero || "",
+      bairro: ong.bairro || "",
       email: ong.email,
       telefone: ong.telefone || "",
       site: ong.site || "",
+      logoUrl: ong.logoUrl || "",
       fundacao: ong.fundacao || "",
       missao: ong.missao || "",
       voluntarios: ong.voluntarios,
