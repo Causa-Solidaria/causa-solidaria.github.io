@@ -1,61 +1,47 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Center, createListCollection, Button, Text, Image, FileUpload } from "@chakra-ui/react"
-import { Box, Flex, Heading, Breadcrumb, FormField, Alert } from "csa/components/ui"
+import { FileUpload, Image } from "@chakra-ui/react"
+import { Box, Breadcrumb, Card } from "csa/components/ui"
+import Heading from "csa/components/ui/heading"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { criarOngSchema } from "csa/lib/validations"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useRouter } from "next/router"
 import { getToken } from "csa/lib/utils"
 import { Apis, ONGs } from "csa/Rotas.json"
+import { apiUrl } from "csa/lib/apiBase"
 import { LuUpload } from "react-icons/lu"
 import DefaultPage from "csa/components/DefaultPage"
 import { buscarDadosPorCep } from "csa/lib/cepService"
+import useNavigate from "csa/hooks/useNavigate"
+import usePopup from "csa/hooks/usePopup"
 import styles from "./ongCriar.module.css"
 
 /* ==================== Utils ==================== */
 
-/* ==================== Form Config ==================== */
-const itensAtuacao = createListCollection({
-  items: [
-    { label: "educação", value: "educacao" },
-    { label: "saúde", value: "saude" },
-    { label: "meio ambiente", value: "meio_ambiente" },
-    { label: "direitos humanos", value: "direitos_humanos" },
-    { label: "animais", value: "animais" },
-    { label: "cultura e arte", value: "cultura_e_arte" },
-    { label: "assistência social", value: "assistencia_social" },
-    { label: "desenvolvimento comunitário", value: "desenvolvimento_comunitario" },
-    { label: "outros", value: "outros" },
-  ]
-})
-
-const fieldConfigs = [
-  { name: "nome", label: "Nome da ONG", type: "text" },
-  { name: "cnpj", label: "CNPJ", type: "text" },
-  { name: "areaAtuacao", label: "Área de Atuação", type: "select", options: itensAtuacao.items.map(i => ({ label: i.label, value: i.value })) },
-  { name: "descricao", label: "Descrição da ONG", type: "textarea", height: 144 },
-  { name: "cep", label: "CEP", type: "text" },
-  { name: "cidade", label: "Cidade", type: "text" },
-  { name: "uf", label: "UF", type: "text" },
-  { name: "rua", label: "Rua", type: "text" },
-  { name: "numero", label: "Número", type: "text" },
-  { name: "bairro", label: "Bairro", type: "text" },
-  { name: "contato", label: "Email ou Telefone para Contato", type: "text" },
-  { name: "site", label: "Site ou redeSocial", type: "text" },
-] as const
+const areasAtuacao = [
+  { label: "Educação", value: "educacao" },
+  { label: "Saúde", value: "saude" },
+  { label: "Meio Ambiente", value: "meio_ambiente" },
+  { label: "Direitos Humanos", value: "direitos_humanos" },
+  { label: "Animais", value: "animais" },
+  { label: "Cultura e Arte", value: "cultura_e_arte" },
+  { label: "Assistência Social", value: "assistencia_social" },
+  { label: "Desenvolvimento Comunitário", value: "desenvolvimento_comunitario" },
+  { label: "Outros", value: "outros" },
+]
 
 /* ==================== Main Component ==================== */
 export default function CriarNovaOng() {
-  const router = useRouter()
+  const { navigate } = useNavigate()
+  const popup = usePopup()
 
-  const { register, handleSubmit, formState: { errors }, reset, setError, setValue, watch } = useForm<z.infer<typeof criarOngSchema>>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset, setError, setValue, watch } = useForm<z.infer<typeof criarOngSchema>>({
     resolver: zodResolver(criarOngSchema)
   })
 
-  const [backendErrors, setBackendErrors] = useState<{ message: string }[]>([])
+  const [backendErrors, setBackendErrors] = useState<string[]>([])
   const [logoPreview, setLogoPreview] = useState<string | null>(null)
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [cepLoading, setCepLoading] = useState(false)
@@ -133,21 +119,26 @@ export default function CriarNovaOng() {
     reader.readAsDataURL(file)
   }
 
+  const descricao = watch("descricao")
+
   const onSubmit = async (data: z.infer<typeof criarOngSchema>) => {
     setBackendErrors([])
     try {
-      // In development/mock mode, just show success
-      if (process.env.NEXT_PUBLIC_USE_MOCK === 'true' || !getToken()) {
+      if (process.env.NEXT_PUBLIC_USE_MOCK === 'true') {
         console.log('ONG (mock):', data)
-        alert("ONG cadastrada com sucesso!")
+        popup("ONG cadastrada com sucesso!")
         reset()
-        router.push(ONGs.Home)
+        navigate(ONGs.Home)
         return
       }
 
-      // Real API call (when backend is ready)
       const token = getToken()
-      const response = await fetch(Apis.ongs, {
+      if (!token) {
+        popup("Você precisa estar logado para cadastrar uma ONG.")
+        return
+      }
+
+      const response = await fetch(apiUrl(Apis.ongs), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,138 +149,254 @@ export default function CriarNovaOng() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        if (Array.isArray(errorData.message)) {
-          setBackendErrors(errorData.message)
-          errorData.message.forEach((err: any) => {
+        if (Array.isArray(errorData.error)) {
+          setBackendErrors(errorData.error.map((e: any) => e.message ?? String(e)))
+          errorData.error.forEach((err: any) => {
             if (err.path && err.message) {
               setError(err.path[0], { type: 'server', message: err.message })
             }
           })
         } else {
-          setBackendErrors([{ message: errorData.message }])
+          setBackendErrors([errorData.error ?? "Erro desconhecido"])
         }
         return
       }
 
-      alert("ONG cadastrada com sucesso!")
+      popup("ONG cadastrada com sucesso!")
       reset()
-      router.push(ONGs.Home)
+      navigate(ONGs.Home)
     } catch (error) {
       console.error(error)
-      setBackendErrors([{ message: "Erro ao cadastrar ONG" }])
+      setBackendErrors(["Erro ao cadastrar ONG"])
     }
   }
 
   const handleCancel = () => {
-    reset()
-    setLogoPreview(null)
-    setUploadError(null)
-    setValue("logo", undefined as any)
-  }
-
-  const getFieldError = (field: string): string | undefined => {
-    const errorRecord = errors as Record<string, { message?: unknown }>
-    const message = errorRecord[field]?.message
-    if (message == null) return undefined
-    return typeof message === "string" ? message : String(message)
+    navigate(ONGs.Home)
   }
 
   return (
-    <DefaultPage className={styles.page}>
-      <Center className={styles.pageContainer}>
-        <Box className={styles.headerContainer}>
-          <Box className={styles.breadcrumbContainer}>
-            <Breadcrumb
-              items={[
-                { label: "ONGs", href: ONGs.Home },
-                { label: "Cadastrar Nova ONG" }
-              ]}
-            />
-          </Box>
-          <Flex justifyContent="center" className={styles.titleContainer}>
-            <Heading className={styles.pageTitle}>
-              Cadastrar Nova ONG
-            </Heading>
-          </Flex>
-        </Box>
+    <DefaultPage>
+      <Box className={styles.container}>
+        <Breadcrumb
+          items={[
+            { label: "ONGs", href: ONGs.Home },
+            { label: "Cadastrar" },
+          ]}
+        />
 
-        <Box
-          as="form"
-          className={styles.formContainer}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {/* ==================== Form Fields ==================== */}
-          <Flex className={styles.fieldsContainer}>
-            {fieldConfigs.map((cfg) => (
-              <div key={cfg.name} className={styles.formField}>
-                <FormField
-                  name={cfg.name}
-                  label={cfg.label}
-                  register={register(cfg.name)}
-                  error={cfg.name === "cep" ? (getFieldError(cfg.name) || cepError || undefined) : getFieldError(cfg.name)}
-                  type={cfg.type as any}
-                  options={cfg.type === "select" ? cfg.options : undefined}
+        <Heading className={styles.pageTitle}>
+          cadastrar nova ong
+        </Heading>
+
+        <Card className={styles.card}>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            {/* ==================== Informações Básicas ==================== */}
+            <span className={styles.sectionTitle}>Informações Básicas</span>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Nome da ONG</label>
+              <input
+                {...register("nome")}
+                className={styles.input}
+                placeholder="Ex: Instituto Verde Vida"
+              />
+              {errors.nome && <span className={styles.errorMessage}>{errors.nome.message}</span>}
+            </div>
+
+            <div className={styles.gridRow}>
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>CNPJ</label>
+                <input
+                  {...register("cnpj")}
+                  className={styles.input}
+                  placeholder="00.000.000/0000-00"
                 />
-                {cfg.name === "cep" && cepLoading && (
-                  <Text className={styles.cepLoading}>
-                    Buscando endereço...
-                  </Text>
+                {errors.cnpj && <span className={styles.errorMessage}>{errors.cnpj.message}</span>}
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>Área de Atuação</label>
+                <select {...register("areaAtuacao")} className={styles.select} defaultValue="">
+                  <option value="" disabled>Selecione</option>
+                  {areasAtuacao.map((a) => (
+                    <option key={a.value} value={a.value}>{a.label}</option>
+                  ))}
+                </select>
+                {errors.areaAtuacao && <span className={styles.errorMessage}>{errors.areaAtuacao.message}</span>}
+              </div>
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Descrição da ONG</label>
+              <span className={styles.fieldHint}>Descreva a missão, atuação e impacto da organização</span>
+              <textarea
+                {...register("descricao")}
+                className={styles.textarea}
+                placeholder="Conte sobre a ONG, sua história, o que faz e quem atende..."
+                maxLength={2000}
+              />
+              <div className={`${styles.charCount} ${(descricao?.length || 0) > 1800 ? styles.charCountWarning : ""}`}>
+                {descricao?.length || 0}/2000
+              </div>
+              {errors.descricao && <span className={styles.errorMessage}>{errors.descricao.message}</span>}
+            </div>
+
+            {/* ==================== Endereço ==================== */}
+            <span className={styles.sectionTitle}>Endereço</span>
+
+            <div className={styles.gridRow}>
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>CEP</label>
+                <input
+                  {...register("cep")}
+                  className={styles.input}
+                  placeholder="00000-000"
+                />
+                {cepLoading && <span className={styles.cepLoading}>Buscando endereço...</span>}
+                {(errors.cep || cepError) && (
+                  <span className={styles.errorMessage}>{errors.cep?.message || cepError}</span>
                 )}
               </div>
-            ))}
-          </Flex>
 
-          {/* ==================== Logo Upload ==================== */}
-          <Flex className={styles.logoUploadContainer}>
-            <Text className={styles.logoLabel}>
-              Logo da ONG
-            </Text>
-            <FileUpload.Root maxFiles={1} onChange={handleLogoChange}>
-              <FileUpload.HiddenInput accept="image/jpeg,image/png" />
-              <FileUpload.Trigger asChild>
-                <Button className={styles.uploadButton}>
-                  <LuUpload />&nbsp; Upload imagem (jpg/png)
-                </Button>
-              </FileUpload.Trigger>
-            </FileUpload.Root>
-            {uploadError && (
-              <Text className={styles.uploadError}>{uploadError}</Text>
-            )}
-            {logoPreview ? (
-              <Image
-                src={logoPreview}
-                alt="Pré-visualização da logo"
-                className={styles.logoPreview}
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>UF</label>
+                <input
+                  {...register("uf")}
+                  className={styles.input}
+                  placeholder="SP"
+                  maxLength={2}
+                />
+                {errors.uf && <span className={styles.errorMessage}>{errors.uf.message}</span>}
+              </div>
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Cidade</label>
+              <input
+                {...register("cidade")}
+                className={styles.input}
+                placeholder="São Paulo"
               />
-            ) : (
-              <Box className={styles.logoPlaceholder} />
+              {errors.cidade && <span className={styles.errorMessage}>{errors.cidade.message}</span>}
+            </div>
+
+            <div className={styles.gridRow}>
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>Rua</label>
+                <input
+                  {...register("rua")}
+                  className={styles.input}
+                  placeholder="Rua das Flores"
+                />
+                {errors.rua && <span className={styles.errorMessage}>{errors.rua.message}</span>}
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>Número</label>
+                <input
+                  {...register("numero")}
+                  className={styles.input}
+                  placeholder="123"
+                />
+                {errors.numero && <span className={styles.errorMessage}>{errors.numero.message}</span>}
+              </div>
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Bairro</label>
+              <input
+                {...register("bairro")}
+                className={styles.input}
+                placeholder="Centro"
+              />
+              {errors.bairro && <span className={styles.errorMessage}>{errors.bairro.message}</span>}
+            </div>
+
+            {/* ==================== Contato ==================== */}
+            <span className={styles.sectionTitle}>Contato</span>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Email ou Telefone</label>
+              <input
+                {...register("contato")}
+                className={styles.input}
+                placeholder="contato@ong.org ou (11) 9999-9999"
+              />
+              {errors.contato && <span className={styles.errorMessage}>{errors.contato.message}</span>}
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>Site ou Rede Social</label>
+              <span className={styles.fieldHint}>Opcional</span>
+              <input
+                {...register("site")}
+                className={styles.input}
+                placeholder="https://minhaong.org"
+              />
+              {errors.site && <span className={styles.errorMessage}>{errors.site.message}</span>}
+            </div>
+
+            {/* ==================== Logo Upload ==================== */}
+            <div className={styles.uploadSection}>
+              <span className={styles.uploadLabel}>Logo da ONG</span>
+
+              <FileUpload.Root maxFiles={1} onChange={handleLogoChange}>
+                <FileUpload.HiddenInput accept="image/jpeg,image/png" />
+                <FileUpload.Trigger asChild>
+                  <button type="button" className={styles.uploadTrigger}>
+                    <LuUpload /> Upload imagem (jpg/png)
+                  </button>
+                </FileUpload.Trigger>
+              </FileUpload.Root>
+
+              {uploadError && <span className={styles.uploadError}>{uploadError}</span>}
+
+              {logoPreview ? (
+                <Image
+                  src={logoPreview}
+                  alt="Pré-visualização da logo"
+                  className={styles.logoPreview}
+                />
+              ) : (
+                <div className={styles.logoPlaceholder} />
+              )}
+
+              <span className={styles.uploadHint}>
+                Tipos aceitos: jpg, png • Dimensão mínima: 300 × 300
+              </span>
+            </div>
+
+            {/* ==================== Backend Errors ==================== */}
+            {backendErrors.length > 0 && (
+              <div className={styles.backendErrors}>
+                <span className={styles.backendErrorTitle}>Erro ao cadastrar</span>
+                {backendErrors.map((msg, idx) => (
+                  <span key={idx} className={styles.backendErrorItem}>{msg}</span>
+                ))}
+              </div>
             )}
-            <Text className={styles.uploadHint}>
-              Tipos aceitos: jpg, png • Dimensão mínima: 300 × 300
-            </Text>
-          </Flex>
 
-          {/* ==================== Form Actions ==================== */}
-          <Flex className={styles.actionsContainer}>
-            <Button type="submit" className={styles.submitButton}>
-              Cadastrar ONG
-            </Button>
-
-            <Button type="button" onClick={handleCancel} className={styles.cancelButton}>
-              cancelar
-            </Button>
-          </Flex>
-
-          {/* ==================== Backend Errors ==================== */}
-          {backendErrors.length > 0 && (
-            <Alert variant="error" title="Erro ao cadastrar">
-              {backendErrors.map((err, idx) => (
-                <div key={idx}>{err.message}</div>
-              ))}
-            </Alert>
-          )}
-        </Box>
-      </Center>
+            {/* ==================== Ações ==================== */}
+            <div className={styles.actionsRow}>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCancel}
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Cadastrando..." : "Cadastrar ONG"}
+              </button>
+            </div>
+          </form>
+        </Card>
+      </Box>
     </DefaultPage>
   )
 }
