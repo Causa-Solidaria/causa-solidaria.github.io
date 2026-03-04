@@ -9,6 +9,8 @@ import { MdOutlineMessage } from "react-icons/md"
 import { useState, useMemo } from "react"
 import styles from "./forum.module.css"
 import { VoteDirection, SortOption, Comentario, ForumDetail, mockForunsDetail, mockForumDefault } from "csa/mocks/foruns"
+import { handleComentar, handleVotarTopico, handleVotarComentario } from "csa/lib/handlers"
+import usePopup from "csa/hooks/usePopup"
 
 type ForumProps = ForumDetail
 
@@ -18,11 +20,17 @@ function timeAgo(dateStr: string): string {
 
 export default function Forum(f: ForumProps) {
     const { navigate } = useNavigate()
+    const popup = usePopup()
     const [postVote, setPostVote] = useState<VoteDirection>(null)
     const [postKarma, setPostKarma] = useState(f.karma || 0)
     const [comentarios, setComentarios] = useState<Comentario[]>(f.comentarios || [])
     const [novoComentario, setNovoComentario] = useState("")
     const [sortBy, setSortBy] = useState<SortOption>("recentes")
+    const [votingPost, setVotingPost] = useState(false)
+    const [commentingIds, setCommentingIds] = useState<Set<number>>(new Set())
+    const [submitting, setSubmitting] = useState(false)
+
+    const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
 
     const sortedComentarios = useMemo(() => {
         const sorted = [...comentarios]
@@ -56,48 +64,98 @@ export default function Forum(f: ForumProps) {
         )
     }
 
-    const handleVotePost = (direction: "up" | "down") => {
-        if (postVote === direction) {
-            // undo vote
-            setPostKarma(prev => direction === "up" ? prev - 1 : prev + 1)
-            setPostVote(null)
-        } else {
-            // new vote or switch
-            const delta = direction === "up"
-                ? (postVote === "down" ? 2 : 1)
-                : (postVote === "up" ? -2 : -1)
-            setPostKarma(prev => prev + delta)
-            setPostVote(direction)
-        }
-    }
-
-    const handleVoteComment = (id: number, direction: "up" | "down") => {
-        setComentarios(prev =>
-            prev.map(c => {
-                if (c.id !== id) return c
-                if (c.vote === direction) {
-                    return { ...c, vote: null, karma: direction === "up" ? c.karma - 1 : c.karma + 1 }
-                }
+    const handleVotePost = async (direction: "up" | "down") => {
+        if (useMock) {
+            if (postVote === direction) {
+                setPostKarma(prev => direction === "up" ? prev - 1 : prev + 1)
+                setPostVote(null)
+            } else {
                 const delta = direction === "up"
-                    ? (c.vote === "down" ? 2 : 1)
-                    : (c.vote === "up" ? -2 : -1)
-                return { ...c, vote: direction, karma: c.karma + delta }
-            })
-        )
+                    ? (postVote === "down" ? 2 : 1)
+                    : (postVote === "up" ? -2 : -1)
+                setPostKarma(prev => prev + delta)
+                setPostVote(direction)
+            }
+            return
+        }
+
+        if (votingPost) return
+        setVotingPost(true)
+        const tipo = direction === "up" ? "UP" : "DOWN"
+        const result = await handleVotarTopico(Number(f.id), tipo as "UP" | "DOWN", popup)
+        if (result) {
+            setPostKarma(result.karma)
+            setPostVote(result.vote)
+        }
+        setVotingPost(false)
     }
 
-    const handleSubmitComment = () => {
-        if (!novoComentario.trim()) return
-        const novo: Comentario = {
-            id: Date.now(),
-            autor: { nome: "Você" },
-            texto: novoComentario.trim(),
-            data: "Agora",
-            karma: 1,
-            vote: "up" as VoteDirection,
+    const handleVoteComment = async (id: number, direction: "up" | "down") => {
+        if (useMock) {
+            setComentarios(prev =>
+                prev.map(c => {
+                    if (c.id !== id) return c
+                    if (c.vote === direction) {
+                        return { ...c, vote: null, karma: direction === "up" ? c.karma - 1 : c.karma + 1 }
+                    }
+                    const delta = direction === "up"
+                        ? (c.vote === "down" ? 2 : 1)
+                        : (c.vote === "up" ? -2 : -1)
+                    return { ...c, vote: direction, karma: c.karma + delta }
+                })
+            )
+            return
         }
-        setComentarios(prev => [novo, ...prev])
-        setNovoComentario("")
+
+        if (commentingIds.has(id)) return
+        setCommentingIds(prev => new Set(prev).add(id))
+        const tipo = direction === "up" ? "UP" : "DOWN"
+        const result = await handleVotarComentario(id, tipo as "UP" | "DOWN", popup)
+        if (result) {
+            setComentarios(prev =>
+                prev.map(c => c.id !== id ? c : { ...c, karma: result.karma, vote: result.vote })
+            )
+        }
+        setCommentingIds(prev => {
+            const next = new Set(prev)
+            next.delete(id)
+            return next
+        })
+    }
+
+    const handleSubmitComment = async () => {
+        if (!novoComentario.trim()) return
+
+        if (useMock) {
+            const novo: Comentario = {
+                id: Date.now(),
+                autor: { nome: "Você" },
+                texto: novoComentario.trim(),
+                data: "Agora",
+                karma: 1,
+                vote: "up" as VoteDirection,
+            }
+            setComentarios(prev => [novo, ...prev])
+            setNovoComentario("")
+            return
+        }
+
+        if (submitting) return
+        setSubmitting(true)
+        const result = await handleComentar(Number(f.id), novoComentario.trim(), popup)
+        if (result) {
+            const novo: Comentario = {
+                id: result.id,
+                autor: result.autor,
+                texto: result.texto,
+                data: "Agora",
+                karma: result.karma,
+                vote: null,
+            }
+            setComentarios(prev => [novo, ...prev])
+            setNovoComentario("")
+        }
+        setSubmitting(false)
     }
 
     return (
@@ -181,8 +239,8 @@ export default function Forum(f: ForumProps) {
 
                     {/* New comment input */}
                     <div className={styles.newComment}>
-                        <Avatar name="Você" size="sm" />
-                        <div className={styles.newCommentInputWrapper}>
+                        <Avatar name={f.criador?.nome} src={f.criador?.foto} size="md" />
+                            <div className={styles.newCommentInputWrapper}>
                             <textarea
                                 className={styles.newCommentInput}
                                 placeholder="Escreva um comentário..."
@@ -206,21 +264,22 @@ export default function Forum(f: ForumProps) {
                         </div>
                     </div>
 
-                    {/* Sort filter */}
-                    <div className={styles.sortRow}>
-                        <select
-                            className={styles.sortSelect}
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value as SortOption)}
-                        >
-                            <option value="recentes">Mais recentes</option>
-                            <option value="antigos">Mais antigos</option>
-                            <option value="top">Mais votados</option>
-                        </select>
-                    </div>
+                    {/* Sort filter + Comments list */}
+                    <div className={styles.commentsCard}>
+                        <div className={styles.sortToggleGroup}>
+                            {(["recentes", "antigos", "top"] as SortOption[]).map((option) => (
+                                <button
+                                    key={option}
+                                    className={`${styles.sortToggleBtn} ${sortBy === option ? styles.sortToggleActive : ""}`}
+                                    onClick={() => setSortBy(option)}
+                                >
+                                    {{ recentes: "Mais recentes", antigos: "Mais antigos", top: "Mais votados" }[option]}
+                                </button>
+                            ))}
+                        </div>
 
-                    {/* Comments list */}
-                    <div className={styles.commentsList}>
+                        {/* Comments list */}
+                        <div className={styles.commentsList}>
                         {sortedComentarios.map((c) => (
                             <div key={c.id} className={styles.comment}>
                                 <div className={styles.commentVoteGroup}>
@@ -254,6 +313,7 @@ export default function Forum(f: ForumProps) {
                                 </div>
                             </div>
                         ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,7 +328,56 @@ export const getServerSideProps = async (context: any) => {
         return { props: { notFound: true } as unknown as ForumProps }
     }
 
-    const forum = mockForunsDetail[slug] || { ...mockForumDefault, titulo: decodeURIComponent(slug).replace(/-/g, " ") }
+    const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
+
+    if (useMock) {
+        const forum = mockForunsDetail[slug] || { ...mockForumDefault, titulo: decodeURIComponent(slug).replace(/-/g, " ") }
+        return { props: forum }
+    }
+
+    // Busca real no banco de dados
+    const { prisma } = await import("csa/lib/prisma")
+
+    const topico = await prisma.forumTopico.findUnique({
+        where: { slug },
+        include: {
+            usuario: {
+                select: { name: true, username: true, foto: true },
+            },
+            tags: true,
+            comentarios: {
+                include: {
+                    usuario: {
+                        select: { name: true, username: true, foto: true },
+                    },
+                },
+                orderBy: { createdAt: "desc" },
+            },
+        },
+    })
+
+    if (!topico) {
+        return { props: { notFound: true } as unknown as ForumProps }
+    }
+
+    const forum: ForumDetail = {
+        id: String(topico.id),
+        titulo: topico.titulo,
+        descricao: topico.descricao,
+        criador: { nome: topico.usuario.name ?? "Usuário", foto: topico.usuario.foto ?? null },
+        data: topico.createdAt.toLocaleDateString("pt-BR"),
+        tags: topico.tags.map((t) => ({ label: t.tag })),
+        karma: topico.karma,
+        notFound: false,
+        comentarios: topico.comentarios.map((c) => ({
+            id: c.id,
+            autor: { nome: c.usuario.name ?? "Usuário", foto: c.usuario.foto ?? null },
+            texto: c.conteudo,
+            data: c.createdAt.toLocaleDateString("pt-BR"),
+            karma: c.karma,
+            vote: null as VoteDirection,
+        })),
+    }
 
     return { props: forum }
 }

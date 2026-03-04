@@ -1,0 +1,347 @@
+/* ============================================
+   CRIAR FÓRUM PAGE — Causa Solidária
+   ============================================ */
+
+/* ==================== Container ==================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 48px);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.pageTitle {
+  color: var(--white) !important;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+/* ==================== Card / Form ==================== */
+.card {
+  padding: clamp(24px, 4vw, 48px);
+  background-color: var(--white) !important;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 28px);
+  width: 100%;
+}
+
+/* ==================== Field Group ==================== */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.8vw, 10px);
+}
+
+.fieldLabel {
+  font-size: clamp(14px, 1.6vw, 16px);
+  font-weight: 700;
+  color: var(--black) !important;
+  font-family: "Quicksand", sans-serif;
+}
+
+.fieldHint {
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 500;
+  color: #999 !important;
+}
+
+/* ==================== Input ==================== */
+.input {
+  padding: clamp(12px, 1.5vw, 16px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+}
+
+.input:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #a0aec0 !important;
+  font-weight: 400;
+}
+
+/* ==================== Textarea ==================== */
+.textarea {
+  padding: clamp(12px, 1.5vw, 16px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  width: 100%;
+  min-height: clamp(160px, 20vw, 240px);
+  border: 2px solid var(--dark-green);
+  border-radius: clamp(8px, 1vw, 12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.textarea:focus {
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: #a0aec0 !important;
+  font-weight: 400;
+}
+
+/* ==================== Character Count ==================== */
+.charCount {
+  text-align: right;
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 500;
+  color: #999 !important;
+  margin-top: 2px;
+}
+
+.charCountWarning {
+  color: var(--erro-warning) !important;
+}
+
+/* ==================== Tags ==================== */
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1vw, 12px);
+}
+
+.tagOption {
+  display: flex;
+  align-items: center;
+  padding: clamp(6px, 0.8vw, 10px) clamp(14px, 1.8vw, 20px);
+  border: 2px solid #e0e0e0;
+  border-radius: 999px;
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  color: #555 !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  background: var(--white);
+}
+
+.tagOption:hover {
+  border-color: var(--dark-green);
+  color: var(--dark-green) !important;
+  transform: translateY(-1px);
+}
+
+.tagSelected {
+  background: var(--dark-green) !important;
+  border-color: var(--dark-green) !important;
+  color: var(--white) !important;
+}
+
+.tagSelected:hover {
+  background: var(--semi-dark-green) !important;
+  border-color: var(--semi-dark-green) !important;
+  color: var(--white) !important;
+}
+
+.tagDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tagDisabled:hover {
+  border-color: #e0e0e0;
+  color: #555 !important;
+  transform: none;
+}
+
+.selectedTagsInfo {
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 600;
+  color: var(--dark-green) !important;
+  margin-top: 4px;
+}
+
+/* ==================== Preview ==================== */
+.previewSection {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 14px);
+  padding: clamp(16px, 2.5vw, 24px);
+  background: #f9fafb;
+  border-radius: clamp(10px, 1.2vw, 14px);
+  border: 1px solid #e5e7eb;
+}
+
+.previewLabel {
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 700;
+  color: #888 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.previewTitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 800;
+  color: var(--black) !important;
+  word-break: break-word;
+}
+
+.previewDescription {
+  font-size: clamp(14px, 1.6vw, 16px);
+  font-weight: 500;
+  color: #666 !important;
+  line-height: 1.6;
+  word-break: break-word;
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.previewTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(4px, 0.6vw, 8px);
+}
+
+.previewEmpty {
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 500;
+  color: #ccc !important;
+  font-style: italic;
+}
+
+/* ==================== Errors ==================== */
+.errorMessage {
+  color: var(--erro-warning) !important;
+  font-size: clamp(12px, 1.2vw, 14px);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ==================== Actions ==================== */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(12px, 2vw, 20px);
+  margin-top: clamp(8px, 1.5vw, 16px);
+}
+
+.cancelButton {
+  padding: clamp(10px, 1.3vw, 14px) clamp(24px, 3.5vw, 40px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  border: 2px solid #d0d0d0;
+  border-radius: clamp(8px, 1vw, 12px);
+  background: var(--white);
+  color: #666 !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  border-color: var(--erro-warning);
+  color: var(--erro-warning) !important;
+}
+
+.submitButton {
+  padding: clamp(12px, 1.5vw, 16px) clamp(32px, 5vw, 56px);
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: clamp(8px, 1vw, 12px);
+  background: var(--semi-dark-green);
+  color: var(--white) !important;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background: var(--dark-green);
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==================== Responsivo — Tablet ==================== */
+@media (max-width: 768px) {
+  .actionsRow {
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ==================== Responsivo — Mobile ==================== */
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .form {
+    gap: 16px;
+  }
+
+  .tagsContainer {
+    gap: 6px;
+  }
+
+  .tagOption {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* ==================== Responsivo — Dispositivos Pequenos ==================== */
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .input,
+  .textarea {
+    font-size: 13px;
+    padding: 8px;
+  }
+}

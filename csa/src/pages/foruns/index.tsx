@@ -4,20 +4,44 @@ import DefaultPage from "csa/components/DefaultPage"
 import { Badge, Avatar, EmptyState, Breadcrumb } from "csa/components/ui"
 import Heading from "csa/components/ui/heading"
 import { useForm } from "react-hook-form"
-import { Fóruns, Perfil } from "csa/Rotas.json"
-import { useState, useMemo } from "react"
+import { Fóruns, Perfil, Apis } from "csa/Rotas.json"
+import { useState, useMemo, useEffect } from "react"
 import { BiUpvote } from "react-icons/bi"
 import { MdOutlineMessage } from "react-icons/md"
 import { LuMessageSquare } from "react-icons/lu"
 import useNavigate from "csa/hooks/useNavigate"
+import { apiUrl } from "csa/lib/apiBase"
 import styles from "./foruns.module.css"
 import { ForumData, mockForuns } from "csa/mocks/foruns"
+
+const isMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
 
 export default function Foruns() {
     const { navigate } = useNavigate()
     const { register } = useForm()
     const [searchQuery, setSearchQuery] = useState("")
-    const [foruns] = useState<ForumData[]>(mockForuns)
+    const [foruns, setForuns] = useState<ForumData[]>(isMock ? mockForuns : [])
+    const [loading, setLoading] = useState(!isMock)
+
+    useEffect(() => {
+        if (isMock) return
+
+        async function fetchForuns() {
+            try {
+                const res = await fetch(apiUrl(Apis.foruns.get))
+                if (!res.ok) throw new Error("Erro ao buscar fóruns")
+                const data: ForumData[] = await res.json()
+                setForuns(data)
+            } catch (err) {
+                console.error("Erro ao carregar fóruns:", err)
+                setForuns([])
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchForuns()
+    }, [])
 
     const filteredForuns = useMemo(() => {
         const query = searchQuery.trim().toLowerCase()
