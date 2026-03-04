@@ -3,12 +3,12 @@
 import { useState, useEffect, useMemo } from "react"
 import { Avatar, Badge, EmptyState, Breadcrumb, Loading, Modal, Button, Flex } from "csa/components/ui"
 import Heading from "csa/components/ui/heading"
-import { LuBuilding, LuLeaf } from "react-icons/lu"
-import { ONGs, Campanhas, Apis } from "csa/Rotas.json"
+import { LuBuilding } from "react-icons/lu"
+import { FiMapPin, FiMail } from "react-icons/fi"
+import { ONGs, Apis } from "csa/Rotas.json"
 import { apiUrl } from "csa/lib/apiBase"
 import DefaultPage from "csa/components/DefaultPage/index"
 import useNavigate from "csa/hooks/useNavigate"
-import { useForm } from "react-hook-form"
 import styles from "./ong.module.css"
 import { mockOngs } from "csa/mocks/ongs"
 
@@ -24,18 +24,20 @@ type Ong = {
   numero?: string
   bairro?: string
   email: string
-  icon: any
-  color: string
+  site?: string
+  logoUrl?: string
+  criador?: {
+    nome: string
+    foto: string | null
+  }
+  criadoEm?: string
 }
 
 /* ==================== Hooks ==================== */
-// when reading env variables that may be changed in tests, compute inside hooks
 
 function useOngsData() {
   const isMock = process.env.NEXT_PUBLIC_USE_MOCK === "true"
-  const [ongs, setOngs] = useState<Ong[]>(
-    isMock ? mockOngs.map(o => ({ ...o, icon: null, color: "green.400" })) : []
-  )
+  const [ongs, setOngs] = useState<Ong[]>(isMock ? mockOngs : [])
   const [loading, setLoading] = useState(!isMock)
   const [error, setError] = useState<string | null>(null)
 
@@ -50,12 +52,7 @@ function useOngsData() {
           throw new Error(`Erro ao buscar ONGs: ${res.status} - ${errorText || res.statusText}`)
         }
         const data: Ong[] = await res.json()
-        const mappedOngs = data.map(ong => ({
-          ...ong,
-          icon: LuLeaf,
-          color: "green.400"
-        }))
-        setOngs(mappedOngs)
+        setOngs(data)
       } catch (err) {
         console.error("Erro ao carregar ONGs:", err)
         setError("Erro ao carregar ONGs")
@@ -83,17 +80,24 @@ function useOngsFilter(ongs: Ong[], searchQuery: string) {
   }, [searchQuery, ongs])
 }
 
+/* ==================== Helpers ==================== */
+function buildLocation(ong: Ong): string {
+  const parts: string[] = []
+  if (ong.cidade) parts.push(ong.cidade)
+  if (ong.uf) parts.push(ong.uf)
+  return parts.join(" - ")
+}
+
 /* ==================== Main Component ==================== */
 export default function ONGsPage() {
   const { navigate } = useNavigate()
-  const { register } = useForm()
   const [searchQuery, setSearchQuery] = useState("")
   const { ongs, loading } = useOngsData()
   const filteredOngs = useOngsFilter(ongs, searchQuery)
 
   // modal for support choices
   const [isModalOpen, setModalOpen] = useState(false)
-  const [choice, setChoice] = useState<'ir'|'doar'|''>('')
+  const [choice, setChoice] = useState<'ir' | 'doar' | ''>('')
   const [selectedId, setSelectedId] = useState('')
 
   const openSupportModal = (id: string) => {
@@ -117,27 +121,29 @@ export default function ONGsPage() {
 
   return (
     <DefaultPage>
-      <div className={styles.page}>
+      <div className={styles.container}>
         <Breadcrumb items={[{ label: "ongs" }]} />
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <Heading className={styles.pageTitle}>ONGs</Heading>
-            <div className={styles.searchRow}>
-              <input
-                {...register("Search")}
-                className={styles.searchInput}
-                placeholder="Pesquisar ONG por nome ou área"
-                onChange={handleSearch}
-              />
-              <button
-                className={styles.createButton}
-                onClick={() => navigate(ONGs.Criar)}
-              >
-                Cadastrar ONG
-              </button>
-            </div>
+
+        <Heading className={styles.pageTitle}>ongs</Heading>
+
+        <div className={styles.card}>
+          {/* ==================== Search ==================== */}
+          <div className={styles.searchRow}>
+            <input
+              className={styles.searchInput}
+              placeholder="Pesquisar ONG por nome ou área"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+            <button
+              className={styles.createButton}
+              onClick={() => navigate(ONGs.Criar)}
+            >
+              Cadastrar ONG
+            </button>
           </div>
 
+          {/* ==================== Content ==================== */}
           {loading ? (
             <div className={styles.centerBox}>
               <Loading size="lg" text="Carregando ONGs..." />
@@ -155,12 +161,11 @@ export default function ONGsPage() {
               />
             </div>
           ) : (
-            <>
             <div className={styles.list}>
               {filteredOngs.map((ong) => (
                 <div
                   key={ong.id}
-                  className={styles.card}
+                  className={styles.ongCard}
                   onClick={() => navigate(`${ONGs.Home}/${ong.id}`)}
                   role="button"
                   tabIndex={0}
@@ -168,30 +173,36 @@ export default function ONGsPage() {
                     if (e.key === "Enter") navigate(`${ONGs.Home}/${ong.id}`)
                   }}
                 >
-                  <div className={styles.cardTop}>
-                    <Avatar name={ong.nome} size="sm" />
-                    <div className={styles.cardBody}>
-                      <h3 className={styles.cardTitle}>{ong.nome}</h3>
+                  <div className={styles.ongCardTop}>
+                    <Avatar
+                      name={ong.nome}
+                      src={ong.logoUrl ? (ong.logoUrl.startsWith("data:") ? ong.logoUrl : `data:image/png;base64,${ong.logoUrl}`) : undefined}
+                      size="sm"
+                    />
+                    <div className={styles.ongCardInfo}>
+                      <h3 className={styles.ongCardName}>{ong.nome}</h3>
+                      <div className={styles.ongCardTags}>
+                        <Badge variant="default" size="sm">{ong.area}</Badge>
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.cardTags}>
-                    <Badge variant="default" size="sm">
-                      {ong.area}
-                    </Badge>
+
+                  <p className={styles.ongCardDescription}>{ong.descricao}</p>
+
+                  <div className={styles.ongCardMeta}>
+                    {buildLocation(ong) && (
+                      <span className={styles.ongCardMetaItem}>
+                        <FiMapPin className={styles.ongCardMetaIcon} />
+                        {buildLocation(ong)}
+                      </span>
+                    )}
+                    <span className={styles.ongCardMetaItem}>
+                      <FiMail className={styles.ongCardMetaIcon} />
+                      {ong.email}
+                    </span>
                   </div>
-                  <p className={styles.cardDescription}>{ong.descricao}</p>
-                  <span className={styles.cardLocation}>
-                    {(() => {
-                      const parts: string[] = []
-                      if (ong.rua) parts.push(ong.rua + (ong.numero ? `, ${ong.numero}` : ""))
-                      if (ong.bairro) parts.push(ong.bairro)
-                      if (ong.cidade) parts.push(ong.cidade)
-                      if (ong.uf) parts.push(ong.uf)
-                      return parts.join(' - ')
-                    })()}
-                  </span>
-                  <span className={styles.cardEmail}>{ong.email}</span>
-                  <div className={styles.cardButtons}>
+
+                  <div className={styles.ongCardButtons}>
                     <button
                       className={styles.detailsButton}
                       onClick={(e) => { e.stopPropagation(); navigate(`${ONGs.Home}/${ong.id}`) }}
@@ -208,36 +219,37 @@ export default function ONGsPage() {
                 </div>
               ))}
             </div>
-            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Como deseja ajudar?">
-              <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
-                  <input
-                    type="radio"
-                    name="helpChoice"
-                    value="ir"
-                    checked={choice === 'ir'}
-                    onChange={() => setChoice('ir')}
-                  />{' '}
-                  Posso ir até a ONG
-                </label>
-                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
-                  <input
-                    type="radio"
-                    name="helpChoice"
-                    value="doar"
-                    checked={choice === 'doar'}
-                    onChange={() => setChoice('doar')}
-                  />{' '}
-                  Quero ajudar com doação de itens
-                </label>
-              </fieldset>
-              <Flex style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
-                <Button onClick={handleAdvance} disabled={!choice}>Avançar</Button>
-              </Flex>
-            </Modal>
-            </>
           )}
         </div>
+
+        {/* ==================== Modal ==================== */}
+        <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Como deseja ajudar?">
+          <fieldset className={styles.modalFieldset}>
+            <label className={`${styles.modalOption} ${choice === 'ir' ? styles.modalOptionSelected : ''}`}>
+              <input
+                type="radio"
+                name="helpChoice"
+                value="ir"
+                checked={choice === 'ir'}
+                onChange={() => setChoice('ir')}
+              />
+              Posso ir até a ONG
+            </label>
+            <label className={`${styles.modalOption} ${choice === 'doar' ? styles.modalOptionSelected : ''}`}>
+              <input
+                type="radio"
+                name="helpChoice"
+                value="doar"
+                checked={choice === 'doar'}
+                onChange={() => setChoice('doar')}
+              />
+              Quero ajudar com doação de itens
+            </label>
+          </fieldset>
+          <Flex style={{ justifyContent: 'flex-end', marginTop: '1rem' }}>
+            <Button onClick={handleAdvance} disabled={!choice}>Avançar</Button>
+          </Flex>
+        </Modal>
       </div>
     </DefaultPage>
   )

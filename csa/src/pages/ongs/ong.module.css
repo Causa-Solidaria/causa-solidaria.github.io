@@ -1,44 +1,46 @@
-/* ── ONGs Page ── */
-.page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: clamp(16px, 3vw, 32px);
-    gap: clamp(16px, 2.5vw, 28px);
-}
+/* ============================================
+   ONGs LISTING PAGE — Causa Solidária
+   ============================================ */
+
+/* ==================== Container ==================== */
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 48px);
+    gap: clamp(16px, 2vw, 24px);
+}
+
+.pageTitle {
+    color: var(--white) !important;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+/* ==================== Card (white container) ==================== */
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     background: var(--white);
     border-radius: clamp(12px, 2vw, 20px);
     padding: clamp(20px, 3vw, 40px);
     gap: clamp(16px, 2.5vw, 28px);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 960px;
-    gap: clamp(12px, 2vw, 20px);
-}
-.pageTitle {
-    font-size: clamp(24px, 4vw, 38px);
-    font-weight: 900;
-    color: var(--black) !important;
-    text-align: center;
-}
+
+/* ==================== Search Bar ==================== */
 .searchRow {
     display: flex;
     align-items: center;
     width: 100%;
     gap: clamp(10px, 1.5vw, 16px);
 }
+
 .searchInput {
     flex: 1;
     border: 2px solid var(--dark-green);
@@ -48,10 +50,19 @@
     font-family: "Quicksand", sans-serif;
     font-weight: 600;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
-.searchInput::placeholder { color: #999; font-weight: 500; }
-.searchInput:focus { border-color: var(--green); }
+
+.searchInput::placeholder {
+    color: #999 !important;
+    font-weight: 500;
+}
+
+.searchInput:focus {
+    border-color: var(--semi-dark-green);
+    box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
+}
+
 .createButton {
     display: flex;
     align-items: center;
@@ -69,131 +80,242 @@
     white-space: nowrap;
     transition: background 0.3s, transform 0.2s;
 }
-.createButton:hover { background: var(--semi-dark-green); transform: translateY(-3px); }
+
+.createButton:hover {
+    background: var(--semi-dark-green);
+    transform: translateY(-3px);
+}
+
+/* ==================== ONG Grid ==================== */
 .list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
-    max-width: 960px;
-    gap: clamp(12px, 2vw, 18px);
+    gap: clamp(14px, 2vw, 20px);
 }
-.card {
+
+/* ==================== ONG Item Card ==================== */
+.ongCard {
     display: flex;
     flex-direction: column;
     width: 100%;
     background: var(--white);
     border-radius: clamp(10px, 1.5vw, 16px);
-    border: 2px solid #e0e0e0;
-    padding: clamp(14px, 2.5vw, 24px);
-    gap: clamp(10px, 1.5vw, 16px);
+    border: 2px solid #e8e8e8;
+    padding: clamp(16px, 2.5vw, 24px);
+    gap: clamp(10px, 1.2vw, 14px);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
-.card:hover {
+
+.ongCard:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
     border-color: var(--dark-green);
 }
-.cardTop { display: flex; align-items: flex-start; gap: clamp(10px, 1.5vw, 16px); }
-.cardBody { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: clamp(4px, 0.6vw, 8px); }
-.cardTitleRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.cardTitle { font-size: clamp(16px, 2.5vw, 24px); font-weight: 800; color: var(--black); word-break: break-word; }
-.cardTags { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.6vw, 8px); }
-.cardDescription {
-    font-size: clamp(13px, 1.8vw, 16px);
+
+/* ── Card Header (avatar + name + badge) ── */
+.ongCardTop {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.5vw, 14px);
+}
+
+.ongCardInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+}
+
+.ongCardName {
+    font-size: clamp(16px, 2.2vw, 20px);
+    font-weight: 800;
+    color: var(--black) !important;
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.ongCardTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(4px, 0.5vw, 6px);
+}
+
+/* ── Card Body ── */
+.ongCardDescription {
+    font-size: clamp(13px, 1.6vw, 15px);
     font-weight: 500;
     color: #666 !important;
     line-height: 1.5;
     word-break: break-word;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.cardLocation {
-    font-size: clamp(12px, 1.6vw, 14px);
-    font-weight: 600;
-    color: #555 !important;
-}
-.cardEmail {
-    font-size: clamp(11px, 1.4vw, 13px);
-    font-weight: 500;
-    color: #777 !important;
-    word-break: break-all;
-}
-.cardButtons {
+
+/* ── Card Meta (location + email) ── */
+.ongCardMeta {
     display: flex;
-    gap: clamp(8px, 1.2vw, 12px);
-    margin-top: auto;
-    padding-top: clamp(8px, 1vw, 12px);
+    flex-direction: column;
+    gap: 4px;
+    padding-top: clamp(6px, 0.8vw, 10px);
+    border-top: 1px solid #f0f0f0;
 }
+
+.ongCardMetaItem {
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 0.5vw, 6px);
+    font-size: clamp(12px, 1.4vw, 14px);
+    font-weight: 600;
+    color: #777 !important;
+}
+
+.ongCardMetaIcon {
+    font-size: clamp(13px, 1.6vw, 16px);
+    color: var(--dark-green) !important;
+    flex-shrink: 0;
+}
+
+/* ── Card Buttons ── */
+.ongCardButtons {
+    display: flex;
+    gap: clamp(8px, 1vw, 12px);
+    margin-top: auto;
+    padding-top: clamp(6px, 0.8vw, 10px);
+}
+
 .detailsButton {
     flex: 1;
     background: transparent;
-    color: var(--black) !important;
-    border: 2px solid var(--black);
+    color: var(--dark-green) !important;
+    border: 2px solid var(--dark-green);
     border-radius: clamp(6px, 1vw, 10px);
-    padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
+    padding: clamp(7px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
     font-size: clamp(12px, 1.5vw, 14px);
     font-family: "Quicksand", sans-serif;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
 }
+
 .detailsButton:hover {
-    background: var(--black);
-    color: var(--white) !important;
-}
-.supportButton {
-    flex: 1;
     background: var(--dark-green);
     color: var(--white) !important;
-    border: 2px solid var(--dark-green);
+    transform: translateY(-2px);
+}
+
+.supportButton {
+    flex: 1;
+    background: var(--semi-dark-green);
+    color: var(--white) !important;
+    border: 2px solid var(--semi-dark-green);
     border-radius: clamp(6px, 1vw, 10px);
-    padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
+    padding: clamp(7px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
     font-size: clamp(12px, 1.5vw, 14px);
     font-family: "Quicksand", sans-serif;
     font-weight: 700;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 }
+
 .supportButton:hover {
-    background: var(--semi-dark-green);
+    background: var(--dark-green);
+    border-color: var(--dark-green);
     transform: translateY(-2px);
 }
-.cardFooter {
+
+/* ==================== Modal Radio ==================== */
+.modalFieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: clamp(12px, 2vw, 24px);
-    padding-top: clamp(8px, 1vw, 12px);
-    border-top: 1px solid #eee;
+    flex-direction: column;
+    gap: clamp(10px, 1.5vw, 14px);
 }
-.footerItem {
+
+.modalOption {
     display: flex;
     align-items: center;
-    gap: clamp(4px, 0.6vw, 8px);
-    font-size: clamp(13px, 1.8vw, 16px);
-    font-weight: 600;
-    color: #555 !important;
+    gap: 10px;
+    padding: clamp(10px, 1.5vw, 14px) clamp(14px, 2vw, 18px);
+    border: 2px solid #e0e0e0;
+    border-radius: clamp(8px, 1vw, 12px);
     cursor: pointer;
-    transition: color 0.2s;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    color: var(--black) !important;
 }
-.footerItem:hover { color: var(--dark-green); }
-.footerIcon { font-size: clamp(16px, 2.2vw, 22px); color: var(--dark-green); flex-shrink: 0; }
-.centerBox { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 40vh; }
+
+.modalOption:hover {
+    border-color: var(--dark-green);
+    background: #f8fdf8;
+}
+
+.modalOptionSelected {
+    border-color: var(--dark-green);
+    background: #edfaef;
+}
+
+.modalOption input[type="radio"] {
+    accent-color: var(--dark-green);
+    width: 18px;
+    height: 18px;
+}
+
+/* ==================== Empty / Loading ==================== */
+.centerBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 40vh;
+}
+
+/* ==================== Responsivo — Tablet ==================== */
 @media (max-width: 768px) {
-    .searchRow { flex-direction: column; }
-    .createButton { width: 100%; }
-    .list { grid-template-columns: 1fr; }
-    .cardFooter { gap: clamp(8px, 2vw, 14px); }
+    .searchRow {
+        flex-direction: column;
+    }
+
+    .createButton {
+        width: 100%;
+    }
+
+    .list {
+        grid-template-columns: 1fr;
+    }
 }
+
+/* ==================== Responsivo — Mobile ==================== */
 @media (max-width: 480px) {
-    .page { padding: clamp(10px, 3vw, 16px); }
-    .cardTop { flex-direction: column; }
-    .cardTitleRow { flex-direction: column; align-items: flex-start; }
+    .container {
+        padding: clamp(12px, 4vw, 20px);
+    }
+
+    .card {
+        padding: clamp(14px, 4vw, 24px);
+        border-radius: 14px;
+    }
+
+    .ongCardTop {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
+
 @media (max-width: 360px) {
-    .cardTitle { font-size: clamp(14px, 4.5vw, 18px); }
-    .cardDescription { font-size: clamp(12px, 3.5vw, 14px); }
+    .ongCardName {
+        font-size: clamp(14px, 4.5vw, 18px);
+    }
+
+    .ongCardDescription {
+        font-size: clamp(12px, 3.5vw, 14px);
+    }
 }
