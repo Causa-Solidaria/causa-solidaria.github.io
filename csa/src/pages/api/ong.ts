@@ -2,52 +2,48 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "csa/lib/prisma";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
-const JWT_SECRET = process.env.JWT_SECRET || "secreto-temporario";
-
-
-const ongSchema = z.object({
-  nome: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
-  cnpj: z.string().min(14, "O CNPJ deve ter 14 dígitos"),
-  areaAtuacao: z.string({ required_error: "Selecione a área de atuação" }),
-  descricao: z.string().min(100, "A descrição deve ter no mínimo 100 caracteres"),
-  cep: z.string().min(8, "CEP inválido"),
-  cidade: z.string().min(1, "Cidade é obrigatória"),
-  uf: z.string().min(2, "UF é obrigatório"),
-  rua: z.string().min(1, "Rua é obrigatória"),
-  numero: z.string().min(1, "Número é obrigatório"),
-  bairro: z.string().min(1, "Bairro é obrigatório"),
-  contato: z.string().min(5, "Informe um contato válido"),
-  site: z.string().optional(),
-  logo: z.string().optional(),
-});
+import { getJwtSecret } from "csa/lib/JWT";
+import { criarOngSchema } from "csa/lib/validations/ong";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Método não permitido" });
+    return res.status(405).json({ error: "Método não permitido" });
   }
 
   try {
+    // 1. Autenticação
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Token não fornecido" });
+      return res.status(401).json({ error: "Token não fornecido" });
     }
+
     const token = authHeader.split(" ")[1];
     let decoded: { id: number };
+
     try {
-      decoded = jwt.verify(token, JWT_SECRET) as { id: number };
+      decoded = jwt.verify(token, getJwtSecret()) as { id: number };
     } catch (err: any) {
       if (err?.name === "TokenExpiredError") {
-        return res.status(401).json({ message: "Token expirado" });
+        return res.status(401).json({ error: "Token expirado" });
       }
       if (err?.name === "JsonWebTokenError") {
-        return res.status(401).json({ message: "Token inválido" });
+        return res.status(401).json({ error: "Token inválido" });
       }
       throw err;
     }
+
     const usuarioId = decoded.id;
 
-    const data = ongSchema.parse(req.body);
+    // 2. Validação dos dados (usa schema compartilhado)
+    const data = criarOngSchema.parse(req.body);
 
+    // 3. Verifica CNPJ duplicado
+    const cnpjExistente = await prisma.ong.findUnique({ where: { cnpj: data.cnpj } });
+    if (cnpjExistente) {
+      return res.status(409).json({ error: "Já existe uma ONG cadastrada com este CNPJ" });
+    }
+
+    // 4. Cria a ONG
     const novaOng = await prisma.ong.create({
       data: {
         nome: data.nome,
@@ -69,10 +65,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(201).json(novaOng);
   } catch (error: any) {
-    if (error.name === "ZodError") {
-      return res.status(400).json({ message: error.errors });
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
     }
-    console.error(error);
-    return res.status(500).json({ message: "Erro ao cadastrar ONG" });
+    console.error("Erro ao cadastrar ONG:", error);
+    return res.status(500).json({ error: "Erro ao cadastrar ONG" });
   }
 }

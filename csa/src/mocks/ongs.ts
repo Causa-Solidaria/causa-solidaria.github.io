@@ -21,6 +21,7 @@ export interface OngDetail {
     numero?: string
     bairro?: string
     site?: string
+    logoUrl?: string
     fundacao: string
     missao: string
     voluntarios: number

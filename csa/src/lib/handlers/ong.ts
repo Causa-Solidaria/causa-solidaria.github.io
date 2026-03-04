@@ -8,9 +8,9 @@ import type { CriarOngData } from "csa/lib/validations";
 export async function handleCriarOng(
   form: CriarOngData,
   popup: (message: string) => void
-) {
+): Promise<boolean> {
   try {
-    if (!ensureLogged(popup)) return;
+    if (!ensureLogged(popup)) return false;
     const token = getToken();
 
     const res = await fetch(apiUrl(Apis.ongs), {
@@ -24,27 +24,37 @@ export async function handleCriarOng(
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({} as any));
-      if (res.status === 401 && typeof errorData?.error === 'string') {
-        const msg = errorData.error.toLowerCase();
+
+      if (res.status === 401) {
+        const msg = (typeof errorData?.error === 'string' ? errorData.error : '').toLowerCase();
         if (msg.includes('expirado')) {
           logoutAndRedirect('Sua sessão expirou. Faça login novamente.', popup);
-          return;
+          return false;
         }
         if (msg.includes('inválido') || msg.includes('nao fornecido') || msg.includes('não fornecido')) {
           logoutAndRedirect('Token inválido. Faça login novamente.', popup);
-          return;
+          return false;
         }
       }
+
+      // Erros de validação (ZodError: array de issues)
+      if (res.status === 400 && Array.isArray(errorData?.error)) {
+        const msgs = errorData.error.map((e: any) => e.message).join('; ');
+        popup('Erro de validação: ' + msgs);
+        return false;
+      }
+
       console.error(errorData);
-      return popup('Erro ao criar ONG: ' + (errorData?.error ?? res.statusText));
+      popup('Erro ao criar ONG: ' + (errorData?.error ?? res.statusText));
+      return false;
     }
 
-    const result = await res.json();
-    console.log('ONG criada:', result);
     popup('ONG criada com sucesso!');
+    return true;
   } catch (err) {
     console.error('Erro geral:', err);
     popup('Erro inesperado ao criar ONG');
+    return false;
   }
 }
 
@@ -59,13 +69,15 @@ export async function handleDoarOng(
   slug: string,
   form: DoarOngForm,
   popup: (message: string) => void
-) {
+): Promise<boolean> {
   // this is a stub implementation; in a real application you would hit an API endpoint
   try {
     console.log(`Doação para ONG ${slug}:`, form);
     popup('Doação enviada! Obrigado pela sua colaboração.');
+    return true;
   } catch (err) {
     console.error('Erro ao enviar doação:', err);
     popup('Erro ao processar doação.');
+    return false;
   }
 }
