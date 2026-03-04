@@ -74,6 +74,7 @@ export default function Campanhas() {
       }
     }
     carregarCampanhas()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const filteredCampanhas = useMemo(() => {

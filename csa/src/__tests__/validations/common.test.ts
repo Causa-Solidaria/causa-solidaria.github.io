@@ -118,6 +118,7 @@ describe('Validações Comuns', () => {
 
   // ==================== CRIAR ONG SCHEMA ====================
   describe('criarOngSchema', () => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { criarOngSchema } = require('csa/lib/validations')
 
     it('aceita dados com endereço completo', () => {
@@ -214,6 +215,7 @@ describe('Validações Comuns', () => {
     it('deve aceitar mensagem vazia ou curta', () => {
       const results = ['', 'Obrigada pela oportunidade!'];
       results.forEach(msg => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const result = require('csa/lib/validations').doarCampanhaSchema.safeParse({ message: msg });
         expect(result.success).toBe(true);
       });
@@ -221,6 +223,7 @@ describe('Validações Comuns', () => {
 
     it('deve rejeitar mensagem muito longa', () => {
       const long = 'a'.repeat(501);
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const result = require('csa/lib/validations').doarCampanhaSchema.safeParse({ message: long });
       expect(result.success).toBe(false);
     });
@@ -229,6 +232,7 @@ describe('Validações Comuns', () => {
   // ==================== DOAR ONG SCHEMA ====================
   describe('doarOngSchema', () => {
     it('deve aceitar categoria e mensagem opcional', () => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const schema = require('csa/lib/validations').doarOngSchema;
       const valid = schema.safeParse({ category: 'Alimentos', message: '' });
       expect(valid.success).toBe(true);
@@ -237,12 +241,14 @@ describe('Validações Comuns', () => {
     });
 
     it('deve rejeitar sem categoria', () => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const schema = require('csa/lib/validations').doarOngSchema;
       const invalid = schema.safeParse({ category: '' });
       expect(invalid.success).toBe(false);
     });
 
     it('deve rejeitar mensagem muito longa', () => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const schema = require('csa/lib/validations').doarOngSchema;
       const long = 'a'.repeat(501);
       const invalid = schema.safeParse({ category: 'Outros', message: long });

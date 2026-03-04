@@ -722,6 +722,21 @@
 
 .emptyStateAction {
   margin-top: 0;
+  background-color: var(--dark-green) !important;
+  color: var(--white) !important;
+  border: none;
+  border-radius: clamp(8px, 1.2vw, 14px);
+  padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 32px);
+  font-size: clamp(14px, 1.8vw, 16px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.emptyStateAction:hover {
+  background-color: var(--semi-dark-green) !important;
+  transform: translateY(-2px);
 }
 
 /* Breadcrumb */

@@ -110,7 +110,7 @@ export default function DoarPage(c: DoarProps) {
         </button>
 
         <Card className={styles.card}>
-          <Heading className={styles.pageTitle}>Doar para "{c.titulo}"</Heading>
+          <Heading className={styles.pageTitle}>Doar para &ldquo;{c.titulo}&rdquo;</Heading>
           <p className={styles.category}>Categoria da campanha: <strong>{c.nivelAjuda}</strong></p>
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

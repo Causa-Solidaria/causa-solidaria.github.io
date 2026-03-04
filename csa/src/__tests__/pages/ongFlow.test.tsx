@@ -9,6 +9,7 @@ import useNavigate from 'csa/hooks/useNavigate';
 import { ChakraProvider } from '@chakra-ui/react';
 import { system } from 'csa/theme';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { PopupContext } = require('csa/components/ProviderPopup/utils');
 
 const renderWithChakra = (ui: React.ReactElement) => {

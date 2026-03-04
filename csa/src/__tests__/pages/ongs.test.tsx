@@ -1,7 +1,7 @@
 // ensure mock mode is active before any modules read the flag
 process.env.NEXT_PUBLIC_USE_MOCK = 'true';
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ONGsPage from 'csa/pages/ongs/index';
 import { mockOngs } from 'csa/mocks/ongs';
@@ -45,7 +45,6 @@ describe('Página de listagem de ONGs', () => {
 
     const cardEl = screen.getByText(first.nome).closest('div[role="button"]');
     expect(cardEl).toBeTruthy();
-    const { within } = require('@testing-library/react');
     const supportBtn = within(cardEl!).getByRole('button', { name: /apoiar/i });
     fireEvent.click(supportBtn);
 
@@ -63,7 +62,6 @@ describe('Página de listagem de ONGs', () => {
 
     const cardEl = screen.getByText(first.nome).closest('div[role="button"]');
     expect(cardEl).toBeTruthy();
-    const { within } = require('@testing-library/react');
     const supportBtn = within(cardEl!).getByRole('button', { name: /apoiar/i });
     fireEvent.click(supportBtn);
     expect(await screen.findByText(/como deseja ajudar\?/i)).toBeInTheDocument();
