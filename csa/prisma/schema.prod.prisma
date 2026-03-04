@@ -8,6 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum TipoVoto {
+  UP
+  DOWN
+}
+
 model User {
   id               Int        @id @default(autoincrement())
   public_id        String     @default(uuid())
@@ -26,6 +31,12 @@ model User {
   updatedAt        DateTime   @updatedAt
   campanhas        Campanha[]
   ong              Ong[]
+
+  // Relacionamentos Fórum
+  topicos         ForumTopico[]
+  comentarios     ForumComentario[]
+  votosTopico     ForumVoteTopico[]
+  votosComentario ForumVoteComentario[]
 }
 
 model TokenRedefinicaoSenha {
@@ -75,4 +86,86 @@ model Ong {
 
   usuarioId Int
   usuario   User @relation(fields: [usuarioId], references: [id])
+}
+
+model ForumTopico {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @default(uuid()) @unique
+  titulo    String
+  descricao String
+  slug      String   @unique
+  isHot     Boolean  @default(false)
+  karma     Int      @default(0)
+  totalComentarios Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id])
+
+  comentarios ForumComentario[]
+  votos       ForumVoteTopico[]
+  tags        ForumTagOnTopico[]
+
+  @@index([titulo])
+  @@index([createdAt])
+}
+
+model ForumComentario {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @default(uuid()) @unique
+  conteudo  String
+  karma     Int      @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  topicoId Int
+  topico   ForumTopico @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+
+  votos    ForumVoteComentario[]
+
+  @@index([topicoId])
+}
+
+model ForumVoteTopico {
+  id        Int      @id @default(autoincrement())
+  tipo      TipoVoto
+  createdAt DateTime @default(now())
+
+  topicoId  Int
+  topico    ForumTopico @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@unique([topicoId, usuarioId])
+}
+
+model ForumVoteComentario {
+  id           Int      @id @default(autoincrement())
+  tipo         TipoVoto
+  createdAt    DateTime @default(now())
+
+  comentarioId Int
+  comentario   ForumComentario @relation(fields: [comentarioId], references: [id], onDelete: Cascade)
+
+  usuarioId    Int
+  usuario      User @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@unique([comentarioId, usuarioId])
+}
+
+model ForumTagOnTopico {
+  id        Int      @id @default(autoincrement())
+  tag       String
+
+  topicoId  Int
+  topico    ForumTopico @relation(fields: [topicoId], references: [id], onDelete: Cascade)
+
+  @@unique([topicoId, tag])
 }

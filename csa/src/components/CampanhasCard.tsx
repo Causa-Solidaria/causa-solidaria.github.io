@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Campanhas } from "csa/Rotas.json"
 import useNavigate from "csa/hooks/useNavigate"
-import styles from "./campanhas.module.css"
+import styles from "csa/pages/campanhas/campanhas.module.css"
 
 interface CampanhaData {
   id: string | number
