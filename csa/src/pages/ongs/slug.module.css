@@ -259,6 +259,28 @@
     flex-shrink: 0;
 }
 
+/* ── Map ── */
+
+.mapSection {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.2vw, 12px);
+}
+
+.mapTitle {
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 800;
+    color: var(--black) !important;
+}
+
+.mapFrame {
+    width: 100%;
+    height: clamp(220px, 34vw, 320px);
+    border: 2px solid var(--dark-green);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    background: #f2f2f2;
+}
+
 /* ── Contact Section ── */
 
 .contactSection {

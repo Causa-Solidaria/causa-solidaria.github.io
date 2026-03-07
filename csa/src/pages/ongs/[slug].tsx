@@ -18,6 +18,13 @@ const { ONGs } = Rotas
 
 type OngProps = OngDetail
 
+function getGoogleMapsEmbedUrl(address: string): string | null {
+    const normalizedAddress = address.trim()
+    if (!normalizedAddress) return null
+
+    return `https://www.google.com/maps?q=${encodeURIComponent(normalizedAddress)}&output=embed`
+}
+
 export default function OngPage(ong: OngProps) {
     const { navigate } = useNavigate()
     const router = useRouter()
@@ -56,6 +63,7 @@ export default function OngPage(ong: OngProps) {
       addressParts.push(ong.bairro)
     }
     const fullAddress = [...addressParts, local].filter(Boolean).join(" - ")
+    const mapUrl = getGoogleMapsEmbedUrl(fullAddress || local)
 
     const handleAdvance = () => {
         setModalOpen(false)
@@ -146,7 +154,7 @@ export default function OngPage(ong: OngProps) {
 
                         {/* Informações */}
                         <div className={styles.infoList}>
-                            {local && (
+                            {fullAddress && (
                                 <div className={styles.infoItem}>
                                     <FiMapPin className={styles.infoIcon} />
                                     <span><strong>{fullAddress}</strong></span>
@@ -159,6 +167,19 @@ export default function OngPage(ong: OngProps) {
                                 </div>
                             )}
                         </div>
+
+                        {mapUrl && (
+                            <section className={styles.mapSection}>
+                                <h2 className={styles.mapTitle}>Localização no mapa</h2>
+                                <iframe
+                                    className={styles.mapFrame}
+                                    src={mapUrl}
+                                    title={`Mapa da ONG ${ong.nome}`}
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
+                            </section>
+                        )}
 
                         {/* Contato */}
                         <div className={styles.contactSection}>

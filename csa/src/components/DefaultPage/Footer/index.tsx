@@ -2,6 +2,7 @@ import Flex from "csa/components/ui/Flex";
 import Heading from "csa/components/ui/heading";
 import styles from "../Defaultpage.module.css";
 import { FaInstagram } from "react-icons/fa";
+import useNavigate from "csa/hooks/useNavigate";
 
 import {
     Home , 
@@ -37,12 +38,12 @@ interface FooterSection {
 
 const FooterContent: FooterSection[] = [
     {
-        title: "institucional",
+        title: "Institucional",
         links:[
-            {title: "sobre", link: Home},
+            {title: "Sobre", link: Home},
             {title: "Contato", link: Contatos},
-            {title: "Politica de Privacidade", link: PoliticasDePrivacidade},
-            {title: "termos de uso", link: TermosDeUso},
+            {title: "Política de Privacidade", link: PoliticasDePrivacidade},
+            {title: "Termos de uso", link: TermosDeUso},
         ]
     },
     {
@@ -65,9 +66,11 @@ const FooterContent: FooterSection[] = [
 
 
 export default function Footer() {
+    const { navigate } = useNavigate();
+
     return (
         <footer className={styles.footer}>
-            <Heading className={styles.footerTitle}>Causa Solidaria</Heading>
+            <Heading className={styles.footerTitle}>Causa Solidária</Heading>
             <Heading className={styles.footerSubtitle}>
                 Conectando pessoas e ONGs em ações que transformam vidas
             </Heading>
@@ -81,12 +84,16 @@ export default function Footer() {
                         {Topico.links.map((link: FooterLink, linkId: number) => (
                             <div key={linkId}>
                                 {link.title && (
-                                    <a href={link.link} className={styles.footerLink}>
+                                    <button
+                                        type="button"
+                                        className={`${styles.footerLink} ${styles.footerLinkButton}`}
+                                        onClick={() => navigate(link.link)}
+                                    >
                                         {link.title}
-                                    </a>
+                                    </button>
                                 )}
                                 {link.icon && (
-                                    <a href={link.link} target="_blank" rel="noopener noreferrer" className={styles.footerSocialIcon}>
+                                    <a href={link.link} target="_blank" rel="noopener noreferrer" className={styles.footerSocialIcon} aria-label="Instagram da Causa Solidária">
                                         {link.icon}
                                     </a>
                                 )}

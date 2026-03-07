@@ -1,67 +1,83 @@
-/* ============================================
-   CRIAR CAMPANHA PAGE — Causa Solidária
-   ============================================ */
-
-/* ==================== Container ==================== */
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 860px;
+  max-width: 980px;
   margin: 0 auto;
   padding: clamp(20px, 4vw, 48px);
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(10px, 1.5vw, 18px);
 }
 
 .pageTitle {
-  color: var(--black) !important;
-  font-size: clamp(24px, 4vw, 36px);
+  color: var(--white) !important;
+  font-size: clamp(26px, 4.2vw, 38px);
   font-weight: 900;
   text-align: center;
   text-transform: lowercase;
+  letter-spacing: -0.5px;
 }
 
-/* ==================== Card / Form ==================== */
+.pageSubtitle {
+  color: var(--white) !important;
+  text-align: center;
+  font-size: clamp(13px, 1.8vw, 16px);
+  margin-bottom: clamp(4px, 0.8vw, 8px);
+}
+
 .card {
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(16px, 2.5vw, 28px);
   background-color: var(--white) !important;
   border-radius: 20px;
+  border: 1px solid #d9efe0;
+  box-shadow: 0 16px 30px rgba(16, 24, 40, 0.07);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 3vw, 32px);
+  gap: clamp(14px, 2vw, 24px);
   width: 100%;
 }
 
-/* ==================== Duas Colunas: Upload + Campos ==================== */
-.columns {
-  display: flex;
-  flex-direction: row;
-  gap: clamp(24px, 4vw, 48px);
-  width: 100%;
-  align-items: flex-start;
+.formLayout {
+  display: grid;
+  grid-template-columns: minmax(250px, 320px) 1fr;
+  gap: clamp(12px, 2vw, 20px);
+  align-items: start;
 }
 
-/* ==================== Coluna Esquerda (Upload) ==================== */
-.uploadColumn {
+.mediaCard,
+.sectionCard {
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.5vw, 16px);
-  width: 35%;
-  flex-shrink: 0;
+  gap: 10px;
+  border: 1px solid #dbe8df;
+  border-radius: 16px;
+  padding: clamp(12px, 1.8vw, 18px);
+  background: #fcfefd;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  color: var(--black) !important;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 800;
 }
 
 .uploadButton {
   width: 100%;
-  padding: clamp(10px, 1.5vw, 14px) !important;
-  font-size: clamp(14px, 1.6vw, 16px) !important;
+  padding: clamp(10px, 1.2vw, 14px) !important;
+  font-size: clamp(13px, 1.4vw, 15px) !important;
   border: 2px solid var(--dark-green) !important;
-  border-radius: clamp(8px, 1vw, 12px) !important;
+  border-radius: 12px !important;
   background-color: var(--white) !important;
   color: var(--dark-green) !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   transition: background-color 0.25s ease, color 0.25s ease !important;
 }
 
@@ -72,223 +88,158 @@
 
 .previewImage {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  max-height: 300px;
+  aspect-ratio: 4 / 5;
+  max-height: 320px;
   object-fit: cover;
-  border-radius: clamp(8px, 1vw, 12px);
+  border-radius: 12px;
+  border: 1px solid #d4e7d9;
 }
 
 .previewPlaceholder {
   width: 100%;
-  height: clamp(180px, 25vw, 260px);
-  background-color: #f0f0f0 !important;
-  border: 2px dashed var(--dark-green);
-  border-radius: clamp(8px, 1vw, 12px);
+  height: clamp(180px, 28vw, 260px);
+  border: 2px dashed #9ec8af;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5fbf6, #eef7f0);
 }
 
 .uploadHint {
-  color: #718096 !important;
-  font-size: clamp(12px, 1.4vw, 14px);
-  line-height: 1.5;
+  color: #547062 !important;
+  font-size: clamp(12px, 1.3vw, 13px);
+  line-height: 1.4;
 }
 
-/* ==================== Coluna Direita (Campos) ==================== */
-.fieldsColumn {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 2vw, 20px);
-  width: 65%;
-}
-
-/* ==================== Campos ==================== */
-.input {
-  padding: clamp(10px, 1.4vw, 14px);
-  font-size: clamp(14px, 1.6vw, 17px);
-  width: 100%;
-  border: 2px solid var(--dark-green);
-  border-radius: clamp(8px, 1vw, 12px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-}
-
-.input:focus {
-  border-color: var(--semi-dark-green);
-  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
-  outline: none;
-}
-
-.input::placeholder {
-  color: #a0aec0 !important;
-  font-weight: 400;
-}
-
-.select {
-  padding: clamp(10px, 1.4vw, 14px);
-  font-size: clamp(14px, 1.6vw, 17px);
-  width: 100%;
-  border: 2px solid var(--dark-green);
-  border-radius: clamp(8px, 1vw, 12px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-  background-color: var(--white) !important;
-}
-
-.select:focus {
-  border-color: var(--semi-dark-green);
-  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
-  outline: none;
-}
-
-/* ==================== Textarea (Descrição) ==================== */
-.textarea {
-  padding: clamp(12px, 1.5vw, 16px);
-  font-size: clamp(14px, 1.6vw, 17px);
-  width: 100%;
-  min-height: clamp(120px, 15vw, 180px);
-  border: 2px solid var(--dark-green);
-  border-radius: clamp(8px, 1vw, 12px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-  resize: vertical;
-}
-
-.textarea:focus {
-  border-color: var(--semi-dark-green);
-  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
-  outline: none;
-}
-
-.textarea::placeholder {
-  color: #a0aec0 !important;
-  font-weight: 400;
-}
-
-/* ==================== Erros ==================== */
+.uploadError,
 .errorMessage {
   color: var(--erro-warning) !important;
   font-size: clamp(12px, 1.2vw, 14px);
+}
+
+.fieldsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.8vw, 18px);
+}
+
+.fieldLabel {
+  display: inline-block;
+  color: #2e4237 !important;
+  font-size: clamp(12px, 1.25vw, 13px);
+  font-weight: 700;
   margin-top: 2px;
 }
 
-.uploadError {
-  color: var(--erro-warning) !important;
-  font-size: clamp(12px, 1.2vw, 14px);
-}
-
-/* ==================== Data ==================== */
+.input,
+.select,
+.textarea,
 .dateInput {
-  padding: clamp(10px, 1.4vw, 14px);
-  font-size: clamp(14px, 1.6vw, 17px);
   width: 100%;
   border: 2px solid var(--dark-green);
-  border-radius: clamp(8px, 1vw, 12px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
   font-family: "Quicksand", sans-serif;
+  font-size: clamp(14px, 1.5vw, 16px);
   font-weight: 500;
+  padding: clamp(10px, 1.2vw, 13px);
+  background: var(--white);
+  color: var(--black) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus,
 .dateInput:focus {
-  border-color: var(--semi-dark-green);
-  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.2);
   outline: none;
+  border-color: var(--semi-dark-green);
+  box-shadow: 0 0 0 3px rgba(5, 176, 42, 0.16);
 }
 
-/* ==================== Submit ==================== */
+.input::placeholder,
+.textarea::placeholder {
+  color: #8ba097 !important;
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 1.4vw, 14px);
+}
+
 .submitContainer {
   display: flex;
-  justify-content: center;
-  margin-top: clamp(8px, 1.5vw, 16px);
+  justify-content: flex-end;
+  margin-top: clamp(4px, 1vw, 8px);
 }
 
 .submitButton {
-  padding: clamp(12px, 1.5vw, 16px) clamp(40px, 6vw, 72px) !important;
-  font-size: clamp(16px, 2vw, 20px) !important;
+  padding: clamp(12px, 1.5vw, 16px) clamp(24px, 4vw, 42px) !important;
+  font-size: clamp(15px, 1.8vw, 18px) !important;
   background-color: var(--semi-dark-green) !important;
   color: var(--white) !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   border: none !important;
-  border-radius: clamp(8px, 1vw, 12px) !important;
-  transition: background-color 0.25s ease !important;
+  border-radius: 12px !important;
+  transition: background-color 0.2s ease !important;
 }
 
 .submitButton:hover {
   background-color: var(--dark-green) !important;
 }
 
-/* ==================== Responsivo — Tablet ==================== */
-@media (max-width: 768px) {
-  .columns {
-    flex-direction: column;
+.submitButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.submitHint {
+  text-align: right;
+  color: #5e6b63 !important;
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .formLayout {
+    grid-template-columns: 1fr;
   }
 
-  .uploadColumn {
-    width: 100%;
-    max-width: 320px;
-    align-self: center;
+  .mediaCard {
+    order: 2;
   }
 
-  .fieldsColumn {
-    width: 100%;
-  }
-
-  .previewPlaceholder {
-    height: 200px;
+  .fieldsWrap {
+    order: 1;
   }
 }
 
-/* ==================== Responsivo — Mobile ==================== */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .container {
     padding: 12px;
   }
 
   .card {
-    padding: 16px;
+    padding: 14px;
+    border-radius: 14px;
   }
 
-  .form {
-    gap: 16px;
+  .gridTwo {
+    grid-template-columns: 1fr;
   }
 
-  .columns {
-    gap: 16px;
-  }
-
-  .uploadColumn {
-    max-width: 100%;
-  }
-
-  .previewPlaceholder {
-    height: 160px;
+  .submitContainer {
+    justify-content: stretch;
   }
 
   .submitButton {
     width: 100% !important;
   }
-}
 
-/* ==================== Responsivo — Dispositivos Pequenos ==================== */
-@media (max-width: 360px) {
-  .container {
-    padding: 8px;
-  }
-
-  .card {
-    padding: 10px;
-  }
-
-  .pageTitle {
-    font-size: 20px;
-  }
-
-  .input,
-  .select,
-  .textarea,
-  .dateInput {
-    font-size: 13px;
-    padding: 8px;
+  .submitHint {
+    text-align: center;
   }
 }

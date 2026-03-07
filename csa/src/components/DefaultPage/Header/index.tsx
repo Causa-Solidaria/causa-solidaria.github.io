@@ -52,7 +52,7 @@ const Header = (
     >
         <Flex onClick={() => navigate(ApiRoutes.Home)} className={dpStyles.logoContainer}>
           <Logo/>
-          <h1 > Causa Solídaria </h1>
+          <h1 > Causa Solidária </h1>
         </Flex>
         
         <Flex className={dpStyles.loginButtonsContainer}>
@@ -63,7 +63,16 @@ const Header = (
               <Box
                 className={dpStyles.loginButtom}
                 key={index}
+                role="button"
+                aria-label={label}
+                tabIndex={0}
                 onClick={() => navigate(link)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    navigate(link);
+                  }
+                }}
               >
                 <h2>{label}</h2>
               </Box>
@@ -75,6 +84,7 @@ const Header = (
               aria-haspopup="menu"
               aria-controls="header-nav"
               aria-expanded={openNav}
+              aria-label={openNav ? "Fechar menu de navegação" : "Abrir menu de navegação"}
               tabIndex={0}
               onClick={()=>{setOpenNav(!openNav)}}
               onKeyDown={(e)=>{

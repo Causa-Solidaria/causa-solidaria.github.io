@@ -22,11 +22,27 @@ export const criarCampanhaSchema = z.object({
   bairro: z.string().optional(),
   rua: z.string().min(1, "Rua é obrigatória"),
   numero: z.string().min(1, "Número é obrigatório"),
+  metaTipo: z.enum(["dinheiro", "item"], {
+    required_error: "Tipo de meta é obrigatório",
+  }),
+  meta: z.number({
+    required_error: "Meta é obrigatória",
+    invalid_type_error: "Meta deve ser um valor numérico",
+  }).positive("Meta deve ser maior que zero"),
+  metaItem: z.string().optional(),
   endDate: z.string().refine(
     (date) => isDataFutura(date),
     "Data de término deve ser no futuro"
   ),
   thumbnail: z.string().optional(),
+}).superRefine((data, ctx) => {
+  if (data.metaTipo === "item" && !data.metaItem?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["metaItem"],
+      message: "Informe qual item será arrecadado",
+    });
+  }
 });
 
 export type CriarCampanhaData = z.infer<typeof criarCampanhaSchema>;

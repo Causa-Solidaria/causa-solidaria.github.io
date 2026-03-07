@@ -97,19 +97,19 @@ export default function Nav(
                         <motion.div
                             key={index}
                             role="menuitem"
+                            className={navStyles.navMenuItem}
                             tabIndex={0}
                             initial={{ opacity: 0, y: -6 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -6 }}
                             transition={{ delay: 0.06 + index * 0.03, duration: 0.22 }}
-                            whileHover={{ translateY: '-0.1vmax', translateX: '0.1vmax', scale: 1.005, textDecoration: 'underline' }}
+                            whileHover={{ y: -1, x: 1, scale: 1.005 }}
                             onClick={() => { navigate(link); onClose?.() }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(link); onClose?.() }
                             }}
-                            style={{ padding: '1vmax', display: 'block', cursor: 'pointer' }}
                         >
-                            <h1>
+                            <h1 className={navStyles.navMenuItemTitle}>
                                 {title}
                             </h1>
                         </motion.div>

@@ -24,8 +24,34 @@ function formatDate(iso: string): string {
   })
 }
 
+function formatCurrency(value: number): string {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 2,
+  })
+}
+
+function formatGoal(campanha: Campanha): string {
+  const goal = campanha.meta ?? 0
+  if (campanha.metaTipo === "item") {
+    const item = campanha.metaItem?.trim() || "itens"
+    return `${goal.toLocaleString("pt-BR")} ${item}`
+  }
+  return formatCurrency(goal)
+}
+
+function getImageSrc(foto?: string | null): string {
+  if (!foto) return "/logo.png"
+  if (foto.startsWith("data:") || foto.startsWith("http") || foto.startsWith("/")) {
+    return foto
+  }
+  return `data:image/png;base64,${foto}`
+}
+
 function getNivelLabel(nivel: string | number): string {
   const n = Number(nivel)
+  if (Number.isNaN(n)) return String(nivel)
   if (n <= 1) return "Baixo"
   if (n <= 2) return "Moderado"
   if (n <= 3) return "Médio"
@@ -35,6 +61,7 @@ function getNivelLabel(nivel: string | number): string {
 
 function getNivelBadgeVariant(nivel: string | number): "success" | "warning" | "error" | "info" | "default" {
   const n = Number(nivel)
+  if (Number.isNaN(n)) return "info"
   if (n <= 2) return "success"
   if (n <= 3) return "warning"
   return "error"
@@ -145,42 +172,55 @@ export default function Campanhas() {
                 >
                   <Image
                     className={styles.cardImage}
-                    src={campanha.foto ? `data:image/png;base64,${campanha.foto}` : "/logo.png"}
+                    src={getImageSrc(campanha.foto)}
                     alt={campanha.titulo}
                     width={300}
                     height={180}
                     unoptimized
                   />
                   <div className={styles.cardContent}>
-                    <div className={styles.cardBody}>
+                    <div className={styles.cardTopSection}>
                       <div className={styles.cardTitleRow}>
                         <h3 className={styles.cardTitle}>{campanha.titulo}</h3>
                       </div>
                       {campanha.nivelAjuda && (
                         <div className={styles.cardTags}>
                           <Badge variant={getNivelBadgeVariant(campanha.nivelAjuda)} size="sm">
-                            Nível: {getNivelLabel(campanha.nivelAjuda)}
+                            Categoria: {getNivelLabel(campanha.nivelAjuda)}
                           </Badge>
                         </div>
                       )}
-                      {campanha.descricao && (
-                        <p className={styles.cardDescription}>{campanha.descricao}</p>
-                      )}
                     </div>
-                  </div>
-                  <div className={styles.cardFooter}>
-                    {campanha.cidade && campanha.estado && (
-                      <span className={styles.footerItem}>
-                        <MdLocationOn className={styles.footerIcon} />
-                        {campanha.cidade}, {campanha.estado}
-                      </span>
+
+                    {campanha.descricao && (
+                      <div className={styles.cardDescriptionSection}>
+                        <p className={styles.cardDescription}>{campanha.descricao}</p>
+                      </div>
                     )}
-                    {campanha.endDate && (
-                      <span className={styles.footerItem}>
-                        <MdCalendarToday className={styles.footerIcon} />
-                        Encerra em: {formatDate(campanha.endDate)}
-                      </span>
-                    )}
+
+                    <div className={styles.cardInfoSection}>
+                      {typeof campanha.meta === "number" && campanha.meta > 0 && (
+                        <div className={styles.infoBlockHighlight}>
+                          <span className={styles.infoLabel}>Meta</span>
+                          <strong className={styles.infoValue}>{formatGoal(campanha)}</strong>
+                        </div>
+                      )}
+
+                      <div className={styles.infoBlockGrid}>
+                        {campanha.cidade && campanha.estado && (
+                          <span className={styles.footerItem}>
+                            <MdLocationOn className={styles.footerIcon} />
+                            {campanha.cidade}, {campanha.estado}
+                          </span>
+                        )}
+                        {campanha.endDate && (
+                          <span className={styles.footerItem}>
+                            <MdCalendarToday className={styles.footerIcon} />
+                            Encerra em: {formatDate(campanha.endDate)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

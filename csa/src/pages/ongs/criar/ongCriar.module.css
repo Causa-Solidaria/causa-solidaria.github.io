@@ -323,6 +323,13 @@
   color: #555 !important;
 }
 
+.rateLimitHint {
+  color: #666 !important;
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 600;
+  text-align: right;
+}
+
 /* ==================== Responsivo — Tablet ==================== */
 @media (max-width: 768px) {
   .actionsRow {
@@ -332,6 +339,10 @@
   .cancelButton,
   .submitButton {
     width: 100%;
+    text-align: center;
+  }
+
+  .rateLimitHint {
     text-align: center;
   }
 

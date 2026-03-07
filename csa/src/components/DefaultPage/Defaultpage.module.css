@@ -3,7 +3,6 @@
     flex-direction: column;
     background-color: var(--green);
     min-height: 100dvh;
-    max-height: 100%;
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
@@ -14,7 +13,6 @@
     flex-direction: column;
     width: 100%;
     max-width: 100vw;
-    max-height: 100%;
     flex: 1;
     box-sizing: border-box;
     overflow-x: hidden;
@@ -132,6 +130,11 @@
     transform: translateY(0);
 }
 
+.loginButtom:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+}
+
 /* Botão de navegação (menu) */
 .navbutton {
     width: clamp(38px, 6vw, 48px);
@@ -165,6 +168,11 @@
 
 .navbutton:active {
     transform: scale(0.96);
+}
+
+.navbutton:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 2px;
 }
 
 /* --- Responsividade Header --- */
@@ -362,6 +370,20 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.navMenuItem {
+    display: block;
+    cursor: pointer;
+    outline: none;
+}
+
+.navMenuItemTitle {
+    margin: 0;
+    font-size: clamp(15px, 2vw, 18px);
+    font-weight: 700;
+    color: var(--black) !important;
+    line-height: 1.3;
+}
+
 .navContainer [role="menuitem"]:hover {
     background-color: rgba(0, 0, 0, 0.03);
     border-left-color: var(--dark-green);
@@ -370,6 +392,11 @@
 
 .navContainer [role="menuitem"]:active {
     background-color: rgba(0, 0, 0, 0.06);
+}
+
+.navContainer [role="menuitem"]:focus-visible {
+    background-color: rgba(31, 94, 67, 0.08);
+    border-left-color: var(--dark-green);
 }
 
 /* Separador opcional entre itens */
@@ -490,6 +517,20 @@
 .footerLink:hover {
     color: var(--clean-green);
     transform: translateX(4px);
+}
+
+.footerLinkButton {
+    background: transparent;
+    border: 0;
+    display: inline-block;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+
+.footerLinkButton:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 2px;
 }
 
 .footerSocialIcon {

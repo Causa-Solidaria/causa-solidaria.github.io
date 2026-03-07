@@ -7,13 +7,16 @@ export type Campanha = {
     cidade?: string
     estado?: string
     endDate?: string
+    meta?: number
+    metaTipo?: "dinheiro" | "item"
+    metaItem?: string
 }
 
 export type CampanhaDetail = {
     id: string
     titulo: string
     descricao?: string
-    nivelAjuda: number
+    nivelAjuda: string | number
     cep: string
     cidade: string
     estado: string
@@ -24,7 +27,9 @@ export type CampanhaDetail = {
     createdAt: string
     endDate: string
     notFound: boolean
-    meta?: number
+    meta: number
+    metaTipo: "dinheiro" | "item"
+    metaItem?: string
     arrecadado?: number
     telefone?: string
     email?: string
@@ -41,6 +46,8 @@ export const mockCampanhas: Campanha[] = [
         cidade: "São Paulo",
         estado: "SP",
         endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 12000,
+        metaTipo: "dinheiro",
     },
     {
         id: "mock-002",
@@ -51,6 +58,8 @@ export const mockCampanhas: Campanha[] = [
         cidade: "Curitiba",
         estado: "PR",
         endDate: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 18000,
+        metaTipo: "dinheiro",
     },
     {
         id: "mock-003",
@@ -61,6 +70,9 @@ export const mockCampanhas: Campanha[] = [
         cidade: "Rio de Janeiro",
         estado: "RJ",
         endDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 600,
+        metaTipo: "item",
+        metaItem: "kits escolares",
     },
     {
         id: "mock-004",
@@ -71,6 +83,9 @@ export const mockCampanhas: Campanha[] = [
         cidade: "Belo Horizonte",
         estado: "MG",
         endDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 1200,
+        metaTipo: "item",
+        metaItem: "kg de ração",
     },
     {
         id: "mock-005",
@@ -81,6 +96,8 @@ export const mockCampanhas: Campanha[] = [
         cidade: "Porto Alegre",
         estado: "RS",
         endDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 26000,
+        metaTipo: "dinheiro",
     },
     {
         id: "mock-006",
@@ -91,6 +108,9 @@ export const mockCampanhas: Campanha[] = [
         cidade: "Salvador",
         estado: "BA",
         endDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
+        meta: 300,
+        metaTipo: "item",
+        metaItem: "brinquedos",
     },
 ]
 
@@ -110,6 +130,7 @@ export const mockCampanhaDetail: CampanhaDetail = {
     endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     notFound: false,
     meta: 5000,
+    metaTipo: "dinheiro",
     arrecadado: 3250,
     telefone: "(84) 9 1234-5678",
     email: "acao.solidaria@gmail.com",

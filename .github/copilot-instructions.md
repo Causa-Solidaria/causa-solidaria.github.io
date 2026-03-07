@@ -8,6 +8,7 @@ Antes de responder qualquer pergunta sobre o projeto, leia os arquivos de docume
 - O front-end fica na pasta `csa/` e usa **Next.js 16** (Pages Router), **React 19**, **Chakra UI v3**, **Tailwind CSS** e **TypeScript**.
 - O banco de dados é gerenciado com **Prisma ORM** (schemas separados para dev e prod em `prisma/`).
 - Consulte `.github/PROJECT_INFO/FRONTEND.md` para detalhes completos sobre estrutura de pastas, componentes, hooks, rotas, estilização e convenções.
+- Consulte `.github/PROJECT_INFO/CAMPANHAS_ONGS_ROADMAP.md` para prioridades de seguranca, qualidade e escala das areas de campanhas e ONGs.
 
 ## Regras
 
@@ -19,6 +20,7 @@ Antes de responder qualquer pergunta sobre o projeto, leia os arquivos de docume
 - Estilos escopados usam **CSS Modules** (`.module.css`). Estilos globais ficam em `global.css`.
 - Testes ficam em `src/__tests__/` e usam **Jest** + **React Testing Library**.
 - toda vez que ler a palavra **front** ou **back** pelo usuario, leia o .md sobre seu pespectivo assunto
+- toda vez que a solicitacao envolver **campanhas** ou **ongs**, leia `.github/PROJECT_INFO/CAMPANHAS_ONGS_ROADMAP.md` antes de propor mudancas.
 
 ## Padrão Visual das Páginas
 

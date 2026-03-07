@@ -9,14 +9,21 @@ interface CriarCampanhaFormData extends Omit<CriarCampanhaData, 'thumbnail'> {
   thumbnailString?: string;
 }
 
+type CriarCampanhaSubmitResult = {
+  ok: boolean;
+  retryAfterSeconds?: number;
+}
+
 // ===== CRIAR CAMPANHA =====
 
 export async function handleCriarCampanha(
   form: CriarCampanhaFormData,
   popup: (message: string) => void
-) {
+): Promise<CriarCampanhaSubmitResult> {
   try {
-    if (!ensureLogged(popup)) return;
+    if (!ensureLogged(popup)) {
+      return { ok: false };
+    }
     const token = getToken();
 
     const res = await fetch(apiUrl(Apis.campanhas.add), {
@@ -35,6 +42,9 @@ export async function handleCriarCampanha(
         bairro: form.bairro ?? '',
         rua: form.rua ?? '',
         numero: form.numero ?? '',
+        metaTipo: form.metaTipo,
+        meta: form.meta,
+        metaItem: form.metaItem ?? '',
         endDate: form.endDate,
         thumbnail: form.thumbnailString,
       }),
@@ -42,27 +52,38 @@ export async function handleCriarCampanha(
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({} as any));
+
+      if (res.status === 429) {
+        const retryHeader = Number(res.headers.get("Retry-After") ?? "0");
+        const retryAfterSeconds = Number.isFinite(retryHeader) && retryHeader > 0 ? retryHeader : 60;
+        popup(`Muitas tentativas. Tente novamente em ${retryAfterSeconds}s.`);
+        return { ok: false, retryAfterSeconds };
+      }
+
       if (res.status === 401 && typeof errorData?.error === 'string') {
         const msg = errorData.error.toLowerCase();
         if (msg.includes('expirado')) {
           logoutAndRedirect('Sua sessão expirou. Faça login novamente.', popup);
-          return;
+          return { ok: false };
         }
         if (msg.includes('inválido') || msg.includes('nao fornecido') || msg.includes('não fornecido')) {
           logoutAndRedirect('Token inválido. Faça login novamente.', popup);
-          return;
+          return { ok: false };
         }
       }
       console.error(errorData);
-      return popup('Erro ao criar campanha: ' + (errorData?.error ?? res.statusText));
+      popup('Erro ao criar campanha: ' + (errorData?.error ?? res.statusText));
+      return { ok: false };
     }
 
     const result = await res.json();
     console.log('Campanha criada:', result);
     popup('Campanha criada com sucesso!');
+    return { ok: true };
   } catch (err) {
     console.error('Erro geral:', err);
     popup('Erro inesperado ao criar campanha');
+    return { ok: false };
   }
 }
 

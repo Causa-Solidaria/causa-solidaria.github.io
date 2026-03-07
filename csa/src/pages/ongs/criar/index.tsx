@@ -46,6 +46,7 @@ export default function CriarNovaOng() {
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [cepLoading, setCepLoading] = useState(false)
   const [cepError, setCepError] = useState<string | null>(null)
+  const [retryAfterSeconds, setRetryAfterSeconds] = useState(0)
 
   // Monitora o campo CEP para buscar dados automaticamente
   const cepValue = watch("cep")
@@ -82,6 +83,16 @@ export default function CriarNovaOng() {
 
     buscarCep()
   }, [cepValue, setValue])
+
+  useEffect(() => {
+    if (retryAfterSeconds <= 0) return
+
+    const timer = setInterval(() => {
+      setRetryAfterSeconds((prev) => Math.max(prev - 1, 0))
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [retryAfterSeconds])
 
   const handleLogoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -124,6 +135,11 @@ export default function CriarNovaOng() {
   const onSubmit = async (data: z.infer<typeof criarOngSchema>) => {
     setBackendErrors([])
     try {
+      if (retryAfterSeconds > 0) {
+        popup(`Aguarde ${retryAfterSeconds}s para tentar novamente.`)
+        return
+      }
+
       if (process.env.NEXT_PUBLIC_USE_MOCK === 'true') {
         console.log('ONG (mock):', data)
         popup("ONG cadastrada com sucesso!")
@@ -148,6 +164,14 @@ export default function CriarNovaOng() {
       })
 
       if (!response.ok) {
+        if (response.status === 429) {
+          const retryHeader = Number(response.headers.get("Retry-After") ?? "0")
+          const seconds = Number.isFinite(retryHeader) && retryHeader > 0 ? retryHeader : 60
+          setRetryAfterSeconds(seconds)
+          setBackendErrors([`Muitas tentativas. Tente novamente em ${seconds}s.`])
+          return
+        }
+
         const errorData = await response.json()
         if (Array.isArray(errorData.error)) {
           setBackendErrors(errorData.error.map((e: any) => e.message ?? String(e)))
@@ -389,11 +413,20 @@ export default function CriarNovaOng() {
               <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={isSubmitting}
+                disabled={isSubmitting || retryAfterSeconds > 0}
               >
-                {isSubmitting ? "Cadastrando..." : "Cadastrar ONG"}
+                {retryAfterSeconds > 0
+                  ? `Aguarde ${retryAfterSeconds}s`
+                  : isSubmitting
+                    ? "Cadastrando..."
+                    : "Cadastrar ONG"}
               </button>
             </div>
+            {retryAfterSeconds > 0 && (
+              <span className={styles.rateLimitHint}>
+                Limite de tentativas atingido. Envio liberado em {retryAfterSeconds}s.
+              </span>
+            )}
           </form>
         </Card>
       </Box>

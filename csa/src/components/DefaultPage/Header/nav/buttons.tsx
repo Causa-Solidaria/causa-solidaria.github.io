@@ -5,8 +5,8 @@ type ButtonItem = { title: string; link: string };
 
 // Botões base (sempre mostrados)
 export const baseButtons: ButtonItem[] = [
-    { title: "Inicio", link: Home },
-    { title: "Forúns", link: Fóruns.Home },
+    { title: "Início", link: Home },
+    { title: "Fóruns", link: Fóruns.Home },
     { title: "ONGs", link: ONGs.Home },
     { title: "Campanhas", link: Campanhas.Home },
 ]

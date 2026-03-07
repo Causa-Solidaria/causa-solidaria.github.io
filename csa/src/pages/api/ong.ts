@@ -4,6 +4,12 @@ import { z } from "zod";
 import jwt from "jsonwebtoken";
 import { getJwtSecret } from "csa/lib/JWT";
 import { criarOngSchema } from "csa/lib/validations/ong";
+import { checkRateLimit, setRateLimitHeaders } from "csa/lib/security/rateLimit";
+
+const rateLimitOptions = {
+  windowMs: 60 * 1000,
+  limit: 6,
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -11,6 +17,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    const rateLimit = await checkRateLimit(req, "ongs:add", rateLimitOptions);
+    setRateLimitHeaders(res, rateLimit, rateLimitOptions);
+
+    if (!rateLimit.allowed) {
+      return res.status(429).json({
+        error: "Muitas tentativas em pouco tempo. Aguarde e tente novamente.",
+        resetAt: rateLimit.resetAt,
+      });
+    }
+
     // 1. Autenticação
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -72,3 +88,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: "Erro ao cadastrar ONG" });
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "8mb",
+    },
+  },
+};
