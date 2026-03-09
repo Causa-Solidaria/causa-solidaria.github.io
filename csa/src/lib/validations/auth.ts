@@ -55,3 +55,12 @@ export const redefinirSenhaSchema = z
   });
 
 export type RedefinirSenhaData = z.infer<typeof redefinirSenhaSchema>;
+
+// ===== EDITAR PERFIL =====
+
+export const editarPerfilSchema = z.object({
+  bio: z.string().max(500, "Biografia deve ter no máximo 500 caracteres").optional(),
+  numero: z.string().min(10, "Telefone deve ter pelo menos 10 dígitos").optional(),
+});
+
+export type EditarPerfilData = z.infer<typeof editarPerfilSchema>;

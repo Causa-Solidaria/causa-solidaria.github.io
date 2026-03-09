@@ -1,0 +1,152 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.pageTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.card {
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: white;
+}
+
+.photoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  border: 2px dashed var(--dark-green);
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  margin-bottom: 2rem;
+}
+
+.photoLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  text-align: center;
+}
+
+.photoCaption {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+  font-weight: 500;
+}
+
+.photoInput {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--dark-green);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  max-width: 100%;
+  width: 100%;
+  background-color: white;
+  color: var(--black);
+  transition: all 0.2s;
+}
+
+.photoInput:hover {
+  background-color: #fafafa;
+  border-color: var(--green);
+}
+
+.photoPreview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--dark-green);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.errorMessage {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background-color: #fff5f5;
+  border-radius: 6px;
+  border-left: 3px solid #e53e3e;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ==================== Botões ==================== */
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.cancelButton {
+  padding: clamp(10px, 1.3vw, 14px) clamp(24px, 3.5vw, 40px);
+  font-size: clamp(14px, 1.6vw, 17px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  border: 2px solid #d0d0d0;
+  border-radius: clamp(8px, 1vw, 12px);
+  background: var(--white);
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  border-color: var(--erro-warning);
+  color: var(--erro-warning);
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  padding: clamp(12px, 1.5vw, 16px) clamp(32px, 5vw, 56px);
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: clamp(8px, 1vw, 12px);
+  background: var(--semi-dark-green);
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background: var(--dark-green);
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
